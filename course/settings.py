@@ -67,8 +67,10 @@ DATABASES = {
     }
 }
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
+if os.environ.has_key('OPENSHIFT_REPO_DIR'):
+    import dj_database_url
+
+    DATABASES['default'] = dj_database_url.config()
 
 LANGUAGE_CODE = 'en-us'
 
