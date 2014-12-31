@@ -7,19 +7,22 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon">Username</div>
+                      <div class="input-group-addon">نام‌کاربری</div>
                       <input type="text" class="form-control" name="username">
                       <div class="input-group-addon">@ce.sharif.edu</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon">Password</div>
+                      <div class="input-group-addon">گذرواژه</div>
                       <input type="password" class="form-control" name="password">
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-info">Login</button>
+                <label>
+                    {{ form.errors }}
+                </label>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-info">ورود</button>
                 </div>
             </form>
         </div>
