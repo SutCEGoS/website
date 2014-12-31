@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container jumbotron row col-lg-2 col-lg-offset-5">
+        {% if message %}
+            <div class="alert alert-info text-center" role="alert">{{ message }}</div>
+
+        {% endif %}
+        <form action="" method="POST" enctype="multipart/form-data" class="">
+            {% csrf_token %}
+            <label for="id_address">file:</label>
+            <input name="emails" id="id_emails" type="file" class="form-control">
+
+            <br>
+            <button class="btn btn-primary" type="submit" style="width: 100%;">
+                submit
+            </button>
+        </form>
+    </div>
+{% endblock %}
