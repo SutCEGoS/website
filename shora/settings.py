@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'south',
 
     'base',
+    'objection',
+    'course'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,9 +54,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'course.urls'
+ROOT_URLCONF = 'shora.urls'
 
-WSGI_APPLICATION = 'course.wsgi.application'
+WSGI_APPLICATION = 'shora.wsgi.application'
 
 
 # Database
