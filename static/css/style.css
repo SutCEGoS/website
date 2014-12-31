@@ -1,0 +1,64 @@
+body {
+    font-family: BNazanin;
+    background: url('../image/bg.jpg') no-repeat center center fixed;
+    color: #111;
+}
+
+a {
+    color: #222;
+}
+
+a:hover {
+    color: #419fc9;
+    text-decoration: none;
+}
+
+
+
+
+
+/** What we had: **/
+
+.content {
+    min-height: 600px;
+}
+.full-width {
+    width: 100%;
+}
+
+.help-inline {
+    color: #ff0000;
+}
+
+#messages-show > * {
+    font-family: BNazanin!important;
+}
+
+.non-decoration:hover {
+    text-decoration: none;
+}
+
+.hidden-obj {
+    display: none;
+}
+
+.home-accordion {
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.green-ok {
+    color: green;
+}
+
+.red-cancel {
+    color: #ff0000;
+}
+
+.good-content {
+     white-space: pre-line;
+}
+.read-item {
+    display: none;
+}
