@@ -6,8 +6,9 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from base.forms import *
 
-@login_required
 def home(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('login'))
     pass
 
 def login(request):
