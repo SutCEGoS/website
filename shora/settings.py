@@ -145,3 +145,6 @@ LOGGING = {
         },
     }
 }
+
+CURRENT_TERM = 2
+CURRENT_YEAR = 1393

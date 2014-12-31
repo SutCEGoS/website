@@ -36,4 +36,6 @@ class Member(AbstractUser):
     level = models.PositiveSmallIntegerField(choices=LEVEL, blank=True, null=True)
     start_year = models.ForeignKey('EducationalYear', blank=True, null=True)
 
-    password_changed = models.BooleanField(default=True)
+    std_id = models.CharField(max_length=20, null=True, blank=True)
+
+    password_changed = models.BooleanField(default=False)

@@ -13,7 +13,7 @@ class Objection(models.Model):
                      (5, 'replied', u"پاسخ داده شده"))
 
     sender = models.ForeignKey(Member)
-    like = models.ManyToManyField(Member, null=True, blank=True,related_name="liked_member")
+    like = models.ManyToManyField(Member, null=True, blank=True, related_name="liked_member")
 
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
 
