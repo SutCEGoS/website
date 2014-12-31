@@ -17,6 +17,7 @@ def login(request):
         return HttpResponseRedirect(reverse('requests'))
     if request.method == 'POST':
         form = SignInForm(request.POST)
+        print form
         if form.is_valid():
             cd = form.cleaned_data
             next = request.GET.get('next')
