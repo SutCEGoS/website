@@ -9,7 +9,8 @@ from base.forms import *
 def home(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('login'))
-    pass
+    else:
+        return requests(request)
 
 def login(request):
     if request.user.is_authenticated():
@@ -29,3 +30,6 @@ def login(request):
     return render(request, 'login.html', {
         'form': form,
     })
+
+def requests(request):
+    pass
