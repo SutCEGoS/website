@@ -62,3 +62,9 @@ a:hover {
 .read-item {
     display: none;
 }
+
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
