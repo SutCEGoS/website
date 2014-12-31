@@ -1,10 +1,8 @@
 # coding=utf-8
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 
-#from base.models import Message, Course
+from base.models import Member
 
 __author__ = 'Amin'
 
@@ -56,9 +54,10 @@ class MessageForm(forms.ModelForm):
         return cd
 """
 
+
 class SignInForm(forms.Form):
-    username = forms.CharField(label=u'نام کاربری', required=True)
-    password = forms.CharField(label=u'گذرواژه', widget=forms.PasswordInput(),required=True)
+    username = forms.CharField(required=True)
+    password = forms.CharField(widget=forms.PasswordInput(), required=True)
 
     def __init__(self, *args, **kwargs):
         super(SignInForm, self).__init__(*args, **kwargs)
@@ -69,26 +68,25 @@ class SignInForm(forms.Form):
             'username', 'password'
         ]
 
-
     def clean(self):
         cd = super(SignInForm, self).clean()
         password = cd.get('password')
-        username = cd.get('username')
+        username = cd.get('username').lower()
         if username:
             try:
-                member = User.objects.get(username=username)
+                member = Member.objects.get(username=username)
                 if not member.check_password(password):
-                    self.errors['password']  = u'گذرواژه اشتباه است'
+                    self.errors['password'] = u'Incorrect username or password.'
                     return
-            except (User.DoesNotExist, User.MultipleObjectsReturned):
-                self.errors['password'] = u'نام کاربری یا گذرواژه اشتباه است'
+            except (Member.DoesNotExist, Member.MultipleObjectsReturned):
+                self.errors['password'] = u'Incorrect username or password.'
                 return
             user = authenticate(username=member.username, password=password)
             if user is not None:
                 if not user.is_active:
-                    self.errors['username'] = u"شما یک کاربر فعال نیستید."
+                    self.errors['username'] = u"Your account is not activate."
                     return
                 self.user = user
             else:
-                self.errors['password'] = u'نام کاربری یا گذرواژه اشتباه است'
+                self.errors['password'] = u'Incorrect username or password.'
                 return

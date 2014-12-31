@@ -3,56 +3,63 @@
 {% block js_code %}
 {% endblock %}
 {% block body %}
-<div class="container">
-    <div class="row">
+    <div class="container">
+        <div class="row">
 
-        <div class="col-lg-2">
-            <div class="panel-heading">
+            <div class="col-lg-2">
+                <div class="panel-heading">
 
+                </div>
             </div>
-        </div>
 
-    </div>
-    <div class="row">
-        <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
-        <form action="{%  url 'login' %}" method="post">
-        <div class="col-md-6 col-lg-5 col-centered" >
-            <div class="panel panel-primary ">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">Username</div>
-                          <input type="text" class="form-control" name="username">
-                          <div class="input-group-addon">@ce.sharif.edu</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">Password</div>
-                          <input type="password" class="form-control" name="password">
-                        </div>
-                    </div>
-                    <label>
-                        {{ form.errors }}
-                    </label>
-                    <div class="form-actions">
-                        <div class="table-row">
-                            <div class="table-cell"><button type="submit" class="btn btn-primary">Login</button></div>
-                            <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">Forgot Password</a></label>
+        </div>
+        <div class="row">
+            <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
+            <form action="{% url 'login' %}" method="post">
+                <div class="col-md-6 col-lg-5 col-centered">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">Login</div>
+                        <div class="panel-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Username</div>
+                                    <input type="text" class="form-control" name="username">
+
+                                    <div class="input-group-addon">@ce.sharif.edu</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Password</div>
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                            </div>
+                            {% for item in form.errors.values %}
+                                <label>
+                                    {{ item }}
+                                </label>
+
+                            {% endfor %}
+                            <div class="form-actions">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                    </div>
+                                    <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">Forgot
+                                        Password</a></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-                </form>
-        <div class="popover" id="forgot_popup">
-            <div class="popover-content">
-                Forgot :D
+            </form>
+            <div class="popover" id="forgot_popup">
+                <div class="popover-content">
+                    Forgot :D
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

@@ -1,13 +1,14 @@
-from django.contrib.auth import login
+from django.contrib.auth import login as dj_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from base.forms import *
 from base.models import Member
+from objection.views import requests
 
 
 def home(request):
@@ -22,12 +23,11 @@ def login(request):
         return HttpResponseRedirect(reverse('requests'))
     if request.method == 'POST':
         form = SignInForm(request.POST)
-        print form
         if form.is_valid():
             cd = form.cleaned_data
             next = request.GET.get('next')
             user = form.user
-            login(request, user)
+            dj_login(request, user)
             if not next:
                 next = reverse('requests')
             return HttpResponseRedirect(next)
@@ -81,8 +81,10 @@ def create_accounts(request):
                 try:
                     member = Member.objects.get(username=new_username)
                 except:
-                    new_member = Member.objects.create(username=new_username, std_id=new_std_id, email=new_email,
-                                                   password=make_password(new_password))
+                    new_member = Member.objects.create(username=new_username.lower(),
+                                                       std_id=new_std_id,
+                                                       email=new_email.lower(),
+                                                       password=make_password(new_password))
             if message:
                 message += "making account for this lines is not possible, please contact A\'min"
             else:
