@@ -1,5 +1,39 @@
+# coding=utf-8
 from django.contrib.auth.models import AbstractUser
+from django.db import models
+from model_utils import Choices
+
+LEVEL = Choices((1, u'کارشناسی'), (2, u'ارشد'), (3, u'دکتری'))
+
+
+class Logged(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Named(models.Model):
+    name = models.CharField(max_length=50, verbose_name=u"نام")
+
+    class Meta:
+        abstract = True
+
+    def __unicode__(self):
+        return self.name
+
+
+class EducationalYear(models.Model):
+    year = models.IntegerField()
+
+    def __unicode__(self):
+        return unicode(self.year)
 
 
 class Member(AbstractUser):
-    pass
+    field = models.ForeignKey('course.Field', blank=True, null=True)
+    level = models.PositiveSmallIntegerField(choices=LEVEL, blank=True, null=True)
+    start_year = models.ForeignKey('EducationalYear', blank=True, null=True)
+
+    password_changed = models.BooleanField(default=True)
