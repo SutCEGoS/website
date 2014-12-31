@@ -1,2 +1,4 @@
 .idea/
 *.pyc
+media/data_file/
+db.sqlite3

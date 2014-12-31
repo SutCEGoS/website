@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}Login{% endblock title %}
+{% block js_code %}
+{% endblock %}
 {% block body %}
 <div class="container">
     <div class="row">
@@ -31,14 +34,22 @@
                               <input type="password" class="form-control" name="password">
                             </div>
                         </div>
-                        <label>
-                            {{ form.errors }}
-                        </label>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                    <label>
+                        {{ form.errors }}
+                    </label>
+                    <div class="form-actions">
+                        <div class="table-row">
+                            <div class=" table-cell"><button type="submit" class="btn btn-info">Login</button></div>
+                            <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">Forgot Password</a></label>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="popover" id="forgot_popup">
+            <div class="popover-content">
+                Forgot :D
             </div>
         </div>
     </div>

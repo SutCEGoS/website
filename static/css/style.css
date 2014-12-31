@@ -4,16 +4,30 @@ body {
     color: #111;
 }
 
+a, a:hover, a:active, a:link {
+    text-decoration: none;
+}
+
 a {
     color: #222;
 }
 
 a:hover {
     color: #419fc9;
-    text-decoration: none;
 }
 
+.table-row {
+    display: table-row;
+}
 
+.table-cell {
+    display: table-cell;
+}
+
+.flush-right {
+    width:100%;
+    text-align: right;
+}
 
 
 
