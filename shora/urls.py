@@ -11,6 +11,6 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
                         url(r'^', include('base.urls')),
-
+                        url(r'^objection/', include('objection.urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
