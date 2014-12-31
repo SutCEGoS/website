@@ -7,3 +7,4 @@ urlpatterns = patterns('base.views',
     url(r'^login/?$', 'login', name='login'),
 
 )
+
