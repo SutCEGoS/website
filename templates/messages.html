@@ -43,12 +43,19 @@ for (var i=0; i<messages.length; ++i) {
     }
     htmlrepr.children('[mj-course-2]').html(item.second_course);
     htmlrepr.children('[mj-conflict-category]').html(item.category);
-    htmlrepr.children('[mj-metoo-numer]').html(/* TODO (mjafar, a'min) */);
+    htmlrepr.children('[mj-metoo-number]').html(/* TODO (mjafar, a'min) */);
     htmlrepr.removeClass('hide');
-
 
     $('#messages-container').append(htmlrepr);
 }
+
+var lazyShow = function() {
+    var firsthide = $('div[mj-message-template].hide:first');
+    if (firsthide.length) {
+        firsthide.removeClass('hide').fadeIn(10, lazyShow);
+    }
+}
+lazyShow();
 
 </script>
 <sctipt type="text/javasctipt" src="{% url 'js/select2/select2.min.js' %}"></sctipt>
