@@ -2,13 +2,13 @@
 {% load static %}
 {% block title %}Messages{% endblock title %}
 {% block extra_styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
 {% endblock %}
 {% block extra_js %}
-<sctipt type="text/javasctipt" src="{% static 'js/select2/select2.min.js' %}"></sctipt>
-<sctipt type="text/javasctipt" src="{% static 'js/searchform.js' %}"></sctipt>
-<script type="text/javasctipt">
+    <sctipt type="text/javasctipt" src="{% static 'js/select2/select2.min.js' %}"></sctipt>
+    <sctipt type="text/javasctipt" src="{% static 'js/searchform.js' %}"></sctipt>
+    <script type="text/javasctipt">
 var messages = [
     {
         data_id: 1,
@@ -73,48 +73,94 @@ var firsthide = $('div[mj-message-template].hide:first');
 
 $window.trigger('lazyShow');
 
-</script>
+
+
+
+
+
+
+
+    </script>
 {% endblock %}
 {% block body %}
-<div class="row container center-block">
-    <div class="col-lg-4">
-        {% include 'searchform.html' %}
-    </div>
-    <div class="col-lg-8" id="messages-show">
-        <legend>
-            Messages
-        </legend>
-        <div class="panel-group home-accordion" id="accordion">
-            <div id="messages-container"></div>
-        </div>
-    </div>
-</div>
+    <div class="container">
+        <div class="row">
 
-<div mj-message-template class="hide">
-    <div class="panel panel-default" mj-dataid="" mj-category-id="">
-        <span class="requestid" mj-request-id></span>
-        <div class="panel-heading">
-            <a data-toggle="collapse" data-parent="#accordion" class="non-decoration" href="#collapse-{{ item.id }}">
-                <h4 class="panel-title">
-                   <span class="conflict name" mj-course-1 mj-category="3">{{ item.course_name }}</span>
-                   <span class="conflict name" mj-course-1 mj-category="else">{{ item.offered_course }}</span>
-                   : <span class="conflict category" mj-conflict-category>{{ item.category }}</span>
-                   <div mj-category="1"> with <span class="conflict name" mj-course-2>{{ item.second_course }}</span></div>
-                </h4>
-            </a>
-            <a href="#" class="metoo" itemid="{{ item.id }}"  mj-metoo-link>me too!</a>
-            <span class="badge" mj-metoo-number>3</span> <!-- TODO: number of meetoos -->
-        </div>
-        <div id="collapse-{{ item.id }}" class="panel-collapse collapse in">
-            <div class="panel-body good-content">
-                    {{ item.message|safe }}
+            <div class="col-lg-2">
+                <div class="panel-heading">
+
+                </div>
             </div>
-            {% if item.reply %}
-                <div class="panel-body good-content">پاسخ : {{ item.reply }}
-                <br> توسط : {{ item.reply_by.get_full_name }}
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Search & Add
                     </div>
-            {% endif %}
+                    <div class="panel-body">
+                        {% include 'searchform.html' %}
+                    </div>
+{#                <div class="panel panel-primary">#}
+{#                    <legend>Search</legend>#}
+{#                    {% include 'searchform.html' %}#}
+{#                </div>#}
+                </div>
+            </div>
+
+            <div class="col-lg-8" id="messages-show">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Messages
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-group home-accordion" id="accordion">
+                            <div id="messages-container"></div>
+                        </div>
+                    </div>
+                </div>
+{#                <legend>#}
+{#                    Messages#}
+{#                </legend>#}
+{#                <div class="panel-group home-accordion" id="accordion">#}
+{#                    <div id="messages-container"></div>#}
+{#                </div>#}
+            </div>
+        </div>
+
+        <div mj-message-template class="hide">
+            <div class="panel panel-default" mj-dataid="" mj-category-id="">
+                <span class="requestid" mj-request-id></span>
+
+                <div class="panel-heading">
+                    <a data-toggle="collapse" data-parent="#accordion" class="non-decoration"
+                       href="#collapse-{{ item.id }}">
+                        <h4 class="panel-title">
+                            <span class="conflict name" mj-course-1 mj-category="3">{{ item.course_name }}</span>
+                            <span class="conflict name" mj-course-1 mj-category="else">{{ item.offered_course }}</span>
+                            : <span class="conflict category" mj-conflict-category>{{ item.category }}</span>
+
+                            <div mj-category="1"> with <span class="conflict name"
+                                                             mj-course-2>{{ item.second_course }}</span></div>
+                        </h4>
+                    </a>
+                    <a href="#" class="metoo" itemid="{{ item.id }}" mj-metoo-link>me too!</a>
+                    <span class="badge" mj-metoo-number>3</span> <!-- TODO: number of meetoos -->
+                </div>
+                <div id="collapse-{{ item.id }}" class="panel-collapse collapse in">
+                    <div class="panel-body good-content">
+                        {{ item.message|safe }}
+                    </div>
+                    {% if item.reply %}
+                        <div class="panel-body good-content">پاسخ : {{ item.reply }}
+                            <br> توسط : {{ item.reply_by.get_full_name }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
