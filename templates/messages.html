@@ -15,22 +15,15 @@
     </div>
     <div class="col-lg-8" id="messages-show">
         <legend>
-            پیغام های ثبت شده
+            Messages
         </legend>
-        <p>
-            برای نمایش پیغام روی نام آن کلیک کنید.
-            <br>
-            علامت
-            <span class="glyphicon glyphicon-ok green-ok"></span>
-            در کنار عنوان هر پیام به معنای پاسخ دادن معاونت آموزش دانشکده به پیغام است.
-        </p>
-
         <div class="panel-group home-accordion" id="accordion">
             {% for item in messages %}
                 <div class="panel panel-default">
+                    <span class="requestid">{{ item.id }}</span>
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" class="BNazanin non-decoration"
+                            <a data-toggle="collapse" data-parent="#accordion" class="non-decoration"
                                href="#collapse-{{ item.id }}">
                                                             <span class="glyphicon {% if item.reply %}glyphicon-ok green-ok{% else %}glyphicon-remove red-cancel{% endif %}"></span>
                                 {% if item.category.id == 3 %}
@@ -44,6 +37,8 @@
                                 {% endif %}
                             </a>
                         </h4>
+                        <a href="#" class="metoo" itemid="{{ item.id }}">me too!</a>
+                        <span class="badge">3</span> <!-- TODO: number of meetoos -->
                     </div>
                     <div id="collapse-{{ item.id }}" class="panel-collapse collapse in">
                         <div class="panel-body good-content">{% if item.message %}{{ item.message|safe }}{% else %}<i> متن برای نمایش وجود ندارد                                    </i>{% endif %}                            </div>
