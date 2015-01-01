@@ -32,7 +32,6 @@ class EducationalYear(models.Model):
 
 
 class Member(AbstractUser):
-    field = models.ForeignKey('course.Field', blank=True, null=True)
     level = models.PositiveSmallIntegerField(choices=LEVEL, blank=True, null=True)
     start_year = models.ForeignKey('EducationalYear', blank=True, null=True)
 
