@@ -5,7 +5,7 @@ from objection.models import *
 
 class MessageForm(forms.ModelForm):
     class Meta:
-        model = Message
+        model = Objection
         fields = {'email', 'sender', 'level', 'sender_year', 'second_course', 'course_name', 'field', 'offered_course',
                   'category', 'message'}
 
