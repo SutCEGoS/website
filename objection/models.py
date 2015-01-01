@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.db import models
+from django.db.models import Q
 from model_utils import Choices
 
 from base.models import Member
@@ -24,6 +25,14 @@ class Objection(models.Model):
     message = models.TextField(null=True, blank=True, verbose_name=u'متن')
 
     status = models.PositiveSmallIntegerField(choices=STATUS)
+
+    @classmethod
+    def get_available(cls, member):
+        if member.is_superuser:
+            return Objection.objects.all()
+        if member.groups.filter(name='Replier').exists():
+            return Objection.objects.filter(status__ge=3)
+        return Objection.objects.filter(Q(status__ge=3) | Q(sender=member))
 
 
 class Reply(models.Model):

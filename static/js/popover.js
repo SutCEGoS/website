@@ -36,7 +36,7 @@
             settings.callback_no();
         });
 
-        var group = $('<div class="btn-group"></div>');
+        var group = $('<div class="btn-group pull-right margin-bottom" ></div>');
         group.append(no).append(yes);
         var div = $('<div class=""></div>');
         div.text(settings.content);

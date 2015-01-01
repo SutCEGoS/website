@@ -25,7 +25,7 @@ a:hover {
 }
 
 .flush-right {
-    width:100%;
+    width: 100%;
     text-align: right;
 }
 
@@ -50,6 +50,7 @@ a:hover {
 .content {
     min-height: 600px;
 }
+
 .full-width {
     width: 100%;
 }
@@ -85,18 +86,76 @@ a:hover {
 }
 
 .good-content {
-     white-space: pre-line;
+    white-space: pre-line;
 }
+
 .read-item {
     display: none;
 }
 
-
-.col-centered{
+.col-centered {
     float: none;
     margin: 0 auto;
 }
-.user-pass-style
-{
+
+.user-pass-style{
     width: 75px;
 }
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.footer-style {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-style:hover {
+    background: rgba(255, 255, 255, 0.3);
+
+}
+
+.center-div {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -ms-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out
+}
+
+footer {
+    width: 100%;
+    clear: both;
+    padding: 10px 50px;
+    line-height: 40px;
+    height: 60px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
+    -o-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
+    -moz-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
+    -webkit-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4)
+}
+
+footer:hover {
+    background: rgba(255, 255, 255, .3)
+}
+
+footer a {
+    color: #666
+}
+
+footer a:hover {
+    color: #4796da;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    -o-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    -moz-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    -webkit-text-shadow: 0 0 1px rgba(0, 0, 0, .1)
+}
+
