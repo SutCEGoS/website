@@ -3,19 +3,25 @@
 */
 
 var $searchables = $('.searchable');
-var $csrf = $('input[name=csrfmiddlewaretoken]');
-
-var csrf_token = $csrf.val();
 
 $searchables.bind('change', function () {
     $.ajax({
         url: '',
-        type: 'post',
+        type: 'get',
         dataType: 'json',
         data: {
-            csrfmiddlewaretoken: csrf_token,
-
+            category:$('select[name=category]').find(':selected').val(),
+            field:$('select[name=field]').find(':selected').val(),
+            level:$('select[name=level]').find(':selected').val(),
+            sender_year:$('select[name=sender_year]').find(':selected').val(),
+            offered_course:$('select[name=offered_course]').find(':selected').val(),
+            second_course:$('select[name=second_course]').find(':selected').val(),
+            course_name:$('input[name=course_name]').val()
         }
+    }).success(function (response) {
+        // TODO (mjafar)
+    }).error(function () {
+        // TODO (mjafar)
     });
 });
 
