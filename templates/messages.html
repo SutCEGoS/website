@@ -18,14 +18,14 @@
             Messages
         </legend>
         <div class="panel-group home-accordion" id="accordion">
+            <div id="messages-container">
             {% for item in messages %}
                 <div class="panel panel-default">
                     <span class="requestid">{{ item.id }}</span>
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" class="non-decoration"
-                               href="#collapse-{{ item.id }}">
-                                                            <span class="glyphicon {% if item.reply %}glyphicon-ok green-ok{% else %}glyphicon-remove red-cancel{% endif %}"></span>
+                            <a data-toggle="collapse" data-parent="#accordion" class="non-decoration" href="#collapse-{{ item.id }}">
+                               <span class="glyphicon {% if item.reply %}glyphicon-ok green-ok{% else %}glyphicon-remove red-cancel{% endif %}"></span>
                                 {% if item.category.id == 3 %}
                                     {{ item.course_name }}
                                 {% else %}
@@ -49,6 +49,7 @@
                     </div>
                 </div>
             {% endfor %}
+            </div>
         </div>
     </div>
 </div>

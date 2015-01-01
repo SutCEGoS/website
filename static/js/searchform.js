@@ -1,6 +1,25 @@
 /**
 * Created by mjafar on 2015/01/01.
 */
+
+var $searchables = $('.searchable');
+var $csrf = $('input[name=csrfmiddlewaretoken]');
+
+var csrf_token = $csrf.val();
+
+$searchables.bind('change', function () {
+    $.ajax({
+        url: '',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            csrfmiddlewaretoken: csrf_token,
+
+        }
+    });
+});
+
+/** A'min code: **/
 $('.collapse').collapse();
 $('#id_offered_course').select2();
 $('#id_second_course').select2();
@@ -25,7 +44,7 @@ function showDefaultForm(value){
         $('.course-name-div').fadeOut();
     }
 }
-var csrf_token = $('input[name=csrfmiddlewaretoken]').val();
+
 
 $('#id_offered_course').bind('change', function () {
     appendDetails($(this));
