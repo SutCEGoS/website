@@ -69,7 +69,7 @@ DATABASES = {
     }
 }
 
-if os.environ.has_key('OPENSHIFT_REPO_DIR'):
+if os.environ.has_key('DATABASE_URL'):
     import dj_database_url
 
     DATABASES['default'] = dj_database_url.config()

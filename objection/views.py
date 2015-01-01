@@ -1,3 +1,5 @@
+import urllib2
+
 from django.http import HttpResponse
 
 

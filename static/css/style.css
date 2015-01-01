@@ -29,7 +29,9 @@ a:hover {
     text-align: right;
 }
 
-
+.bgwhitesmoke {
+    background-color: whitesmoke !important;
+}
 
 /** What we had: **/
 
