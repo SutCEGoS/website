@@ -37,6 +37,14 @@ a:hover {
     /* TODO */
 }
 
+.conflict.category {
+    font-weight: bold;
+}
+
+.conflict.name {
+    font-weight: normal;
+}
+
 /** What we had: **/
 
 .content {

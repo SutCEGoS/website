@@ -24,8 +24,8 @@ def requests(request):
 
 
 def search(request):
-    if request.method != 'POST':
-        raise HttpResponseBadRequest()
+    if request.method != 'GET':
+        raise HttpResponseBadRequest
 
     form = MessageForm(request.POST)
     if form.is_valid():

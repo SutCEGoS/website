@@ -2,6 +2,9 @@
 {% load static %}
 {% block title %}Login{% endblock title %}
 {% block extra_js %}
+    <script type="text/javascript">
+        var $ajax_search = {% url 'objection_ajax_search' %}
+    </script>
     <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
 {% endblock %}
 {% block body %}

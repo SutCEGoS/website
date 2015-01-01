@@ -6,14 +6,11 @@ var $searchables = $('.searchable');
 
 $searchables.bind('change', function () {
     $.ajax({
-        url: '',
+        url: $ajax_search,
         type: 'get',
         dataType: 'json',
         data: {
             category:$('select[name=category]').find(':selected').val(),
-            field:$('select[name=field]').find(':selected').val(),
-            level:$('select[name=level]').find(':selected').val(),
-            sender_year:$('select[name=sender_year]').find(':selected').val(),
             offered_course:$('select[name=offered_course]').find(':selected').val(),
             second_course:$('select[name=second_course]').find(':selected').val(),
             course_name:$('input[name=course_name]').val()
