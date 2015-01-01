@@ -21,8 +21,10 @@
     {% block extra_styles %}{% endblock %}
 </head>
 <body>
-    {% block body %}{% endblock %}
-    <footer class="footer footer-style">
+    <div class="margin-bottom-lg">
+        {% block body %}{% endblock %}
+    <div>
+    <footer class="footer navbar-fixed-bottom">
         <p class="english">
             Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora. Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">Amin</a>. Thanks to <a href="http://term.inator.ir/" target="_blank">Terminator</a>.
         </p>
