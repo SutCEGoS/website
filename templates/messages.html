@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Messages{% endblock title %}
 {% block extra_styles %}
-<link rel="stylesheet" type="text/css" href="{% url 'js/select2/select2.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}" />
 {% endblock %}
 {% block extra_js %}
 <script type="text/javasctipt">
@@ -61,8 +61,8 @@ var firsthide = $('div[mj-message-template].hide:first');
 $window.trigger('lazyShow');
 
 </script>
-<sctipt type="text/javasctipt" src="{% url 'js/select2/select2.min.js' %}"></sctipt>
-<sctipt type="text/javasctipt" src="{% url 'js/searchform.js' %}"></sctipt>
+<sctipt type="text/javasctipt" src="{% static 'js/select2/select2.min.js' %}"></sctipt>
+<sctipt type="text/javasctipt" src="{% static 'js/searchform.js' %}"></sctipt>
 {% endblock %}
 {% block body %}
 <div class="row container center-block">
