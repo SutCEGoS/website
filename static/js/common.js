@@ -21,6 +21,7 @@ $window.on('load', function() {
 //                yes: 'بله',
 //                no: 'خیر',
                 callback_yes: function () {
+                    window.location = forgot_link;
                     //TODO
                 }
             });
