@@ -69,9 +69,8 @@ DATABASES = {
     }
 }
 
-if os.environ.has_key('DATABASE_URL'):
-    import dj_database_url
-
+import dj_database_url
+if dj_database_url.config():
     DATABASES['default'] = dj_database_url.config()
 
 LANGUAGE_CODE = 'en-us'
