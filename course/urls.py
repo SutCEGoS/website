@@ -1,5 +1,6 @@
-from django.conf.urls import patterns
+from django.conf.urls import patterns, url
 
-urlpatterns = patterns('objection.views',
-                       # url(r'^$', 'home', name='home'),
+urlpatterns = patterns('course.views',
+                       url(r'^update-courses-list-from-term-inatot-ppqwrtopf/$', 'update_courses_list',
+                           name='update-courses-list')
 )

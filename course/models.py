@@ -2,7 +2,7 @@
 from django.db import models
 from model_utils import Choices
 
-from base.models import Named, LEVEL, EducationalYear
+from base.models import Named, EducationalYear
 
 
 class Professor(Named):
@@ -15,7 +15,6 @@ class Field(Named):
 
 class Course(Named):
     course_number = models.CharField(max_length=10, unique=True)
-    level = models.PositiveSmallIntegerField(choices=LEVEL)
 
 
 class OfferedCourse(models.Model):
@@ -27,9 +26,12 @@ class OfferedCourse(models.Model):
     term = models.PositiveSmallIntegerField(choices=TERM)
     year = models.ForeignKey(EducationalYear)
     exam_time = models.CharField(max_length=255)
-    class_time = models.CharField(max_length=255)
     capacity = models.IntegerField()
     details = models.CharField(max_length=1023)
 
     class Meta:
         unique_together = ("course", "group_number", "term", "year")
+
+    def __unicode__(self):
+        return "%s-%d - %s - %s  " % (
+            unicode(self.course.course_number), self.group_number, unicode(self.course), self.professor.name)
