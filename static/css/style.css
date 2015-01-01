@@ -16,6 +16,10 @@ a:hover {
     color: #419fc9;
 }
 
+footer a:hover {
+    text-shadow: rgba(0,0,0, 0.7) 0px 0px 3px;
+}
+
 .table-row {
     display: table-row;
 }
