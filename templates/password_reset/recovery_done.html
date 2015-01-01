@@ -3,5 +3,30 @@
 {% block title %}{% trans "New password set" %}{% endblock %}
 
 {% block content %}
-	<p>{% trans "Your password has successfully been reset. You can use it right now on the login page." %}</p>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-2">
+                <div class="panel-heading">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
+
+                <div class="col-md-6 col-lg-5 col-centered">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">{% trans "New password set" %}</div>
+                        <div class="panel-body bgwhitesmoke">
+                            <p>Your password has successfully been reset. You can use it right now on the <a href="{% url 'login' %}">login</a> page.
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+
 {% endblock %}
