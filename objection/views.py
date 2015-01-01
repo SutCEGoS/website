@@ -2,6 +2,7 @@
 import json
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -13,6 +14,7 @@ from objection.forms import MessageForm
 from objection.models import Objection
 
 
+@login_required
 def requests(request):
     result = ''
     result_type = False
@@ -26,7 +28,7 @@ def requests(request):
 
     return render(request, 'messages.html', params)
 
-
+@login_required
 def search(request):
     if request.method != 'GET':
         return HttpResponseBadRequest
@@ -58,7 +60,7 @@ def search(request):
         })
     return HttpResponse(json.dumps({'list': objections_list}), content_type="application/json")
 
-
+@login_required
 def get_courses(request):
     if request.method != 'GET':
         return HttpResponseBadRequest
