@@ -1,3 +1,4 @@
+# coding=utf-8
 import urllib2
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
@@ -16,7 +17,7 @@ def requests(request):
 
     params = {
         'form': form,
-        'messages': Objection.objects.filter(confirmed=True).order_by('reply').reverse() # FIXME: fuck
+        'messages': Objection.objects.filter().order_by('reply').reverse() # FIXME: fuck
     }
 
     return render(request, 'message.html', params)
@@ -31,7 +32,7 @@ def search(request):
         form.save()
 
         # FIXME: make these messages in semora json format
-        result = u'پیغام شما با موفقیت ثبت گردید و پس از تایید به نمایش درخواهد آمد. باتشکر از شما'
+        result = u'پیغام شما با موفقیت ثبت گردید  و پس از تایید به نمایش درخواهد آمد. باتشکر از شما'
     else:
         # FIXME: make these messages in semora json format
         result = u'لطفا فرم را با دقت پر نمایید. پر کردن فیلهای ستاره دار الزامی است. برحسب نوع مشکل انتخابی، پرکردن فیلدهای دیگر نیز الزامی است.'
