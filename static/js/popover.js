@@ -24,11 +24,13 @@
         var no = $('<button class="btn btn-default" data-delete-yes></button>').text(settings.no);
 
         yes.on('click', function () {
+            state = false;
             $this.popover('hide');
             $this.popover('destroy');
             settings.callback_yes();
         });
         no.on('click', function () {
+            state = false;
             $this.popover('hide');
             $this.popover('destroy');
             settings.callback_no();
