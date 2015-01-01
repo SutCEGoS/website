@@ -2,6 +2,19 @@
 {% load static %}
 {% block title %}Login{% endblock title %}
 {% block extra_js %}
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <script>
+    var forgot_link = '{% url "password_reset_recover" %}';
+=======
+    <script type="text/javascript">
+        var $ajax_search = {% url 'objection_ajax_search' %}
+>>>>>>> e0d94c5a1ec792b797180f2ca260f3e475e4a0d7
+=======
+    <script type="text/javascript">
+        var $ajax_search = {% url 'objection_ajax_search' %}
+>>>>>>> e0d94c5a1ec792b797180f2ca260f3e475e4a0d7
+    </script>
     <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
 {% endblock %}
 {% block body %}

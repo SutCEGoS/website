@@ -9,7 +9,7 @@ a, a:hover, a:active, a:link {
 }
 
 a {
-    color: #222;
+    color: rgba(26, 126, 140, 1);
 }
 
 a:hover {
@@ -35,6 +35,14 @@ a:hover {
 
 .requestid {
     /* TODO */
+}
+
+.conflict.category {
+    font-weight: bold;
+}
+
+.conflict.name {
+    font-weight: normal;
 }
 
 /** What we had: **/
