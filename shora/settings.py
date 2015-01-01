@@ -39,10 +39,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'south',
+    'password_reset',
 
     'base',
+    'course',
     'objection',
-    'course'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -148,3 +149,9 @@ LOGGING = {
 
 CURRENT_TERM = 2
 CURRENT_YEAR = 1393
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

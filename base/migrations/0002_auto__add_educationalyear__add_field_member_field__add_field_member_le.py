@@ -12,12 +12,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'base', ['EducationalYear'])
 
-        # Adding field 'Member.field'
-        db.add_column(u'base_member', 'field',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['course.Field'], null=True,
-                                                                            blank=True),
-                      keep_default=False)
-
         # Adding field 'Member.level'
         db.add_column(u'base_member', 'level',
                       self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True),
@@ -38,9 +32,6 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Deleting model 'EducationalYear'
         db.delete_table(u'base_educationalyear')
-
-        # Deleting field 'Member.field'
-        db.delete_column(u'base_member', 'field_id')
 
         # Deleting field 'Member.level'
         db.delete_column(u'base_member', 'level')
@@ -78,8 +69,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Member'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'field': ('django.db.models.fields.related.ForeignKey', [],
-                      {'to': u"orm['course.Field']", 'null': 'True', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [],
                        {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True',
@@ -108,11 +97,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'course.field': {
-            'Meta': {'object_name': 'Field'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        }
     }
 
     complete_apps = ['base']

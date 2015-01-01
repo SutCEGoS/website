@@ -2,6 +2,8 @@ import json
 import urllib2
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 
 from base.models import EducationalYear
@@ -13,7 +15,10 @@ def get_current_year():
     return EducationalYear.objects.get_or_create(year=settings.CURRENT_YEAR)[0]
 
 
+@login_required
 def update_courses_list(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
     url = "http://term.inator.ir/courses/list/38/"
     data = urllib2.urlopen(url)
     courses_list = json.loads(data.read())
