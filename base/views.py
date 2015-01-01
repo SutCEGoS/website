@@ -8,14 +8,13 @@ from django.shortcuts import render
 
 from base.forms import *
 from base.models import Member
-from objection.views import requests
 
 
 def home(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('login'))
     else:
-        return requests(request)
+        return HttpResponseRedirect(reverse('requests'))
 
 
 def login(request):
@@ -47,7 +46,6 @@ def save_file(in_memory_file):
     path = default_storage.save('data_file/' + str(in_memory_file), ContentFile(in_memory_file.read()))
     tmp_file = os.path.join(settings.MEDIA_ROOT, path)
     return tmp_file
-
 
 @login_required
 def create_accounts(request):

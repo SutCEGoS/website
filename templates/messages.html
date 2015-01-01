@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Messages{% endblock title %}
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{% url 'js/select2/select2.css' %}" />
+{% endblock %}
+{% block extra_js %}
+<sctipt type="text/javasctipt" src="{% url 'js/select2/select2.min.js' %}"></sctipt>
+<sctipt type="text/javasctipt" src="{% url 'js/searchform.js' %}"></sctipt>
+{% endblock %}
+{% block body %}
+<div class="row container center-block">
+    <div class="col-lg-4">
+        {% include 'searchform.html' %}
+    </div>
+    <div class="col-lg-8" id="messages-show">
+        <legend>
+            Messages
+        </legend>
+        <div class="panel-group home-accordion" id="accordion">
+            <div id="messages-container">
+            {% for item in messages %}
+                <div class="panel panel-default">
+                    <span class="requestid">{{ item.id }}</span>
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" class="non-decoration" href="#collapse-{{ item.id }}">
+                               <span class="glyphicon {% if item.reply %}glyphicon-ok green-ok{% else %}glyphicon-remove red-cancel{% endif %}"></span>
+                                {% if item.category.id == 3 %}
+                                    {{ item.course_name }}
+                                {% else %}
+                                    {{ item.offered_course }}
+                                {% endif %}: <b>{{ item.category }}</b>
+                                {% if item.category.id == 1 %}
+                                    با
+                                    {{ item.second_course }}
+                                {% endif %}
+                            </a>
+                        </h4>
+                        <a href="#" class="metoo" itemid="{{ item.id }}">me too!</a>
+                        <span class="badge">3</span> <!-- TODO: number of meetoos -->
+                    </div>
+                    <div id="collapse-{{ item.id }}" class="panel-collapse collapse in">
+                        <div class="panel-body good-content">{% if item.message %}{{ item.message|safe }}{% else %}<i> متن برای نمایش وجود ندارد                                    </i>{% endif %}                            </div>
+                        {% if item.reply %}<div class="panel-body good-content">پاسخ : {{ item.reply }}
+                            <br> توسط : {{ item.reply_by.get_full_name }}
+                                </div>
+                            {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

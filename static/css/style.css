@@ -33,6 +33,10 @@ a:hover {
     background-color: whitesmoke !important;
 }
 
+.requestid {
+    /* TODO */
+}
+
 /** What we had: **/
 
 .content {
@@ -86,7 +90,7 @@ a:hover {
     margin: 0 auto;
 }
 
-.user-pass-style {
+.user-pass-style{
     width: 75px;
 }
 
@@ -146,3 +150,4 @@ footer a:hover {
     -moz-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
     -webkit-text-shadow: 0 0 1px rgba(0, 0, 0, .1)
 }
+

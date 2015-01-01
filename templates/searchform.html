@@ -1,0 +1,17 @@
+<form action="" method="POST" class="">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Search</legend>
+        {{ form.category|get_form_field_as_div:6|safe }}
+        {{ form.field|get_form_field_as_div:6|safe }}
+        {{ form.level|get_form_field_as_div:6|safe }}
+        {{ form.sender_year|get_form_field_as_div:6|safe }}
+        {{ form.offered_course|get_form_field_as_div:"12$hidden-obj offered-course-div courses searchable"|safe }}
+        {{ form.second_course|get_form_field_as_div:"12$hidden-obj second-course-div searchable"|safe }}
+        {{ form.course_name|get_form_field_as_div:"12$hidden-obj course-name-div courses searchable"|safe }}
+        {{ form.message|get_form_field_as_div:12|safe }}
+    </fieldset>
+    <div class="form-actions col-lg-12">
+        <button class="btn btn-primary full-width">Send</button> <!-- TODO -->
+    </div>
+</form>
