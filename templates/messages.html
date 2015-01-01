@@ -2,37 +2,23 @@
 {% load static %}
 {% block title %}Messages{% endblock title %}
 {% block extra_styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"
-          xmlns="http://www.w3.org/1999/html"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
 {% endblock %}
 {% block extra_js %}
-    <script type="text/javascript" src="{% static 'js/messages.js' %}"></script>
-    <script type="text/javascript" language="JavaScript">
-    messages = [
-        {
-            data_id: 1,
-            category_id: 1,
-            category: 'Talghy',
-            course_name: 'Abbasology',
-            offered_course: 'Web',
-            second_course: 'DS',
-            message: 'Thanks for erae',
-            metoos: 0,
-            metooed: false
-        },
-        {
-            data_id: 2,
-            category_id: 3,
-            category: 'talaghi',
-            course_name: 'Telbasology',
-            offered_course: 'DA',
-            second_course: '',
-            message: 'مرسی  ارائه',
-            metoos: 5,
-            metooed: true
-        },
-
+    <sctipt type="text/javasctipt" src="{% static 'js/select2/select2.min.js' %}"></sctipt>
+    <sctipt type="text/javasctipt" src="{% static 'js/searchform.js' %}"></sctipt>
+    <script type="text/javasctipt">
+var messages = [
+    {
+        data_id: 1,
+        category_id: 15,
+        course_name: 'عباس شناسی',
+        offered_course: 'عباس شناسی پژوهشی',
+        category: '1',
+        second_course: 'گوز پژوهی بالینی',
+        message: 'مرسی که ارائه میدین',
+    },
         {
             data_id: 3,
             category_id: 1,
@@ -70,6 +56,7 @@
     });
     </script>
 
+<<<<<<< HEAD
 {% endblock %}
 {% block body %}
     <div class="container">

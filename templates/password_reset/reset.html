@@ -1,14 +1,115 @@
 {% extends "password_reset/base.html" %}{% load i18n %}{% load url from future %}
 
+{% block title %}Change password{% endblock title %}
+<script>
+    var $window = $(window);
+    $window.on('load', function () {
+        var $pass1 = $('#pass1');
+        var $pass2 = $('#pass2');
+        var maxWidth = Math.max($pass1.width(), $pass2.width());
+
+        $pass1.css("width", maxWidth);
+        $pass2.css("width", maxWidth);
+
+
+    });
+</script>
 {% block content %}
-	{% if invalid %}{% url "password_reset_recover" as recovery_url %}
-		<p>{% blocktrans %}Sorry, this password reset link is invalid. You can still <a href="{{ recovery_url }}">request a new one</a>.{% endblocktrans %}</p>
-	{% else %}
-		<p>{% blocktrans %}Hi, <strong>{{ username }}</strong>. Please choose your new password.{% endblocktrans %}</p>
-		<form method="post" action="{% url "password_reset_reset" token %}">
-			{% csrf_token %}
-			{{ form.as_p }}
-			<p><input type="submit" value="{% trans "Set new password" %}"></p>
-		</form>
-	{% endif %}
+    {% if invalid %}{% url "password_reset_recover" as recovery_url %}
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-2">
+                    <div class="panel-heading">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
+
+                <div class="col-md-6 col-lg-5 col-centered">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">{% trans "New password set" %}</div>
+                        <div class="panel-body bgwhitesmoke">
+                            <p>{% blocktrans %}Sorry, this password reset link is invalid. You can still
+                                <a href="{{ recovery_url }}">request a new one</a>.{% endblocktrans %}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    {% else %}
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-2">
+                    <div class="panel-heading">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
+                <form method="post" action="{% url "password_reset_reset" token %}">
+                    <div class="col-md-6 col-lg-5 col-centered">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading">{% trans "Change password" %}</div>
+                            <div class="panel-body bgwhitesmoke">
+                                <p>{% blocktrans %}Hi, <strong>{{ username }}</strong>. Please choose your new
+                                    password.{% endblocktrans %}</p>
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <div id="pass1">New password:</div>
+                                            {# <label for="id_password1">New password:</label>#}
+                                        </div>
+                                        <input id="id_password1"
+                                               class="form-control"
+                                               name="password1"
+                                               type="password"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <div id="pass2">Confirm password:</div>
+                                            {# <label for="id_password2">Confirm password:</label>#}
+                                        </div>
+                                        <input id="id_password2"
+                                               class="form-control"
+                                               name="password2"
+                                               type="password"/>
+                                    </div>
+                                </div>
+
+
+
+                                {% for item in form.errors.values %}
+                                    <label>{{ item }}</label>
+                                {% endfor %}
+                                <div class="form-actions">
+                                    <div class="table-row">
+                                        <div class="table-cell">
+                                            <input class="btn btn-primary" type="submit"
+                                                   value="{% trans "Set new password" %}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    {% endif %}
 {% endblock %}

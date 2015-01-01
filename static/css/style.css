@@ -162,10 +162,12 @@ footer a:hover {
     margin-bottom: 10px;
 }
 
+.margin-bottom-lg{
+    margin-bottom: 100px;
+}
+
 .footer-style {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+
 }
 
 .footer-style:hover {
