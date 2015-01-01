@@ -27,35 +27,38 @@ for (var i=0; i<messages.length; ++i) {
     htmlrepr
         .attr('mj-dataid', item.data_id)
         .attr('mj-category-id', item.category_id);
-    htmlrepr.children('[mj-request-id]').html(item.data_id);
+    htmlrepr.find('[mj-request-id]').html(item.data_id);
 
-    htmlrepr.children('[mj-category!=else]').hide();
+    htmlrepr.find('[mj-category!=else]').hide();
     for (var i=0; i<5; ++i) {
         if (item.category_id == i) {
-            htmlrepr.children('[mj-category='+i+']').show();
-            htmlrepr.children('[mj-category=else]').hide();
+            htmlrepr.find('[mj-category='+i+']').show();
+            htmlrepr.find('[mj-category=else]').hide();
         }
     }
     if (item.category_id == 3) {
-        htmlrepr.children('[mj-course-1]').html(item.course_name);
+        htmlrepr.find('[mj-course-1]').html(item.course_name);
     } else {
-        htmlrepr.children('[mj-course-1]').html(item.offered_course);
+        htmlrepr.find('[mj-course-1]').html(item.offered_course);
     }
-    htmlrepr.children('[mj-course-2]').html(item.second_course);
-    htmlrepr.children('[mj-conflict-category]').html(item.category);
-    htmlrepr.children('[mj-metoo-number]').html(/* TODO (mjafar, a'min) */);
+    htmlrepr.find('[mj-course-2]').html(item.second_course);
+    htmlrepr.find('[mj-conflict-category]').html(item.category);
+    htmlrepr.find('[mj-metoo-number]').html(/* TODO (mjafar, a'min) */);
     htmlrepr.removeClass('hide');
 
     $('#messages-container').append(htmlrepr);
 }
 
-var lazyShow = function() {
-    var firsthide = $('div[mj-message-template].hide:first');
+$window.on('lazyShow', function() {
+var firsthide = $('div[mj-message-template].hide:first');
     if (firsthide.length) {
-        firsthide.removeClass('hide').fadeIn(10, lazyShow);
+        firsthide.removeClass('hide').fadeIn(10, function() {
+            $(window).trigger('lazyShow');
+        });
     }
-}
-lazyShow();
+});
+
+$window.trigger('lazyShow');
 
 </script>
 <sctipt type="text/javasctipt" src="{% url 'js/select2/select2.min.js' %}"></sctipt>

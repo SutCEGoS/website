@@ -24,7 +24,7 @@ def requests(request):
         'messages': Objection.objects.filter().order_by('reply').reverse()  # FIXME: fuck
     }
 
-    return render(request, 'message.html', params)
+    return render(request, 'messages.html', params)
 
 
 def search(request):

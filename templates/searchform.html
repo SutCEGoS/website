@@ -2,7 +2,7 @@
     {% csrf_token %}
     <fieldset>
         <legend>Search</legend>
-        {{ form.category|get_form_field_as_div:"6$searchable"|safe }}
+        {{ form.category|get_form_field_as_div:"6$hidden-obj searchable"|safe }}
         {{ form.field|get_form_field_as_div:6|safe }}
         {{ form.level|get_form_field_as_div:6|safe }}
         {{ form.sender_year|get_form_field_as_div:6|safe }}
