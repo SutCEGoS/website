@@ -8,8 +8,21 @@ $window.on('load', function() {
     var $forgot_link = $('#forgot');
     var $forgot_popup = $('#forgot_popup');
 
+
     $forgot_link.on('click', function(e) {
-        $forgot_popup.fadeToggle(300);
-        e.preventDefault();
+
+        var $this = $(this);
+        $this.popConfirm({
+                placement: 'bottom',
+                title: 'Are you sure?',
+                content:
+                    'If you forgot your password really, you can press on the Yes button and we will send you an email. Then you can go and change your password!'
+                ,
+//                yes: 'بله',
+//                no: 'خیر',
+                callback_yes: function () {
+                    //TODO
+                }
+            });
     });
 });
