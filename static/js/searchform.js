@@ -1,7 +1,6 @@
 /**
 * Created by mjafar on 2015/01/01.
 */
-
 var $searchables = $('.searchable');
 
 $searchables.bind('change', function () {

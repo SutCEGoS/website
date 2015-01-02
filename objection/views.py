@@ -52,7 +52,7 @@ def search(request):
         objections_list.append({
             'category': item.get_category_display(),
             'status': item.get_status_display(),
-            'likes_num': item.like.count(),
+            'metoos': item.like.count(),
             'offered_course': item.offered_course.id,
             'second_course': item.second_course.id,
             'course_name': item.course_name,

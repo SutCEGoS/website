@@ -115,10 +115,6 @@ footer a:hover {
     color: #ff0000;
 }
 
-#messages-show > * {
-    font-family: BNazanin !important;
-}
-
 .non-decoration:hover {
     text-decoration: none;
 }

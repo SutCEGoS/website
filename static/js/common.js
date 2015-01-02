@@ -6,8 +6,6 @@ var $window = $(window);
 
 $window.on('load', function() {
     var $forgot_link = $('#forgot');
-    var $forgot_popup = $('#forgot_popup');
-
 
     $forgot_link.on('click', function(e) {
 
