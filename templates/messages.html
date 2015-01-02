@@ -10,7 +10,6 @@
     <script type="text/javascript" language="JavaScript" src="{% static 'js/searchform.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
-    console.log(window.$ajax_search);
     var messages = [
         {
             data_id: 1,
@@ -50,20 +49,6 @@
         },
     {% endfor %}
     ];
-
-    $window.on('load', function() {
-        $.ajax({
-            url: window.$ajax_search,
-            type: 'get',
-            dataType: 'json',
-        }).success(function (response) {
-            // TODO (mjafar)
-            showMessages(response);
-        }).error(function () {
-            // TODO (mjafar)
-            alert("Refresh kon :D");
-        });
-    });
     </script>
 
 {% endblock %}

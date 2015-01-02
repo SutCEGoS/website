@@ -49,14 +49,28 @@ function showMessages(messages) {
         $('#messages-container').append(htmlrepr);
     }
 
-    $window.on('lazyShow', function () {
-        var firsthide = $('#messages-container').children('div.panel.hide:first');
-        if (firsthide && firsthide.length) {
-            firsthide.removeClass('hide').hide().fadeIn(100, function () {
-                $(window).trigger('lazyShow');
-            });
-        }
-    });
-
     $window.trigger('lazyShow');
 }
+
+$window.on('messages.lazyShow', function () {
+    var firsthide = $('#messages-container').children('div.panel.hide:first');
+    if (firsthide && firsthide.length) {
+        firsthide.removeClass('hide').hide().fadeIn(100, function () {
+            $(window).trigger('messages.lazyShow');
+        });
+    }
+});
+
+$window.on('load', function() {
+    $.ajax({
+        url: window.$ajax_search,
+        type: 'get',
+        dataType: 'json'
+    }).success(function (response) {
+        // TODO (mjafar)
+        showMessages(response);
+    }).error(function () {
+        // TODO (mjafar)
+        alert("Refresh kon :D");
+    });
+});
