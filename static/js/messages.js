@@ -3,8 +3,53 @@
  */
 
 var $messages_container;
+var $loading;
+var $no_result;
 
-function showMessages(messages) {
+
+$window.on('load', function() {
+    $messages_container = $('div#messages-container');
+    $loading = $('#loading');
+    $no_result = $('#no_result');
+
+    $window.trigger('search.do', [{}]);
+});
+
+$window.on('search.do', function(e, data) {
+    $window.trigger('search.started');
+    $.ajax({
+        url: window.$load_url,
+        type: 'get',
+        dataType: 'json',
+        data: data
+    }).success(function (response) {
+        console.log(response);
+        $window.trigger('search.finished');
+        if (response.length == 0) {
+            $window.trigger('search.no_result');
+        } else {
+            $window.trigger('search.no_result', [response]);
+        }
+    }).error(function () {
+        $window.trigger('search.finished');
+        alert("Refresh kon :D"); // TODO (mjafar): Change message :D
+    });
+});
+
+$window.on('search.started', function(e) {
+    $no_result.hide();
+    $loading.fadeIn(300);
+});
+
+$window.on('search.no_result', function (e) {
+    $no_result.show();
+});
+
+$window.on('search.finished', function(e){
+    $loading.hide();
+});
+
+$window.on('search.result', function (e, messages) {
     $messages_container.children().remove();
 
     // Create
@@ -122,7 +167,7 @@ function showMessages(messages) {
 
 
     $window.trigger('messages.lazyShow');
-}
+});
 
 $window.on('messages.lazyShow', function () {
     var first_hide = $messages_container.children('div.panel.hide:first');
@@ -132,22 +177,3 @@ $window.on('messages.lazyShow', function () {
         });
     }
 });
-
-$window.on('load', function() {
-    $messages_container = $('div#messages-container');
-
-    $.ajax({
-        url: window.$load_url,
-        type: 'get',
-        dataType: 'json'
-    }).success(function (response) {
-        // TODO (mjafar)
-        console.log(response);
-        showMessages(response);
-    }).error(function () {
-        // TODO (mjafar)
-        alert("Refresh kon :D");
-    });
-});
-
-
