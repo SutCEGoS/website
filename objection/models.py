@@ -8,7 +8,14 @@ from course.models import OfferedCourse
 
 
 class Objection(models.Model):
-    CATEGORY = Choices()
+    CATEGORY = Choices(
+                        (2, 'a', u"تلاقی زمان کلاس"),
+                        (3, 'b', u"تاریخ امتحان نامناسب"),
+                        (4, 'c', u"عدم ارائه درس"),
+                        (5, 'd', u"تعداد گروه کم"),
+                        (6, 'e', u"عدم صلاحیت استاد برای ارائه درس"),
+                        (7, 'f', u"غیره")
+    )
     STATUS = Choices((1, 'admin pending', u"منتظر تایید"), (2, 'unqualified', u"تایید نشده"),
                      (3, 'reply pending', u"منتظر پاسخ"), (4, 'ignored', u"مشاهده شده"),
                      (5, 'replied', u"پاسخ داده شده"))

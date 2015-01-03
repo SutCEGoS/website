@@ -3,7 +3,7 @@
 <form action="" method="POST" class="">
     {% csrf_token %}
     <fieldset>
-        {{ form.category|get_form_field_as_div:"6$searchable"|safe }}
+        {{ form.category|get_form_field_as_div:"12$searchable"|safe }}
         {{ form.offered_course|get_form_field_as_div:"12$hidden-obj offered-course-div courses searchable"|safe }}
         {{ form.second_course|get_form_field_as_div:"12$hidden-obj second-course-div searchable"|safe }}
         {{ form.course_name|get_form_field_as_div:"12$hidden-obj course-name-div courses searchable"|safe }}

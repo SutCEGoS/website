@@ -5,7 +5,6 @@
 var $messages_container;
 
 function showMessages(messages) {
-    console.log("hi");
     $messages_container.children().remove();
     for (var i = 0; i < messages.length; ++i) {
         var item = messages[i];
