@@ -32,6 +32,8 @@ class MessageForm(forms.ModelForm):
         category = cd.get('category')
         message = cd.get('message')
         if category:
+            if category == 0:
+                self.errors['category'] = self.error_class([u'انتخاب دسته ی مشکل لازم است'])
             if category == 3:
                 if not course_name:
                     self.errors['course_name'] = self.error_class([u'پر کردن نام درس ارائه نشده اجباری است.'])

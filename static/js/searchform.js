@@ -82,6 +82,10 @@ $window.on('load', function() {
             $('.offered-course-div').fadeIn();
             $('.second-course-div').fadeOut();
             $('.course-name-div').fadeOut();
+        } else {
+            $('.offered-course-div').fadeOut();
+            $('.second-course-div').fadeOut();
+            $('.course-name-div').fadeOut();
         }
     }
 
