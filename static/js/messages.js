@@ -28,7 +28,7 @@ $window.on('search.do', function(e, data) {
         if (response.length == 0) {
             $window.trigger('search.no_result');
         } else {
-            $window.trigger('search.no_result', [response]);
+            $window.trigger('search.result', [response]);
         }
     }).error(function () {
         $window.trigger('search.finished');
@@ -42,6 +42,7 @@ $window.on('search.started', function(e) {
 });
 
 $window.on('search.no_result', function (e) {
+    $messages_container.children().remove();
     $no_result.show();
 });
 
