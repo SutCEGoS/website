@@ -176,3 +176,7 @@ footer a:hover {
     margin-left: auto;
     margin-right: auto;
 }
+
+.panel-background-color{
+    background-color: rgba(255,255,255,0.6);
+}

@@ -54,22 +54,68 @@
 {% endblock %}
 {% block body %}
     <div class="container">
-        <div class="row center-block">
+        <div class="row">
 
-            <div class="col-lg-4">
-                <div class="fixed-searchform">
-                    {% include 'searchform.html' %}
+            <div class="col-lg-2 col-md-2">
+                <div class="panel-heading">
+
                 </div>
             </div>
-            <div class="col-lg-8" id="messages-show">
-                <legend>
-                    Messages
-                </legend>
-                <div class="" id="accordion">
-                    <div id="messages-container"></div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-4">
+                <div class="panel panel-primary panel-background-color">
+                    <div class="panel-heading">
+                        Search & Add
+                    </div>
+                    <div class="panel-body">
+                        {% include 'searchform.html' %}
+                    </div>
+{#                <div class="panel panel-primary">#}
+{#                    <legend>Search</legend>#}
+{#                    {% include 'searchform.html' %}#}
+{#                </div>#}
                 </div>
+            </div>
+
+            <div class="col-lg-8 col-md-8" id="messages-show">
+                <div class="panel panel-primary panel-background-color">
+                    <div class="panel-heading">
+                        Messages
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-group home-accordion" id="accordion">
+                            <div id="messages-container"></div>
+                        </div>
+                    </div>
+                </div>
+{#                <legend>#}
+{#                    Messages#}
+{#                </legend>#}
+{#                <div class="panel-group home-accordion" id="accordion">#}
+{#                    <div id="messages-container"></div>#}
+{#                </div>#}
             </div>
         </div>
+{#        <div class="row center-block">#}
+{##}
+{#            <div class="col-lg-4">#}
+{#                <div class="fixed-searchform">#}
+{#                    {% include 'searchform.html' %}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-lg-8" id="messages-show">#}
+{#                <legend>#}
+{#                    Messages#}
+{#                </legend>#}
+{#                <div class="" id="accordion">#}
+{#                    <div id="messages-container"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </div>
 
 <div class="panel panel-default hide" mj-dataid="" mj-category-id="" mj-message-template="true">
