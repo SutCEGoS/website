@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search' %}";
+        window.$message_add_url = "{% url 'add_objection' %}";
         window.csrf_token = "{{ csrf_token }}";
     </script>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
@@ -29,7 +30,7 @@
     </div>
     <footer class="footer navbar-fixed-bottom">
         <p class="english">
-            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora. Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">Amin</a>. Thanks to <a href="http://term.inator.ir/" target="_blank">Terminator</a>.
+            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, backend by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="terminator">Thank you <a href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>.
         </p>
     </footer>
 </body>

@@ -53,7 +53,7 @@ def search(request):
         objections_list.append({
             item.get_serialized(request.user)
         })
-    return HttpResponse(json.dumps({'list': objections_list}), content_type="application/json")
+    return HttpResponse(json.dumps(objections_list), content_type="application/json")
 
 
 @login_required
