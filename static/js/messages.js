@@ -3,15 +3,20 @@
  */
 
 var $messages_container;
+var $me_too_link;
 
 function showMessages(messages) {
-    console.log("hi");
+    // Clean
     $messages_container.children().remove();
+
+    // Create
     for (var i = 0; i < messages.length; ++i) {
+        // Clone
         var item = messages[i];
         var htmlrepr = $("div[mj-message-template='true']").clone();
         htmlrepr.attr('mj-message-template', 'false');
 
+        // Fill html
         htmlrepr
             .attr('mj-dataid', item.data_id)
             .attr('mj-category-id', item.category_id);
@@ -65,16 +70,57 @@ $window.on('messages.lazyShow', function () {
 });
 
 $window.on('load', function() {
-    $messages_container = $('div#messages-container')
+    $messages_container = $('div#messages-container');
+    $me_too_link = $('[mj-metoo-link]');
+    $un_me_too = $('[mj-metoo-number]');
+
+    $me_too_link.on('click', function(e) {
+        e.preventDefault();
+
+        var $me_too_badge = $(this).nearest('[mj-metoo-number]');
+        $me_too_link.hide(300);
+        $.ajax({
+            url: window.$ajax_metoo,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                data_id: $(this).attr('mj-dataid')
+            }
+        }).success(function (response) {
+            console.log(response);
+            var response_parsed = json_parse(response);
+            $me_too_badge.html(response_parsed['meetoos']);
+            if (response_parsed['meetoed']) {
+                $me_too_badge.removeClass('metooed');
+                $me_too_link.show(300);
+            } else {
+                $me_too_badge.addClass('metooed');
+            }
+        }).error(function () {
+            $me_too_link.show(300);
+        });
+    });
+
+    $un_me_too.on('click', function (e) {
+        e.preventDefault();
+
+
+    });
+
+
+
     $.ajax({
         url: window.$ajax_search,
         type: 'get',
         dataType: 'json'
     }).success(function (response) {
         // TODO (mjafar)
+        console.log(response);
         showMessages(response);
     }).error(function () {
         // TODO (mjafar)
         alert("Refresh kon :D");
     });
 });
+
+

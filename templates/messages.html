@@ -10,6 +10,8 @@
     <script type="text/javascript" language="JavaScript" src="{% static 'js/searchform.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
+    var $ajax_metoo = '{% url 'add_me_too' %}';
+
     var messages = [
         {
             data_id: 1,
@@ -34,7 +36,7 @@
             metooed: true
         },
     {% for item in messages %}
-        {s
+        {
             {% if item.reply %}
             reply: '{{ item.reply }}',
             reply_by: '{{ item.reply_by.get_full_name }}',
