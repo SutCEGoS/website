@@ -97,7 +97,6 @@ def add_objection(request):
         x = dict()
         return HttpResponse(json.dumps(x), content_type="application/json", status=400)
 
-
 @login_required
 def add_me_too(request):
     item_id = request.POST.get('data_id')
@@ -105,7 +104,7 @@ def add_me_too(request):
         item_id = int(item_id)
     except:
         return HttpResponseBadRequest
-    item = get_object_or_404(pk=item_id)
+    item = get_object_or_404(Objection, pk=item_id)
     available_items = Objection.get_available(request.user)
     if item not in available_items:
         raise PermissionDenied
@@ -121,4 +120,4 @@ def add_me_too(request):
         'metooed': me_too_ed,
         'metoos': item.like.count()
     }
-    return HttpResponse(json.dumps(dict), content_type="application/json", status=400)
+    return HttpResponse(json.dumps(dict), content_type="application/json")
