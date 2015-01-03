@@ -4,7 +4,7 @@ import json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
 
@@ -28,6 +28,7 @@ def requests(request):
 
     return render(request, 'messages.html', params)
 
+
 @login_required
 def search(request):
     if request.method != 'GET':
@@ -50,15 +51,10 @@ def search(request):
     objections_list = []
     for item in search_result:
         objections_list.append({
-            'category': item.get_category_display(),
-            'status': item.get_status_display(),
-            'metoos': item.like.count(),
-            'offered_course': item.offered_course.id,
-            'second_course': item.second_course.id,
-            'course_name': item.course_name,
-            'message': item.message,
+            item.get_serialized(request.user)
         })
     return HttpResponse(json.dumps({'list': objections_list}), content_type="application/json")
+
 
 @login_required
 def get_courses(request):
@@ -80,3 +76,49 @@ def get_courses(request):
             }
         })
     return HttpResponse(json.dumps(courses_list), content_type="application/json")
+
+
+@login_required
+def add_objection(request):
+    # category = request.POST.get('category')
+    # offered_course = request.POST.get('offered_course')
+    # second_course = request.POST.get('second_course')
+    # course_name = request.POST.get('course_name')
+    # message = request.POST.get('message')
+    data = request.POST.copy()
+    data['sender'] = request.user
+    data['status'] = 1
+    form = MessageForm(data=data)
+    if form.is_valid():
+        f = form.save()
+        x = f.get_serialized(request.user)
+        return HttpResponse(json.dumps(x), content_type="application/json")
+    else:
+        x = dict()
+        return HttpResponse(json.dumps(x), content_type="application/json", status=400)
+
+
+@login_required
+def add_me_too(request):
+    item_id = request.POST.get('data_id')
+    try:
+        item_id = int(item_id)
+    except:
+        return HttpResponseBadRequest
+    item = get_object_or_404(pk=item_id)
+    available_items = Objection.get_available(request.user)
+    if item not in available_items:
+        raise PermissionDenied
+    if item.sender.__eq__(request.user):
+        raise PermissionDenied
+    if request.user in item.like.all():
+        me_too_ed = False
+        item.like.remove(request.user)
+    else:
+        me_too_ed = True
+        item.like.add(request.user)
+    dict = {
+        'metooed': me_too_ed,
+        'metoos': item.like.count()
+    }
+    return HttpResponse(json.dumps(dict), content_type="application/json", status=400)

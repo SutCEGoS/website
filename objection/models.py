@@ -41,6 +41,23 @@ class Objection(models.Model):
             return Objection.objects.filter(status__ge=3)
         return Objection.objects.filter(Q(status__ge=3) | Q(sender=member))
 
+    def get_serialized(self, member):
+        return {
+            'data_id': self.id,
+            'category_id': self.category,
+            'category_name': self.get_category_display(),
+            'status_id': self.status,
+            'status_name': self.get_status_display(),
+            'metoos': self.like.count(),
+            'metooed': member in self.like.all(),
+            'offered_course': self.offered_course.id,
+            'second_course': self.second_course.id,
+            'course_name': self.course_name,
+            'message': self.message,
+            'reply': 'this request ic chert',
+            'reply-by': 'amin',
+        }
+
 
 class Reply(models.Model):
     text = models.TextField()
