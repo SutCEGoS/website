@@ -55,7 +55,9 @@ footer a:hover {
 }
 .metooed {
     color: #ffed48;
-    cursor: hand;
+}
+.metooed:hover{
+    cursor: pointer; cursor: hand;
 }
 
 .conflict {
