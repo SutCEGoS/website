@@ -1,10 +1,14 @@
+from django.conf import settings
 from django.contrib.auth import login as dj_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
+from django.contrib.sites.models import RequestSite
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.template import loader
 
 from base.forms import *
 from base.models import Member
@@ -47,6 +51,7 @@ def save_file(in_memory_file):
     tmp_file = os.path.join(settings.MEDIA_ROOT, path)
     return tmp_file
 
+
 @login_required
 def create_accounts(request):
     if not request.user.is_superuser:
@@ -63,7 +68,7 @@ def create_accounts(request):
                 line = file_lines[i]
                 splitted_line = line.split('-')
                 try:
-                    new_email = splitted_line[0]
+                    new_email = splitted_line[0].lower()
                 except:
                     message += str(i)
                 try:
@@ -79,10 +84,27 @@ def create_accounts(request):
                 try:
                     member = Member.objects.get(username=new_username)
                 except:
-                    new_member = Member.objects.create(username=new_username.lower(),
-                                                       std_id=new_std_id,
-                                                       email=new_email.lower(),
-                                                       password=make_password(new_password))
+
+                    try:
+                        context = {
+                            'site': RequestSite(request),
+                            'username': new_username,
+                            'password': new_password,
+                            'secure': request.is_secure(),
+                        }
+                        body = loader.render_to_string("account_create/new_account_email.txt",
+                                                       context).strip()
+                        subject = loader.render_to_string("account_create/new_account_email_subject.txt",
+                                                          context).strip()
+                        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [new_email])
+                        new_member = Member.objects.create(username=new_username,
+                                                           std_id=new_std_id,
+                                                           email=new_email,
+                                                           password=make_password(new_password))
+                    except Exception as e:
+                        print e
+                        message += "%d\n" % i
+
             if message:
                 message += "making account for this lines is not possible, please contact A\'min"
             else:
