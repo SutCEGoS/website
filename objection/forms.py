@@ -48,6 +48,7 @@ class MessageForm(forms.ModelForm):
             else:
                 if not offered_course:
                     self.errors['offered_course'] = self.error_class([u'انتخاب درس اجباری است'])
+            pass
 
         return cd
 
