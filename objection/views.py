@@ -28,6 +28,7 @@ def requests(request):
 
     return render(request, 'messages.html', params)
 
+
 @login_required
 def search(request):
     if request.method != 'GET':
@@ -50,15 +51,10 @@ def search(request):
     objections_list = []
     for item in search_result:
         objections_list.append({
-            'category': item.get_category_display(),
-            'status': item.get_status_display(),
-            'metoos': item.like.count(),
-            'offered_course': item.offered_course.id,
-            'second_course': item.second_course.id,
-            'course_name': item.course_name,
-            'message': item.message,
+            item.get_serialized()
         })
     return HttpResponse(json.dumps({'list': objections_list}), content_type="application/json")
+
 
 @login_required
 def get_courses(request):
@@ -80,3 +76,27 @@ def get_courses(request):
             }
         })
     return HttpResponse(json.dumps(courses_list), content_type="application/json")
+
+
+@login_required
+def add_objection(request):
+    # category = request.POST.get('category')
+    # offered_course = request.POST.get('offered_course')
+    # second_course = request.POST.get('second_course')
+    # course_name = request.POST.get('course_name')
+    # message = request.POST.get('message')
+    data = request.POST.copy()
+    data['sender'] = request.user
+    data['status'] = 1
+    form = MessageForm(data=data)
+    if form.is_valid():
+        f = form.save()
+        x = f.get_serialized()
+    else:
+        x = dict()
+    return HttpResponse(json.dumps(x), content_type="application/json")
+
+
+@login_required
+def add_me_too(request):
+    return
