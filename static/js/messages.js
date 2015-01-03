@@ -37,6 +37,7 @@ $window.on('search.do', function(e, data) {
 
 $window.on('search.started', function(e) {
     $no_result.hide();
+    $add_message_button.attr('disabled', 'disabled').addClass('disabled');
     $loading.fadeIn(300);
 });
 
@@ -46,6 +47,7 @@ $window.on('search.no_result', function (e) {
 });
 
 $window.on('search.finished', function(e){
+    $add_message_button.attr('disabled', '').removeClass('disabled');
     $loading.hide();
 });
 
