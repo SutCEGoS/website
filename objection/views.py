@@ -97,7 +97,6 @@ def add_objection(request):
         x = dict()
         return HttpResponse(json.dumps(x), content_type="application/json", status=400)
 
-
 @login_required
 def add_me_too(request):
     item_id = request.POST.get('data_id')
@@ -121,4 +120,4 @@ def add_me_too(request):
         'metooed': me_too_ed,
         'metoos': item.like.count()
     }
-    return HttpResponse(json.dumps(dict), content_type="application/json", status=400)
+    return HttpResponse(json.dumps(dict), content_type="application/json")
