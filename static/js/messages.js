@@ -23,7 +23,6 @@ $window.on('search.do', function(e, data) {
         dataType: 'json',
         data: data
     }).success(function (response) {
-        console.log(response);
         $window.trigger('search.finished');
         if (response.length == 0) {
             $window.trigger('search.no_result');
@@ -32,12 +31,13 @@ $window.on('search.do', function(e, data) {
         }
     }).error(function () {
         $window.trigger('search.finished');
-        alert("Refresh kon :D"); // TODO (mjafar): Change message :D
+        alert("Error occurred, please check your connection or refresh the page.");
     });
 });
 
 $window.on('search.started', function(e) {
     $no_result.hide();
+    $add_message_button.attr('disabled', 'disabled').addClass('disabled');
     $loading.fadeIn(300);
 });
 
@@ -47,6 +47,7 @@ $window.on('search.no_result', function (e) {
 });
 
 $window.on('search.finished', function(e){
+    $add_message_button.attr('disabled', '').removeClass('disabled');
     $loading.hide();
 });
 
@@ -119,8 +120,6 @@ $window.on('search.result', function (e, messages) {
                 csrfmiddlewaretoken: window.csrf_token
             }
         }).success(function (response) {
-            console.log(response);
-            //var response_parsed = json_parse(response);
             $me_too_badge.html(response.metoos);
             if (response.meetoed) {
                 $me_too_badge.removeClass('metooed');
