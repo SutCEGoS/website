@@ -34,6 +34,7 @@ $('#id_category').bind('change', function () {
 var c_value = $('#id_category > *[selected=selected]').attr('value');
 showDefaultForm(c_value);
 function showDefaultForm(value){
+    console.log("hi");
     if (value == 1) {
         $('.offered-course-div').fadeIn();
         $('.second-course-div').fadeIn();

@@ -16,6 +16,7 @@ class MessageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
+        self.fields['category'] = forms.TypedChoiceField(choices=Objection.CATEGORY, empty_value="---")
         for field in self.fields:
             if field not in ['offered_course', 'second_course']:
                 css_class = 'form-control'

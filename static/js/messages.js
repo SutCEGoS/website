@@ -6,7 +6,7 @@ var $messages_container;
 var $me_too_link;
 
 function showMessages(messages) {
-    // Clean
+    console.log("hi");
     $messages_container.children().remove();
 
     // Create
