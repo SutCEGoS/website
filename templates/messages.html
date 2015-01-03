@@ -4,9 +4,11 @@
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
 {% block extra_js %}
     <script type="text/javascript" language="JavaScript" src="{% static 'js/select2/select2.min.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/toastr.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/searchform.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
@@ -28,11 +30,11 @@
         {
             data_id: 37,
             category_id: 2,
-            category: 'Jahan eslam',
-            course_name: 'شناسی',
+            category: 'تاریخ امتحان نامناسب',
+            course_name: 'پایگاه‌های داده',
             offered_course: 'عباس شناسی ',
-            second_course: 'گوز  ',
-            message: 'دلم درد می‌کنه!!',
+            second_course: '',
+            message: '',
             metoos: 15,
             metooed: true
         },

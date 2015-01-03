@@ -20,15 +20,15 @@ $window.on('message_add.do', function (e, data) {
 });
 
 $window.on('message_add.finished', function(e, response) {
-    // TODO (mjafar):
+    toastr.success("Your message have been sent.", "Message sent");
 });
 
 $window.on('message_add.error', function(e, response) {
-    // TODO (mjafar):
+    toastr.error("We're sorry, an unexpected error occurred while sending your message", "Error :-(");
 });
 
 $window.on('message_add.started', function(e, response) {
-    // TODO (mjafar):
+    toastr.info("Hold on...", "Sending message");
 });
 
 $window.on('load', function() {
@@ -101,7 +101,7 @@ $window.on('load', function() {
             url: "/get-course-details/",
             type: 'POST',
             dataType: 'json',
-            data: {csrfmiddlewaretoken: csrf_token, courseId: t.val()}
+            data: {csrfmiddlewaretoken: window.csrf_token, courseId: t.val()}
         }).success(function (r) {
             t.parent().parent().parent().find('.details').html('<p class="course-details">' + r.details + '</p>');
         }).error(function () {
