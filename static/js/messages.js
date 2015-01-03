@@ -57,6 +57,68 @@ function showMessages(messages) {
         $messages_container.append(htmlrepr);
     }
 
+    var $me_too_link = $('[mj-metoo-link]');
+    var $un_me_too = $('[mj-metoo-number]');
+
+    $me_too_link.on('click', function(e) {
+        e.preventDefault();
+
+        var $me_too_badge = $(this).parent().find('[mj-metoo-number]'); // TOFF
+        $(this).hide(300);
+        $.ajax({
+            url: window.$ajax_metoo,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                data_id: $(this).attr('mj-dataid')
+            }
+        }).success(function (response) {
+            console.log(response);
+            var response_parsed = json_parse(response);
+            $me_too_badge.html(response_parsed['meetoos']);
+            if (response_parsed['meetoed']) {
+                $me_too_badge.removeClass('metooed');
+                $(this).show(300);
+            } else {
+                $me_too_badge.addClass('metooed');
+            }
+        }).error(function () {
+            $(this).show(300);
+        })
+    });
+
+
+    $un_me_too.on('click', function (e) {
+        e.preventDefault();
+
+        console.log('un me too clicked!');
+
+        $(this).removeClass('metooed');
+        var $me_too_link = $(this).parent().find('[mj-metoo-link]');
+        $.ajax({
+            url: window.$ajax_metoo,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                data_id: $(this).attr('mj-dataid')
+            }
+        }).success(function (response) {
+            console.log(response);
+            var response_parsed = json_parse(response);
+            $me_too_badge.html(response_parsed['meetoos']);
+            if (response_parsed['meetoed']) {
+                $me_too_badge.addClass('metooed');
+                $me_too_link.hide(300);
+            } else {
+                $me_too_badge.removeClass('metooed');
+                $me_too_link.show(300);
+            }
+        }).error(function () {
+            $(this).addClass('metooed');
+        })
+    });
+
+
     $window.trigger('messages.lazyShow');
 }
 
@@ -71,43 +133,6 @@ $window.on('messages.lazyShow', function () {
 
 $window.on('load', function() {
     $messages_container = $('div#messages-container');
-    $me_too_link = $('[mj-metoo-link]');
-    $un_me_too = $('[mj-metoo-number]');
-
-    $me_too_link.on('click', function(e) {
-        e.preventDefault();
-
-        var $me_too_badge = $(this).nearest('[mj-metoo-number]');
-        $me_too_link.hide(300);
-        $.ajax({
-            url: window.$ajax_metoo,
-            type: 'post',
-            dataType: 'json',
-            data: {
-                data_id: $(this).attr('mj-dataid')
-            }
-        }).success(function (response) {
-            console.log(response);
-            var response_parsed = json_parse(response);
-            $me_too_badge.html(response_parsed['meetoos']);
-            if (response_parsed['meetoed']) {
-                $me_too_badge.removeClass('metooed');
-                $me_too_link.show(300);
-            } else {
-                $me_too_badge.addClass('metooed');
-            }
-        }).error(function () {
-            $me_too_link.show(300);
-        });
-    });
-
-    $un_me_too.on('click', function (e) {
-        e.preventDefault();
-
-
-    });
-
-
 
     $.ajax({
         url: window.$ajax_search,
