@@ -4,15 +4,6 @@
 var $searchables = $('.searchable');
 var $add_message_button;
 
-$searchables.bind('change', function () {
-    $window.trigger('search.do', [{
-            category: $('select[name=category]').find(':selected').val(),
-            offered_course: $('select[name=offered_course]').find(':selected').val(),
-            second_course: $('select[name=second_course]').find(':selected').val(),
-            course_name: $('input[name=course_name]').val()
-    }]);
-});
-
 $window.on('message_add.do', function (e, data) {
     $window.trigger('message_add.started');
     data.csrfmiddlewaretoken = window.csrf_token;
@@ -43,6 +34,16 @@ $window.on('message_add.started', function(e, response) {
 $window.on('load', function() {
     $add_message_button = $('#add_message');
     $searchables = $('.searchable');
+
+    $searchables.bind('change', function () {
+        $window.trigger('search.do', [{
+                category: $('select[name=category]').find(':selected').val(),
+                offered_course: $('select[name=offered_course]').find(':selected').val(),
+                second_course: $('select[name=second_course]').find(':selected').val(),
+                course_name: $('input[name=course_name]').val()
+        }]);
+    });
+
     $add_message_button.on('click', function() {
         var $this = $(this);
         if ($this.hasClass('disabled')) {
