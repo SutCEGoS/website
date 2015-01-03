@@ -18,15 +18,12 @@ $window.on('load', function() {
     $('#id_offered_course').select2();
     $('#id_second_course').select2();
     $('#id_category').bind('change', function () {
-        console.log("hi2");
         a_value = $(this).val();
         showDefaultForm(a_value);
-        console.log("hi3");
     });
     var c_value = $('#id_category > *[selected=selected]').attr('value');
     showDefaultForm(c_value);
     function showDefaultForm(value){
-        console.log("hi1");
         if (value == 1) {
             $('.offered-course-div').fadeIn();
             $('.second-course-div').fadeIn();
