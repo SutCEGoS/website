@@ -32,7 +32,7 @@
             metooed: false
         },
     {% for item in messages %}
-        {
+        {s
             {% if item.reply %}
             reply: '{{ item.reply }}',
             reply_by: '{{ item.reply_by.get_full_name }}',
