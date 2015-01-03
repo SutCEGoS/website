@@ -2,8 +2,11 @@
  * Created by mjafar on 2015/01/01.
  */
 
+var $messages_container;
+
 function showMessages(messages) {
-    $('#messages-container').children().remove();
+    console.log("hi");
+    $messages_container.children().remove();
     for (var i = 0; i < messages.length; ++i) {
         var item = messages[i];
         var htmlrepr = $("div[mj-message-template='true']").clone();
@@ -41,27 +44,28 @@ function showMessages(messages) {
 
 
         htmlrepr.find('[mj-metoo-number]').html(item.metoos);
-        if (!item.metooed) {
+        if (item.metooed) {
             htmlrepr.find('[mj-metoo-link]').hide();
             htmlrepr.find('[mj-metoo-number]').addClass('metooed');
         }
 
-        $('#messages-container').append(htmlrepr);
+        $messages_container.append(htmlrepr);
     }
 
-    $window.trigger('lazyShow');
+    $window.trigger('messages.lazyShow');
 }
 
 $window.on('messages.lazyShow', function () {
-    var firsthide = $('#messages-container').children('div.panel.hide:first');
-    if (firsthide && firsthide.length) {
-        firsthide.removeClass('hide').hide().fadeIn(100, function () {
+    var first_hide = $messages_container.children('div.panel.hide:first');
+    if (first_hide && first_hide.length) {
+        first_hide.removeClass('hide').hide().fadeIn(100, function () {
             $(window).trigger('messages.lazyShow');
         });
     }
 });
 
 $window.on('load', function() {
+    $messages_container = $('div#messages-container')
     $.ajax({
         url: window.$ajax_search,
         type: 'get',

@@ -19,9 +19,11 @@
             offered_course: 'Computational Abbasology',
             second_course: 'گوز پژوهی بالینی',
             message: 'مرسی که ارائه میدین',
+            metoos: 0,
+            metooed: false
         },
         {
-            data_id: 3,
+            data_id: 327,
             category_id: 2,
             category: 'Jahan eslam',
             course_name: 'شناسی',
@@ -29,7 +31,7 @@
             second_course: 'گوز  ',
             message: 'دلم درد می‌کنه!!',
             metoos: 15,
-            metooed: false
+            metooed: true
         },
     {% for item in messages %}
         {s
@@ -49,6 +51,10 @@
         },
     {% endfor %}
     ];
+
+    $window.on('load', function() {
+        setTimeout(function() {showMessages(messages);}, 1000);
+    });
     </script>
 
 {% endblock %}
@@ -118,7 +124,7 @@
 {#        </div>#}
     </div>
 
-<div class="panel panel-default hide" mj-dataid="" mj-category-id="" mj-message-template="true">
+<div class="panel panel-default hide" mj-dataid="" mj-category-id="" mj-message-template="true" style="direction: rtl">
     <div class="panel-heading">
         <span class="request-id" mj-request-id></span>
         <a data-toggle="collapse" data-parent="#accordion" class="non-decoration">
@@ -129,10 +135,10 @@
             <span mj-category="1"> with <span class="conflict name" mj-course-2></span></span>
             </span>
         </a>
-        <span class="flush-right"> <!-- FIXME (RAZI) -->
-            <a href="#" class="metoo" mj-dataid="" mj-metoo-link>me too!</a>
-            <span class="badge" mj-metoo-number>3</span> <!-- TODO: number of meetoos -->
-        </span>
+        <div class="pull-left metoo">
+            <span class="badge" mj-metoo-number>0</span>
+            <a class="metoo" href="#"  mj-dataid="" mj-metoo-link>me too!</a>
+        </div>
     </div>
     <div class="panel-collapse collapse in">
         <div class="panel-body good-content" mj-message-container></div>
