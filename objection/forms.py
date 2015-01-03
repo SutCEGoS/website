@@ -31,23 +31,24 @@ class MessageForm(forms.ModelForm):
         category = cd.get('category')
         message = cd.get('message')
         if category:
-            if category.id == 3:
-                if not course_name:
-                    self.errors['course_name'] = self.error_class([u'پر کردن نام درس ارائه نشده اجباری است.'])
-                elif course_name in Course.objects.all().values_list('name', flat=True):
-                    self.errors['course_name'] = self.error_class([u'درسی با همین عنوان ارائه داده شده است :)'])
-            elif category.id == 1:
-                if not offered_course:
-                    self.errors['offered_course'] = self.error_class([u'انتخاب درس اجباری است'])
-                elif not second_course:
-                    self.errors['second_course'] = self.error_class(
-                        [u'در صورت تلاقی دروس وارد کردن نام درس دوم اجباری است.'])
-                elif offered_course == second_course:
-                    self.errors['second_course'] = self.error_class([
-                        u'خب دوست خوبم، بدیهی است هر درسی با خودش تلاقی داره، ولی achievement آنلاک کردی راضیم ازت :)'])
-            else:
-                if not offered_course:
-                    self.errors['offered_course'] = self.error_class([u'انتخاب درس اجباری است'])
+            pass
+        if category.id == 3:
+            if not course_name:
+                self.errors['course_name'] = self.error_class([u'پر کردن نام درس ارائه نشده اجباری است.'])
+            elif course_name in Course.objects.all().values_list('name', flat=True):
+                self.errors['course_name'] = self.error_class([u'درسی با همین عنوان ارائه داده شده است :)'])
+        elif category.id == 1:
+            if not offered_course:
+                self.errors['offered_course'] = self.error_class([u'انتخاب درس اجباری است'])
+            elif not second_course:
+                self.errors['second_course'] = self.error_class(
+                    [u'در صورت تلاقی دروس وارد کردن نام درس دوم اجباری است.'])
+            elif offered_course == second_course:
+                self.errors['second_course'] = self.error_class([
+                    u'خب دوست خوبم، بدیهی است هر درسی با خودش تلاقی داره، ولی achievement آنلاک کردی راضیم ازت :)'])
+        else:
+            if not offered_course:
+                self.errors['offered_course'] = self.error_class([u'انتخاب درس اجباری است'])
 
         return cd
 

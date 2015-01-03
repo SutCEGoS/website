@@ -45,11 +45,16 @@ footer a:hover {
 }
 
 .request-id {
-    /* TODO */
+    font-family: corbel;
+    font-size: 0.8em;
+    color: #999999;
 }
-
+.metoo{
+    direction: ltr !important;
+    text-align: left !important;
+}
 .metooed {
-    color: #ffb74b;
+    color: #ffed48;
 }
 
 .conflict {
@@ -98,6 +103,9 @@ footer a:hover {
 }
 
 
+.panel-background-color{
+    background-color: rgba(255,255,255,0.6);
+}
 
 
 
@@ -175,8 +183,4 @@ footer a:hover {
     width: 700px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.panel-background-color{
-    background-color: rgba(255,255,255,0.6);
 }
