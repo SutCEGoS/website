@@ -44,20 +44,29 @@ footer a:hover {
     background-color: whitesmoke !important;
 }
 
+
+.badge{
+    cursor: default;
+}
+
 .request-id {
     font-family: corbel;
     font-size: 0.8em;
     color: #999999;
+    cursor: default;
 }
-.metoo{
+.metoo-wrapper{
     direction: ltr !important;
     text-align: left !important;
+}
+.metoo{
+
 }
 .metooed {
     color: #ffed48;
 }
 .metooed:hover{
-    cursor: pointer; cursor: hand;
+    cursor: pointer;
 }
 
 .conflict {
