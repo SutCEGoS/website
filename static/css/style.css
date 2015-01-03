@@ -1,5 +1,12 @@
+footer,a {
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -ms-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+}
+
 body {
-    font-family: BNazanin;
     background: url('../image/bg.jpg') center center fixed;
     color: #111;
 }
@@ -33,12 +40,20 @@ footer a:hover {
     text-align: right;
 }
 
-.bgwhitesmoke {
+.bg-whitesmoke {
     background-color: whitesmoke !important;
 }
 
-.requestid {
+.request-id {
     /* TODO */
+}
+
+.metooed {
+    color: #ffb74b;
+}
+
+.conflict {
+    display: inline;
 }
 
 .conflict.category {
@@ -48,6 +63,43 @@ footer a:hover {
 .conflict.name {
     font-weight: normal;
 }
+
+.fixed-searchform {
+    /* position: fixed; */
+    /* FIXME (semora) */
+}
+
+footer {
+    width: 100%;
+    clear: both;
+    padding: 10px 50px;
+    line-height: 40px;
+    height: 60px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
+    -o-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
+    -moz-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
+    -webkit-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4)
+}
+
+footer:hover {
+    background: rgba(255, 255, 255, .3)
+}
+
+footer a {
+    color: #666
+}
+
+footer a:hover {
+    color: #4796da;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    -o-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    -moz-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    -webkit-text-shadow: 0 0 1px rgba(0, 0, 0, .1)
+}
+
+
+
+
 
 /** What we had: **/
 
@@ -61,10 +113,6 @@ footer a:hover {
 
 .help-inline {
     color: #ff0000;
-}
-
-#messages-show > * {
-    font-family: BNazanin !important;
 }
 
 .non-decoration:hover {
@@ -110,10 +158,12 @@ footer a:hover {
     margin-bottom: 10px;
 }
 
+.margin-bottom-lg{
+    margin-bottom: 100px;
+}
+
 .footer-style {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+
 }
 
 .footer-style:hover {
@@ -126,40 +176,3 @@ footer a:hover {
     margin-left: auto;
     margin-right: auto;
 }
-
-footer {
-    -webkit-transition: all .3s ease-out;
-    -moz-transition: all .3s ease-out;
-    -ms-transition: all .3s ease-out;
-    -o-transition: all .3s ease-out;
-    transition: all .3s ease-out
-}
-
-footer {
-    width: 100%;
-    clear: both;
-    padding: 10px 50px;
-    line-height: 40px;
-    height: 60px;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
-    -o-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
-    -moz-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
-    -webkit-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4)
-}
-
-footer:hover {
-    background: rgba(255, 255, 255, .3)
-}
-
-footer a {
-    color: #666
-}
-
-footer a:hover {
-    color: #4796da;
-    text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-    -o-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-    -moz-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-    -webkit-text-shadow: 0 0 1px rgba(0, 0, 0, .1)
-}
-

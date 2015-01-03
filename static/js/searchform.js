@@ -1,7 +1,6 @@
 /**
 * Created by mjafar on 2015/01/01.
 */
-
 var $searchables = $('.searchable');
 
 $searchables.bind('change', function () {
@@ -10,15 +9,17 @@ $searchables.bind('change', function () {
         type: 'get',
         dataType: 'json',
         data: {
-            category:$('select[name=category]').find(':selected').val(),
-            offered_course:$('select[name=offered_course]').find(':selected').val(),
-            second_course:$('select[name=second_course]').find(':selected').val(),
-            course_name:$('input[name=course_name]').val()
+            category: $('select[name=category]').find(':selected').val(),
+            offered_course: $('select[name=offered_course]').find(':selected').val(),
+            second_course: $('select[name=second_course]').find(':selected').val(),
+            course_name: $('input[name=course_name]').val()
         }
     }).success(function (response) {
         // TODO (mjafar)
+        alert("A val");
     }).error(function () {
         // TODO (mjafar)
+        alert("Shet");
     });
 });
 

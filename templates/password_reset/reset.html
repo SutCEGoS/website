@@ -1,9 +1,19 @@
 {% extends "password_reset/base.html" %}{% load i18n %}{% load url from future %}
-{% load static %}
+
 {% block title %}Change password{% endblock title %}
-{% block extra_js %}
-    <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
-{% endblock %}
+<script>
+    var $window = $(window);
+    $window.on('load', function () {
+        var $pass1 = $('#pass1');
+        var $pass2 = $('#pass2');
+        var maxWidth = Math.max($pass1.width(), $pass2.width());
+
+        $pass1.css("width", maxWidth);
+        $pass2.css("width", maxWidth);
+
+
+    });
+</script>
 {% block content %}
     {% if invalid %}{% url "password_reset_recover" as recovery_url %}
         <div class="container">
@@ -58,7 +68,8 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <label for="id_password1">New password:</label>
+                                            <div id="pass1">New password:</div>
+                                            {# <label for="id_password1">New password:</label>#}
                                         </div>
                                         <input id="id_password1"
                                                class="form-control"
@@ -69,7 +80,8 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <label for="id_password2">Confirm password:</label>
+                                            <div id="pass2">Confirm password:</div>
+                                            {# <label for="id_password2">Confirm password:</label>#}
                                         </div>
                                         <input id="id_password2"
                                                class="form-control"

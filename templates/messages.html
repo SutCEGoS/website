@@ -2,119 +2,97 @@
 {% load static %}
 {% block title %}Messages{% endblock title %}
 {% block extra_styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
 {% endblock %}
 {% block extra_js %}
-<sctipt type="text/javasctipt" src="{% static 'js/select2/select2.min.js' %}"></sctipt>
-<sctipt type="text/javasctipt" src="{% static 'js/searchform.js' %}"></sctipt>
-<script type="text/javasctipt">
-var messages = [
-    {
-        data_id: 1,
-        category_id: 15,
-        course_name: 'عباس شناسی',
-        offered_course: 'عباس شناسی پژوهشی',
-        category: '1',
-        second_course: 'گوز پژوهی بالینی',
-        message: 'مرسی که ارائه میدین',
-    },
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/select2/select2.min.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/searchform.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
+    <script type="text/javascript" language="JavaScript">
+    var messages = [
+        {
+            data_id: 1,
+            category_id: 1,
+            category: 'Talaghy',
+            course_name: 'Abbasology',
+            offered_course: 'Computational Abbasology',
+            second_course: 'گوز پژوهی بالینی',
+            message: 'مرسی که ارائه میدین',
+        },
+        {
+            data_id: 3,
+            category_id: 2,
+            category: 'Jahan eslam',
+            course_name: 'شناسی',
+            offered_course: 'عباس شناسی ',
+            second_course: 'گوز  ',
+            message: 'دلم درد می‌کنه!!',
+            metoos: 15,
+            metooed: false
+        },
+    {% for item in messages %}
+        {
+            {% if item.reply %}
+            reply: '{{ item.reply }}',
+            reply_by: '{{ item.reply_by.get_full_name }}',
+            {% endif %}
+            data_id: {{ item.id }},
+            category_id: {{ item.category.id }},
+            category: '{{ item.category }}',
+            course_name: '{{ item.course_name }}',
+            offered_course: '{{ item.offered_course }}',
+            second_course: '{{ item.second_course }}',
+            message: '{{ item.message|safe }}',
+            metoos: 0, /* TODO (A'min) */
+            metooed: false /* TODO (A'min) */
+        },
+    {% endfor %}
+    ];
+    </script>
 
-{% for item in messages %}
-    {
-        data_id: {{ item.id }},
-        category_id: {{ item.category.id }},
-        course_name: '{{ item.course_name }}',
-        offered_course: '{{ item.offered_course }}',
-        category: '{{ item.category }}',
-        second_course: '{{ item.second_course }}',
-        message: '{{ item.message|safe }}',
-    },
-{% endfor %}
-];
-
-$('#messages-container').children().remove();
-for (var i=0; i<messages.length; ++i) {
-    var item = messages[i];
-    var htmlrepr = $('div[mj-message-template]').clone();
-    htmlrepr
-        .attr('mj-dataid', item.data_id)
-        .attr('mj-category-id', item.category_id);
-    htmlrepr.find('[mj-request-id]').html(item.data_id);
-
-    htmlrepr.find('[mj-category!=else]').hide();
-    for (var i=0; i<5; ++i) {
-        if (item.category_id == i) {
-            htmlrepr.find('[mj-category='+i+']').show();
-            htmlrepr.find('[mj-category=else]').hide();
-        }
-    }
-    if (item.category_id == 3) {
-        htmlrepr.find('[mj-course-1]').html(item.course_name);
-    } else {
-        htmlrepr.find('[mj-course-1]').html(item.offered_course);
-    }
-    htmlrepr.find('[mj-course-2]').html(item.second_course);
-    htmlrepr.find('[mj-conflict-category]').html(item.category);
-    htmlrepr.find('[mj-metoo-number]').html(/* TODO (mjafar, a'min) */);
-    htmlrepr.removeClass('hide');
-
-    $('#messages-container').append(htmlrepr);
-}
-
-$window.on('lazyShow', function() {
-var firsthide = $('div[mj-message-template].hide:first');
-    if (firsthide.length) {
-        firsthide.removeClass('hide').fadeIn(10, function() {
-            $(window).trigger('lazyShow');
-        });
-    }
-});
-
-$window.trigger('lazyShow');
-
-</script>
 {% endblock %}
 {% block body %}
-<div class="row container center-block">
-    <div class="col-lg-4">
-        {% include 'searchform.html' %}
-    </div>
-    <div class="col-lg-8" id="messages-show">
-        <legend>
-            Messages
-        </legend>
-        <div class="panel-group home-accordion" id="accordion">
-            <div id="messages-container"></div>
-        </div>
-    </div>
-</div>
+    <div class="container">
+        <div class="row center-block">
 
-<div mj-message-template class="hide">
-    <div class="panel panel-default" mj-dataid="" mj-category-id="">
-        <span class="requestid" mj-request-id></span>
-        <div class="panel-heading">
-            <a data-toggle="collapse" data-parent="#accordion" class="non-decoration" href="#collapse-{{ item.id }}">
-                <h4 class="panel-title">
-                   <span class="conflict name" mj-course-1 mj-category="3">{{ item.course_name }}</span>
-                   <span class="conflict name" mj-course-1 mj-category="else">{{ item.offered_course }}</span>
-                   : <span class="conflict category" mj-conflict-category>{{ item.category }}</span>
-                   <div mj-category="1"> with <span class="conflict name" mj-course-2>{{ item.second_course }}</span></div>
-                </h4>
-            </a>
-            <a href="#" class="metoo" itemid="{{ item.id }}"  mj-metoo-link>me too!</a>
-            <span class="badge" mj-metoo-number>3</span> <!-- TODO: number of meetoos -->
-        </div>
-        <div id="collapse-{{ item.id }}" class="panel-collapse collapse in">
-            <div class="panel-body good-content">
-                    {{ item.message|safe }}
+            <div class="col-lg-4">
+                <div class="fixed-searchform">
+                    {% include 'searchform.html' %}
+                </div>
             </div>
-            {% if item.reply %}
-                <div class="panel-body good-content">پاسخ : {{ item.reply }}
-                <br> توسط : {{ item.reply_by.get_full_name }}
-                    </div>
-            {% endif %}
+            <div class="col-lg-8" id="messages-show">
+                <legend>
+                    Messages
+                </legend>
+                <div class="" id="accordion">
+                    <div id="messages-container"></div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+<div class="panel panel-default hide" mj-dataid="" mj-category-id="" mj-message-template="true">
+    <div class="panel-heading">
+        <span class="request-id" mj-request-id></span>
+        <a data-toggle="collapse" data-parent="#accordion" class="non-decoration">
+            <span class="panel-title">
+            <span class="conflict name" mj-course-1 mj-category="3"></span>
+            <span class="conflict name" mj-course-1 mj-category="else"></span>
+            : <span class="conflict category" mj-conflict-category></span>
+            <span mj-category="1"> with <span class="conflict name" mj-course-2></span></span>
+            </span>
+        </a>
+        <span class="flush-right"> <!-- FIXME (RAZI) -->
+            <a href="#" class="metoo" mj-dataid="" mj-metoo-link>me too!</a>
+            <span class="badge" mj-metoo-number>3</span> <!-- TODO: number of meetoos -->
+        </span>
+    </div>
+    <div class="panel-collapse collapse in">
+        <div class="panel-body good-content" mj-message-container></div>
+        <div class="panel-body good-content hide" mj-reply-wrapper>
+            <div mj-reply-text></div>by: <span mj-reply-name></span>
+        </div>
+    </div>
+ </div>
 {% endblock %}

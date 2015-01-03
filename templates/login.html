@@ -5,9 +5,8 @@
 {% block extra_js %}
     <script>
         var forgot_link = '{% url "password_reset_recover" %}';
-        var $ajax_search = "{% url 'objection_ajax_search' %}";
     </script>
-    <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/login.js' %}"></script>
 {% endblock %}
 {% block body %}
     <div class="container">
@@ -26,7 +25,7 @@
                 <div class="col-md-6 col-lg-5 col-centered">
                     <div class="panel panel-primary ">
                         <div class="panel-heading">Login</div>
-                        <div class="panel-body bgwhitesmoke">
+                        <div class="panel-body bg-whitesmoke">
                             {% csrf_token %}
                             <div class="form-group">
                                 <div class="input-group">
