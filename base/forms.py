@@ -4,7 +4,9 @@ from django.contrib.auth import authenticate
 
 from base.models import Member
 
+
 __author__ = 'Amin'
+
 
 class SignInForm(forms.Form):
     username = forms.CharField(required=True)
@@ -22,7 +24,11 @@ class SignInForm(forms.Form):
     def clean(self):
         cd = super(SignInForm, self).clean()
         password = cd.get('password')
-        username = cd.get('username').lower()
+        username = cd.get('username')
+        try:
+            username = username.lower()
+        except AttributeError:
+            pass
         if username:
             try:
                 member = Member.objects.get(username=username)
