@@ -8,13 +8,13 @@ from course.models import OfferedCourse
 
 
 class Objection(models.Model):
-    CATEGORY = Choices( (0, 'a', u"------------"),
-                        (1, 'b', u"تلاقی زمان کلاس"),
-                        (2, 'c', u"تاریخ امتحان نامناسب"),
-                        (3, 'd', u"عدم ارائه درس"),
-                        (4, 'e', u"تعداد گروه کم"),
-                        (5, 'f', u"عدم صلاحیت استاد برای ارائه درس"),
-                        (6, 'g', u"غیره")
+    CATEGORY = Choices((0, 'a', u"------------"),
+                       (1, 'b', u"تلاقی زمان کلاس"),
+                       (2, 'c', u"تاریخ امتحان نامناسب"),
+                       (3, 'd', u"عدم ارائه درس"),
+                       (4, 'e', u"تعداد گروه کم"),
+                       (5, 'f', u"عدم صلاحیت استاد برای ارائه درس"),
+                       (6, 'g', u"غیره")
     )
     STATUS = Choices((1, 'admin pending', u"منتظر تایید"), (2, 'unqualified', u"تایید نشده"),
                      (3, 'reply pending', u"منتظر پاسخ"), (4, 'ignored', u"مشاهده شده"),
@@ -50,13 +50,23 @@ class Objection(models.Model):
             'status_name': self.get_status_display(),
             'metoos': self.like.count(),
             'metooed': member in self.like.all(),
-            'offered_course': self.offered_course.id,
-            'second_course': self.second_course.id,
+            'offered_course': self.get_offered_course_id(),
+            'second_course': self.get_second_course_id(),
             'course_name': self.course_name,
             'message': self.message,
             'reply': 'this request ic chert',
             'reply-by': 'amin',
         }
+
+    def get_offered_course_id(self):
+        if self.offered_course:
+            return self.offered_course.id
+        return -1
+
+    def get_second_course_id(self):
+        if self.second_course:
+            return self.second_course.id
+        return -1
 
 
 class Reply(models.Model):
