@@ -194,6 +194,11 @@ header .panel-heading {
 
 /** What we had: **/
 
+.select2-results {
+    direction: rtl!important;
+    text-align: right!important;
+}
+
 .content {
     min-height: 600px;
 }
