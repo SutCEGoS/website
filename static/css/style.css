@@ -1,12 +1,3 @@
-/* latin */
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Raleway'), url(http://fonts.gstatic.com/s/raleway/v9/WXRs6bFZChfzCx3pXob5o_Y6323mHUZFJMgTvxaG2iE.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
 footer,a {
     -webkit-transition: all .3s ease-out;
     -moz-transition: all .3s ease-out;
@@ -18,7 +9,7 @@ footer,a {
 body {
     background: url('../image/bg.jpg') center center fixed;
     color: #111;
-    font-family: 'B roya', Raleway, Tahoma;
+    font-family: 'B roya';
 }
 
 a, a:hover, a:active, a:link {
@@ -228,10 +219,7 @@ header .panel-heading {
     display: none;
 }
 
-.home-accordion {
-    max-height: 450px;
-    overflow-y: auto;
-    overflow-x: hidden;
+#accordion {
     min-height: 110px;
 }
 
