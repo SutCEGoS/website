@@ -9,4 +9,5 @@ psycopg2
 south
 django-model-utils
 django-password-reset
-
+whitenoise
+djrill

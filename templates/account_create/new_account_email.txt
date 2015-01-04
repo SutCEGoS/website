@@ -1,0 +1,8 @@
+{% load i18n %}{% load url from future %}{% blocktrans %}Dear {{ username }},{% endblocktrans %}
+
+{% blocktrans with domain=site.domain %}You have been registered on http://{{ domain }} .{% endblocktrans %}
+
+Your account information:
+
+        username:   {{ username }}
+        password:   {{ password }}
