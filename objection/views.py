@@ -49,19 +49,19 @@ def search(request):
     second_course = request.GET.get('second_course')
     course_name = request.GET.get('course_name')
 
-    if offered_course and not second_course:
+    if offered_course and not second_course and category in [2, 4, 5, 6]:
         search_result = search_result.filter(offered_course__id=offered_course)
-    if offered_course and second_course:
+    if offered_course and second_course and category == 1:
         search_result = search_result.filter(
             Q(offered_course__id=offered_course, second_course__id=second_course) |
             Q(offered_course__id=second_course, second_course__id=offered_course))
 
+    if course_name and category == 3:
+        search_result = search_result.filter(course_name=course_name)
+        
     if category:
         search_result = search_result.filter(category=category)
 
-    if course_name:
-        search_result = search_result.filter(course_name=course_name)
-        
     objections_list = []
     for item in search_result:
         objections_list.append(
