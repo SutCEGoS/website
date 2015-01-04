@@ -107,8 +107,7 @@ def create_accounts(request):
                                                            email=new_email,
                                                            password=make_password(new_password))
                     except Exception as e:
-                        print e
-                        message += "%d\n" % i
+                        raise e
 
             if message:
                 message += "making account for this lines is not possible, please contact A\'min"
