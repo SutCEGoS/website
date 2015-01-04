@@ -4,6 +4,7 @@ import json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
@@ -47,14 +48,20 @@ def search(request):
     offered_course = request.GET.get('offered_course')
     second_course = request.GET.get('second_course')
     course_name = request.GET.get('course_name')
+
+    if offered_course and not second_course:
+        search_result = search_result.filter(offered_course__id=offered_course)
+    if offered_course and second_course:
+        search_result = search_result.filter(
+            Q(offered_course__id=offered_course, second_course__id=second_course) |
+            Q(offered_course__id=second_course, second_course__id=offered_course))
+
     if category:
         search_result = search_result.filter(category=category)
-    if offered_course:
-        search_result = search_result.filter(offered_course__id=offered_course)
-    if second_course:
-        search_result = search_result.filter(second_course__id=second_course)
+
     if course_name:
         search_result = search_result.filter(course_name=course_name)
+        
     objections_list = []
     for item in search_result:
         objections_list.append(
