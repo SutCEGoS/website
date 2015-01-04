@@ -41,7 +41,7 @@ class MessageForm(forms.ModelForm):
                 if not course_name:
                     self.errors['course_name'] = self.error_class([u'پر کردن نام درس ارائه نشده اجباری است.'])
                 elif course_name in OfferedCourse.objects.filter(term=settings.CURRENT_TERM,
-                                                                 year=get_current_year()).values_list('name',
+                                                                 year=get_current_year()).values_list('course__name',
                                                                                                       flat=True):
                     self.errors['course_name'] = self.error_class([u'درسی با همین عنوان ارائه داده شده است :)'])
             elif category == 1:

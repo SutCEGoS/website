@@ -21,7 +21,9 @@ $window.on('message_add.do', function (e, data) {
 
 $window.on('message_add.finished', function(e, response) {
     toastr.success("Your message have been sent.", "Message sent");
+    $no_result.hide();
     $window.trigger('search.result', [response, true]);
+    $('form[name=search_form]')[0].reset();
 });
 
 $window.on('message_add.error', function(e, response) {
@@ -41,12 +43,19 @@ $window.on('load', function() {
     $searchables = $('.searchable');
 
     $searchables.bind('change', function () {
-        $window.trigger('search.do', [{
-                category: $('select[name=category]').find(':selected').val(),
-                offered_course: $('select[name=offered_course]').find(':selected').val(),
-                second_course: $('select[name=second_course]').find(':selected').val(),
-                course_name: $('input[name=course_name]').val()
-        }]);
+        var category_id = $('select[name=category]').find(':selected').val();
+        if (parseInt(category_id)) {
+            $window.trigger('search.do', [
+                {
+                    category: category_id,
+                    offered_course: $('select[name=offered_course]').find(':selected').val(),
+                    second_course: $('select[name=second_course]').find(':selected').val(),
+                    course_name: $('input[name=course_name]').val()
+                }
+            ]);
+        } else {
+            $window.trigger('search.do', [{}]);
+        }
     });
 
     $add_message_button.on('click', function(e) {

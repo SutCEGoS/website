@@ -5,35 +5,25 @@ from objection.models import Objection
 
 
 class ObjectionAdmin(admin.ModelAdmin):
-    actions = ['mark_as_read', 'mark_as_unread', 'mark_as_confirmed', 'mark_as_unconfirmed']
+    actions = ['mark_as_unconfirmed', 'mark_as_waiting']
     list_display = ['id', 'message', 'category', 'status']
     fieldsets = (
         (u'پیام', {
             'fields':
                 (
-                    'status', 'sender',  'offered_course', 'second_course',
+                    'status', 'sender', 'offered_course', 'second_course',
                     'course_name',
                     'category', 'message')
         }),
     )
 
-    def mark_as_read(modeladmin, request, queryset):
+    def mark_as_waiting(modeladmin, request, queryset):
         queryset.update(read=True)
 
-    mark_as_read.short_description = u"علامت زدن موارد انتخابی به عنوان خوانده شده"
-
-    def mark_as_unread(modeladmin, request, queryset):
-        queryset.update(read=False)
-
-    mark_as_unread.short_description = u"علامت زدن موارد انتخابی به عنوان خوانده نشده"
-
-    def mark_as_confirmed(modeladmin, request, queryset):
-        queryset.update(confirmed=True)
-
-    mark_as_confirmed.short_description = u"علامت زدن موارد انتخابی به عنوان تایید شده"
+    mark_as_waiting.short_description = u"علامت زدن موارد انتخابی به عنوان منتظر پاسخ"
 
     def mark_as_unconfirmed(modeladmin, request, queryset):
-        queryset.update(confirmed=False)
+        queryset.update(read=False)
 
     mark_as_unconfirmed.short_description = u"علامت زدن موارد انتخابی به عنوان تایید نشده"
 
