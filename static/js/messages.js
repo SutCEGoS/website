@@ -52,7 +52,26 @@ $(document).ready(function() {
 });
 
 $window.on('load', function () {
-    $window.trigger('search.do', [{}]);
+    var location_parts = window.location.search.split('&');
+    var has_id = false;
+    var id;
+    $.each(location_parts, function(index,value) {
+        var index_of_id = value.indexOf('id=');
+        if (index_of_id == 0 || (index_of_id == 1 && value[0] == '?')) {
+            id = value.substr(index_of_id + 'id='.length);
+            has_id = true;
+            console.log(id);
+        }
+    });
+    if (has_id) {
+        $window.trigger('search.do', [
+            {id:id}
+        ]);
+    } else {
+        $window.trigger('search.do', [
+            {}
+        ]);
+    }
 });
 
 $window.on('search.do', function (e, data) {
@@ -118,6 +137,12 @@ $window.on('search.result', function (e, messages) {
             .attr('mj-category-id', item.category_id);
 
         htmlrepr.find('[mj-request-id]').html(item.data_id);
+        htmlrepr.find('a[mj-permanent-link]').attr('href', '?id=' + item.data_id).on('click', function(e) {
+            e.preventDefault();
+            $window.trigger('search.do', [{
+                id: item.data_id
+            }]);
+        });
         htmlrepr.find('.panel-heading a[data-toggle="collapse"]').attr('href', '#collapse-' + item.data_id);
         htmlrepr.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
         htmlrepr.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
