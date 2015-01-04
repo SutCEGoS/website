@@ -11,82 +11,83 @@
     <script type="text/javascript" language="JavaScript" src="{% static 'js/toastr.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/searchform.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/remove_search_filter.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
         var $ajax_metoo = '{% url 'add_me_too' %}';
         var $load_url = '{% url 'get_objections_list' %}';
-/*
-    var messages = [
-        {
-            data_id: 1,
-            category_id: 1,
-            category: 'تلاقی برنامه هفتگی',
-            course_name: 'برنامه نویسی پیشرفته',
-            offered_course: '',
-            second_course: 'محاسبات عددی',
-            message: 'مرسی که ارائه میدین',
-            metoos: 4,
-            metooed: false
-        },
-        {
-            data_id: 37,
-            category_id: 2,
-            category: 'تاریخ امتحان نامناسب',
-            course_name: 'پایگاه‌های داده',
-            offered_course: 'عباس شناسی ',
-            second_course: '',
-            message: '',
-            metoos: 15,
-            metooed: true
-        },
-    ];
+        /*
+         var messages = [
+         {
+         data_id: 1,
+         category_id: 1,
+         category: 'تلاقی برنامه هفتگی',
+         course_name: 'برنامه نویسی پیشرفته',
+         offered_course: '',
+         second_course: 'محاسبات عددی',
+         message: 'مرسی که ارائه میدین',
+         metoos: 4,
+         metooed: false
+         },
+         {
+         data_id: 37,
+         category_id: 2,
+         category: 'تاریخ امتحان نامناسب',
+         course_name: 'پایگاه‌های داده',
+         offered_course: 'عباس شناسی ',
+         second_course: '',
+         message: '',
+         metoos: 15,
+         metooed: true
+         },
+         ];
 
-    $window.on('load', function () {
-        setTimeout(function () {
-            $window.trigger('search.result', [messages, false]);
-        }, 1000);
-    });
-*/
+         $window.on('load', function () {
+         setTimeout(function () {
+         $window.trigger('search.result', [messages, false]);
+         }, 1000);
+         });
+         */
     </script>
 
 {% endblock %}
 {% block user_infos %}
     <header>
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
 
 
-            <div class="col-lg-4 col-md-4">
-                <div class="panel panel-default panel-background-color">
-                    <div class="panel-body">
-                        Hi
-                        <b>{{ user }}</b>
+                <div class="col-lg-4 col-md-4">
+                    <div class="panel panel-default panel-background-color">
+                        <div class="panel-body">
+                            Hi
+                            <b>{{ user }}</b>
 
-                        <div class="pull-right">
-                            <a  href="{% url 'password_reset_change' %}">Change Password</a>
-                            |
-                            <a  href="{% url 'logout' %}">Logout</a>
+                            <div class="pull-right">
+                                <a href="{% url 'password_reset_change' %}">Change Password</a>
+                                |
+                                <a href="{% url 'logout' %}">Logout</a>
+                            </div>
                         </div>
+
                     </div>
-
                 </div>
+
+
             </div>
-
-
         </div>
-    </div>
-</header>
+    </header>
 {% endblock %}
 {% block body %}
     <div class="container">
-{#        <div class="row">#}
-{##}
-{#            <div class="col-lg-2 col-md-2">#}
-{#                <div class="panel-heading">#}
-{##}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#        </div>#}
+        {#        <div class="row">#}
+        {##}
+        {#            <div class="col-lg-2 col-md-2">#}
+        {#                <div class="panel-heading">#}
+        {##}
+        {#                </div>#}
+        {#            </div>#}
+        {##}
+        {#        </div>#}
 
         <div class="row">
 
@@ -94,10 +95,13 @@
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading">
                         <span>Search & Add</span>
-                        <a id="remove_search_filter" class="pull-right">
-                            <span>remove search filter</span>
-                            <span class="glyphicon glyphicon-filter"></span>
-                        </a>
+
+                        <span class="hide" id="remove_search_filter">
+                            <a  class="remove_search_filter_style pull-right">
+                                <span>remove search filter</span>
+                                <span class="glyphicon glyphicon-filter"></span>
+                            </a>
+                        </span>
                     </div>
                     <div class="panel-body dir-rtl">
                         {% include 'searchform.html' %}
@@ -111,12 +115,13 @@
                         Messages
                     </div>
                     <div class="panel-body">
-                        <div class="home-accordion" id="accordion">
+                        <div class="" id="accordion">
                             <h3 class="full-loading" id="loading">
                                 Loading...
                                 <div style="background-color: rgba(0,0,0,0)">
-                                    <img src="{% static 'image/92.GIF' %}" style="width: 50px;height: 50px;margin-top: 10px;">
-{#                                    background: url('../image/bg.jpg') center center fixed#}
+                                    <img src="{% static 'image/92.GIF' %}"
+                                         style="width: 50px;height: 50px;margin-top: 10px;">
+                                    {#                                    background: url('../image/bg.jpg') center center fixed#}
                                 </div>
                             </h3>
 

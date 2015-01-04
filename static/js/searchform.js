@@ -23,7 +23,7 @@ $window.on('message_add.finished', function(e, response) {
     toastr.success("Your message have been sent.", "Message sent");
     $no_result.hide();
     $window.trigger('search.result', [response, true]);
-    $('form[name=search_form]')[0].reset();
+    $window.trigger('searchform.resetform');
 });
 
 $window.on('message_add.error', function(e, response) {
@@ -99,6 +99,14 @@ $window.on('load', function() {
             $('.offered-course-div').fadeOut();
             $('.second-course-div').fadeOut();
             $('.course-name-div').fadeOut();
+        }
+        var $remove_search_filter = $("#remove_search_filter");
+        if (value > 0) {
+            $remove_search_filter.show();
+            $remove_search_filter.removeClass("hide");
+        }
+        else {
+            $remove_search_filter.hide();
         }
     }
 
