@@ -4,56 +4,58 @@
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
 {% block extra_js %}
     <script type="text/javascript" language="JavaScript" src="{% static 'js/select2/select2.min.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/toastr.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/searchform.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
         var $ajax_metoo = '{% url 'add_me_too' %}';
         var $load_url = '{% url 'get_objections_list' %}';
 
-        var messages = [
-            {
-                data_id: 1,
-                category_id: 1,
-                category: 'تلاقی برنامه هفتگی',
-                course_name: 'برنامه نویسی پیشرفته',
-                offered_course: '',
-                second_course: 'محاسبات عددی',
-                message: 'مرسی که ارائه میدین',
-                metoos: 4,
-                metooed: false
-            },
-            {
-                data_id: 37,
-                category_id: 2,
-                category: 'Jahan eslam',
-                course_name: 'شناسی',
-                offered_course: 'عباس شناسی ',
-                second_course: 'گوز  ',
-                message: 'دلم درد می‌کنه!!',
-                metoos: 15,
-                metooed: true
-            },
-            {% for item in messages %}
-                {
-                    {% if item.reply %}
-                        reply: '{{ item.reply }}',
-                        reply_by: '{{ item.reply_by.get_full_name }}',
-                    {% endif %}
-                    data_id: {{ item.id }},
-                    category_id: {{ item.category.id }},
-                    category: '{{ item.category }}',
-                    course_name: '{{ item.course_name }}',
-                    offered_course: '{{ item.offered_course }}',
-                    second_course: '{{ item.second_course }}',
-                    message: '{{ item.message|safe }}',
-                    metoos: 0, /* TODO (A'min) */
-                    metooed: false /* TODO (A'min) */
-                },
-            {% endfor %}
-        ];
+    var messages = [
+        {
+            data_id: 1,
+            category_id: 1,
+            category: 'تلاقی برنامه هفتگی',
+            course_name: 'برنامه نویسی پیشرفته',
+            offered_course: '',
+            second_course: 'محاسبات عددی',
+            message: 'مرسی که ارائه میدین',
+            metoos: 4,
+            metooed: false
+        },
+        {
+            data_id: 37,
+            category_id: 2,
+            category: 'تاریخ امتحان نامناسب',
+            course_name: 'پایگاه‌های داده',
+            offered_course: 'عباس شناسی ',
+            second_course: '',
+            message: '',
+            metoos: 15,
+            metooed: true
+        },
+    {% for item in messages %}
+        {
+            {% if item.reply %}
+            reply: '{{ item.reply }}',
+            reply_by: '{{ item.reply_by.get_full_name }}',
+            {% endif %}
+            data_id: {{ item.id }},
+            category_id: {{ item.category.id }},
+            category: '{{ item.category }}',
+            course_name: '{{ item.course_name }}',
+            offered_course: '{{ item.offered_course }}',
+            second_course: '{{ item.second_course }}',
+            message: '{{ item.message|safe }}',
+            metoos: 0, /* TODO (A'min) */
+            metooed: false /* TODO (A'min) */
+        },
+    {% endfor %}
+    ];
 
         $window.on('load', function () {
             setTimeout(function () {

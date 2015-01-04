@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from base.forms import *
@@ -46,6 +46,7 @@ def save_file(in_memory_file):
     path = default_storage.save('data_file/' + str(in_memory_file), ContentFile(in_memory_file.read()))
     tmp_file = os.path.join(settings.MEDIA_ROOT, path)
     return tmp_file
+
 
 @login_required
 def create_accounts(request):
@@ -91,4 +92,17 @@ def create_accounts(request):
         'message': message,
     })
 
+
+@login_required
+def password_reset_change(request):
+    if request.method == 'POST':
+        form = PasswordForm(user=request.user, data=request.POST)
+        form.is_valid()
+    else:
+        form = PasswordForm(user=request.user)
+    return render(request,
+                  'password_reset/password_change.html',
+                  {
+                      'form': form
+                  })
 
