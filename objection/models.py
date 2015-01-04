@@ -39,7 +39,7 @@ class Objection(models.Model):
             return Objection.objects.all()
         if member.groups.filter(name='Replier').exists():
             return Objection.objects.filter(status__gte=3)
-        return Objection.objects.filter(Q(status__gte=3) | Q(sender=member))
+        return Objection.objects.filter(Q(status__in=[1, 2, 4, 5]) | Q(sender=member))
 
     def get_serialized(self, member):
         return {
