@@ -6,14 +6,14 @@ from objection.models import Objection
 
 class ObjectionAdmin(admin.ModelAdmin):
     actions = ['mark_as_read', 'mark_as_unread', 'mark_as_confirmed', 'mark_as_unconfirmed']
-    list_display = ['id', 'message', 'level', 'field', 'category', 'read', 'confirmed']
+    list_display = ['id', 'message', 'category', 'status']
     fieldsets = (
         (u'پیام', {
             'fields':
                 (
-                    'read', 'confirmed', 'sender', 'level', 'sender_year', 'offered_course', 'second_course',
+                    'status', 'sender',  'offered_course', 'second_course',
                     'course_name',
-                    'field', 'category', 'message')
+                    'category', 'message')
         }),
     )
 
