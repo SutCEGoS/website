@@ -47,7 +47,12 @@ $window.on('search.started', function (e) {
 
 $window.on('search.no_result', function (e) {
     $messages_container.children().remove();
-    $no_result.show();
+
+    setTimeout(function(){
+        //$no_result.fadeIn(100);
+        $no_result.show();
+    },1000);
+    //$no_result.show();
 });
 
 $window.on('search.finished', function (e) {

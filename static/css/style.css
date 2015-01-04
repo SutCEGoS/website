@@ -130,6 +130,25 @@ footer .terminator {
 }
 
 
+#no_result {
+    margin-top:  26px ;
+    margin-bottom: 26px;
+    /*padding-top: 50px;*/
+    /*padding-bottom: 50px;*/
+    color: #ababab;
+    line-height: 48px;
+}
+
+.no_result_wrapper{
+    background: url('../image/700096-icon-61-warning-128.png') left no-repeat;
+    background-size: 48px;
+    /*text-align: center;*/
+}
+
+.no_result_wrapper_text{
+    padding-left: 53px;
+}
+
 /** What we had: **/
 
 .content {
