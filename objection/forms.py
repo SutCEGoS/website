@@ -34,7 +34,7 @@ class MessageForm(forms.ModelForm):
         category = int(cd.get('category'))
         cd['category'] = category
         message = cd.get('message')
-        if category:
+        if category is not None:
             if category == 0:
                 self.errors['category'] = self.error_class([u'انتخاب دسته ی مشکل لازم است'])
             if category == 3:

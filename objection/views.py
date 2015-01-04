@@ -58,7 +58,7 @@ def search(request):
 
     if course_name and category == 3:
         search_result = search_result.filter(course_name=course_name)
-        
+
     if category:
         search_result = search_result.filter(category=category)
 
