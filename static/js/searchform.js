@@ -14,18 +14,22 @@ $window.on('message_add.do', function (e, data) {
         data: data
     }).success(function (response) {
         $window.trigger('message_add.finished', [response]);
-    }).error(function () {
-        $window.trigger('message_add.error');
+    }).error(function (response) {
+        $window.trigger('message_add.error', [response.responseJSON]);
     });
 });
 
 $window.on('message_add.finished', function(e, response) {
     toastr.success("Your message have been sent.", "Message sent");
-    // TODO : show newly added message in list (using response)
+    $window.trigger('search.result', [response, true]);
 });
 
-$window.on('message_add.error', function(e) {
-    toastr.error("We're sorry, an unexpected error occurred while sending your message", "Error :-(");
+$window.on('message_add.error', function(e, response) {
+    if (response == undefined) {
+        toastr.error("We're sorry, an unexpected error occurred while sending your message.", "Error :-(");
+    } else {
+        toastr.error('<p dir="rtl">' + response + '</p>', "Error :-(");
+    }
 });
 
 $window.on('message_add.started', function(e) {

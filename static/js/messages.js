@@ -91,7 +91,7 @@ $window.on('search.do', function (e, data) {
             if (response.length == 0) {
                 $window.trigger('search.no_result');
             } else {
-                $window.trigger('search.result', [response]);
+                $window.trigger('search.result', [response, false]);
             }
         }).error(function () {
             $window.trigger('search.finished');
@@ -126,8 +126,10 @@ $window.on('search.finished', function (e) {
 //    $loading.hide();
 });
 
-$window.on('search.result', function (e, messages) {
-    $messages_container.children().remove();
+$window.on('search.result', function (e, messages, append) {
+    if (!append) {
+        $messages_container.children().remove();
+    }
     $messages = messages;
     // Create
     for (var i = 0; i < messages.length; ++i) {

@@ -29,7 +29,8 @@ class MessageForm(forms.ModelForm):
         second_course = cd.get('second_course')
         course_name = cd.get('course_name')
         offered_course = cd.get('offered_course')
-        category = cd.get('category')
+        category = int(cd.get('category'))
+        cd['category'] = category
         message = cd.get('message')
         if category:
             if category == 0:
