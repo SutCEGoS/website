@@ -131,8 +131,8 @@ footer .terminator {
 
 
 #no_result {
-    margin-top:  26px ;
-    margin-bottom: 26px;
+    margin-top:  31px ;
+    margin-bottom: 31px;
     /*padding-top: 50px;*/
     /*padding-bottom: 50px;*/
     color: #ababab;
@@ -175,7 +175,7 @@ footer .terminator {
     max-height: 450px;
     overflow-y: auto;
     overflow-x: hidden;
-    min-height: 100px;
+    min-height: 110px;
 }
 
 #messages-container{
