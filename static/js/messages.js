@@ -155,7 +155,7 @@ $window.on('search.result', function (e, messages, append) {
         item_dom.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
         item_dom.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
         item_dom.find('[mj-message-container]').html(item.message);
-        if (item.reply) {
+        if (item.reply && item.reply.length) {
             item_dom.addClass('filter_replied');
             item_dom.find('[mj-reply-wrapper]').removeClass('hide');
             item_dom.find('[mj-reply-text]').html(item.reply);
