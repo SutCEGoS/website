@@ -45,11 +45,12 @@ $window.on('load', function() {
         }]);
     });
 
-    $add_message_button.on('click', function() {
+    $add_message_button.on('click', function(e) {
         var $this = $(this);
         if ($this.hasClass('disabled')) {
             return;
         }
+        e.preventDefault();
 
         $window.trigger('message_add.do', [{
             category: $('select[name=category]').find(':selected').val(),
@@ -62,8 +63,6 @@ $window.on('load', function() {
 
     /** A'min code: **/
     $('.collapse').collapse();
-    $('#id_offered_course').select2();
-    $('#id_second_course').select2();
     $('#id_category').bind('change', function () {
         a_value = $(this).val();
         showDefaultForm(a_value);

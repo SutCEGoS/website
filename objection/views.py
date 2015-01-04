@@ -39,7 +39,7 @@ def search(request):
     obj_id = request.GET.get('id')
     if obj_id:
         obj_id = int(obj_id)
-        obj = get_object_or_404(Objection, pk=id)
+        obj = get_object_or_404(Objection, pk=obj_id)
         if obj in search_result:
             return HttpResponse(json.dumps([obj.get_serialized(request.member)]), content_type="application/json")
         raise PermissionDenied

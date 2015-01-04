@@ -34,9 +34,10 @@ $(document).ready(function() {
         .success(function(response) {
             $course_list = response;
 
+
             var $offered_course = $('#id_offered_course');
             var $second_course = $('#id_second_course');
-
+/*
             $offered_course.html('');
             $second_course.html('');
             $.each($course_list, function(course_id, course_details)
@@ -45,6 +46,10 @@ $(document).ready(function() {
                 $offered_course.append(new_option);
                 $second_course.append(new_option);
             });
+            */
+
+            $offered_course.select2();
+            $second_course.select2();
         })
         .error(function() {
             alert("Failed to load courses list, please refresh the page.");

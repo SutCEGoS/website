@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from objection.models import Objection
+
+admin.site.register(Objection)
