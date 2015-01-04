@@ -100,11 +100,9 @@ $window.on('search.do', function (e, data) {
 });
 
 $window.on('search.started', function (e) {
-    $no_result.hide();
-    $no_result.removeClass("hide");
+    $no_result.hide().removeClass("hide");
     $loading.show();
     $add_message_button.addClass('disabled');
-
 });
 
 $window.on('search.no_result', function (e) {
@@ -127,14 +125,17 @@ $window.on('search.finished', function (e) {
 });
 
 $window.on('search.result', function (e, messages, append) {
+    var to_add;
     if (!append) {
         $messages_container.children().remove();
         $messages = messages;
+        to_add = $messages;
     } else {
-        $messages.concat(messages);
+        $messages.push(messages);
+        to_add = [messages];
     }
     // Create
-    $.each(messages, function (i, item) {
+    $.each(to_add, function (i, item) {
         // Clone
         var item_dom = $("div[mj-message-template='true']").clone();
         item_dom.attr('mj-message-template', 'false');

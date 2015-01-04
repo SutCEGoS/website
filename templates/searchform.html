@@ -1,6 +1,6 @@
 {% load static %}
 {% load my_app_filters %}
-<form action="" method="POST" class="">
+<form action="" method="POST" class="" name="search_form">
     {% csrf_token %}
     <fieldset>
         {{ form.category|get_form_field_as_div:"12$searchable"|safe }}
