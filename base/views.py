@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
+import time
 
 from base.forms import *
 from base.models import Member
@@ -106,6 +107,7 @@ def create_accounts(request):
                                                            std_id=new_std_id,
                                                            email=new_email,
                                                            password=make_password(new_password))
+                        time.sleep(2)
                     except Exception as e:
                         message += "%d\n" % i
 
