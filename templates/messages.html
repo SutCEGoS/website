@@ -42,7 +42,7 @@
 
     $window.on('load', function () {
         setTimeout(function () {
-            $window.trigger('search.result', [messages]);
+            $window.trigger('search.result', [messages, false]);
         }, 1000);
     });
 

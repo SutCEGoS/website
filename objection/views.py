@@ -101,7 +101,7 @@ def add_objection(request):
         x = f.get_serialized(request.user)
         return HttpResponse(json.dumps(x), content_type="application/json")
     else:
-        x = dict()
+        x = dict(form.errors).values()
         return HttpResponse(json.dumps(x), content_type="application/json", status=400)
 
 
