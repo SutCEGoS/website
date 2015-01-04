@@ -14,18 +14,22 @@ $window.on('message_add.do', function (e, data) {
         data: data
     }).success(function (response) {
         $window.trigger('message_add.finished', [response]);
-    }).error(function () {
-        $window.trigger('message_add.error');
+    }).error(function (response) {
+        $window.trigger('message_add.error', [response.responseJSON]);
     });
 });
 
 $window.on('message_add.finished', function(e, response) {
     toastr.success("Your message have been sent.", "Message sent");
-    // TODO : show newly added message in list (using response)
+    $window.trigger('search.result', [response, true]);
 });
 
-$window.on('message_add.error', function(e) {
-    toastr.error("We're sorry, an unexpected error occurred while sending your message", "Error :-(");
+$window.on('message_add.error', function(e, response) {
+    if (response == undefined) {
+        toastr.error("We're sorry, an unexpected error occurred while sending your message.", "Error :-(");
+    } else {
+        toastr.error('<p dir="rtl">' + response + '</p>', "Error :-(");
+    }
 });
 
 $window.on('message_add.started', function(e) {
@@ -45,11 +49,12 @@ $window.on('load', function() {
         }]);
     });
 
-    $add_message_button.on('click', function() {
+    $add_message_button.on('click', function(e) {
         var $this = $(this);
         if ($this.hasClass('disabled')) {
             return;
         }
+        e.preventDefault();
 
         $window.trigger('message_add.do', [{
             category: $('select[name=category]').find(':selected').val(),
@@ -62,8 +67,6 @@ $window.on('load', function() {
 
     /** A'min code: **/
     $('.collapse').collapse();
-    $('#id_offered_course').select2();
-    $('#id_second_course').select2();
     $('#id_category').bind('change', function () {
         a_value = $(this).val();
         showDefaultForm(a_value);
