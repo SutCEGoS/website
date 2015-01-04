@@ -49,24 +49,55 @@
     </script>
 
 {% endblock %}
-{% block body %}
+{% block user_infos %}
+    <header>
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-2 col-md-2">
-                <div class="panel-heading">
+
+            <div class="col-lg-4 col-md-4">
+                <div class="panel panel-default panel-background-color">
+                    <div class="panel-body">
+                        Hi
+                        <b>{{ user }}</b>
+
+                        <div class="pull-right">
+                            <a  href="{% url 'password_reset_change' %}">Change Password</a>
+                            |
+                            <a  href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </div>
 
                 </div>
             </div>
 
+
         </div>
+    </div>
+</header>
+{% endblock %}
+{% block body %}
+    <div class="container">
+{#        <div class="row">#}
+{##}
+{#            <div class="col-lg-2 col-md-2">#}
+{#                <div class="panel-heading">#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
 
         <div class="row">
 
             <div class="col-lg-4 col-md-4">
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading">
-                        Search & Add
+                        <span>Search & Add</span>
+                        <a id="remove_search_filter" class="pull-right">
+                            <span>remove search filter</span>
+                            <span class="glyphicon glyphicon-filter"></span>
+                        </a>
                     </div>
                     <div class="panel-body dir-rtl">
                         {% include 'searchform.html' %}
@@ -84,7 +115,7 @@
                             <h3 class="full-loading" id="loading">
                                 Loading...
                                 <div style="background-color: rgba(0,0,0,0)">
-                                    <img src="{% static 'image/ajax_loader_large.gif' %}" style="width: 50px;height: 50px">
+                                    <img src="{% static 'image/92.GIF' %}" style="width: 50px;height: 50px;margin-top: 10px;">
 {#                                    background: url('../image/bg.jpg') center center fixed#}
                                 </div>
                             </h3>

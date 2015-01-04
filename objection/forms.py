@@ -1,7 +1,9 @@
 # coding=utf-8
 from django import forms
+from django.conf import settings
 
-from course.models import Course
+from course.models import OfferedCourse
+from course.views import get_current_year
 
 
 __author__ = 'mjafar'
@@ -38,7 +40,9 @@ class MessageForm(forms.ModelForm):
             if category == 3:
                 if not course_name:
                     self.errors['course_name'] = self.error_class([u'پر کردن نام درس ارائه نشده اجباری است.'])
-                elif course_name in Course.objects.all().values_list('name', flat=True):
+                elif course_name in OfferedCourse.objects.filter(term=settings.CURRENT_TERM,
+                                                                 year=get_current_year()).values_list('name',
+                                                                                                      flat=True):
                     self.errors['course_name'] = self.error_class([u'درسی با همین عنوان ارائه داده شده است :)'])
             elif category == 1:
                 if not offered_course:
