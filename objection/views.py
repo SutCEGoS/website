@@ -57,9 +57,9 @@ def search(request):
         search_result = search_result.filter(course_name=course_name)
     objections_list = []
     for item in search_result:
-        objections_list.append({
+        objections_list.append(
             item.get_serialized(request.user)
-        })
+        )
     return HttpResponse(json.dumps(objections_list), content_type="application/json")
 
 
@@ -93,7 +93,7 @@ def add_objection(request):
     # course_name = request.POST.get('course_name')
     # message = request.POST.get('message')
     data = request.POST.copy()
-    data['sender'] = request.user
+    data['sender'] = request.user.id
     data['status'] = 1
     form = MessageForm(data=data)
     if form.is_valid():
