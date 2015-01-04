@@ -23,7 +23,7 @@ $window.on('message_add.finished', function(e, response) {
     toastr.success("Your message have been sent.", "Message sent");
     $no_result.hide();
     $window.trigger('search.result', [response, true]);
-    $('form[name=search_form]')[0].reset();
+    $window.trigger('searchform.resetform');
 });
 
 $window.on('message_add.error', function(e, response) {
