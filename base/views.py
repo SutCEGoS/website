@@ -1,17 +1,15 @@
-from django.conf import settings
 from django.contrib.auth import login as dj_login
-from django.contrib.auth import logout as dj_logout
 
+from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.models import RequestSite
 from django.core.exceptions import PermissionDenied
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
-import time
 
 from base.forms import *
 from base.models import Member
@@ -23,9 +21,11 @@ def home(request):
     else:
         return HttpResponseRedirect(reverse('requests'))
 
+
 def logout(request):
     dj_logout(request)
     return redirect('home')
+
 
 def login(request):
     if request.user.is_authenticated():
@@ -90,7 +90,6 @@ def create_accounts(request):
                 try:
                     member = Member.objects.get(username=new_username)
                 except:
-
                     try:
                         context = {
                             'site': RequestSite(request),
@@ -98,16 +97,19 @@ def create_accounts(request):
                             'password': new_password,
                             'secure': request.is_secure(),
                         }
-                        body = loader.render_to_string("account_create/new_account_email.txt",
-                                                       context).strip()
                         subject = loader.render_to_string("account_create/new_account_email_subject.txt",
                                                           context).strip()
-                        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [new_email])
+                        text_body = loader.render_to_string("account_create/new_account_email.txt",
+                                                            context).strip()
+
+                        msg = EmailMessage(subject=subject, from_email="shora.cesharif@gmail.com",
+                                           to=[new_email], body=text_body)
+                        msg.send()
                         new_member = Member.objects.create(username=new_username,
                                                            std_id=new_std_id,
                                                            email=new_email,
                                                            password=make_password(new_password))
-                    except Exception as e:
+                    except:
                         message += "%d\n" % i
 
             if message:

@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 
     'south',
     'password_reset',
+    'djrill',
 
     'base',
     'course',
@@ -156,4 +157,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.mandrillapp.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'shora.cesharif@gmail.com'
-EMAIL_HOST_PASSWORD = 'HtlMacUqJNyLJ5cAf5QtFw'
+EMAIL_HOST_PASSWORD = 'YiN1om03JN1rv9fA1JQa4g'
+MANDRILL_API_KEY = "YiN1om03JN1rv9fA1JQa4g"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"

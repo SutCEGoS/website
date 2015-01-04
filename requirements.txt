@@ -10,4 +10,4 @@ south
 django-model-utils
 django-password-reset
 whitenoise
-
+djrill
