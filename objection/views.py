@@ -41,7 +41,7 @@ def search(request):
         obj_id = int(obj_id)
         obj = get_object_or_404(Objection, pk=obj_id)
         if obj in search_result:
-            return HttpResponse(json.dumps([obj.get_serialized(request.member)]), content_type="application/json")
+            return HttpResponse(json.dumps([obj.get_serialized(request.user)]), content_type="application/json")
         raise PermissionDenied
     category = request.GET.get('category')
     offered_course = request.GET.get('offered_course')

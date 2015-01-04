@@ -35,3 +35,6 @@ class OfferedCourse(models.Model):
     def __unicode__(self):
         return "%s-%d - %s - %s  " % (
             unicode(self.course.course_number), self.group_number, unicode(self.course), self.professor.name)
+
+    def get_name(self):
+        return u"%s گروه %d استاد %s" % (self.course.name, self.group_number, self.professor)
