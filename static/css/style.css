@@ -14,7 +14,7 @@ body {
 
 a, a:hover, a:active, a:link {
     text-decoration: none;
-}
+} 
 
 a {
     color: rgba(26, 126, 140, 1);
@@ -175,20 +175,8 @@ header .panel-heading {
 
 }
 
-/*#remove_search_filter{
-    padding: 2px;
-    color: #ffffff;
-    background-color: rgba(106, 233, 255, 0.30);
-    border-radius: 3px;
-}
 
-#remove_search_filter:hover{
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.28);
-    cursor: pointer;
-}*/
-
-#remove_search_filter{
+.remove_search_filter_style{
     padding: 2px;
     color: #d7d7d7;
     /*background-color: rgba(106, 233, 255, 0.30);*/
@@ -198,13 +186,18 @@ header .panel-heading {
 
 }
 
-#remove_search_filter:hover{
+.remove_search_filter_style:hover{
     color: #ffffff;
     /*background-color: rgba(0, 0, 0, 0.28);*/
     cursor: pointer;
 }
 
 /** What we had: **/
+
+.select2-results {
+    direction: rtl!important;
+    text-align: right!important;
+}
 
 .content {
     min-height: 600px;
@@ -226,10 +219,7 @@ header .panel-heading {
     display: none;
 }
 
-.home-accordion {
-    max-height: 450px;
-    overflow-y: auto;
-    overflow-x: hidden;
+#accordion {
     min-height: 110px;
 }
 
