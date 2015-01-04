@@ -14,7 +14,7 @@
     <script type="text/javascript" language="JavaScript">
         var $ajax_metoo = '{% url 'add_me_too' %}';
         var $load_url = '{% url 'get_objections_list' %}';
-/*
+
     var messages = [
         {
             data_id: 1,
@@ -45,7 +45,7 @@
             $window.trigger('search.result', [messages]);
         }, 1000);
     });
-        */
+
     </script>
 
 {% endblock %}
@@ -106,7 +106,7 @@
 
     <div class="panel panel-default dir-rtl hide" mj-dataid="" mj-category-id="" mj-message-template="true">
         <div class="panel-heading">
-            <a href="#" target="_self" mj-permanent-link><span class="request-id" mj-request-id></span></a>
+            <a href="#" target="_self" class="permanent link" mj-permanent-link><span class="request-id" mj-request-id></span></a>
             <a data-toggle="collapse" data-parent="#accordion" class="non-decoration">
             <span class="panel-title">
             <span class="conflict name" mj-course-1 mj-category="3"></span>

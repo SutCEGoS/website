@@ -50,7 +50,7 @@ footer a:hover {
 }
 
 .request-id {
-    font-family: corbel;
+    /**font-family: corbel;**/
     font-size: 0.8em;
     color: #999999;
     cursor: default;
@@ -119,8 +119,6 @@ footer .terminator {
     color:#888;
 }
 
-
-
 .panel-background-color{
     background-color: rgba(255,255,255,0.6);
 }
@@ -128,7 +126,6 @@ footer .terminator {
 .dir-rtl{
     direction: rtl;
 }
-
 
 #no_result {
     margin-top:  26px ;
@@ -147,6 +144,26 @@ footer .terminator {
 
 .no_result_wrapper_text{
     padding-left: 53px;
+}
+
+a.permanent.link {
+    /** TODO: semora **/
+}
+
+a.permanent.link:hover {
+    /** TODO: semora **/
+    cursor: pointer; cursor: hand;
+    text-decoration: underline;
+}
+
+header .panel-heading {
+    overflow: hidden;
+    float: left;
+    width: 177px;
+    height: 31px;
+    padding-top: 14px;
+    padding-right: 35px;
+    padding-left: 10px;
 }
 
 /** What we had: **/

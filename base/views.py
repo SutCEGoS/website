@@ -16,6 +16,9 @@ def home(request):
     else:
         return HttpResponseRedirect(reverse('requests'))
 
+def logout(request):
+    # TODO (AMIN): do this :D
+    pass
 
 def login(request):
     if request.user.is_authenticated():
