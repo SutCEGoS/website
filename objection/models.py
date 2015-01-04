@@ -54,18 +54,20 @@ class Objection(models.Model):
             'second_course': self.get_second_course_id(),
             'course_name': self.course_name,
             'message': self.message,
-            'reply': 'this request ic chert',
-            'reply-by': 'amin',
+            'can_me_too': member is self.sender,
+            'reply': '',
+            'reply_by': '',
         }
+
 
     def get_offered_course_id(self):
         if self.offered_course:
-            return self.offered_course.id
+            return self.offered_course.get_name()
         return -1
 
     def get_second_course_id(self):
         if self.second_course:
-            return self.second_course.id
+            return self.second_course.get_name()
         return -1
 
 

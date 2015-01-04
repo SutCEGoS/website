@@ -129,61 +129,70 @@ $window.on('search.finished', function (e) {
 $window.on('search.result', function (e, messages, append) {
     if (!append) {
         $messages_container.children().remove();
+        $messages = messages;
+    } else {
+        $messages.concat(messages);
     }
-    $messages = messages;
     // Create
-    for (var i = 0; i < messages.length; ++i) {
+    $.each(messages, function (i, item) {
         // Clone
-        var item = messages[i];
-        var htmlrepr = $("div[mj-message-template='true']").clone();
-        htmlrepr.attr('mj-message-template', 'false');
+        var item_dom = $("div[mj-message-template='true']").clone();
+        item_dom.attr('mj-message-template', 'false');
 
         // Fill html
-        htmlrepr
+        item_dom
             .attr('mj-dataid', item.data_id)
             .attr('mj-category-id', item.category_id);
 
-        htmlrepr.find('[mj-request-id]').html(item.data_id);
-        htmlrepr.find('a[mj-permanent-link]').attr('href', '?id=' + item.data_id).on('click', function(e) {
+        item_dom.find('[mj-request-id]').html(item.data_id);
+        item_dom.find('a[mj-permanent-link]').attr('href', '?id=' + item.data_id).on('click', function(e) {
             e.preventDefault();
             $window.trigger('search.do', [{
                 id: item.data_id
             }]);
         });
-        htmlrepr.find('.panel-heading a[data-toggle="collapse"]').attr('href', '#collapse-' + item.data_id);
-        htmlrepr.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
-        htmlrepr.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
-        htmlrepr.find('[mj-message-container]').html(item.message);
+        item_dom.find('.panel-heading a[data-toggle="collapse"]').attr('href', '#collapse-' + item.data_id);
+        item_dom.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
+        item_dom.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
+        item_dom.find('[mj-message-container]').html(item.message);
         if (item.reply) {
-            htmlrepr.find('[mj-reply-wrapper').removeClass('hide');
-            htmlrepr.find('[mj-reply-text').html(item.reply);
-            htmlrepr.find('[mj-reply-name]').html(item.reply_by);
+            item_dom.addClass('filter_replied');
+            item_dom.find('[mj-reply-wrapper]').removeClass('hide');
+            item_dom.find('[mj-reply-text]').html(item.reply);
+            item_dom.find('[mj-reply-name]').html(item.reply_by);
         }
 
         //htmlrepr.find('[mj-category!=else]').hide();
-        for (var j = 0; j < 5; ++j) {
+        //item_dom.find('[mj-category]').filter('[mj-category!="else"]').hide();
+        item_dom.find('[mj-category]').hide();
+        for (var j=1; j<=6; ++j) {
             if (item.category_id == j) {
-                htmlrepr.find('[mj-category="' + j + '"]').show();
-                htmlrepr.find('[mj-category="else"]').hide();
+                item_dom.find('[mj-category="' + j + '"]').show();
+                //item_dom.find('[mj-category="else"]').hide();
             }
         }
         if (item.category_id == 3) {
-            htmlrepr.find('[mj-course-1]').html(item.course_name);
+            item_dom.find('[mj-course-1]').html(item.course_name);
         } else {
-            htmlrepr.find('[mj-course-1]').html(item.offered_course);
+            item_dom.find('[mj-course-1]').html(item.offered_course);
         }
-        htmlrepr.find('[mj-course-2]').html(item.second_course);
-        htmlrepr.find('[mj-conflict-category]').html(item.category);
+        item_dom.find('[mj-course-2]').html(item.second_course);
+        item_dom.find('[mj-conflict-category]').html(item.category);
 
 
-        htmlrepr.find('[mj-metoo-number]').html(item.metoos);
+        item_dom.find('[mj-metoo-number]').html(item.metoos);
         if (item.metooed) {
-            htmlrepr.find('[mj-metoo-link]').hide();
-            htmlrepr.find('[mj-metoo-number]').addClass('metooed');
+            item_dom.addClass('filter_metooed');
+            item_dom.find('[mj-metoo-link]').hide();
+            item_dom.find('[mj-metoo-number]').addClass('metooed');
+        }
+        if (!item.can_me_too) {
+            item_dom.addClass('filter_mine');
+            item_dom.find('[mj-metoo-link]').remove();
         }
 
-        $messages_container.append(htmlrepr);
-    }
+        $messages_container.append(item_dom);
+    });
 
     var $me_too_link = $('[mj-metoo-link]');
     var $un_me_too = $('[mj-metoo-number]');
@@ -255,7 +264,7 @@ $window.on('search.result', function (e, messages, append) {
 $window.on('messages.lazyShow', function () {
     var first_hide = $messages_container.children('div.panel.hide:first');
     if (first_hide && first_hide.length) {
-        first_hide.removeClass('hide').hide().fadeIn(100, function () {
+        first_hide.removeClass('hide').hide().fadeIn(400, function () {
             $(window).trigger('messages.lazyShow');
         });
     }
