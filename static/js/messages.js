@@ -21,8 +21,6 @@ var $course_list = [];
 }
  */
 
-
-
 $(document).ready(function() {
     $messages_container = $('div#messages-container');
     $loading = $('#loading');
