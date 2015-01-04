@@ -36,6 +36,13 @@ def search(request):
     if not request.user.is_authenticated:
         raise PermissionDenied
     search_result = Objection.get_available(request.user)
+    obj_id = request.GET.get('id')
+    if obj_id:
+        obj_id = int(obj_id)
+        obj = get_object_or_404(Objection, pk=id)
+        if obj in search_result:
+            return HttpResponse(json.dumps([obj.get_serialized(request.member)]), content_type="application/json")
+        raise PermissionDenied
     category = request.GET.get('category')
     offered_course = request.GET.get('offered_course')
     second_course = request.GET.get('second_course')
@@ -96,6 +103,7 @@ def add_objection(request):
     else:
         x = dict()
         return HttpResponse(json.dumps(x), content_type="application/json", status=400)
+
 
 @login_required
 def add_me_too(request):
