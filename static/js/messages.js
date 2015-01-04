@@ -5,16 +5,56 @@
 var $messages_container;
 var $loading;
 var $no_result;
+var $messages = [];
+var $course_list = [];
+/*
+{
+    course.id: {
+        'course_name': course.course.name,
+        'course_number': course.course.course_number,
+        'professor': course.professor.name,
+        'group_number': course.group_number,
+        'exam_time': course.exam_time,
+        'capacity': course.capacity,
+        'details': course.details,
+    }
+}
+ */
 
 
-$window.on('load', function () {
+
+$(document).ready(function() {
     $messages_container = $('div#messages-container');
     $loading = $('#loading');
     $no_result = $('#no_result');
 
-    $window.trigger('search.do', [
-        {}
-    ]);
+    $.ajax({
+        url: window.$course_list_url,
+        type: 'get',
+        dataType: 'json'
+    })
+        .success(function(response) {
+            $course_list = response;
+
+            var $offered_course = $('#id_offered_course');
+            var $second_course = $('#id_second_course');
+
+            $offered_course.html('');
+            $second_course.html('');
+            $.each($course_list, function(course_id, course_details)
+            {
+                var new_option = $('<option>', { value:course_id, text:course_details.course_name });
+                $offered_course.append(new_option);
+                $second_course.append(new_option);
+            });
+        })
+        .error(function() {
+            alert("Failed to load courses list, please refresh the page.");
+        });
+});
+
+$window.on('load', function () {
+    $window.trigger('search.do', [{}]);
 });
 
 $window.on('search.do', function (e, data) {
@@ -61,7 +101,7 @@ $window.on('search.finished', function (e) {
 
 $window.on('search.result', function (e, messages) {
     $messages_container.children().remove();
-
+    $messages = messages;
     // Create
     for (var i = 0; i < messages.length; ++i) {
         // Clone

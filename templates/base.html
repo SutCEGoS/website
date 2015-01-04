@@ -7,6 +7,7 @@
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search' %}";
         window.$message_add_url = "{% url 'add_objection' %}";
+        window.$course_list_url = "{% url 'get_courses_list' %}"
         window.csrf_token = "{{ csrf_token }}";
     </script>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
@@ -30,7 +31,7 @@
     </div>
     <footer class="footer navbar-fixed-bottom">
         <p class="english">
-            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, backend by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="terminator">Thank you <a href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>.
+            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, backend by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="terminator">Thank you <a href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>
         </p>
     </footer>
 </body>
