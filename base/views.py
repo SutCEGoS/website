@@ -91,22 +91,24 @@ def create_accounts(request):
                     member = Member.objects.get(username=new_username)
                 except:
 
-                    context = {
-                        'site': RequestSite(request),
-                        'username': new_username,
-                        'password': new_password,
-                        'secure': request.is_secure(),
-                    }
-                    body = loader.render_to_string("account_create/new_account_email.txt",
-                                                   context).strip()
-                    subject = loader.render_to_string("account_create/new_account_email_subject.txt",
-                                                      context).strip()
-                    send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [new_email])
-                    new_member = Member.objects.create(username=new_username,
-                                                       std_id=new_std_id,
-                                                       email=new_email,
-                                                       password=make_password(new_password))
-                    time.sleep(10)
+                    try:
+                        context = {
+                            'site': RequestSite(request),
+                            'username': new_username,
+                            'password': new_password,
+                            'secure': request.is_secure(),
+                        }
+                        body = loader.render_to_string("account_create/new_account_email.txt",
+                                                       context).strip()
+                        subject = loader.render_to_string("account_create/new_account_email_subject.txt",
+                                                          context).strip()
+                        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [new_email])
+                        new_member = Member.objects.create(username=new_username,
+                                                           std_id=new_std_id,
+                                                           email=new_email,
+                                                           password=make_password(new_password))
+                    except Exception as e:
+                        message += "%d\n" % i
 
             if message:
                 message += "making account for this lines is not possible, please contact A\'min"

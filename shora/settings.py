@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'jc1$x1qzbib4=dh93n8slq$jo01g-7e4z1$1@s(hjq41hv!6gr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -153,7 +153,7 @@ CURRENT_TERM = 2
 CURRENT_YEAR = 1393
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.mandrillapp.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'shora.cesharif@gmail.com'
-EMAIL_HOST_PASSWORD = 'butterflyeffect2'
+EMAIL_HOST_PASSWORD = 'HtlMacUqJNyLJ5cAf5QtFw'
