@@ -1,10 +1,12 @@
 from django.contrib.auth import login as dj_login
+from django.contrib.auth import logout as dj_logout
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from base.forms import *
 from base.models import Member
@@ -17,8 +19,8 @@ def home(request):
         return HttpResponseRedirect(reverse('requests'))
 
 def logout(request):
-    # TODO (AMIN): do this :D
-    pass
+    dj_logout(request)
+    return redirect('home')
 
 def login(request):
     if request.user.is_authenticated():
