@@ -26,26 +26,7 @@
     {% block extra_styles %}{% endblock %}
 </head>
 <body>
-<header>
-    <div class="container">
-        <div class="row">
-
-
-            <div class="col-lg-4 col-md-4">
-                <div class="panel panel-default panel-background-color">
-                    <div class="panel-body">
-                        Hi
-                        <b>{{ user }}</b>
-                        <a class="pull-right" href="{% url 'logout' %}">Logout</a>
-                    </div>
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</header>
+    {% block user_infos %}{% endblock %}
 <div class="margin-bottom-lg">
     {% block body %}{% endblock %}
 </div>

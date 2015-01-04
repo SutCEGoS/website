@@ -49,6 +49,33 @@
     </script>
 
 {% endblock %}
+{% block user_infos %}
+    <header>
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-lg-4 col-md-4">
+                <div class="panel panel-default panel-background-color">
+                    <div class="panel-body">
+                        Hi
+                        <b>{{ user }}</b>
+
+                        <div class="pull-right">
+                            <a  href="{% url 'password_reset_change' %}">Change Password</a>
+                            |
+                            <a  href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</header>
+{% endblock %}
 {% block body %}
     <div class="container">
 {#        <div class="row">#}
