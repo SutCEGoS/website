@@ -166,6 +166,14 @@ header .panel-heading {
     padding-left: 10px;
 }
 
+.conflict.name {
+    font-weight: bold;
+}
+
+.user_info{
+
+}
+
 /*#remove_search_filter{
     padding: 2px;
     color: #ffffff;
