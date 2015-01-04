@@ -4,6 +4,7 @@ import json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
@@ -36,24 +37,37 @@ def search(request):
     if not request.user.is_authenticated:
         raise PermissionDenied
     search_result = Objection.get_available(request.user)
+    obj_id = request.GET.get('id')
+    if obj_id:
+        obj_id = int(obj_id)
+        obj = get_object_or_404(Objection, pk=obj_id)
+        if obj in search_result:
+            return HttpResponse(json.dumps([obj.get_serialized(request.user)]), content_type="application/json")
+        raise PermissionDenied
     category = request.GET.get('category')
     offered_course = request.GET.get('offered_course')
     second_course = request.GET.get('second_course')
     course_name = request.GET.get('course_name')
-    if category:
-        search_result = search_result.filter(category=request.GET)
-    if offered_course:
+
+    if offered_course and not second_course and category in [2, 4, 5, 6]:
         search_result = search_result.filter(offered_course__id=offered_course)
-    if second_course:
-        search_result = search_result.filter(second_course__id=second_course)
-    if course_name:
+    if offered_course and second_course and category == 1:
+        search_result = search_result.filter(
+            Q(offered_course__id=offered_course, second_course__id=second_course) |
+            Q(offered_course__id=second_course, second_course__id=offered_course))
+
+    if course_name and category == 3:
         search_result = search_result.filter(course_name=course_name)
+
+    if category:
+        search_result = search_result.filter(category=category)
+
     objections_list = []
     for item in search_result:
-        objections_list.append({
+        objections_list.append(
             item.get_serialized(request.user)
-        })
-    return HttpResponse(json.dumps({'list': objections_list}), content_type="application/json")
+        )
+    return HttpResponse(json.dumps(objections_list), content_type="application/json")
 
 
 @login_required
@@ -86,7 +100,7 @@ def add_objection(request):
     # course_name = request.POST.get('course_name')
     # message = request.POST.get('message')
     data = request.POST.copy()
-    data['sender'] = request.user
+    data['sender'] = request.user.id
     data['status'] = 1
     form = MessageForm(data=data)
     if form.is_valid():
@@ -94,7 +108,7 @@ def add_objection(request):
         x = f.get_serialized(request.user)
         return HttpResponse(json.dumps(x), content_type="application/json")
     else:
-        x = dict()
+        x = dict(form.errors).values()
         return HttpResponse(json.dumps(x), content_type="application/json", status=400)
 
 
@@ -105,7 +119,7 @@ def add_me_too(request):
         item_id = int(item_id)
     except:
         return HttpResponseBadRequest
-    item = get_object_or_404(pk=item_id)
+    item = get_object_or_404(Objection, pk=item_id)
     available_items = Objection.get_available(request.user)
     if item not in available_items:
         raise PermissionDenied
@@ -121,4 +135,4 @@ def add_me_too(request):
         'metooed': me_too_ed,
         'metoos': item.like.count()
     }
-    return HttpResponse(json.dumps(dict), content_type="application/json", status=400)
+    return HttpResponse(json.dumps(dict), content_type="application/json")

@@ -1,7 +1,9 @@
 # coding=utf-8
 from django import forms
+from django.conf import settings
 
-from course.models import Course
+from course.models import OfferedCourse
+from course.views import get_current_year
 
 
 __author__ = 'mjafar'
@@ -17,6 +19,7 @@ class MessageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
         self.fields['category'] = forms.TypedChoiceField(choices=Objection.CATEGORY, empty_value="---")
+        self.fields['category'].label = u"نوع مشکل"
         for field in self.fields:
             if field not in ['offered_course', 'second_course']:
                 css_class = 'form-control'
@@ -29,13 +32,18 @@ class MessageForm(forms.ModelForm):
         second_course = cd.get('second_course')
         course_name = cd.get('course_name')
         offered_course = cd.get('offered_course')
-        category = cd.get('category')
+        category = int(cd.get('category'))
+        cd['category'] = category
         message = cd.get('message')
-        if category:
+        if category is not None:
+            if category == 0:
+                self.errors['category'] = self.error_class([u'انتخاب دسته ی مشکل لازم است'])
             if category == 3:
                 if not course_name:
                     self.errors['course_name'] = self.error_class([u'پر کردن نام درس ارائه نشده اجباری است.'])
-                elif course_name in Course.objects.all().values_list('name', flat=True):
+                elif course_name in OfferedCourse.objects.filter(term=settings.CURRENT_TERM,
+                                                                 year=get_current_year()).values_list('course__name',
+                                                                                                      flat=True):
                     self.errors['course_name'] = self.error_class([u'درسی با همین عنوان ارائه داده شده است :)'])
             elif category == 1:
                 if not offered_course:

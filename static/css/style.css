@@ -9,11 +9,12 @@ footer,a {
 body {
     background: url('../image/bg.jpg') center center fixed;
     color: #111;
+    font-family: 'B roya';
 }
 
 a, a:hover, a:active, a:link {
     text-decoration: none;
-}
+} 
 
 a {
     color: rgba(26, 126, 140, 1);
@@ -44,17 +45,29 @@ footer a:hover {
     background-color: whitesmoke !important;
 }
 
+
+.badge{
+    cursor: default;
+}
+
 .request-id {
-    font-family: corbel;
+    /**font-family: corbel;**/
     font-size: 0.8em;
     color: #999999;
+    cursor: default;
 }
-.metoo{
+.metoo-wrapper{
     direction: ltr !important;
     text-align: left !important;
 }
+.metoo{
+
+}
 .metooed {
     color: #ffed48;
+}
+.metooed:hover{
+    cursor: pointer;
 }
 
 .conflict {
@@ -102,6 +115,10 @@ footer a:hover {
     -webkit-text-shadow: 0 0 1px rgba(0, 0, 0, .1)
 }
 
+footer .terminator {
+    font-size: 0.75em;
+    color:#888;
+}
 
 .panel-background-color{
     background-color: rgba(255,255,255,0.6);
@@ -111,8 +128,76 @@ footer a:hover {
     direction: rtl;
 }
 
+#no_result {
+    margin-top:  31px ;
+    margin-bottom: 31px;
+    /*padding-top: 50px;*/
+    /*padding-bottom: 50px;*/
+    color: #ababab;
+    line-height: 48px;
+}
+
+.no_result_wrapper{
+    background: url('../image/700096-icon-61-warning-128.png') left no-repeat;
+    background-size: 48px;
+    /*text-align: center;*/
+}
+
+.no_result_wrapper_text{
+    padding-left: 53px;
+}
+
+a.permanent.link {
+    /** TODO: semora **/
+}
+
+a.permanent.link:hover {
+    /** TODO: semora **/
+    cursor: pointer; cursor: hand;
+    text-decoration: underline;
+}
+
+header .panel-heading {
+    overflow: hidden;
+    float: left;
+    width: 177px;
+    height: 31px;
+    padding-top: 14px;
+    padding-right: 35px;
+    padding-left: 10px;
+}
+
+.conflict.name {
+    font-weight: bold;
+}
+
+.user_info{
+
+}
+
+
+.remove_search_filter_style{
+    padding: 2px;
+    color: #d7d7d7;
+    /*background-color: rgba(106, 233, 255, 0.30);*/
+    border-radius: 3px;
+    /*text-shadow: 2px,7px,3px,5px;*/
+    text-shadow: 0.1em 0.1em 0.2em black;
+
+}
+
+.remove_search_filter_style:hover{
+    color: #ffffff;
+    /*background-color: rgba(0, 0, 0, 0.28);*/
+    cursor: pointer;
+}
 
 /** What we had: **/
+
+.select2-results {
+    direction: rtl!important;
+    text-align: right!important;
+}
 
 .content {
     min-height: 600px;
@@ -134,10 +219,22 @@ footer a:hover {
     display: none;
 }
 
-.home-accordion {
-    max-height: 450px;
-    overflow-y: auto;
-    overflow-x: hidden;
+#accordion {
+    min-height: 110px;
+}
+
+#messages-container{
+    /*z-index: -1;*/
+}
+
+.full-loading{
+    color: #999999;
+    width: 100%;
+    height: 100px;
+    margin-bottom: -100px;
+    margin-top: 0;
+    padding-top: 20px;
+    text-align: center;
 }
 
 .green-ok {

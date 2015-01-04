@@ -1,6 +1,6 @@
 {% load static %}
 {% load my_app_filters %}
-<form action="" method="POST" class="">
+<form action="" method="POST" class="" name="search_form">
     {% csrf_token %}
     <fieldset>
         {{ form.category|get_form_field_as_div:"12$searchable"|safe }}
@@ -9,7 +9,7 @@
         {{ form.course_name|get_form_field_as_div:"12$hidden-obj course-name-div courses searchable"|safe }}
         {{ form.message|get_form_field_as_div:12|safe }}
     </fieldset>
-    <div class="form-actions col-lg-12">
-        <button class="btn btn-primary full-width">Send</button> <!-- TODO -->
+    <div class="form-actions col-lg-12" style="margin-top:10px">
+        <button class="btn btn-primary" id="add_message" role="button">Send</button> <!-- TODO -->
     </div>
 </form>

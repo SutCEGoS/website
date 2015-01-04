@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import login as dj_login
+from django.contrib.auth import logout as dj_logout
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.models import RequestSite
@@ -7,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 
 from base.forms import *
@@ -20,6 +22,9 @@ def home(request):
     else:
         return HttpResponseRedirect(reverse('requests'))
 
+def logout(request):
+    dj_logout(request)
+    return redirect('home')
 
 def login(request):
     if request.user.is_authenticated():
@@ -113,4 +118,17 @@ def create_accounts(request):
         'message': message,
     })
 
+
+@login_required
+def password_reset_change(request):
+    if request.method == 'POST':
+        form = PasswordForm(user=request.user, data=request.POST)
+        form.is_valid()
+    else:
+        form = PasswordForm(user=request.user)
+    return render(request,
+                  'password_reset/password_change.html',
+                  {
+                      'form': form
+                  })
 

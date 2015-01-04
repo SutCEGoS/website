@@ -1,12 +1,15 @@
 {% load static %}
+<!-- In the name of god :D -->
 <!doctype html>
 <html>
 <head>
     <title>{% block title %}{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search' %}";
+        window.$message_add_url = "{% url 'add_objection' %}";
+        window.$course_list_url = "{% url 'get_courses_list' %}"
+        window.csrf_token = "{{ csrf_token }}";
     </script>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.form.js' %}"></script>
@@ -17,20 +20,24 @@
     <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
     {% block extra_js %}{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
     <!--link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}" /-->
-    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     {% block extra_styles %}{% endblock %}
 </head>
 <body>
-    <div class="margin-bottom-lg">
-        {% block body %}{% endblock %}
-    </div>
-    <footer class="footer navbar-fixed-bottom">
-        <p class="english">
-            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora. Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">Amin</a>. Thanks to <a href="http://term.inator.ir/" target="_blank">Terminator</a>.
-        </p>
-    </footer>
+    {% block user_infos %}{% endblock %}
+<div class="margin-bottom-lg">
+    {% block body %}{% endblock %}
+</div>
+<footer class="footer navbar-fixed-bottom">
+    <p class="english">
+        Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, backend by <a
+            href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="terminator">Thank you <a
+            href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>
+    </p>
+</footer>
 </body>
 </html>
+<!-- Telbaaaaas -->
