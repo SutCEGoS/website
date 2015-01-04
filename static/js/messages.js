@@ -118,6 +118,7 @@ $window.on('search.result', function (e, messages) {
             .attr('mj-category-id', item.category_id);
 
         htmlrepr.find('[mj-request-id]').html(item.data_id);
+        htmlrepr.find('a[mj-permanent-link]').attr('href', '?id=' + item.data_id);
         htmlrepr.find('.panel-heading a[data-toggle="collapse"]').attr('href', '#collapse-' + item.data_id);
         htmlrepr.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
         htmlrepr.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
