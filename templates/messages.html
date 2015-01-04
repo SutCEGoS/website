@@ -99,10 +99,14 @@
                         <div class="panel-group home-accordion" id="accordion">
                             <h3 class="full-loading" id="loading">
                                 Loading...
+                                <div style="background-color: rgba(0,0,0,0)">
+                                    <img src="{% static 'image/ajax_loader_large.gif' %}" style="width: 50px;height: 50px">
+{#                                    background: url('../image/bg.jpg') center center fixed#}
+                                </div>
                             </h3>
 
                             <div class="full hide" id="no_result">
-                                No Result
+                                No requests matched your search. You can send your own request!
                             </div>
                             <div id="messages-container">
 
