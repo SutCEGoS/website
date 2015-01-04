@@ -38,14 +38,14 @@ class Objection(models.Model):
         if member.is_superuser:
             return Objection.objects.all()
         if member.groups.filter(name='Replier').exists():
-            return Objection.objects.filter(status__ge=3)
-        return Objection.objects.filter(Q(status__ge=3) | Q(sender=member))
+            return Objection.objects.filter(status__gte=3)
+        return Objection.objects.filter(Q(status__gte=3) | Q(sender=member))
 
     def get_serialized(self, member):
         return {
             'data_id': self.id,
             'category_id': self.category,
-            'category_name': self.get_category_display(),
+            'category_namep': self.get_category_display(),
             'status_id': self.status,
             'status_name': self.get_status_display(),
             'metoos': self.like.count(),
@@ -54,7 +54,7 @@ class Objection(models.Model):
             'second_course': self.get_second_course_id(),
             'course_name': self.course_name,
             'message': self.message,
-            'can_me_too': member is self.sender,
+            'can_me_too': not member.__eq__(self.sender),
             'reply': '',
             'reply_by': '',
         }
