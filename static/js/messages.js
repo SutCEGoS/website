@@ -7,15 +7,17 @@ var $loading;
 var $no_result;
 
 
-$window.on('load', function() {
+$window.on('load', function () {
     $messages_container = $('div#messages-container');
     $loading = $('#loading');
     $no_result = $('#no_result');
 
-    $window.trigger('search.do', [{}]);
+    $window.trigger('search.do', [
+        {}
+    ]);
 });
 
-$window.on('search.do', function(e, data) {
+$window.on('search.do', function (e, data) {
     $window.trigger('search.started');
     $.ajax({
         url: window.$load_url,
@@ -23,22 +25,24 @@ $window.on('search.do', function(e, data) {
         dataType: 'json',
         data: data
     }).success(function (response) {
-        $window.trigger('search.finished');
-        if (response.length == 0) {
-            $window.trigger('search.no_result');
-        } else {
-            $window.trigger('search.result', [response]);
-        }
-    }).error(function () {
-        $window.trigger('search.finished');
-        alert("Error occurred, please check your connection or refresh the page.");
-    });
+            $window.trigger('search.finished');
+            if (response.length == 0) {
+                $window.trigger('search.no_result');
+            } else {
+                $window.trigger('search.result', [response]);
+            }
+        }).error(function () {
+            $window.trigger('search.finished');
+            alert("Error occurred, please check your connection or refresh the page.");
+        });
 });
 
-$window.on('search.started', function(e) {
+$window.on('search.started', function (e) {
     $no_result.hide();
+    $no_result.removeClass("hide");
+    $loading.show();
     $add_message_button.addClass('disabled');
-    $loading.fadeIn(300);
+
 });
 
 $window.on('search.no_result', function (e) {
@@ -46,9 +50,13 @@ $window.on('search.no_result', function (e) {
     $no_result.show();
 });
 
-$window.on('search.finished', function(e){
+$window.on('search.finished', function (e) {
     $add_message_button.removeClass('disabled');
-    $loading.hide();
+    setTimeout(function(){
+        $loading.fadeOut(200);
+        //$loading.hide();
+    },900);
+//    $loading.hide();
 });
 
 $window.on('search.result', function (e, messages) {
@@ -69,7 +77,7 @@ $window.on('search.result', function (e, messages) {
         htmlrepr.find('[mj-request-id]').html(item.data_id);
         htmlrepr.find('.panel-heading a[data-toggle="collapse"]').attr('href', '#collapse-' + item.data_id);
         htmlrepr.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
-        htmlrepr.find('.panel-collapse').attr('id','collapse-' + item.data_id);
+        htmlrepr.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
         htmlrepr.find('[mj-message-container]').html(item.message);
         if (item.reply) {
             htmlrepr.find('[mj-reply-wrapper').removeClass('hide');
@@ -105,7 +113,7 @@ $window.on('search.result', function (e, messages) {
     var $me_too_link = $('[mj-metoo-link]');
     var $un_me_too = $('[mj-metoo-number]');
 
-    $me_too_link.on('click', function(e) {
+    $me_too_link.on('click', function (e) {
         e.preventDefault();
         var $this = $(this);
         var $me_too_badge = $this.parent().find('[mj-metoo-number]'); // TOFF
@@ -120,16 +128,16 @@ $window.on('search.result', function (e, messages) {
                 csrfmiddlewaretoken: window.csrf_token
             }
         }).success(function (response) {
-            $me_too_badge.html(response.metoos);
-            if (response.meetoed) {
-                $me_too_badge.removeClass('metooed');
+                $me_too_badge.html(response.metoos);
+                if (response.meetoed) {
+                    $me_too_badge.removeClass('metooed');
+                    $this.show(300);
+                } else {
+                    $me_too_badge.addClass('metooed');
+                }
+            }).error(function () {
                 $this.show(300);
-            } else {
-                $me_too_badge.addClass('metooed');
-            }
-        }).error(function () {
-            $this.show(300);
-        });
+            });
     });
 
 
@@ -152,17 +160,17 @@ $window.on('search.result', function (e, messages) {
                 csrfmiddlewaretoken: window.csrf_token
             }
         }).success(function (response) {
-            $this.html(response.metoos);
-            if (response.metooed) {
+                $this.html(response.metoos);
+                if (response.metooed) {
+                    $this.addClass('metooed');
+                    $me_too_link.filter(':visible').hide(300);
+                } else {
+                    $this.removeClass('metooed');
+                    $me_too_link.show(300);
+                }
+            }).error(function () {
                 $this.addClass('metooed');
-                $me_too_link.filter(':visible').hide(300);
-            } else {
-                $this.removeClass('metooed');
-                $me_too_link.show(300);
-            }
-        }).error(function () {
-            $this.addClass('metooed');
-        });
+            });
     });
 
 
