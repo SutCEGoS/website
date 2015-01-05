@@ -22,7 +22,7 @@ body {
     font-size: 17px;
 }
 
-a, a:hover, a:active, a:link {
+a, a:hover, a:active, a:link, a:visited {
     text-decoration: none;
 }
 
@@ -98,6 +98,7 @@ footer a:hover {
 }
 
 footer {
+    position: absolute !important;
     width: 100%;
     clear: both;
     padding: 10px 50px;
