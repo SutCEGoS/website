@@ -98,7 +98,6 @@ footer a:hover {
 }
 
 footer {
-    position: absolute !important;
     width: 100%;
     clear: both;
     padding: 10px 50px;
