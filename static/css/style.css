@@ -19,6 +19,7 @@ body {
     background: url('../image/bg.jpg') center center fixed;
     color: #111;
     font-family: 'B roya', Raleway, Tahoma;
+    font-size: 17px;
 }
 
 a, a:hover, a:active, a:link {
