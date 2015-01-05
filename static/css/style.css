@@ -103,6 +103,7 @@ footer {
     padding: 10px 50px;
     line-height: 40px;
     height: 60px;
+    font-size: 14px;
     text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -o-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -moz-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
