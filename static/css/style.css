@@ -50,10 +50,9 @@ footer a:hover {
 }
 
 .filter_replied > .panel-heading {
-    /*mjafar TODO*/
-    background-image: -webkit-linear-gradient(top,#f6dada 0,#fbefef 100%);
-    background-image: linear-gradient(to bottom,#f6dada 0,#fbefef 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6dada', endColorstr='#fffbefef', GradientType=0);
+    background-image: -webkit-linear-gradient(top,#f6dada 0,#fbefef 100%) !important;
+    background-image: linear-gradient(to bottom,#f6dada 0,#fbefef 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6dada', endColorstr='#fffbefef', GradientType=0)!important;
 }
 
 .filter_metooed > .panel-heading {
