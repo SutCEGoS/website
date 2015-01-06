@@ -41,11 +41,33 @@ footer a:hover {
 .circle {
     border-radius: 50%;
 }
+
 .avatar {
     margin: -15px 5px -15px -15px;
     border: 3px solid #309fff;
     display: inline-block;
     transform: translateY(-20px) translateX(-20px);
+}
+
+.filter_replied > .panel-heading {
+    /*mjafar TODO*/
+    background-image: -webkit-linear-gradient(top,#f6dada 0,#fbefef 100%);
+    background-image: linear-gradient(to bottom,#f6dada 0,#fbefef 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6dada', endColorstr='#fffbefef', GradientType=0);
+}
+
+.filter_metooed > .panel-heading {
+    /*mjafar TODO*/
+    background-image: -webkit-linear-gradient(top,#dbf5de 0,#f0fbf1 100%);
+    background-image: linear-gradient(to bottom,#dbf5de 0,#f0fbf1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdbf5de', endColorstr='#fff0fbf1', GradientType=0);
+}
+
+.filter_mine > .panel-heading {
+    /*mjafar TODO*/
+    background-image: -webkit-linear-gradient(top,#d8d7f9 0,#eeeefd 100%);
+    background-image: linear-gradient(to bottom,#d8d7f9 0,#eeeefd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd8d7f9', endColorstr='#ffeeeefd', GradientType=0);
 }
 
 .user.name {
