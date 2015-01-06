@@ -39,9 +39,13 @@ class Objection(models.Model):
             return Objection.objects.all()
         if member.groups.filter(name='Replier').exists():
             return Objection.objects.filter(status__gte=3)
-        return Objection.objects.filter(Q(status__in=[1, 2, 4, 5]) | Q(sender=member))
+        return Objection.objects.filter(Q(status__in=[1, 3, 4, 5]) | Q(sender=member))
 
     def get_serialized(self, member):
+        try:
+            reply = Reply.objects.filter(objection=self).last()
+        except:
+            reply = None
         return {
             'data_id': self.id,
             'category_id': self.category,
@@ -55,8 +59,8 @@ class Objection(models.Model):
             'course_name': self.course_name,
             'message': self.message,
             'can_me_too': not member.__eq__(self.sender),
-            'reply': '',
-            'reply_by': '',
+            'reply': reply.text if reply else "",
+            'reply_by': reply.author.username if reply else "",
         }
 
 
