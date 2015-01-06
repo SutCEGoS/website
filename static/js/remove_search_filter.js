@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 
     $("#mine_checkbox").on('change',function(){
-        $others_objections=$( "div[mj-message-template='false']").not(".filter_mine");
+        $others_objections=$( "div[mj-message-template='false']").not(".filter_mine_or_metooed");
         if($("#mine_checkbox").prop('checked') == true)
         {
             $others_objections.fadeOut(300);

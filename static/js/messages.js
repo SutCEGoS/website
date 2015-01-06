@@ -208,6 +208,10 @@ $window.on('search.result', function (e, messages, append) {
             item_dom.addClass('filter_mine');
             item_dom.find('[mj-metoo-link]').remove();
         }
+        if(item.metooed || !item.can_me_too)
+        {
+            item_dom.addClass('filter_mine_or_metooed');
+        }
 
         $messages_container.append(item_dom);
     });
