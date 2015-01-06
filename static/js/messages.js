@@ -165,7 +165,7 @@ $window.on('search.result', function (e, messages, append) {
             }]);
         });
         item_dom.find('.panel-heading a[data-toggle="collapse"]').attr('href', '#collapse-' + item.data_id);
-        item_dom.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
+//        item_dom.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
         item_dom.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
         item_dom.find('[mj-message-container]').html(item.message);
         if (item.reply && item.reply.length) {
@@ -224,7 +224,7 @@ $window.on('search.result', function (e, messages, append) {
             type: 'post',
             dataType: 'json',
             data: {
-                data_id: $this.attr('mj-dataid'),
+                data_id: $this.closest('[mj-message-template]').attr('mj-dataid'),
                 csrfmiddlewaretoken: window.csrf_token
             }
         }).success(function (response) {
@@ -256,7 +256,7 @@ $window.on('search.result', function (e, messages, append) {
             type: 'post',
             dataType: 'json',
             data: {
-                data_id: $this.attr('mj-dataid'),
+                data_id: $this.closest('[mj-message-template]').attr('mj-dataid'),
                 csrfmiddlewaretoken: window.csrf_token
             }
         }).success(function (response) {
