@@ -10,7 +10,10 @@ from objection.models import Objection, Reply
 
 @receiver(pre_save, sender=Reply, dispatch_uid='autocreate_author')
 def create_username(sender, instance, *args, **kwargs):
-    instance.author = Member.objects.filter(is_superuser=True).last()
+    try:
+        instance.author = Member.objects.get(username="izadi")
+    except:
+        instance.author = Member.objects.filter(is_superuser=True).last()
 
 
 class ReplyInline(admin.StackedInline):
@@ -48,41 +51,44 @@ class ObjectionAdmin(admin.ModelAdmin):
         return super(ObjectionAdmin, self).response_change(request, obj)
 
     def save_related(self, request, form, formsets, change):
+        q = super(ObjectionAdmin, self).save_related(request, form, formsets, change)
         for item in formsets:
-            item.author = request.user
-            item.save()
-        # now we have what we need here... :)
-        return super(ObjectionAdmin, self).save_related(request, form, formsets, change)
+            try:
+                item.author = request.user
+                item.save()
+            except:
+                pass
+        return q
 
     def queryset(self, request):
         qs = super(ObjectionAdmin, self).queryset(request)
-        print qs
         if request.user.groups.filter(name='Replier').exists():
             return qs.filter(status__gte=3)
         return qs
 
 
-def mark_as_waiting(modeladmin, request, queryset):
-    queryset.update(status=3)
+    def mark_as_waiting(modeladmin, request, queryset):
+        queryset.update(status=3)
 
 
-mark_as_waiting.short_description = u"علامت زدن موارد انتخابی به عنوان منتظر پاسخ"
+    mark_as_waiting.short_description = u"علامت زدن موارد انتخابی به عنوان منتظر پاسخ"
 
 
-def mark_as_unconfirmed(modeladmin, request, queryset):
-    queryset.update(status=2)
+    def mark_as_unconfirmed(modeladmin, request, queryset):
+        queryset.update(status=2)
 
 
-mark_as_unconfirmed.short_description = u"علامت زدن موارد انتخابی به عنوان تایید نشده"
+    mark_as_unconfirmed.short_description = u"علامت زدن موارد انتخابی به عنوان تایید نشده"
 
 
-def mark_as_read(modeladmin, request, queryset):
-    queryset.update(status=4)
+    def mark_as_read(modeladmin, request, queryset):
+        queryset.update(status=4)
 
 
-mark_as_read.short_description = u"علامت زدن موارد انتخابی به عنوان خوانده شده"
+    mark_as_read.short_description = u"علامت زدن موارد انتخابی به عنوان خوانده شده"
 
-list_filter = ['status', 'category', 'offered_course']
-search_fields = ['offered_course', 'category', 'message']
+    list_filter = ['status', 'category', 'offered_course']
+    search_fields = ['offered_course', 'category', 'message']
+
 
 admin.site.register(Objection, ObjectionAdmin)

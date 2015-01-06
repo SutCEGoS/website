@@ -41,11 +41,30 @@ footer a:hover {
 .circle {
     border-radius: 50%;
 }
+
 .avatar {
     margin: -15px 5px -15px -15px;
     border: 3px solid #309fff;
     display: inline-block;
     transform: translateY(-20px) translateX(-20px);
+}
+
+.filter_replied > .panel-heading {
+    background-image: -webkit-linear-gradient(top,#f6dada 0,#fbefef 100%) !important;
+    background-image: linear-gradient(to bottom,#f6dada 0,#fbefef 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6dada', endColorstr='#fffbefef', GradientType=0)!important;
+}
+
+.filter_metooed > .panel-heading {
+    background-image: -webkit-linear-gradient(top,#f0fbf1 0,#dbf5de 100%);
+    background-image: linear-gradient(to bottom,#f0fbf1 0,#dbf5de 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff0fbf1', endColorstr='#ffdbf5de', GradientType=0);
+}
+
+.filter_mine > .panel-heading {
+    background-image: -webkit-linear-gradient(top,#eeeefd 0,#d8d7f9 100%);
+    background-image: linear-gradient(to bottom,#eeeefd 0,#d8d7f9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeeeefd', endColorstr='#ffd8d7f9', GradientType=0);
 }
 
 .user.name {
