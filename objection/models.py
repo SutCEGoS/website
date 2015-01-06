@@ -11,9 +11,9 @@ class Objection(models.Model):
     CATEGORY = Choices((0, 'a', u"------------"),
                        (1, 'b', u"تلاقی زمان کلاس"),
                        (2, 'c', u"تاریخ امتحان نامناسب"),
-                       (3, 'd', u"عدم ارائه درس"),
+                       (3, 'd', u"عدم ارائه"),
                        (4, 'e', u"تعداد گروه کم"),
-                       (5, 'f', u"عدم صلاحیت استاد برای ارائه درس"),
+                       (5, 'f', u"عدم صلاحیت استاد"),
                        (6, 'g', u"غیره")
     )
     STATUS = Choices((1, 'admin pending', u"منتظر تایید"), (2, 'unqualified', u"تایید نشده"),
@@ -45,7 +45,7 @@ class Objection(models.Model):
         return {
             'data_id': self.id,
             'category_id': self.category,
-            'category_namep': self.get_category_display(),
+            'category_name': self.get_category_display(),
             'status_id': self.status,
             'status_name': self.get_status_display(),
             'metoos': self.like.count(),

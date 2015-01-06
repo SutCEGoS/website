@@ -24,7 +24,7 @@ def requests(request):
 
     params = {
         'form': form,
-        'messages': Objection.objects.filter().order_by('reply').reverse()  # FIXME: fuck
+        # 'messages': Objection.objects.filter().order_by('reply').reverse()  # FIXME: fuck
     }
 
     return render(request, 'messages.html', params)
