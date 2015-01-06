@@ -13,7 +13,6 @@ class Objection(models.Model):
                        (2, 'c', u"تاریخ امتحان نامناسب"),
                        (3, 'd', u"عدم ارائه"),
                        (4, 'e', u"تعداد گروه کم"),
-                       (5, 'f', u"عدم صلاحیت استاد"),
                        (6, 'g', u"غیره")
     )
     STATUS = Choices((1, 'admin pending', u"منتظر تایید"), (2, 'unqualified', u"تایید نشده"),
