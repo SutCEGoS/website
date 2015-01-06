@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Messages{% endblock title %}
+{% block footer %}{% endblock %}
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
@@ -15,40 +16,7 @@
     <script type="text/javascript" language="JavaScript">
         var $ajax_metoo = '{% url 'add_me_too' %}';
         var $load_url = '{% url 'get_objections_list' %}';
-        /*
-         var messages = [
-         {
-         data_id: 1,
-         category_id: 1,
-         category: 'تلاقی برنامه هفتگی',
-         course_name: 'برنامه نویسی پیشرفته',
-         offered_course: '',
-         second_course: 'محاسبات عددی',
-         message: 'مرسی که ارائه میدین',
-         metoos: 4,
-         metooed: false
-         },
-         {
-         data_id: 37,
-         category_id: 2,
-         category: 'تاریخ امتحان نامناسب',
-         course_name: 'پایگاه‌های داده',
-         offered_course: 'عباس شناسی ',
-         second_course: '',
-         message: '',
-         metoos: 15,
-         metooed: true
-         },
-         ];
-
-         $window.on('load', function () {
-         setTimeout(function () {
-         $window.trigger('search.result', [messages, false]);
-         }, 1000);
-         });
-         */
     </script>
-
 {% endblock %}
 {% block user_infos %}
     <header>
@@ -107,6 +75,14 @@
                         {% include 'searchform.html' %}
                     </div>
                 </div>
+                <footer class="footer panel-body">
+                    <p class="english normal-p">
+                        Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
+                            href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="">Thank you <a
+                            href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>
+                    </p>
+                </footer>
+
             </div>
 
             <div class="col-lg-8 col-md-8" id="messages-show">

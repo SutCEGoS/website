@@ -118,7 +118,8 @@ def add_me_too(request):
     try:
         item_id = int(item_id)
     except:
-        return HttpResponseBadRequest
+        return HttpResponse(status=400) # Thank you amin
+
     item = get_object_or_404(Objection, pk=item_id)
     available_items = Objection.get_available(request.user)
     if item not in available_items:

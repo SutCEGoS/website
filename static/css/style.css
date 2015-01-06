@@ -97,13 +97,25 @@ footer a:hover {
     /* FIXME (semora) */
 }
 
-footer {
-    width: 100%;
-    clear: both;
-    padding: 10px 50px;
+.footer.base:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.footer.base {
     line-height: 40px;
     height: 60px;
     font-size: 14px;
+    padding: 10px 50px;
+}
+
+.normal-p {
+    margin: 0 !important;
+}
+
+footer {
+    font-size: 13px;
+    width: 100%;
+    clear: both;
     text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -o-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -moz-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
@@ -281,14 +293,6 @@ header .panel-heading {
     margin-bottom: 100px;
 }
 
-.footer-style {
-
-}
-
-.footer-style:hover {
-    background: rgba(255, 255, 255, 0.3);
-
-}
 
 .center-div {
     width: 700px;
