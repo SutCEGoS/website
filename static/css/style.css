@@ -42,6 +42,36 @@ footer a:hover {
     border-radius: 50%;
 }
 
+.logo {
+    margin: 0;
+    padding: 0px 75px 0px 10px;
+    background: url('/static/image/logo.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    line-height: 60px;
+    text-align: right;
+}
+
+.logo p {
+    display: inline-block;
+    font-size: 25px;
+    color: #3982c1;
+    text-align: right;
+    font-weight: bold;
+}
+
+.logo p.description {
+    font-size: 14px;
+    color: #3479b0;
+    font-weight: normal;
+    display: inline-block;
+    margin-top: 5px;
+    text-shadow: -1px 1px 0px whitesmoke;
+}
+
+.logo
+
 .avatar {
     margin: -15px 5px -15px -15px;
     border: 3px solid #309fff;
