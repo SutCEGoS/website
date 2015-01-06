@@ -42,6 +42,14 @@ footer a:hover {
     display: table-row;
 }
 
+header {
+    font-size: 13px;
+}
+
+.user.actions {
+    font-size: 12px;
+}
+
 .table-cell {
     display: table-cell;
 }
@@ -64,7 +72,6 @@ footer a:hover {
     /**font-family: corbel;**/
     font-size: 0.8em;
     color: #999999;
-    cursor: default;
 }
 .metoo-wrapper{
     direction: ltr !important;

@@ -11,5 +11,5 @@ $(document).ready(function() {
 
 $window.on('searchform.resetform', function() {
     $('form[name=search_form]')[0].reset();
-    $('.searchable').trigger('change');
+    $('.searchable:first').trigger('change');
 });

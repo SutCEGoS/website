@@ -18,19 +18,18 @@
         var $load_url = '{% url 'get_objections_list' %}';
     </script>
 {% endblock %}
+{% block navbar %}{% endblock %}
 {% block user_infos %}
     <header>
         <div class="container">
-            <div class="row">
-
-
+            <div class="row" style="margin-top: 20px">
                 <div class="col-lg-4 col-md-4">
                     <div class="panel panel-default panel-background-color">
                         <div class="panel-body">
                             Hi
                             <b>{{ user }}</b>
 
-                            <div class="pull-right">
+                            <div class="user actions pull-right">
                                 <a href="{% url 'password_reset_change' %}">Change Password</a>
                                 |
                                 <a href="{% url 'logout' %}">Logout</a>
