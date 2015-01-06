@@ -57,17 +57,15 @@ footer a:hover {
 }
 
 .filter_metooed > .panel-heading {
-    /*mjafar TODO*/
-    background-image: -webkit-linear-gradient(top,#dbf5de 0,#f0fbf1 100%);
-    background-image: linear-gradient(to bottom,#dbf5de 0,#f0fbf1 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdbf5de', endColorstr='#fff0fbf1', GradientType=0);
+    background-image: -webkit-linear-gradient(top,#f0fbf1 0,#dbf5de 100%);
+    background-image: linear-gradient(to bottom,#f0fbf1 0,#dbf5de 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff0fbf1', endColorstr='#ffdbf5de', GradientType=0);
 }
 
 .filter_mine > .panel-heading {
-    /*mjafar TODO*/
-    background-image: -webkit-linear-gradient(top,#d8d7f9 0,#eeeefd 100%);
-    background-image: linear-gradient(to bottom,#d8d7f9 0,#eeeefd 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd8d7f9', endColorstr='#ffeeeefd', GradientType=0);
+    background-image: -webkit-linear-gradient(top,#eeeefd 0,#d8d7f9 100%);
+    background-image: linear-gradient(to bottom,#eeeefd 0,#d8d7f9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeeeefd', endColorstr='#ffd8d7f9', GradientType=0);
 }
 
 .user.name {
