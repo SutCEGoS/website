@@ -5,6 +5,9 @@
 <head>
     <title>{% block title %}{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.form.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
         var $window = $(window);
         window.$ajax_search = "{% url 'objection_ajax_search' %}";
@@ -12,8 +15,6 @@
         window.$course_list_url = "{% url 'get_courses_list' %}"
         window.csrf_token = "{{ csrf_token }}";
     </script>
-    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.form.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <!--if lt IE 9]><script type="text/javascript" src="{% static 'js/html5shiv.js' %}"></script><![endif]-->
@@ -24,7 +25,7 @@
     <!--link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}" /-->
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/royafont.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/royafont.css' %}"/>
     {% block extra_styles %}{% endblock %}
 </head>
 <body>
@@ -34,13 +35,13 @@
     {% block body %}{% endblock %}
 </div>
 {% block footer %}
-<footer class="footer base navbar-fixed-bottom">
-    <p class="english">
-        Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
-            href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="terminator">Thank you <a
-            href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>
-    </p>
-</footer>
+    <footer class="footer base navbar-fixed-bottom">
+        <p class="english">
+            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
+                href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="terminator">Thank you <a
+                href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>
+        </p>
+    </footer>
 {% endblock %}
 </body>
 </html>
