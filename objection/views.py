@@ -17,17 +17,13 @@ from objection.models import Objection
 
 @login_required
 def requests(request):
-    result = ''
-    result_type = False
-    params = {}
     form = MessageForm()
 
-    user_email = 'raindigital2007@gmail.com'
+    user_email = request.user.email
 
     params = {
         'form': form,
         'user_email': user_email
-        # 'messages': Objection.objects.filter().order_by('reply').reverse()  # FIXME: fuck
     }
 
     return render(request, 'messages.html', params)
@@ -64,7 +60,7 @@ def search(request):
 
     if category:
         search_result = search_result.filter(category=category)
-
+    search_result.order_by('id').reverse()
     objections_list = []
     for item in search_result:
         objections_list.append(
@@ -120,8 +116,8 @@ def add_me_too(request):
     item_id = request.POST.get('data_id')
     try:
         item_id = int(item_id)
-    except:
-        return HttpResponse(status=400) # Thank you amin
+    except ValueError:
+        return HttpResponse(status=400)  # Thank you amin
 
     item = get_object_or_404(Objection, pk=item_id)
     available_items = Objection.get_available(request.user)
@@ -135,8 +131,8 @@ def add_me_too(request):
     else:
         me_too_ed = True
         item.like.add(request.user)
-    dict = {
+    retrurn_obj = {
         'metooed': me_too_ed,
         'metoos': item.like.count()
     }
-    return HttpResponse(json.dumps(dict), content_type="application/json")
+    return HttpResponse(json.dumps(retrurn_obj), content_type="application/json")
