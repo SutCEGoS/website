@@ -50,9 +50,8 @@ class ObjectionAdmin(admin.ModelAdmin):
     def save_related(self, request, form, formsets, change):
         q = super(ObjectionAdmin, self).save_related(request, form, formsets, change)
         for item in formsets:
-            if isinstance(item, Reply):
-                item.author = request.user
-                item.save()
+            item.instance.author = request.user
+            item.instance.save()
         return q
 
     def queryset(self, request):
