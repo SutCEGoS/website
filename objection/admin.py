@@ -26,17 +26,18 @@ class ObjectionAdmin(admin.ModelAdmin):
     inlines = [ReplyInline]
 
     actions = ['mark_as_unconfirmed', 'mark_as_waiting', 'mark_as_read']
-    list_display = ['id', 'status', 'category', 'message', 'offered_course', 'second_course', 'course_name']
+    list_display = ['id', 'requests', 'status', 'category', 'message', 'offered_course', 'second_course',
+                    'course_name']
     fieldsets = (
         (u'پیام', {
             'fields':
-                (
+                ('requests',
                     'status', 'offered_course', 'second_course',
                     'course_name',
                     'category', 'message')
         }),
     )
-    readonly_fields = ('status', 'offered_course', 'second_course',
+    readonly_fields = ('requests', 'status', 'offered_course', 'second_course',
                        'course_name',
                        'category', 'message')
 

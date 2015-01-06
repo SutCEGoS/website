@@ -74,6 +74,9 @@ class Objection(models.Model):
             return self.second_course.get_name()
         return -1
 
+    def requests(self):
+        return 1 + self.like.count()
+
 
 class Reply(models.Model):
     text = models.TextField()
