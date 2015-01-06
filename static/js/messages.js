@@ -232,8 +232,10 @@ $window.on('search.result', function (e, messages, append) {
                 if (response.meetoed) {
                     $me_too_badge.removeClass('metooed');
                     $this.show(300);
+                    $this.closest('[mj-message-template]').removeClass('filter_metooed');
                 } else {
                     $me_too_badge.addClass('metooed');
+                    $this.closest('[mj-message-template]').addClass('filter_metooed');
                 }
             }).error(function () {
                 $this.show(300);
@@ -264,9 +266,11 @@ $window.on('search.result', function (e, messages, append) {
                 if (response.metooed) {
                     $this.addClass('metooed');
                     $me_too_link.filter(':visible').hide(300);
+                    $this.closest('[mj-message-template]').addClass('filter_metooed');
                 } else {
                     $this.removeClass('metooed');
                     $me_too_link.show(300);
+                    $this.closest('[mj-message-template]').removeClass('filter_metooed');
                 }
             }).error(function () {
                 $this.addClass('metooed');
