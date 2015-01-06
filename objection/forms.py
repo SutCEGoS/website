@@ -8,7 +8,7 @@ from course.views import get_current_year
 
 __author__ = 'mjafar'
 
-from objection.models import Objection
+from objection.models import Objection, Reply
 
 
 class MessageForm(forms.ModelForm):
@@ -60,5 +60,3 @@ class MessageForm(forms.ModelForm):
             pass
 
         return cd
-
-
