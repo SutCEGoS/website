@@ -10,7 +10,10 @@ from objection.models import Objection, Reply
 
 @receiver(pre_save, sender=Reply, dispatch_uid='autocreate_author')
 def create_username(sender, instance, *args, **kwargs):
-    instance.author = Member.objects.filter(is_superuser=True).last()
+    try:
+        instance.author = Member.objects.get(username="izadi")
+    except:
+        instance.author = Member.objects.filter(is_superuser=True).last()
 
 
 class ReplyInline(admin.StackedInline):
