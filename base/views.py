@@ -126,11 +126,14 @@ def password_reset_change(request):
     if request.method == 'POST':
         form = PasswordForm(user=request.user, data=request.POST)
         form.is_valid()
+        sent = True
     else:
         form = PasswordForm(user=request.user)
+        sent = False
     return render(request,
                   'password_reset/password_change.html',
                   {
-                      'form': form
+                      'form': form,
+                      'sent': sent,
                   })
 
