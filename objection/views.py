@@ -60,7 +60,7 @@ def search(request):
 
     if category:
         search_result = search_result.filter(category=category)
-    search_result.order_by('id').reverse()
+    search_result = search_result.order_by('-id')
     objections_list = []
     for item in search_result:
         objections_list.append(
