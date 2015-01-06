@@ -22,8 +22,11 @@ def requests(request):
     params = {}
     form = MessageForm()
 
+    user_email = 'raindigital2007@gmail.com'
+
     params = {
         'form': form,
+        'user_email': user_email
         # 'messages': Objection.objects.filter().order_by('reply').reverse()  # FIXME: fuck
     }
 

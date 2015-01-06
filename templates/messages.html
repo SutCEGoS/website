@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load gravatar %}
 {% block title %}Messages{% endblock title %}
 {% block footer %}{% endblock %}
 {% block extra_styles %}
@@ -26,9 +27,8 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="panel panel-default panel-background-color">
                         <div class="panel-body">
-                            Hi
-                            <b>{{ user }}</b>
-
+                            <div class="circle avatar"><img class="circle" src="{% gravatar_url user_email  %}"></div>
+                            <span class="user name">{{ user }}</span>
                             <div class="user actions pull-right">
                                 <a href="{% url 'password_reset_change' %}">Change Password</a>
                                 |
