@@ -19,7 +19,6 @@ class ReplyInline(admin.StackedInline):
     max_num = 1
 
 
-
 class ObjectionAdmin(admin.ModelAdmin):
     inlines = [ReplyInline]
 
@@ -51,15 +50,16 @@ class ObjectionAdmin(admin.ModelAdmin):
     def save_related(self, request, form, formsets, change):
         for item in formsets:
             item.author = request.user
+            item.save()
         # now we have what we need here... :)
         return super(ObjectionAdmin, self).save_related(request, form, formsets, change)
 
-
-def queryset(self, request):
-    qs = super(ObjectionAdmin, self).queryset(request)
-    if request.user.groups.filter(name='Replier').exists():
-        return qs.filter(status__gte=3)
-    return qs
+    def queryset(self, request):
+        qs = super(ObjectionAdmin, self).queryset(request)
+        print qs
+        if request.user.groups.filter(name='Replier').exists():
+            return qs.filter(status__gte=3)
+        return qs
 
 
 def mark_as_waiting(modeladmin, request, queryset):
