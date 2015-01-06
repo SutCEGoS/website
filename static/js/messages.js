@@ -158,12 +158,14 @@ $window.on('search.result', function (e, messages, append) {
             .attr('mj-category-id', item.category_id);
 
         item_dom.find('[mj-request-id]').html(item.data_id);
-        item_dom.find('a[mj-permanent-link]').attr('href', '?id=' + item.data_id).on('click', function(e) {
-            e.preventDefault();
-            $window.trigger('search.do', [{
-                id: item.data_id
-            }]);
-        });
+        item_dom.find('a[mj-permanent-link]').attr('href', '?id=' + item.data_id);
+//            .on('click', function(e) {
+//            e.preventDefault();
+//            history.pushState({id: item.data_id}, 'link ' + item.data_id, '?id=' + item.data_id);
+//            $window.trigger('search.do', [{
+//                id: item.data_id
+//            }]);
+//        });
         item_dom.find('.panel-heading a[data-toggle="collapse"]').attr('href', '#collapse-' + item.data_id);
 //        item_dom.find('.panel-heading a.metoo').attr('mj-dataid', item.data_id);
         item_dom.find('.panel-collapse').attr('id', 'collapse-' + item.data_id);
@@ -205,6 +207,10 @@ $window.on('search.result', function (e, messages, append) {
         if (!item.can_me_too) {
             item_dom.addClass('filter_mine');
             item_dom.find('[mj-metoo-link]').remove();
+        }
+        if(item.metooed || !item.can_me_too)
+        {
+            item_dom.addClass('filter_mine_or_metooed');
         }
 
         $messages_container.append(item_dom);

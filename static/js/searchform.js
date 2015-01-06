@@ -101,9 +101,11 @@ $window.on('load', function() {
             $('.course-name-div').fadeOut();
         }
         var $remove_search_filter = $("#remove_search_filter");
+
         if (value > 0) {
             $remove_search_filter.show();
             $remove_search_filter.removeClass("hide");
+            $("#mine_checkbox").prop('checked', false);
         }
         else {
             $remove_search_filter.hide();
