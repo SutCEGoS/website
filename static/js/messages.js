@@ -7,6 +7,8 @@ var $loading;
 var $no_result;
 var $messages = [];
 var $course_list = [];
+var fade_in_time = 350;
+
 /*
 {
     course.id: {
@@ -137,6 +139,13 @@ $window.on('search.result', function (e, messages, append) {
         $messages.push(messages);
         to_add = [messages];
     }
+
+    if (append || messages.length < 10) {
+        fade_in_time = 350;
+    } else {
+        fade_in_time = 120;
+    }
+
     // Create
     $.each(to_add, function (i, item) {
         // Clone
@@ -271,7 +280,7 @@ $window.on('search.result', function (e, messages, append) {
 $window.on('messages.lazyShow', function () {
     var first_hide = $messages_container.children('div.panel.hide:first');
     if (first_hide && first_hide.length) {
-        first_hide.removeClass('hide').hide().fadeIn(400, function () {
+        first_hide.removeClass('hide').hide().fadeIn(fade_in_time, function () {
             $(window).trigger('messages.lazyShow');
         });
     }
