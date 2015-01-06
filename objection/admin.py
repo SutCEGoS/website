@@ -50,8 +50,11 @@ class ObjectionAdmin(admin.ModelAdmin):
     def save_related(self, request, form, formsets, change):
         q = super(ObjectionAdmin, self).save_related(request, form, formsets, change)
         for item in formsets:
-            item.instance.author = request.user
-            item.instance.save()
+            try:
+                item.author = request.user
+                item.save()
+            except:
+                pass
         return q
 
     def queryset(self, request):
@@ -83,5 +86,6 @@ class ObjectionAdmin(admin.ModelAdmin):
 
     list_filter = ['status', 'category', 'offered_course']
     search_fields = ['offered_course', 'category', 'message']
+
 
 admin.site.register(Objection, ObjectionAdmin)
