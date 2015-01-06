@@ -160,3 +160,4 @@ EMAIL_HOST_USER = 'shora.cesharif@gmail.com'
 EMAIL_HOST_PASSWORD = 'YiN1om03JN1rv9fA1JQa4g'
 MANDRILL_API_KEY = "YiN1om03JN1rv9fA1JQa4g"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
