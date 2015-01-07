@@ -112,7 +112,7 @@ $window.on('load', function() {
         }
     }
 
-
+    /*
     $('#id_offered_course').bind('change', function () {
         appendDetails($(this));
     });
@@ -130,4 +130,5 @@ $window.on('load', function() {
         }).error(function () {
         });
     }
+    */
 });

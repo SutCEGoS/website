@@ -43,7 +43,7 @@ def search(request):
         if obj in search_result:
             return HttpResponse(json.dumps([obj.get_serialized(request.user)]), content_type="application/json")
         raise PermissionDenied
-    category = request.GET.get('category')
+    category = int(request.GET.get('category'))
     offered_course = request.GET.get('offered_course')
     second_course = request.GET.get('second_course')
     course_name = request.GET.get('course_name')
