@@ -44,13 +44,14 @@ footer a:hover {
 
 .logo {
     margin: 0;
-    padding: 0px 75px 0px 10px;
+    padding: 0px 85px 0px 15px;
     background: url('/static/image/logo.png');
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
-    line-height: 60px;
+    line-height: 75px;
     text-align: right;
+    height: 75px
 }
 
 .logo p {
@@ -80,9 +81,9 @@ footer a:hover {
 }
 
 .filter_replied > .panel-heading {
-    background-image: -webkit-linear-gradient(top,#f6dada 0,#fbefef 100%) !important;
-    background-image: linear-gradient(to bottom,#f6dada 0,#fbefef 100%) !important;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6dada', endColorstr='#fffbefef', GradientType=0)!important;
+    background-image: -webkit-linear-gradient(top,#fbefef 0,#f6dada 100%) !important;
+    background-image: linear-gradient(to bottom,#fbefef 0,#f6dada 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbefef', endColorstr='#fff6dada', GradientType=0)!important;
 }
 
 .filter_metooed > .panel-heading {
