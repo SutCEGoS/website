@@ -236,12 +236,15 @@ $window.on('search.result', function (e, messages, append) {
         }).success(function (response) {
                 $me_too_badge.html(response.metoos);
                 if (response.meetoed) {
+                    $me_too_badge.tooltip('destroy');
                     $me_too_badge.removeClass('metooed');
                     $this.show(300);
                     $this.closest('[mj-message-template]').removeClass('filter_metooed');
+                    $this.closest('[mj-message-template]').removeClass('filter_mine_or_metooed');
                 } else {
                     $me_too_badge.addClass('metooed');
                     $this.closest('[mj-message-template]').addClass('filter_metooed');
+                    $this.closest('[mj-message-template]').addClass('filter_mine_or_metooed');
                 }
             }).error(function () {
                 $this.show(300);
@@ -256,7 +259,7 @@ $window.on('search.result', function (e, messages, append) {
         if (!$this.hasClass('metooed')) {
             return;
         }
-
+        $this.tooltip('destroy');
         $this.removeClass('metooed');
         var $me_too_link = $this.parent().find('[mj-metoo-link]');
         $.ajax({
@@ -273,10 +276,13 @@ $window.on('search.result', function (e, messages, append) {
                     $this.addClass('metooed');
                     $me_too_link.filter(':visible').hide(300);
                     $this.closest('[mj-message-template]').addClass('filter_metooed');
+                    $this.closest('[mj-message-template]').addClass('filter_mine_or_metooed');
                 } else {
+                    $this.tooltip('destroy');
                     $this.removeClass('metooed');
                     $me_too_link.show(300);
                     $this.closest('[mj-message-template]').removeClass('filter_metooed');
+                    $this.closest('[mj-message-template]').removeClass('filter_mine_or_metooed');
                 }
             }).error(function () {
                 $this.addClass('metooed');

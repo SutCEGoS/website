@@ -20,6 +20,9 @@ $(document).ready(function() {
         }
         //console.log($("#mine_checkbox").prop('checked'));
     });
+
+    $(document).tooltip({'selector': '.metooed', 'title': 'Un me too!','placement':'top'});
+
 });
 
 
