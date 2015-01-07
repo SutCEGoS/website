@@ -43,10 +43,12 @@ def search(request):
         if obj in search_result:
             return HttpResponse(json.dumps([obj.get_serialized(request.user)]), content_type="application/json")
         raise PermissionDenied
-    category = int(request.GET.get('category'))
+    category = request.GET.get('category')
     offered_course = request.GET.get('offered_course')
     second_course = request.GET.get('second_course')
     course_name = request.GET.get('course_name')
+
+    category = int(category) if category else category
 
     if offered_course and not second_course and category in [2, 4, 5, 6]:
         search_result = search_result.filter(offered_course__id=offered_course)
