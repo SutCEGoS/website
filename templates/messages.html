@@ -100,9 +100,36 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="nav nav-tabs margin-bottom dir-rtl" id="filter">
-                            <input type="checkbox" name="mine" id="mine_checkbox">
-                            اعتراضات من
+                        <div class="nav nav-tabs margin-bottom" id="filter">
+                            <div class="pull-right dir-rtl">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-flat btn-sm">
+                                        <input type="checkbox" name="mine" id="mine_checkbox">
+                                        اعتراضات من
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <span class="btn btn-sm disabled btn-label">sort by </span>
+{#                                    <label class="btn btn-flat btn-sm">#}
+{#                                        <input type="radio" >#}
+{#                                        flat test#}
+{#                                    </label>#}
+                                    <label class="btn btn-flat btn-sm">
+                                        <input type="radio" name="sort" id="me_too_radio" value="metoo">
+                                        me too
+                                    </label>
+                                    <label class="btn btn-flat btn-sm active">
+                                        <input type="radio" name="sort" id="id_radio" value="id" checked>
+                                        time
+                                    </label>
+
+                                </div>
+                            </div>
+{#                            <input type="checkbox" name="mine" id="mine_checkbox">#}
+
                         </div>
                         <div class="" id="accordion">
 {#                            <div class="nav nav-tabs margin-bottom"></div>#}

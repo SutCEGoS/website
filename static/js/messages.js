@@ -67,7 +67,7 @@ $window.on('load', function () {
         if (index_of_id == 0 || (index_of_id == 1 && value[0] == '?')) {
             id = value.substr(index_of_id + 'id='.length);
             has_id = true;
-            console.log(id);
+            //console.log(id);
         }
     });
     if (has_id) {
@@ -93,6 +93,7 @@ $window.on('search.do', function (e, data) {
             if (response.length == 0) {
                 $window.trigger('search.no_result');
             } else {
+                window.last_response = response;
                 $window.trigger('search.result', [response, false]);
             }
         }).error(function () {
@@ -131,6 +132,8 @@ $window.on('search.finished', function (e) {
 
 $window.on('search.result', function (e, messages, append) {
     var to_add;
+    window.sort_type = $('input:radio[name=sort]:checked').val();
+                messages.sort(item_compare);
     if (!append) {
         $messages_container.children().remove();
         $messages = messages;
@@ -234,6 +237,13 @@ $window.on('search.result', function (e, messages, append) {
                 csrfmiddlewaretoken: window.csrf_token
             }
         }).success(function (response) {
+//                window.last_response = response;
+                var local_id = $this.closest('[mj-message-template]').attr('mj-dataid');
+                var local_response = $.grep(window.last_response,function(e){
+                    return e.data_id == local_id;
+                });
+                local_response[0].metoos = response.metoos;
+                local_response[0].metooed = response.metooed;
                 $me_too_badge.html(response.metoos);
                 if (response.meetoed) {
                     $me_too_badge.tooltip('destroy');
@@ -272,6 +282,14 @@ $window.on('search.result', function (e, messages, append) {
             }
         }).success(function (response) {
                 $this.html(response.metoos);
+
+                var local_id = $this.closest('[mj-message-template]').attr('mj-dataid');
+                var local_response = $.grep(window.last_response,function(e){
+                    return e.data_id == local_id;
+                });
+                local_response[0].metoos = response.metoos;
+                local_response[0].metooed = response.metooed;
+
                 if (response.metooed) {
                     $this.addClass('metooed');
                     $me_too_link.filter(':visible').hide(300);
@@ -294,7 +312,16 @@ $window.on('search.result', function (e, messages, append) {
 });
 
 $window.on('messages.lazyShow', function () {
-    var first_hide = $messages_container.children('div.panel.hide:first');
+    //console.log($('input:checkbox[name=mine]:checked').length == 0);
+    var first_hide;
+    if($('input:checkbox[name=mine]:checked').length == 0)
+    {
+        first_hide = $messages_container.children('div.panel.hide:first');
+    }
+    else{
+        first_hide = $messages_container.children('div.panel.hide.filter_mine_or_metooed:first');
+    }
+
     if (first_hide && first_hide.length) {
         first_hide.removeClass('hide').hide().fadeIn(fade_in_time, function () {
             $(window).trigger('messages.lazyShow');

@@ -286,6 +286,17 @@ header .panel-heading {
     cursor: pointer;
 }
 
+.btn-label{
+    background-color: #ababab;
+    /*border-image: none;*/
+    color: #000000;
+    font-weight: bold;
+}
+
+.btn-flat{
+    background-color: #eaeaea;
+}
+
 /** What we had: **/
 
 .select2-results {
