@@ -49,6 +49,8 @@ def search(request):
     course_name = request.GET.get('course_name')
 
     category = int(category) if category else category
+    offered_course = int(offered_course) if offered_course else offered_course
+    second_course = int(second_course) if second_course else second_course
 
     if offered_course and not second_course and category in [2, 4, 5, 6]:
         search_result = search_result.filter(offered_course__id=offered_course)
