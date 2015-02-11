@@ -15,9 +15,19 @@ from base.models import Member
 
 
 def home(request):
+    go_course = False
+    try:
+        x = request.get_host().split('.')
+        x = x[0]
+        if x.__eq__('course'):
+            go_course = True
+    except:
+        pass
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('login'))
     else:
+        if go_course:
+            return HttpResponseRedirect(reverse('requests'))
         return HttpResponseRedirect(reverse('issues'))
 
 
