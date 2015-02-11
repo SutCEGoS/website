@@ -14,4 +14,6 @@ urlpatterns += patterns('',
                         url(r'^', include('base.urls')),
                         url(r'^courses/', include('course.urls')),
                         url(r'^objections/', include('objection.urls')),
+                        url(r'^issues/', include('issue.urls')),
+
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

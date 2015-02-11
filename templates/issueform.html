@@ -1,0 +1,14 @@
+{% load static %}
+{% load my_app_filters %}
+<form action="" method="POST" class="" name="search_form">
+    {% csrf_token %}
+    <fieldset>
+        {{ form.category|get_form_field_as_div:"12$searchable"|safe }}
+        {{ form.title|get_form_field_as_div:12|safe }}
+        {{ form.message|get_form_field_as_div:12|safe }}
+    </fieldset>
+    <div class="form-actions col-lg-12" style="margin-top:10px">
+        <button class="btn btn-primary" id="add_issue" role="button">Send</button>
+        <!-- TODO -->
+    </div>
+</form>

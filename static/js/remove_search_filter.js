@@ -23,7 +23,7 @@ $(document).ready(function () {
 
 
     $("input:radio[name=sort]").on('change', function () {
-          $window.trigger('search.result', [window.last_response, false]);
+          $window.trigger('search.result', [window.last_response], false);
           var $items = $("div[mj-message-template='false']");
         $items.sort(function(a,b){
         });

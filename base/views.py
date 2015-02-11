@@ -1,5 +1,4 @@
 from django.contrib.auth import login as dj_login
-
 from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -19,7 +18,7 @@ def home(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('login'))
     else:
-        return HttpResponseRedirect(reverse('requests'))
+        return HttpResponseRedirect(reverse('issues'))
 
 
 def logout(request):

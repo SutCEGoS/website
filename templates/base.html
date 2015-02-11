@@ -9,9 +9,6 @@
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
         var $window = $(window);
-        window.$ajax_search = "{% url 'objection_ajax_search' %}";
-        window.$message_add_url = "{% url 'add_objection' %}";
-        window.$course_list_url = "{% url 'get_courses_list' %}"
         window.csrf_token = "{{ csrf_token }}";
     </script>
     <script type="text/javascript" src="{% static 'js/json.js' %}"></script>

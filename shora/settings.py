@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'base',
     'course',
     'objection',
+    'issue',
 )
 
 MIDDLEWARE_CLASSES = (

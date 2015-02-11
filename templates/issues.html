@@ -1,0 +1,30 @@
+{% extends 'messages.html' %}
+{% load static %}
+{% load gravatar %}
+{% block title %}Issues{% endblock title %}
+{% block footer %}{% endblock %}
+{% block extra_styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" language="JavaScript">
+        window.$ajax_search = "{% url 'objection_ajax_search_issue' %}";
+        window.$message_add_url = "{% url 'add_objection_issue' %}";
+        window.csrf_token = "{{ csrf_token }}";
+    </script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/select2/select2.min.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/toastr.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/issue_add.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/issues.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/remove_search_filter.js' %}"></script>
+    <script type="text/javascript" language="JavaScript">
+        var $ajax_metoo = '{% url 'add_me_too_issue' %}';
+        var $load_url = '{% url 'get_objections_list_issue' %}';
+    </script>
+{% endblock %}
+{% block navbar %}{% endblock %}
+{% block form %}
+    {% include 'issueform.html' %}
+{% endblock %}

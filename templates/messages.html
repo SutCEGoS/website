@@ -9,6 +9,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
 {% block extra_js %}
+    <script type="text/javascript" language="JavaScript">
+        window.$ajax_search = "{% url 'objection_ajax_search' %}";
+        window.$message_add_url = "{% url 'add_objection' %}";
+        window.$course_list_url = "{% url 'get_courses_list' %}"
+        window.csrf_token = "{{ csrf_token }}";
+    </script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/select2/select2.min.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/toastr.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/message_add.js' %}"></script>
@@ -27,8 +33,9 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="panel panel-default panel-background-color">
                         <div class="panel-body">
-                            <div class="circle avatar"><img class="circle" src="{% gravatar_url user_email  %}"></div>
+                            <div class="circle avatar"><img class="circle" src="{% gravatar_url user_email %}"></div>
                             <span class="user name">{{ user }}</span>
+
                             <div class="user actions pull-right">
                                 <a href="{% url 'password_reset_change' %}">Change Password</a>
                                 |
@@ -41,6 +48,7 @@
 
                 <div class="col-lg-8 col-md-8 logo dir-rtl">
                     <p>شورای صنفی دانشکده مهندسی کامپیوتر</p>
+
                     <p class="system-name hidden-phone">سامانه رسیدگی به مشکلات برنامه درسی</p>
                 </div>
 
@@ -68,14 +76,16 @@
                         <span>Search & Add</span>
 
                         <span class="hide" id="remove_search_filter">
-                            <a  class="remove_search_filter_style pull-right">
+                            <a class="remove_search_filter_style pull-right">
                                 <span>remove search filter</span>
                                 <span class="glyphicon glyphicon-filter"></span>
                             </a>
                         </span>
                     </div>
                     <div class="panel-body dir-rtl">
-                        {% include 'searchform.html' %}
+                        {% block form %}
+                            {% include 'searchform.html' %}
+                        {% endblock %}
                     </div>
                 </div>
                 <footer class="footer panel-body">
@@ -113,10 +123,10 @@
                             <div class="pull-left">
                                 <div class="btn-group" data-toggle="buttons">
                                     <span class="btn btn-sm disabled btn-label">sort by </span>
-{#                                    <label class="btn btn-flat btn-sm">#}
-{#                                        <input type="radio" >#}
-{#                                        flat test#}
-{#                                    </label>#}
+                                    {#                                    <label class="btn btn-flat btn-sm">#}
+                                    {#                                        <input type="radio" >#}
+                                    {#                                        flat test#}
+                                    {#                                    </label>#}
                                     <label class="btn btn-flat btn-sm">
                                         <input type="radio" name="sort" id="me_too_radio" value="metoo">
                                         me too
@@ -128,19 +138,19 @@
 
                                 </div>
                             </div>
-{#                            <input type="checkbox" name="mine" id="mine_checkbox">#}
+                            {#                            <input type="checkbox" name="mine" id="mine_checkbox">#}
 
                         </div>
                         <div class="" id="accordion">
-{#                            <div class="nav nav-tabs margin-bottom"></div>#}
-{#                            <ul >#}
-{#                            <h3 class="full-loading" id="loading">#}
-{#                                Loading...#}
-{#                                <div style="background-color: rgba(0,0,0,0)">#}
-{##}
-                                    {#                                    background: url('../image/bg.jpg') center center fixed#}
-{#                                </div>#}
-{#                            </h3>#}
+                            {#                            <div class="nav nav-tabs margin-bottom"></div>#}
+                            {#                            <ul >#}
+                            {#                            <h3 class="full-loading" id="loading">#}
+                            {#                                Loading...#}
+                            {#                                <div style="background-color: rgba(0,0,0,0)">#}
+                            {##}
+                            {#                                    background: url('../image/bg.jpg') center center fixed#}
+                            {#                                </div>#}
+                            {#                            </h3>#}
 
                             <div class="full hide" id="no_result">
                                 <div class="no_result_wrapper">
@@ -166,31 +176,32 @@
 
     <div class="panel panel-default dir-rtl hide" mj-dataid="" mj-category-id="" mj-message-template="true">
         <div class="panel-heading">
-{#            <object style="" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"#}
-{#                    width="14"#}
-{#                    height="14" >#}
-{#                <param name="movie" value="/flash/clippy.swf"/>#}
-{#                <param name="allowScriptAccess" value="always" />#}
-{#                <param name="quality" value="high" />#}
-{#                <param name="scale" value="noscale" />#}
-{#                <param name="FlashVars" value="text=">#}
-{#                <param name="bgcolor" value="#{bgcolor}">#}
-{#                <embed src="{% static 'clippy.swf' %}"#}
-{#                       width="14"#}
-{#                       height="14"#}
-{#                       name="clippy"#}
-{#                       quality="high"#}
-{#                       allowScriptAccess="always"#}
-{#                       type="application/x-shockwave-flash"#}
-{#                       pluginspage="http://www.macromedia.com/go/getflashplayer"#}
-{#                       FlashVars="text="#}
-{#                />#}
-{#            </object>#}
+            {#            <object style="" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"#}
+            {#                    width="14"#}
+            {#                    height="14" >#}
+            {#                <param name="movie" value="/flash/clippy.swf"/>#}
+            {#                <param name="allowScriptAccess" value="always" />#}
+            {#                <param name="quality" value="high" />#}
+            {#                <param name="scale" value="noscale" />#}
+            {#                <param name="FlashVars" value="text=">#}
+            {#                <param name="bgcolor" value="#{bgcolor}">#}
+            {#                <embed src="{% static 'clippy.swf' %}"#}
+            {#                       width="14"#}
+            {#                       height="14"#}
+            {#                       name="clippy"#}
+            {#                       quality="high"#}
+            {#                       allowScriptAccess="always"#}
+            {#                       type="application/x-shockwave-flash"#}
+            {#                       pluginspage="http://www.macromedia.com/go/getflashplayer"#}
+            {#                       FlashVars="text="#}
+            {#                />#}
+            {#            </object>#}
             <div class="pull-left metoo-wrapper">
                 <span class="badge" mj-metoo-number>0</span>
                 <a class="metoo" href="#" mj-metoo-link>me too!</a>
             </div>
-            <a href="#" target="_self" class="permanent link" mj-permanent-link><span class="request-id glyphicon glyphicon-link" mj-request-id></span></a>
+            <a href="#" target="_self" class="permanent link" mj-permanent-link><span
+                    class="request-id glyphicon glyphicon-link" mj-request-id></span></a>
             <a data-toggle="collapse" data-parent="#accordion" class="non-decoration">
             <span class="panel-title">
             <span class="conflict category" mj-conflict-category></span>
