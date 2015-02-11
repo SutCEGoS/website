@@ -47,7 +47,7 @@ def login(request):
             user = form.user
             dj_login(request, user)
             if not next:
-                next = reverse('requests')
+                next = reverse('home')
             return HttpResponseRedirect(next)
     else:
         form = SignInForm()
