@@ -34,9 +34,6 @@ a:hover {
     color: #419fc9;
 }
 
-footer a:hover {
-    text-shadow: rgba(0,0,0, 0.7) 0px 0px 3px;
-}
 
 .circle {
     border-radius: 50%;
@@ -187,26 +184,44 @@ footer {
     font-size: 13px;
     width: 100%;
     clear: both;
+    color:transparent;
+    text-shadow: 0 0 1px #111;
+    -o-text-shadow: 0 0 1px #111;
+    -moz-text-shadow: 0 0 1px #111;
+    -webkit-text-shadow: 0 0 1px #111;
+}
+
+footer:hover {
+    color: #111;
+    background: rgba(255, 255, 255, .3);
     text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -o-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -moz-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -webkit-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4)
 }
 
-footer:hover {
-    background: rgba(255, 255, 255, .3)
-}
-
 footer a {
-    color: #666
+    color:transparent;
+    text-shadow: 0 0 1px #666;
+    -o-text-shadow: 0 0 1px #666;
+    -moz-text-shadow: 0 0 1px #666;
+    -webkit-text-shadow: 0 0 1px #666;
 }
 
-footer a:hover {
+footer a:hover, footer:hover a:hover {
     color: #4796da;
-    text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-    -o-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-    -moz-text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-    -webkit-text-shadow: 0 0 1px rgba(0, 0, 0, .1)
+}
+
+footer:hover a {
+    color: #666;
+    text-shadow: none;
+    -o-text-shadow: none;
+    -moz-text-shadow: none;
+    -webkit-text-shadow: none;
+    /*text-shadow: 0 0 1px rgba(0, 0, 0, .1);*/
+    /*-o-text-shadow: 0 0 1px rgba(0, 0, 0, .1);*/
+    /*-moz-text-shadow: 0 0 1px rgba(0, 0, 0, .1);*/
+    /*-webkit-text-shadow: 0 0 1px rgba(0, 0, 0, .1)*/
 }
 
 footer .terminator {
