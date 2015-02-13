@@ -181,6 +181,7 @@ header {
 }
 
 footer {
+    z-index: 1!important;
     font-size: 13px;
     width: 100%;
     clear: both;
