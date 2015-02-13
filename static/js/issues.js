@@ -150,11 +150,12 @@ $window.on('search.result', function (e, messages, append) {
                 //item_dom.find('[mj-category="else"]').hide();
             }
         }
-        if (item.category_id == 3) {
-            item_dom.find('[mj-course-1]').html(item.course_name);
-        } else {
-            item_dom.find('[mj-course-1]').html(item.offered_course);
-        }
+        item_dom.find('[mj-course-1]').html(item.title);
+//        if (item.category_id == 3) {
+//            item_dom.find('[mj-course-1]').html(item.course_name);
+//        } else {
+//            item_dom.find('[mj-course-1]').html(item.offered_course);
+//        }
         item_dom.find('[mj-course-2]').html(item.second_course);
         item_dom.find('[mj-conflict-category]').html(item.category_name);
 

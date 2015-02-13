@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
 {% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
 {% block user_infos %}
     <header>
         <div class="container">
@@ -72,7 +73,7 @@
                 </div>
                 <footer class="footer panel-body">
                     <p class="english normal-p">
-                        {% block footer %}{% endblock %}
+                        {% block footer_menu %}{% endblock %}
                     </p>
                 </footer>
 
