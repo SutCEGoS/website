@@ -1,9 +1,9 @@
 {% extends 'message_base.html' %}
 {% block extra_js %}
     <script type="text/javascript" language="JavaScript">
-        window.$ajax_search = "{% url 'objection_ajax_search' %}";
-        window.$message_add_url = "{% url 'add_objection' %}";
-        window.$course_list_url = "{% url 'get_courses_list' %}";
+        window.$ajax_search = "{% url 'objection_ajax_search_issue' %}";
+        window.$message_add_url = "{% url 'add_objection_issue' %}";
+        window.$course_list_url = "{% url 'get_courses_list_issue' %}";
         window.csrf_token = "{{ csrf_token }}";
     </script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/select2/select2.min.js' %}"></script>
@@ -12,8 +12,8 @@
     <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/remove_search_filter.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
-        var $ajax_metoo = '{% url 'add_me_too' %}';
-        var $load_url = '{% url 'get_objections_list' %}';
+        var $ajax_metoo = '{% url 'add_me_too_issue' %}';
+        var $load_url = '{% url 'get_objections_list_issue' %}';
     </script>
 {% endblock %}
 
