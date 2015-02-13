@@ -43,6 +43,7 @@ class Issue(models.Model):
         reply = self.reply
         return {
             'data_id': self.id,
+            'title': self.title,
             'category_id': self.category,
             'category_name': self.get_category_display(),
             'status_id': self.status,
