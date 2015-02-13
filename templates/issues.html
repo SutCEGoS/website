@@ -2,7 +2,6 @@
 {% load static %}
 {% load gravatar %}
 {% block title %}Issues{% endblock title %}
-{% block footer %}{% endblock %}
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
@@ -27,4 +26,61 @@
 {% block navbar %}{% endblock %}
 {% block form %}
     {% include 'issueform.html' %}
+{% endblock %}
+{% block system_name %}سامانه رسیدگی به مشکلات {% endblock %}
+
+{% block footer %}
+Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a>
+    and Semora,
+    Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
+{% endblock %}
+
+{% block message_template %}
+    <div class="panel panel-default dir-rtl hide" mj-dataid="" mj-category-id="" mj-message-template="true">
+        <div class="panel-heading">
+            {#            <object style="" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"#}
+            {#                    width="14"#}
+            {#                    height="14" >#}
+            {#                <param name="movie" value="/flash/clippy.swf"/>#}
+            {#                <param name="allowScriptAccess" value="always" />#}
+            {#                <param name="quality" value="high" />#}
+            {#                <param name="scale" value="noscale" />#}
+            {#                <param name="FlashVars" value="text=">#}
+            {#                <param name="bgcolor" value="#{bgcolor}">#}
+            {#                <embed src="{% static 'clippy.swf' %}"#}
+            {#                       width="14"#}
+            {#                       height="14"#}
+            {#                       name="clippy"#}
+            {#                       quality="high"#}
+            {#                       allowScriptAccess="always"#}
+            {#                       type="application/x-shockwave-flash"#}
+            {#                       pluginspage="http://www.macromedia.com/go/getflashplayer"#}
+            {#                       FlashVars="text="#}
+            {#                />#}
+            {#            </object>#}
+            <div class="pull-left metoo-wrapper">
+                <span class="badge" mj-metoo-number>0</span>
+                <a class="metoo" href="#" mj-metoo-link>me too!</a>
+            </div>
+            <a href="#" target="_self" class="permanent link" mj-permanent-link><span
+                    class="request-id glyphicon glyphicon-link" mj-request-id></span></a>
+            <a data-toggle="collapse" data-parent="#accordion" class="non-decoration">
+            <span class="panel-title">
+                موضوع:
+            <span class="conflict category" mj-conflict-category></span>
+            <span class="conflict name" mj-course-1></span>
+            <span mj-category="1"> با <span class="conflict name" mj-course-2></span></span>
+            </span>
+            </a>
+
+
+        </div>
+        <div class="panel-collapse collapse in">
+            <div class="panel-body good-content" mj-message-container></div>
+            <div class="panel-body good-content hide well" style="margin-bottom: 0px" mj-reply-wrapper>
+                <span mj-reply-text></span>
+                توسط: <span mj-reply-name></span>
+            </div>
+        </div>
+    </div>
 {% endblock %}
