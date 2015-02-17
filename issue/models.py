@@ -53,9 +53,10 @@ class Issue(models.Model):
             'message': self.message,
             'can_me_too': not member.__eq__(self.sender),
             'reply': reply.text if reply else "",
-            'reply_by': reply.author.username if reply else "",
+            'reply_by': reply.author.get_full_name() if reply else "",
         }
 
+    @property
     def requests(self):
         return 1 + self.like.count()
 
@@ -63,3 +64,6 @@ class Issue(models.Model):
 class IssueReply(Logged):
     text = models.TextField()
     author = models.ForeignKey(Member)
+
+    def __unicode__(self):
+        return "%s: %s"%(self.author, self.text)
