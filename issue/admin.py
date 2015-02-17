@@ -46,7 +46,7 @@ class IssueAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = super(IssueAdmin, self).queryset(request)
 
-        if request.user.groups.filter(name='Replier').exists():
+        if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
             self.readonly_fields = ('status', 'category', 'message')
 
             return qs.filter(status__gte=3)
@@ -54,7 +54,7 @@ class IssueAdmin(admin.ModelAdmin):
 
     def get_list_display(self, request):
         dl = super(IssueAdmin, self).get_list_display(request)
-        if request.user.groups.filter(name='Replier').exists():
+        if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
             if 'sender' in dl:
                 dl.remove('sender')
             return dl
