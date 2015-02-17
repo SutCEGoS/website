@@ -55,7 +55,8 @@ class IssueAdmin(admin.ModelAdmin):
     def get_list_display(self, request):
         dl = super(IssueAdmin, self).get_list_display(request)
         if request.user.groups.filter(name='Replier').exists():
-            dl.remove('sender')
+            if 'sender' in dl:
+                dl.remove('sender')
             return dl
         return dl
 
