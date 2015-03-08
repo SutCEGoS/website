@@ -38,3 +38,7 @@ class Member(AbstractUser):
     std_id = models.CharField(max_length=20, null=True, blank=True)
 
     password_changed = models.BooleanField(default=False)
+
+    def has_voted(self, poll):
+        from poll.models import Vote
+        return Vote.objects.filter(member=self, choice__poll=poll).exists()

@@ -19,3 +19,17 @@ $('.poll-link').on('click', function () {
             $("#poll-form").html(response.responseText);
     });
 });
+
+$('#poll-form').ajaxForm({
+    beforeSend: function () {
+    },
+    complete: function (xhr) {
+        var e = xhr.responseJSON.error;
+        if (e != '') {
+            alert(e);
+        } else {
+            $('#poll-form').html('');
+            $('.poll-link[data-id=' + xhr.responseJSON.id.toString() + ']').click();
+        }
+    }
+});
