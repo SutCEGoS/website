@@ -1,0 +1,21 @@
+.filter_active > .panel-heading {
+    background-image: -webkit-linear-gradient(top,#67a379 0,#5f9d71 100%);
+    background-image: linear-gradient(to bottom,#67a379 0,#5f9d71 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff67a379', endColorstr='#ff5f9d71', GradientType=0);
+}
+
+.filter_not_active > .panel-heading {
+    background-image: -webkit-linear-gradient(top,#858585 0,#7e7e7e 100%);
+    background-image: linear-gradient(to bottom,#858585 0,#7e7e7e 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff858585', endColorstr='#ff7e7e7e', GradientType=0);
+}
+
+.hide {
+   display: none;
+}
+
+.pointer {
+   cursor: pointer;
+}
+
+/* this lines are written by EmJafar */

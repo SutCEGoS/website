@@ -16,7 +16,7 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="panel panel-default panel-background-color">
                         <div class="panel-body">
-                            <div class="circle avatar"><img class="circle" src="{% gravatar_url user_email %}"></div>
+                            <div class="circle avatar"><img class="circle" src="{% gravatar_url user.email %}"></div>
                             <span class="user name">{{ user }}</span>
 
                             <div class="user actions pull-right">
@@ -56,7 +56,7 @@
             <div class="col-lg-4 col-md-4">
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading">
-                        <span>Search & Add</span>
+                        <span>{% block form_title %}Search & Add{% endblock %}</span>
 
                         <span class="hide" id="remove_search_filter">
                             <a class="remove_search_filter_style pull-right">
@@ -82,15 +82,17 @@
             <div class="col-lg-8 col-md-8" id="messages-show">
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading">
+                        {% block panel_heading %}
                         Messages
                         <div class="pull-right" id="loading">
                             loading
                             <img src="{% static 'image/92.GIF' %}" style="width: 20px;height: 20px;">
                         </div>
-
+                        {% endblock %}
                     </div>
 
                     <div class="panel-body">
+                        {% block panel_body_top %}
                         <div class="nav nav-tabs margin-bottom" id="filter">
                             <div class="pull-right dir-rtl">
                                 <div class="btn-group" data-toggle="buttons">
@@ -122,7 +124,9 @@
                             {#                            <input type="checkbox" name="mine" id="mine_checkbox">#}
 
                         </div>
+                            {% endblock %}
                         <div class="" id="accordion">
+                            {% block panel_body_bottom %}
                             {#                            <div class="nav nav-tabs margin-bottom"></div>#}
                             {#                            <ul >#}
                             {#                            <h3 class="full-loading" id="loading">#}
@@ -141,6 +145,7 @@
                                 </div>
                             </div>
                             <div id="messages-container"></div>
+                                {% endblock %}
                         </div>
                     </div>
                 </div>

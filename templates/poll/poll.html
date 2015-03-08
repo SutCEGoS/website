@@ -1,0 +1,53 @@
+{% load my_app_filters %}
+<form action="" method="POST" class="" name="search_form">
+    <fieldset>
+        {% if poll_question.is_active == True and has_voted == False %}
+            <form action="" id="poll-form" method="post" class="costume-form">
+                {% csrf_token %}
+                <label>
+                    {{ poll_question.question }}
+                </label>
+                {% for item in poll_choices %}
+                    <div>
+                        <input type="radio" name="poll-choice" value="{{ item.id }}"
+                               id="poll-choice-{{ item.id }}"><label
+                            for="poll-choice-{{ item.id }}">
+                        &nbsp; {{ item.name }}
+                    </label>
+                    </div>
+                {% endfor %}
+                </button>
+            </form>
+        {% else %}
+            </fieldset>
+
+            <div id="poll-result" class="">
+
+                <label>
+                    {{ poll_question.question }}
+                </label>
+                {% for item in poll_choices %}
+                    <div>
+                        <label>
+                            {{ item.name }}
+                        </label>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ item.get_result }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100" style="width: {{ item.get_result }}%;">
+                            {{ item.get_result }}%
+                        </div>
+                    </div>
+                    <div class="">
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    <div class="form-actions col-lg-12" style="margin-top:10px">
+        <button class="btn btn-primary" id="add_message" role="button">Send</button>
+        <!-- TODO -->
+    </div>
+</form>
