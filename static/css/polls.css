@@ -1,7 +1,9 @@
 .filter_active > .panel-heading {
-    background-image: -webkit-linear-gradient(top, #67a379 0, #5f9d71 100%);
-    background-image: linear-gradient(to bottom, #67a379 0, #5f9d71 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff67a379', endColorstr='#ff5f9d71', GradientType=0);
+    /*background-image: -webkit-linear-gradient(top, #67a379 0, #5f9d71 100%);*/
+    /*background-image: linear-gradient(to bottom, #67a379 0, #5f9d71 100%);*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff67a379', endColorstr='#ff5f9d71', GradientType=0);*/
+
+    border-bottom: 1px solid #67a379;
 }
 
 .filter_not_active > .panel-heading {
