@@ -98,7 +98,7 @@ a:hover {
     /*background-image: linear-gradient(to bottom,#fbefef 0,#f6dada 100%) !important;*/
     /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbefef', endColorstr='#fff6dada', GradientType=0)!important;*/
 
-    border-bottom: 3px solid #fbefef;
+    border-bottom: 3px solid #9ffb47;
 }
 
 .filter_metooed > .panel-heading {
@@ -106,7 +106,7 @@ a:hover {
     /*background-image: linear-gradient(to bottom,#f0fbf1 0,#dbf5de 100%);*/
     /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff0fbf1', endColorstr='#ffdbf5de', GradientType=0);*/
 
-    border-bottom: 3px solid #f0fbf1;
+    border-bottom: 3px solid #fafa48;
 }
 
 .filter_mine > .panel-heading {
@@ -114,7 +114,7 @@ a:hover {
     /*background-image: linear-gradient(to bottom,#eeeefd 0,#d8d7f9 100%);*/
     /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeeeefd', endColorstr='#ffd8d7f9', GradientType=0);*/
 
-    border-bottom: 3px solid #eeeefd;
+    border-bottom: 3px solid #48bffa;
 }
 
 .user.name {
