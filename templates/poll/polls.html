@@ -40,7 +40,7 @@
 {% endblock %}
 {% block panel_body_bottom %}
     {% for poll in polls %}
-        <div class="panel panel-default dir-rtl {% if poll.is_active %}filter_active{% else %}filter_not_active{% endif %}">
+        <div class="panel panel-default dir-rtl {% if poll.active %}filter_active{% else %}filter_not_active{% endif %}">
             <div class="panel-heading">
                 <a href="#" target="_self" class="permanent link poll-link" data-id={{ poll.id }}><span
                         class="request-id glyphicon glyphicon-link">{{ poll.id }}</span>
