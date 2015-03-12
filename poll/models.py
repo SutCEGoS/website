@@ -39,6 +39,9 @@ class PollChoice(Named):
             result = 0
         return result
 
+    def get_count(self):
+        return Vote.objects.filter(choice=self).count()
+
 
 class Vote(Logged):
     member = models.ForeignKey(Member, null=True)
@@ -49,4 +52,3 @@ class Vote(Logged):
 
     def __unicode__(self):
         return unicode(self.choice)
-

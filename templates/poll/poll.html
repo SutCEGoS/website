@@ -32,7 +32,7 @@
         {% for item in poll_choices %}
             <div>
                 <label>
-                    {{ item.name }}
+                    {{ item.name }} <small>({{ item.get_count }} رای)</small>
                 </label>
             </div>
             <div class="progress">
