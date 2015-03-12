@@ -1,17 +1,27 @@
+import datetime
+
 from django.db import models
+
 from base.models import Named, Logged, Member
 
 
 class Poll(Named):
+    start = models.DateTimeField(null=True, auto_now=True)
     is_active = models.BooleanField(default=True)
     question = models.TextField()
+    end = models.DateTimeField(null=True)
 
     def __unicode__(self):
         return self.question
 
-    @classmethod
-    def get_active_poll(cls, site_type):
-        return cls.objects.filter(site_type=site_type, is_active=True).last()
+    @property
+    def active(self):
+        if self.end:
+            return datetime.datetime.now() < self.end.replace(tzinfo=None)
+        return self.is_active
+
+    def get_end(self):
+        return unicode(self.end.replace(tzinfo=None))
 
 
 class PollChoice(Named):
@@ -24,7 +34,7 @@ class PollChoice(Named):
         a = Vote.objects.filter(choice=self).count()
         b = Vote.objects.filter(choice__in=PollChoice.objects.filter(poll=self.poll)).count()
         try:
-            result = int((float(a) / float(b))*100)
+            result = int((float(a) / float(b)) * 100)
         except:
             result = 0
         return result
@@ -33,6 +43,9 @@ class PollChoice(Named):
 class Vote(Logged):
     member = models.ForeignKey(Member, null=True)
     choice = models.ForeignKey(PollChoice)
+
+    class Meta:
+        unique_together = ('member', 'choice')
 
     def __unicode__(self):
         return unicode(self.choice)

@@ -34,11 +34,11 @@ class PollAdmin(admin.ModelAdmin):
 
     actions = ['mark_as_active', 'mark_as_deactive']
     inlines = [PollChoiceInline, ]
-    list_display = ['name', 'question', 'is_active']
+    list_display = ['name', 'question', 'active']
     fieldsets = (
         (u'نظرسنجی', {
             'fields':
-                ('name', 'question', 'is_active')
+                ('name', 'question', 'end', 'is_active')
         }),
     )
     list_filter = ['is_active']

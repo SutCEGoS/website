@@ -1,6 +1,6 @@
 {% load my_app_filters %}
 
-{% if poll_question.is_active == True and has_voted == False %}
+{% if poll_question.active == True and has_voted == False %}
     <fieldset>
         <form action="{% url 'submit-vote' %}" id="poll-form" data-id={{ poll_question.id }} method="post" class="">
             {% csrf_token %}

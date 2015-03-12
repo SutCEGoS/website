@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block footer_menu %}
-Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a>
+    Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a>
     and Semora,
     Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
 {% endblock %}
@@ -41,25 +41,42 @@ Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a>
 {% block panel_body_bottom %}
     {% for poll in polls %}
         <div class="panel panel-default dir-rtl {% if poll.is_active %}filter_active{% else %}filter_not_active{% endif %}">
-        <div class="panel-heading">
-            <a href="#" target="_self" class="permanent link poll-link" data-id={{ poll.id }}><span
-                    class="request-id glyphicon glyphicon-link">{{ poll.id }}</span>
+            <div class="panel-heading">
+                <a href="#" target="_self" class="permanent link poll-link" data-id={{ poll.id }}><span
+                        class="request-id glyphicon glyphicon-link">{{ poll.id }}</span>
             <span class="panel-title">
                 {{ poll.name }}
             </span>
-            </a>
+                </a>
+        <span dir=ltr id="poll-countdown-{{ poll.id }}" class="pull-left poll-countdown">
 
+        </span>
 
+            </div>
         </div>
-    </div>
     {% endfor %}
 {% endblock %}
 {% block message_template %}
-        <script type="text/javascript" language="JavaScript" src="{% static 'js/jquery.form.js' %}"></script>
-        <script type="text/javascript" language="JavaScript" src="{% static 'js/polls.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/jquery.form.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/polls.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/jquery.countdown.min.js' %}"></script>
+
     <script>
-    $window.on('load', function(){
-       $('.poll-link')[0].click();
-    });
+        $window.on('load', function () {
+            $('.poll-link')[0].click();
+        });
     </script>
+    <script type="text/javascript">
+
+        {% for poll in polls %}
+            {% if poll.end %}
+                $("#poll-countdown-" + "{{ poll.id }}").countdown("{{ poll.get_end }}", function (event) {
+                    $(this).text(
+                            event.strftime('%D days %H:%M:%S')
+                    );
+                });
+            {% endif %}
+        {% endfor %}
+    </script>
+
 {% endblock %}

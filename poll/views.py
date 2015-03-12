@@ -44,7 +44,7 @@ def submit_vote(request):
         if error is "":
             error = u"ثبت نظر امکان پذیر نمی باشد. لطفا مجددا تلاش فرمایید."
     if poll_choice and not error:
-        if not poll_choice.poll.is_active:
+        if not poll_choice.poll.active:
             raise PermissionDenied
         v = Vote(choice=poll_choice, member=request.user)
         if request.user.is_authenticated():
