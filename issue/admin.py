@@ -18,6 +18,7 @@ class IssueReplyAdmin(admin.ModelAdmin):
         obj.author = request.user
         obj.save()
 
+
 class IssueAdmin(admin.ModelAdmin):
     actions = ['mark_as_unconfirmed', 'mark_as_waiting', 'mark_as_read']
     list_display = ['id', 'sender', 'requests', 'status', 'category', 'message', 'reply']

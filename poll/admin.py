@@ -44,6 +44,12 @@ class PollAdmin(admin.ModelAdmin):
     list_filter = ['is_active']
     search_fields = ['question']
 
-admin.site.register(Vote)
+
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ['choice', 'member']
+    list_filter = ('choice__poll__name', )
+
+
+admin.site.register(Vote, VoteAdmin)
 admin.site.register(Poll, PollAdmin)
 admin.site.register(PollChoice, PollChoiceAdmin)
