@@ -48,7 +48,7 @@
                 {{ poll.name }}
             </span>
                 </a>
-        <span dir=ltr id="poll-countdown-{{ poll.id }}" class="pull-left poll-countdown">
+        <span id="poll-countdown-{{ poll.id }}" class="pull-left poll-countdown">
 
         </span>
 
@@ -72,7 +72,7 @@
             {% if poll.end %}
                 $("#poll-countdown-" + "{{ poll.id }}").countdown("{{ poll.get_end }}", function (event) {
                     $(this).text(
-                            event.strftime('%D days %H:%M:%S')
+                            event.strftime('%D روز %H:%M:%S')
                     );
                 });
             {% endif %}
