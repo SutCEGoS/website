@@ -31,8 +31,7 @@ $('#events-form').ajaxForm({
             alert(e);
         } else {
             $('#event-form').html('<p>' +
-'باتشکر از مشارکت شما!'+
-             xhr.responseJSON.count.toString() +
+            'باتشکر از مشارکت شما!' +
             '</p>');
         }
     }
