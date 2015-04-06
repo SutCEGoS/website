@@ -1,0 +1,45 @@
+{% load my_app_filters %}
+{% load shamsi_template_tags %}
+
+{% if event.active == True and has_registered == False %}
+
+    <form action="{% url 'register-in-event' %}" id="event-form" data-id={{ event.id }} method="post"
+          class="form-inline">
+        {% csrf_token %}
+        <input name="event-id" type="hidden" value="{{ event.id }}">
+        {% if not user.is_authenticated %}
+            <input name="std-id" type="text" maxlength="8" class="form-control" style="width: 48%;"
+                   placeholder="شماره دانشجویی">
+            <button class="btn btn-primary" id="add_message" role="button" style="width: 48%;">من هستم!</button>
+        {% else %}
+            <div class="form-actions col-lg-12" style="margin-top:10px">
+                <button class="btn btn-primary" id="add_message" role="button" style="width: 100%;">من هستم!</button>
+            </div>
+        {% endif %}
+
+        <p></p>
+    </form>
+{% else %}
+    <p>
+        شما در این رویداد ثبت نام کرده اید!
+        تعداد ثبت نامی :
+        {{ event.get_count }}
+    </p>
+{% endif %}
+
+
+<p>
+    مکان :
+    {{ event.location }}
+</p>
+<p>
+    زمان :
+    {{ event.start|pdate:"%A %D %B %Y ساعت %H:%M" }}
+    تا
+    {{ event.end|pdate:"%H:%M" }}
+
+    {% if event.image %}
+        <img src="{{ event.image.url }}" style="width: 100%;">
+    {% endif %}
+</p>
+<br>

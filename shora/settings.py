@@ -44,12 +44,14 @@ INSTALLED_APPS = (
     'south',
     'password_reset',
     'djrill',
+    'shamsi',
 
     'base',
     'course',
     'objection',
     'issue',
     'poll',
+    'event',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -98,6 +100,7 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 TEMPLATE_DIRS = (

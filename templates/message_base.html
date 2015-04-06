@@ -13,7 +13,9 @@
     <header>
         <div class="container">
             <div class="row" style="margin-top: 20px">
-                <div class="col-lg-4 col-md-4">
+
+                <div class="{% block size0 %}col-lg-4 col-md-4{% endblock %}">
+                    {% if user.is_authenticated %}
                     <div class="panel panel-default panel-background-color">
                         <div class="panel-body">
                             <div class="circle avatar"><img class="circle" src="{% gravatar_url user.email %}"></div>
@@ -27,9 +29,10 @@
                         </div>
 
                     </div>
+                    {% endif %}
                 </div>
 
-                <div class="col-lg-8 col-md-8 logo dir-rtl">
+                <div class="{% block size1 %}col-lg-8 col-md-8{% endblock %} logo dir-rtl">
                     <p>شورای صنفی دانشکده مهندسی کامپیوتر</p>
 
                     <p class="system-name hidden-phone">{% block system_name %}{% endblock %}</p>
@@ -53,7 +56,7 @@
 
         <div class="row">
 
-            <div class="col-lg-4 col-md-4">
+            <div class="{% block size3 %}col-lg-4 col-md-4{% endblock %}">
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading" id="form-heading">
                         <span>{% block form_title %}Search & Add{% endblock %}</span>
@@ -79,7 +82,7 @@
 
             </div>
 
-            <div class="col-lg-8 col-md-8" id="messages-show">
+            <div class="{% block size2 %}col-lg-8 col-md-8{% endblock %}" id="messages-show">
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading">
                         {% block panel_heading %}

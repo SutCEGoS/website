@@ -1,0 +1,86 @@
+{% extends 'message_base.html' %}
+{% load static %}
+{% load gravatar %}
+{% block title %}رویدادها{% endblock title %}
+{% block size0 %}col-lg-6 col-md-6{% endblock %}
+{% block size1 %}col-lg-6 col-md-6{% endblock %}
+{% block size2 %}col-lg-6 col-md-6{% endblock %}
+{% block size3 %}col-lg-6 col-md-6{% endblock %}
+{% block extra_styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/polls.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" language="JavaScript">
+        window.$ajax_search = "{% url 'objection_ajax_search_issue' %}";
+        window.$get_event_url = "{% url 'get-event' %}";
+        window.csrf_token = "{{ csrf_token }}";
+    </script>
+    <script type="text/javascript" language="JavaScript">
+    </script>
+{% endblock %}
+{% block navbar %}{% endblock %}
+{% block system_name %}
+    سامانه اطلاع رسانی رویدادها
+{% endblock %}
+
+{% block footer_menu %}
+    Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a>
+    and Semora,
+    Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
+{% endblock %}
+{% block form_title %}
+
+{% endblock %}
+{% block form %}
+    <div class="" id="events-form">
+
+    </div>
+{% endblock %}
+{% block panel_heading %}
+    Events
+{% endblock %}
+{% block panel_body_top %}
+{% endblock %}
+{% block panel_body_bottom %}
+    {% for event in events %}
+        <div class="panel panel-default dir-rtl {% if event.active %}filter_active{% else %}filter_not_active{% endif %}">
+            <div class="panel-heading">
+                <a href="#" target="_self" class="permanent link event-link" data-id={{ event.id }}><span
+                        class="request-id glyphicon glyphicon-stats"></span>
+            <span class="panel-title">
+                {{ event.name }}
+            </span>
+                </a>
+        <span id="event-countdown-{{ event.id }}" class="pull-left poll-countdown">
+
+        </span>
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block message_template %}
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/jquery.form.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/events.js' %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/jquery.countdown.min.js' %}"></script>
+
+    <script>
+        $window.on('load', function () {
+            $('.event-link')[0].click();
+        });
+    </script>
+    <script type="text/javascript">
+
+        {% for event in events %}
+            {% if event.active %}
+                $("#event-countdown-" + "{{ event.id }}").countdown("{{ event.get_end }}", function (event) {
+                    $(this).text(
+                            event.strftime('%D روز %H:%M:%S')
+                    );
+                });
+            {% endif %}
+        {% endfor %}
+    </script>
+
+{% endblock %}
