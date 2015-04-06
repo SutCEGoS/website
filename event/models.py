@@ -2,7 +2,7 @@ import datetime
 
 from django.db import models
 
-from base.models import Named
+from base.models import Named, Member
 
 
 class Event(Named):
@@ -32,3 +32,9 @@ class EventRegister(models.Model):
 
     def __unicode__(self):
         return self.std_id
+
+    def get_member(self):
+        try:
+            return Member.objects.get(std_id=self.std_id).username
+        except Member.DoesNotExist:
+            return "(invalid)"

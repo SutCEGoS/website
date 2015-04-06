@@ -31,7 +31,7 @@ $('#events-form').ajaxForm({
             alert(e);
         } else {
             $('#event-form').html('<p>' +
-            'ثبت نام شما با موفقیت انجام شد! تعداد ثبت نامی : ' +
+'باتشکر از مشارکت شما!'+
              xhr.responseJSON.count.toString() +
             '</p>');
         }

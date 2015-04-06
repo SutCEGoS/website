@@ -9,7 +9,7 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class EventRegisterAdmin(admin.ModelAdmin):
-    list_display = ['std_id', 'event']
+    list_display = ['std_id', 'get_member', 'event']
     list_filter = ['event__name']
 
 
