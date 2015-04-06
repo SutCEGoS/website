@@ -1,4 +1,0 @@
-[submodule "shamsi"]
-	path = shamsi
-	url = git@git.arsh.co:shamsi
-	branch = master
