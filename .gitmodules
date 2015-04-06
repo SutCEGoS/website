@@ -1,4 +1,4 @@
 [submodule "shamsi"]
 	path = shamsi
-	url = F:/Work/@rsh/nini/lib/arsh/shamsi
+	url = git@git.arsh.co:shamsi
 	branch = master
