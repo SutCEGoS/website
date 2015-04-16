@@ -45,10 +45,15 @@ class PollChoice(Named):
 
 class Vote(Logged):
     member = models.ForeignKey(Member, null=True)
+    username = models.CharField(max_length=63, null=True, blank=True)
     choice = models.ForeignKey(PollChoice)
+    comment = models.TextField(blank=True, null=True)
 
     class Meta:
         unique_together = ('member', 'choice')
 
     def __unicode__(self):
         return unicode(self.choice)
+
+    def get_member(self):
+        return self.member or self.username

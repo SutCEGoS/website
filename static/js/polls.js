@@ -30,8 +30,7 @@ $('#poll-form').ajaxForm({
         if (e != '') {
             alert(e);
         } else {
-            $('#poll-form').html('');
-            $('.poll-link[data-id=' + xhr.responseJSON.id.toString() + ']').click();
+            $('#poll-form').html('نظر شما با موفقیت ثبت شد!');
         }
     }
 });

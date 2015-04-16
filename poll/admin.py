@@ -46,7 +46,7 @@ class PollAdmin(admin.ModelAdmin):
 
 
 class VoteAdmin(admin.ModelAdmin):
-    list_display = ['choice', 'member']
+    list_display = ['choice', 'get_member', 'comment']
     list_filter = ('choice__poll__name', )
 
 

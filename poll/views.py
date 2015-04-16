@@ -1,6 +1,6 @@
 # coding=utf-8
 import json
-from django.contrib.auth.decorators import login_required
+
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -8,7 +8,6 @@ from django.shortcuts import render, get_object_or_404
 from poll.models import Poll, PollChoice, Vote
 
 
-@login_required
 def all_polls(request):
     polls = Poll.objects.order_by('-is_active', '-id')
 
@@ -17,19 +16,20 @@ def all_polls(request):
     })
 
 
-@login_required
 def get_poll(request):
     poll_id = request.POST.get('poll_id')
     poll = get_object_or_404(Poll, id=poll_id)
     poll_choices = PollChoice.objects.filter(poll=poll)
-    has_voted = request.user.has_voted(poll)
+    has_voted = False
+    if request.user.is_authenticated():
+        has_voted = request.user.has_voted(poll)
     return render(request, 'poll/poll.html', {
         'poll_question': poll,
         'poll_choices': poll_choices,
         'has_voted': has_voted,
     })
 
-@login_required
+
 def submit_vote(request):
     data = {}
     if not request.is_ajax():
@@ -46,11 +46,16 @@ def submit_vote(request):
     if poll_choice and not error:
         if not poll_choice.poll.active:
             raise PermissionDenied
-        v = Vote(choice=poll_choice, member=request.user)
+        comment = request.POST.get('comment')
+        v = Vote(choice=poll_choice, comment=comment)
         if request.user.is_authenticated():
             if request.user.has_voted(poll_choice.poll):
                 error = u"شما قبلا در این نظرسنجی شرکت کرده اید."
             v.member = request.user
+            v.save()
+        else:
+            username = request.POST.get('username')
+            v.username = username
             v.save()
         if error is '':
             v.save()

@@ -2,11 +2,12 @@
 
 {% if poll_question.active == True and has_voted == False %}
     <fieldset>
-        <form action="{% url 'submit-vote' %}" id="poll-form" data-id={{ poll_question.id }} method="post" class="">
+        <form class="form-inline" action="{% url 'submit-vote' %}" id="poll-form" data-id={{ poll_question.id }} method="post" class="">
             {% csrf_token %}
             <label>
                 {{ poll_question.question }}
             </label>
+
             {% for item in poll_choices %}
                 <div>
                     <input type="radio" name="poll-choice" value="{{ item.id }}"
@@ -16,35 +17,28 @@
                 </label>
                 </div>
             {% endfor %}
-            <div class="form-actions col-lg-12" style="margin-top:10px">
-                <button class="btn btn-primary" id="add_message" role="button">Send</button>
-            </div>
+
+        <label></label>
+        <textarea name="comment" style="width:100%;resize: vertical;" rows="5" class="form-control" placeholder="چنانچه نظری دارید در این قسمت وارد نمایید"></textarea>
+        <p></p>
+        {% if not user.is_authenticated %}
+                <input name="username" type="text" maxlength="60" class="form-control" style="width: 49%;"
+                       placeholder="نام کاربری (اختیاری)">
+        {% endif %}
+                <button class="btn btn-primary" id="add_message" role="button"  style="width: 49%;">ارسال</button>
         </form>
     </fieldset>
 
+{% elif poll_question.active == False %}
+
+    <div id="poll-result" class="">
+
+مهلت شرکت در این نظرسنجی به پایان رسیده است.
+    </div>
 {% else %}
 
     <div id="poll-result" class="">
 
-        <label>
-            {{ poll_question.question }}
-        </label>
-        {% for item in poll_choices %}
-            <div>
-                <label>
-                    {{ item.name }} <small>({{ item.get_count }} رای)</small>
-                </label>
-            </div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ item.get_result }}"
-                     aria-valuemin="0"
-                     aria-valuemax="100" style="width: {{ item.get_result }}%;">
-                    {{ item.get_result }}%
-                </div>
-            </div>
-            <div class="">
-
-            </div>
-        {% endfor %}
+        شما قبلا در این نظرسنجی شرکت کرده اید!
     </div>
 {% endif %}
