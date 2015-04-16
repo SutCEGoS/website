@@ -13,4 +13,3 @@ whitenoise
 djrill
 pillow
 django-tinymce
-django-filebrowser
