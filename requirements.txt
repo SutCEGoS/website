@@ -12,3 +12,5 @@ django-password-reset
 whitenoise
 djrill
 pillow
+django-tinymce
+

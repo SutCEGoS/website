@@ -9,7 +9,7 @@ from poll.models import Poll, PollChoice, Vote
 
 
 def all_polls(request):
-    polls = Poll.objects.order_by('-is_active', '-id')
+    polls = Poll.objects.filter(is_active=True).order_by('-id')
 
     return render(request, 'poll/polls.html', {
         'polls': polls,

@@ -1,8 +1,12 @@
 import datetime
 
 from django.db import models
+from tinymce.models import HTMLField
 
 from base.models import Named, Logged, Member
+
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^tinymce\.models.\HTMLField"])
 
 
 class Poll(Named):
@@ -10,6 +14,7 @@ class Poll(Named):
     is_active = models.BooleanField(default=True)
     question = models.TextField()
     end = models.DateTimeField(null=True)
+    details = HTMLField(blank=True, null=True)
 
     def __unicode__(self):
         return self.question

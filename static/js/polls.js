@@ -5,6 +5,8 @@
 
 $('.poll-link').on('click', function () {
     var poll_id = this.getAttribute('data-id');
+    $('.pull-body').slideUp();
+    $('#pull-body-' + poll_id).slideDown();
     var t =$(this).find('.panel-title').html();
     $.ajax({
         url: window.$get_poll_url,

@@ -38,7 +38,7 @@ class PollAdmin(admin.ModelAdmin):
     fieldsets = (
         (u'نظرسنجی', {
             'fields':
-                ('name', 'question', 'end', 'is_active')
+                ('name', 'question', 'details', 'end', 'is_active')
         }),
     )
     list_filter = ['is_active']

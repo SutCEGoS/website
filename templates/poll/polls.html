@@ -34,7 +34,9 @@
     </div>
 {% endblock %}
 {% block panel_heading %}
-    Polls
+    <div dir="rtl">
+نظرسنجی‌های فعال
+    </div>
 {% endblock %}
 {% block panel_body_top %}
 {% endblock %}
@@ -53,6 +55,15 @@
         </span>
 
             </div>
+        <div class="panel-body pull-body" id="pull-body-{{ poll.id }}" style="display: none;">
+            {% if poll.details %}
+            {{ poll.details|safe }}
+            {% else %}
+                <i>
+                توضیحی برای نمایش وجود ندارد!
+                </i>
+            {% endif %}
+        </div>
         </div>
     {% endfor %}
 {% endblock %}
