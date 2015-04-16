@@ -173,4 +173,5 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
+    'cleanup_on_startup': False,
 }
