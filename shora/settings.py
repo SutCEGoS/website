@@ -172,6 +172,5 @@ EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "image,media,paste",
     'theme': "advanced",
 }
