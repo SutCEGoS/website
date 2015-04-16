@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'password_reset',
     'djrill',
     'shamsi',
+    'filebrowser',
     'tinymce',
 
     'base',
