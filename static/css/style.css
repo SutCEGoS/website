@@ -7,6 +7,15 @@
 	  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 	  }
 
+
+@font-face {
+  font-family: 'BMitra';
+  src: url('../font/BMitra.eot?#') format('eot'),  /* IE6–8 */
+       url('../font/BMitra.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+       url('../font/BMitra.ttf') format('truetype');  /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
+}
+
+
 footer,a {
     -webkit-transition: all .3s ease-out;
     -moz-transition: all .3s ease-out;
