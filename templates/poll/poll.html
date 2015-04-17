@@ -60,5 +60,24 @@
     <div id="poll-result" class="">
 
         شما قبلا در این نظرسنجی شرکت کرده اید!
+        {% if user.is_staff %}
+            {% for item in poll_choices %}
+                <div>
+                    <label>
+                        {{ item.name }}
+                        <small>({{ item.get_count }} رای)</small>
+                    </label>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar"
+                         aria-valuenow="{{ item.get_result }}"
+                         aria-valuemin="0"
+                         aria-valuemax="100" style="width: {{ item.get_result }}%;">
+                        {{ item.get_result }}%
+                    </div>
+                </div>
+                <div></div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endif %}
