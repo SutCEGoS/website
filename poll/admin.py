@@ -52,7 +52,7 @@ class VoteAdmin(admin.ModelAdmin):
                 ('comment', 'choice')
         }),
     )
-    actions = ['mark_as_accepted']
+    actions = ['mark_as_accepted', 'mark_as_not_accepted']
     list_display = ['choice', 'get_member', 'comment', 'verified']
     list_filter = ('choice__poll__name', 'verified')
 
@@ -80,6 +80,10 @@ class VoteAdmin(admin.ModelAdmin):
 
     mark_as_accepted.short_description = u"علامت زدن موارد انتخابی به عنوان تایید شده"
 
+    def mark_as_not_accepted(modeladmin, request, queryset):
+        queryset.update(verified=False)
+
+    mark_as_not_accepted.short_description = u"علامت زدن موارد انتخابی به عنوان تایید نشده"
 
 admin.site.register(Vote, VoteAdmin)
 admin.site.register(Poll, PollAdmin)
