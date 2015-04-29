@@ -53,6 +53,7 @@ class Vote(Logged):
     username = models.CharField(max_length=63, null=True, blank=True)
     choice = models.ForeignKey(PollChoice)
     comment = models.TextField(blank=True, null=True)
+    verified = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('member', 'choice')

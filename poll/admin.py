@@ -46,8 +46,39 @@ class PollAdmin(admin.ModelAdmin):
 
 
 class VoteAdmin(admin.ModelAdmin):
-    list_display = ['choice', 'get_member', 'comment']
-    list_filter = ('choice__poll__name', )
+    fieldsets = (
+        (u'نظر', {
+            'fields':
+                ('comment', 'choice')
+        }),
+    )
+    actions = ['mark_as_accepted']
+    list_display = ['choice', 'get_member', 'comment', 'verified']
+    list_filter = ('choice__poll__name', 'verified')
+
+    def queryset(self, request):
+        qs = super(VoteAdmin, self).queryset(request)
+
+        if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
+            self.readonly_fields = ('comment', 'choice')
+
+            return qs.filter(verified=True)
+        return qs
+
+    def get_list_display(self, request):
+        dl = super(VoteAdmin, self).get_list_display(request)
+        if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
+            if 'get_member' in dl:
+                dl.remove('get_member')
+            if 'verified' in dl:
+                dl.remove('verified')
+            return dl
+        return dl
+
+    def mark_as_accepted(modeladmin, request, queryset):
+        queryset.update(verified=True)
+
+    mark_as_accepted.short_description = u"علامت زدن موارد انتخابی به عنوان تایید شده"
 
 
 admin.site.register(Vote, VoteAdmin)
