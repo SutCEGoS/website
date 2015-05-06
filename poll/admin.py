@@ -49,7 +49,7 @@ class VoteAdmin(admin.ModelAdmin):
     fieldsets = (
         (u'نظر', {
             'fields':
-                ('comment', 'choice', 'get_member', 'verified')
+                ('comment', 'choice', 'verified')
         }),
     )
     actions = ['mark_as_accepted', 'mark_as_not_accepted']
@@ -60,7 +60,7 @@ class VoteAdmin(admin.ModelAdmin):
         qs = super(VoteAdmin, self).queryset(request)
         if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
             self.readonly_fields = ('comment', 'choice')
-            self.fieldsets =  (
+            self.fieldsets = (
                 (u'نظر', {
                     'fields':
                         ('comment', 'choice',)
@@ -89,6 +89,7 @@ class VoteAdmin(admin.ModelAdmin):
         queryset.update(verified=False)
 
     mark_as_not_accepted.short_description = u"علامت زدن موارد انتخابی به عنوان تایید نشده"
+
 
 admin.site.register(Vote, VoteAdmin)
 admin.site.register(Poll, PollAdmin)
