@@ -47,7 +47,9 @@ def submit_vote(request):
         if not poll_choice.poll.active:
             raise PermissionDenied
         comment = request.POST.get('comment')
-        v = Vote(choice=poll_choice, comment=comment)
+        v = Vote(choice=poll_choice,
+                 comment=comment,
+                 ip=request.META['REMOTE_ADDR'], )
         if request.user.is_authenticated():
             if request.user.has_voted(poll_choice.poll):
                 error = u"شما قبلا در این نظرسنجی شرکت کرده اید."

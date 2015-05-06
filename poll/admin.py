@@ -53,7 +53,7 @@ class VoteAdmin(admin.ModelAdmin):
         }),
     )
     actions = ['mark_as_accepted', 'mark_as_not_accepted']
-    list_display = ['choice', 'get_member', 'comment', 'verified']
+    list_display = ['choice', 'ip', 'get_member', 'comment', 'verified']
     list_filter = ('choice__poll__name', 'verified')
 
     def queryset(self, request):
