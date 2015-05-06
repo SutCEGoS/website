@@ -49,7 +49,7 @@ class VoteAdmin(admin.ModelAdmin):
     fieldsets = (
         (u'نظر', {
             'fields':
-                ('comment', 'choice')
+                ('comment', 'choice', 'get_member', 'verified')
         }),
     )
     actions = ['mark_as_accepted', 'mark_as_not_accepted']
@@ -58,9 +58,14 @@ class VoteAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         qs = super(VoteAdmin, self).queryset(request)
-
         if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
             self.readonly_fields = ('comment', 'choice')
+            self.fieldsets =  (
+                (u'نظر', {
+                    'fields':
+                        ('comment', 'choice',)
+                }),
+            )
 
             return qs.filter(verified=True)
         return qs
