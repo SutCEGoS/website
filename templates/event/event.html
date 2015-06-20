@@ -1,30 +1,57 @@
 {% load my_app_filters %}
 {% load shamsi_template_tags %}
 
-{% if event.active == True and has_registered == False %}
+{% if event.has_register %}
+    {% if event.active == True and has_registered == False %}
+    <div id="event-form-div">
+        <form action="{% url 'register-in-event' %}" id="event-form" data-id={{ event.id }} method="post"
+              class="form-inline">
+            {% csrf_token %}
+            <input name="event-id" type="hidden" value="{{ event.id }}">
+            {% if not user.is_authenticated %}
+                <input name="std-id" type="text" maxlength="8" class="form-control" style="width: 48%;"
+                       placeholder="شماره دانشجویی">
+                <button class="btn btn-primary" id="add_message" role="button" style="width: 48%;">من هستم!</button>
+            {% else %}
+                <div class="form-actions col-lg-12" style="margin-top:10px">
+                    <button class="btn btn-primary" id="add_message" role="button" style="width: 100%;">من هستم!
+                    </button>
+                </div>
+            {% endif %}
 
-    <form action="{% url 'register-in-event' %}" id="event-form" data-id={{ event.id }} method="post"
+            <p></p>
+        </form>
+        </div>
+    {% elif has_registered == True %}
+        <p>
+            شما در این رویداد مشارکت کرده اید!
+        </p>
+    {% else %}
+        <p>
+            این رویداد برای ثبت نام غیرفعال است
+        </p>
+    {% endif %}
+{% endif %}
+{% if event.has_donate %}
+    <p></p>
+    کمک به مراسم
+    <form action="{% url 'payment' event.id %}" id="event-donate-form" method="post"
           class="form-inline">
         {% csrf_token %}
-        <input name="event-id" type="hidden" value="{{ event.id }}">
-        {% if not user.is_authenticated %}
-            <input name="std-id" type="text" maxlength="8" class="form-control" style="width: 48%;"
-                   placeholder="شماره دانشجویی">
-            <button class="btn btn-primary" id="add_message" role="button" style="width: 48%;">من هستم!</button>
-        {% else %}
-            <div class="form-actions col-lg-12" style="margin-top:10px">
-                <button class="btn btn-primary" id="add_message" role="button" style="width: 100%;">من هستم!</button>
-            </div>
-        {% endif %}
-
+        <input name="donate-value" type="number" class="form-control" style="width: 48%;"
+               placeholder="مبلغ (تومان)">
+        <button class="btn btn-primary" id="send-donate" role="button" style="width: 10%;">
+            پرداخت
+        </button>
+        <!-- Gateway Verify Logo -->
+        <a onclick="window.open('http://www.parspal.com/xContext/Component/Verify/Accept/?UI=00667381a2774633b412fe92166b345b&GID=265720012&MID=CAFBAD6E40DFCE7B49AE3D701A841558773FBBC9',null,'width=656, height=500, scrollbars=no, resizable=no')"
+           href="javascript:void(0)">
+{#            <img src="http://www.parspal.com/Images/Gateway/Icons/07.png" alt="تاییدیه درگاه پرداخت آنلاین" border="0">#}
+        </a>
+        <!-- Gateway Verify Logo -->
         <p></p>
     </form>
-{% else %}
-    <p>
-        شما در این رویداد مشارکت کرده اید!
-    </p>
 {% endif %}
-
 
 <p>
     مکان :
@@ -41,3 +68,22 @@
     {% endif %}
 </p>
 <br>
+
+<script>
+
+$('#event-form').ajaxForm({
+    beforeSend: function () {
+    },
+    complete: function (xhr) {
+        var e = xhr.responseJSON.error;
+        if (e != '') {
+            alert(e);
+        } else {
+            $('#event-form').html('<p>' +
+            'باتشکر از مشارکت شما!' +
+            '</p>');
+        }
+    }
+});
+
+</script>

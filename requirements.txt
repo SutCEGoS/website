@@ -13,3 +13,4 @@ whitenoise
 djrill
 pillow
 django-tinymce
+suds

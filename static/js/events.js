@@ -21,18 +21,3 @@ $('.event-link').on('click', function () {
         $('#form-heading').html(t);
     });
 });
-
-$('#events-form').ajaxForm({
-    beforeSend: function () {
-    },
-    complete: function (xhr) {
-        var e = xhr.responseJSON.error;
-        if (e != '') {
-            alert(e);
-        } else {
-            $('#event-form').html('<p>' +
-            'باتشکر از مشارکت شما!' +
-            '</p>');
-        }
-    }
-});

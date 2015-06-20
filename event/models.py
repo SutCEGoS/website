@@ -2,7 +2,7 @@ import datetime
 
 from django.db import models
 
-from base.models import Named, Member
+from base.models import Named, Member, Logged
 
 
 class Event(Named):
@@ -11,6 +11,8 @@ class Event(Named):
     location = models.CharField(max_length=1023)
     reg_end = models.DateTimeField()
     image = models.ImageField(blank=True, null=True, upload_to='events')
+    has_donate = models.BooleanField(default=False)
+    has_register = models.BooleanField(default=True)
 
     @property
     def active(self):
@@ -38,3 +40,13 @@ class EventRegister(models.Model):
             return Member.objects.get(std_id=self.std_id).username
         except Member.DoesNotExist:
             return "(invalid)"
+
+
+class Donate(models.Model):
+    event = models.ForeignKey(Event)
+    user = models.ForeignKey(Member, blank=True, null=True)
+    value = models.IntegerField(default=0)
+    is_success = models.BooleanField(default=True)
+
+    def get_code(self):
+        return "%s%s" % ("SHG", str(self.id))

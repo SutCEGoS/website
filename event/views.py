@@ -1,15 +1,18 @@
 # coding=utf-8
 import json
+import logging
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_exempt
+from suds.client import Client
 
-from event.models import Event, EventRegister
+from event.models import Event, EventRegister, Donate
 
 
 def all_events(request):
-    events = Event.objects.all()  # order_by('-active', '-id')
+    events = Event.objects.order_by('-id')
 
     return render(request, 'event/events.html', {
         'events': events,
@@ -53,3 +56,64 @@ def register_in_event(request):
     data.update({'error': error,
                  'count': selected_event.get_count(), })
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def make_donate_url(d, site_name, event):
+    logging.basicConfig(level=logging.INFO)
+    logging.getLogger('suds.xsd.schema').setLevel(logging.DEBUG)
+
+    url = "http://merchant.parspal.com/WebService.asmx?wsdl"
+    client = Client(url)
+    s = client.service.RequestPayment("3368002", "m7Twb3C1E", d.value, event.name, "",
+                                      "", "", d.get_code(),
+                                      "http://%s/events/payment-result/%s" % (site_name, str(d.id)))
+    if s.ResultStatus == 'Succeed':
+        return s.PaymentPath
+    return ""
+
+
+def verify_payment(d, ref_num):
+    logging.basicConfig(level=logging.INFO)
+    logging.getLogger('suds.xsd.schema').setLevel(logging.DEBUG)
+
+    url = "http://merchant.parspal.com/WebService.asmx?wsdl"
+    client = Client(url)
+    s = client.service.verifyPayment("3368002", "m7Twb3C1E", d.value, ref_num)
+    status = s.ResultStatus
+    price = s.PayementedPrice
+    d.credit = int(price)
+    d.is_success = (status == "Verifyed" or status == "success")
+    d.save()
+
+
+def payment(request, event_id):
+    if request.method == "POST":
+        moneyt = request.POST.get('donate-value')
+        event = get_object_or_404(Event, id=event_id)
+        donate_obj = Donate(value=moneyt, event=event)
+        donate_obj.save()
+        site_name = request.META.get('HTTP_HOST', 'shora.sabbaghian.ir')
+        url = make_donate_url(donate_obj, site_name, event)
+        if url:
+            return redirect(url)
+    else:
+        return HttpResponse("Badway!")  # Todo Login page ~
+
+
+@csrf_exempt
+def payment_result(request, donate_id):
+    if not request.method == "POST":
+        raise PermissionDenied
+    try:
+        d = Donate.objects.get(id=int(donate_id))
+    except Donate.DoesNotExist:
+        raise Http404
+    if not request.POST.get('resnumber') == d.get_code():
+        raise PermissionDenied
+    ref_num = request.POST.get('refnumber')
+    if not ref_num:
+        raise PermissionDenied
+    verify_payment(d, ref_num)
+    if d.is_success:
+        d.save()
+    return render(request, 'payment_result.html', {'donate_obj': d})

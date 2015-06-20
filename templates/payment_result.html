@@ -1,0 +1,49 @@
+{% extends 'message_base.html' %}
+{% load static %}
+{% load gravatar %}
+{% block title %}رویدادها{% endblock title %}
+{% block size0 %}col-lg-6 col-md-6{% endblock %}
+{% block size1 %}col-lg-6 col-md-6{% endblock %}
+{% block size2 %}col-lg-12 col-md-12{% endblock %}
+{% block size3 %}col-lg-6 col-md-6 hidden{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block system_name %}
+    سامانه اطلاع رسانی رویدادها
+{% endblock %}
+
+{% block footer_menu %}
+    Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a>
+    and Semora,
+    Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
+{% endblock %}
+{% block form_title %}
+{% endblock %}
+{% block form %}
+{% endblock %}
+{% block panel_heading %}
+    <div style="direction: rtl">
+        نتیجه پرداخت
+    </div>
+{% endblock %}
+{% block panel_body_top %}
+    {% if donate_obj.is_success %}
+        <div class="alert alert-success text-center"  style="direction: rtl">
+            پرداخت شما با موفقیت ثبت شد.
+            کد پرداخت :
+            {{ donate_obj.get_code }}
+            <br>
+            مبلغ :
+            {{ donate_obj.value }}
+        تومان
+        
+        </div>
+    {% else %}
+        <div class="alert alert-danger text-center" style="direction: rtl">
+            پرداخت ناموفق بود.
+        </div>
+    {% endif %}
+{% endblock %}
+{% block panel_body_bottom %}
+{% endblock %}
+
