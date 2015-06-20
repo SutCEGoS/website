@@ -43,6 +43,7 @@ class EventRegister(models.Model):
 
 
 class Donate(models.Model):
+    name = models.CharField(max_length=63, null=True, blank=True)
     event = models.ForeignKey(Event)
     user = models.ForeignKey(Member, blank=True, null=True)
     value = models.IntegerField(default=0)

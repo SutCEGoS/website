@@ -9,9 +9,9 @@
             {% csrf_token %}
             <input name="event-id" type="hidden" value="{{ event.id }}">
             {% if not user.is_authenticated %}
-                <input name="std-id" type="text" maxlength="8" class="form-control" style="width: 48%;"
+                <input name="std-id" type="text" maxlength="8" class="form-control" style="width: 51%;"
                        placeholder="شماره دانشجویی">
-                <button class="btn btn-primary" id="add_message" role="button" style="width: 48%;">من هستم!</button>
+                <button class="btn btn-primary" id="add_message" role="button" style="width: 43%;">من هستم!</button>
             {% else %}
                 <div class="form-actions col-lg-12" style="margin-top:10px">
                     <button class="btn btn-primary" id="add_message" role="button" style="width: 100%;">من هستم!
@@ -38,7 +38,9 @@
     <form action="{% url 'payment' event.id %}" id="event-donate-form" method="post"
           class="form-inline">
         {% csrf_token %}
-        <input name="donate-value" type="number" class="form-control" style="width: 48%;"
+        <input name="donate-name" type="text" class="form-control" style="width: 30%;"
+               placeholder="نام و نام خانوادگی (اختیاری)">
+        <input name="donate-value" type="number" class="form-control" style="width: 20%;" required
                placeholder="مبلغ (تومان)">
         <button class="btn btn-primary" id="send-donate" role="button" style="width: 10%;">
             پرداخت
@@ -46,7 +48,7 @@
         <!-- Gateway Verify Logo -->
         <a onclick="window.open('http://www.parspal.com/xContext/Component/Verify/Accept/?UI=00667381a2774633b412fe92166b345b&GID=265720012&MID=CAFBAD6E40DFCE7B49AE3D701A841558773FBBC9',null,'width=656, height=500, scrollbars=no, resizable=no')"
            href="javascript:void(0)">
-{#            <img src="http://www.parspal.com/Images/Gateway/Icons/07.png" alt="تاییدیه درگاه پرداخت آنلاین" border="0">#}
+            <img src="http://www.parspal.com/Images/Gateway/Icons/07.png" alt="تاییدیه درگاه پرداخت آنلاین" border="0">
         </a>
         <!-- Gateway Verify Logo -->
         <p></p>

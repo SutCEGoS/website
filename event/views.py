@@ -91,6 +91,11 @@ def payment(request, event_id):
         moneyt = request.POST.get('donate-value')
         event = get_object_or_404(Event, id=event_id)
         donate_obj = Donate(value=moneyt, event=event)
+        if request.user.is_authenticated():
+            donate_obj.user = request.user
+        name = request.POST.get('donate-name')
+        if name:
+            donate_obj.name = name
         donate_obj.save()
         site_name = request.META.get('HTTP_HOST', 'shora.sabbaghian.ir')
         url = make_donate_url(donate_obj, site_name, event)
