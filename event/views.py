@@ -59,9 +59,6 @@ def register_in_event(request):
 
 
 def make_donate_url(d, site_name, event):
-    logging.basicConfig(level=logging.INFO)
-    logging.getLogger('suds.xsd.schema').setLevel(logging.DEBUG)
-
     url = "http://merchant.parspal.com/WebService.asmx?wsdl"
     client = Client(url)
     s = client.service.RequestPayment("3368002", "m7Twb3C1E", d.value, event.name, "",
@@ -73,9 +70,6 @@ def make_donate_url(d, site_name, event):
 
 
 def verify_payment(d, ref_num):
-    logging.basicConfig(level=logging.INFO)
-    logging.getLogger('suds.xsd.schema').setLevel(logging.DEBUG)
-
     url = "http://merchant.parspal.com/WebService.asmx?wsdl"
     client = Client(url)
     s = client.service.verifyPayment("3368002", "m7Twb3C1E", d.value, ref_num)
@@ -90,7 +84,7 @@ def payment(request, event_id):
     if request.method == "POST":
         moneyt = request.POST.get('donate-value')
         event = get_object_or_404(Event, id=event_id)
-        donate_obj = Donate(value=moneyt, event=event)
+        donate_obj = Donate(value=moneyt, event=event, is_success=False)
         if request.user.is_authenticated():
             donate_obj.user = request.user
         name = request.POST.get('donate-name')
@@ -101,8 +95,7 @@ def payment(request, event_id):
         url = make_donate_url(donate_obj, site_name, event)
         if url:
             return redirect(url)
-    else:
-        return HttpResponse("Badway!")  # Todo Login page ~
+    return HttpResponse("Badway!")  # Todo Login page ~
 
 
 @csrf_exempt
