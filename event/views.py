@@ -64,6 +64,7 @@ def make_donate_url(d, site_name, event):
     s = client.service.RequestPayment("3368002", "m7Twb3C1E", d.value, event.name, "",
                                       "", "", d.get_code(),
                                       "http://%s/events/payment-result/%s" % (site_name, str(d.id)))
+    return s
     if s.ResultStatus == 'Succeed':
         return s.PaymentPath
     return ""
@@ -93,9 +94,10 @@ def payment(request, event_id):
         donate_obj.save()
         site_name = request.META.get('HTTP_HOST', 'shora.sabbaghian.ir')
         url = make_donate_url(donate_obj, site_name, event)
+        return HttpResponse(unicode(url))
         if url:
             return redirect(url)
-    return HttpResponse("Badway!")  # Todo Login page ~
+    return HttpResponse("Badway!")
 
 
 @csrf_exempt

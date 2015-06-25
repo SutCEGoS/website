@@ -24,7 +24,7 @@ SECRET_KEY = 'jc1$x1qzbib4=dh93n8slq$jo01g-7e4z1$1@s(hjq41hv!6gr'
 DEBUG = True
 
 if os.environ.has_key('DATABASE_URL'):
-    DEBUG = False
+    DEBUG = True
 
 TEMPLATE_DEBUG = True
 
