@@ -47,7 +47,7 @@ class Donate(models.Model):
     event = models.ForeignKey(Event)
     user = models.ForeignKey(Member, blank=True, null=True)
     value = models.IntegerField(default=0)
-    is_success = models.BooleanField(default=True)
+    is_success = models.NullBooleanField(null=True, default=True)
 
     def get_code(self):
         return "%s%s" % ("SHG", str(self.id))

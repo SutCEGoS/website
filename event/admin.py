@@ -13,5 +13,11 @@ class EventRegisterAdmin(admin.ModelAdmin):
     list_filter = ['event__name']
 
 
+class DonateAdmin(admin.ModelAdmin):
+    list_display = ['id', 'value', 'is_success', 'event', 'user', 'name']
+    list_filter = ['event__name']
+
+
 admin.site.register(Event, EventAdmin)
 admin.site.register(EventRegister, EventRegisterAdmin)
+admin.site.register(Donate, DonateAdmin)
