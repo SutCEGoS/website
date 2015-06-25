@@ -18,6 +18,7 @@ class DonateAdmin(admin.ModelAdmin):
     list_filter = ['event__name']
 
 
+
 admin.site.register(Event, EventAdmin)
 admin.site.register(EventRegister, EventRegisterAdmin)
 admin.site.register(Donate, DonateAdmin)
