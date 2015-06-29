@@ -3,7 +3,7 @@ import datetime
 from django.db import models
 
 from base.models import Named, Member, Logged
-from event.normalize import unicode_normalize
+from event.normalize import unicode_normalize, replace_persian_numbers
 
 
 class Event(Named):
@@ -37,7 +37,13 @@ class EventRegister(models.Model):
         return self.std_id
 
     def get_member(self):
-        x = unicode_normalize(self.std_id)
+        try:
+            x = unicode_normalize(self.std_id)
+        except:
+            try:
+                x = replace_persian_numbers(self.std_id)
+            except:
+                x = self.std_id
         try:
             return Member.objects.get(std_id__contains=x).username
         except Member.DoesNotExist:
