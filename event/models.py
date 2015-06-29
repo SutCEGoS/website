@@ -48,6 +48,8 @@ class EventRegister(models.Model):
             return Member.objects.get(std_id__contains=x).username
         except Member.DoesNotExist:
             return "(invalid)"
+        except Member.MultipleObjectsReturned:
+            return "(multiple!)"
 
 
 class Donate(models.Model):
