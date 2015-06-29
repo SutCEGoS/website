@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 
 from base.models import Named, Member, Logged
+from event.normalize import unicode_normalize
 
 
 class Event(Named):
@@ -36,8 +37,9 @@ class EventRegister(models.Model):
         return self.std_id
 
     def get_member(self):
+        x = unicode_normalize(self.std_id)
         try:
-            return Member.objects.get(std_id=self.std_id).username
+            return Member.objects.get(std_id__contains=x).username
         except Member.DoesNotExist:
             return "(invalid)"
 
