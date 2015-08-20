@@ -159,8 +159,8 @@ LOGGING = {
     }
 }
 
-CURRENT_TERM = 2
-CURRENT_YEAR = 1393
+CURRENT_TERM = 1
+CURRENT_YEAR = 1394
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.mandrillapp.com'

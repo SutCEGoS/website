@@ -36,8 +36,6 @@ class Objection(models.Model):
     def get_available(cls, member):
         if member.is_superuser:
             return Objection.objects.all()
-        if member.groups.filter(name='Replier').exists():
-            return Objection.objects.filter(status__gte=3)
         return Objection.objects.filter(Q(status__in=[1, 3, 4, 5]) | Q(sender=member))
 
     def get_serialized(self, member):
