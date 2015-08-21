@@ -5,7 +5,6 @@ from django.conf import settings
 from course.models import OfferedCourse
 from course.views import get_current_year
 
-
 __author__ = 'mjafar'
 
 from objection.models import Objection, Reply
@@ -26,6 +25,10 @@ class MessageForm(forms.ModelForm):
             else:
                 css_class = 'full-width'
             self.fields[field].widget.attrs.update({'class': css_class})
+        self.fields['offered_course'].queryset = Objection.objects.filter(term=settings.CURRENT_TERM,
+                                                                          year=get_current_year())
+        self.fields['second_course'].queryset = Objection.objects.filter(term=settings.CURRENT_TERM,
+                                                                         year=get_current_year())
 
     def clean(self):
         cd = super(MessageForm, self).clean()
