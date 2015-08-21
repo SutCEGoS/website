@@ -105,6 +105,8 @@ def add_objection(request):
     data = request.POST.copy()
     data['sender'] = request.user.id
     data['status'] = 1
+    data['term'] = settings.CURRENT_TERM
+    data['year'] = get_current_year().id
     form = MessageForm(data=data)
     if form.is_valid():
         f = form.save()

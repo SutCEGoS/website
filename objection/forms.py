@@ -13,7 +13,8 @@ from objection.models import Objection
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Objection
-        fields = {'sender', 'status', 'second_course', 'course_name', 'offered_course', 'category', 'message'}
+        fields = {'sender', 'status', 'second_course', 'course_name', 'offered_course', 'category', 'message', 'term',
+                  'year'}
 
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
