@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.contrib import admin
+from django.db.models import Q
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
@@ -64,9 +65,8 @@ class ObjectionAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = super(ObjectionAdmin, self).queryset(request)
         if request.user.groups.filter(name='Replier').exists():
-            return qs.filter(status__gte=3)
+            return qs.filter(Q(status__gte=3) | Q(status=1))
         return qs
-
 
     def mark_as_waiting(modeladmin, request, queryset):
         queryset.update(status=3)
@@ -88,7 +88,7 @@ class ObjectionAdmin(admin.ModelAdmin):
 
     mark_as_read.short_description = u"علامت زدن موارد انتخابی به عنوان خوانده شده"
 
-    list_filter = ['status', 'category', 'offered_course']
+    list_filter = ['status', 'category', 'offered_course', 'term', 'year']
     search_fields = ['offered_course', 'category', 'message']
 
 
