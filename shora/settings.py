@@ -23,7 +23,8 @@ SECRET_KEY = 'jc1$x1qzbib4=dh93n8slq$jo01g-7e4z1$1@s(hjq41hv!6gr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if os.environ.has_key('DATABASE_URL'):
+if 'DATABASE_URL' in os.environ:
+# if os.environ.has_key('DATABASE_URL'):
     DEBUG = False
 
 TEMPLATE_DEBUG = True
@@ -79,7 +80,8 @@ DATABASES = {
     }
 }
 
-if os.environ.has_key('DATABASE_URL'):
+# if os.environ.has_key('DATABASE_URL'):
+if 'DATABASE_URL' in os.environ:
     import dj_database_url
 
     DATABASES['default'] = dj_database_url.config()
