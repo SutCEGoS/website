@@ -19,6 +19,17 @@ $(document).ready(function () {
         }
     });
 
+    $("#replied_checkbox").on('change', function () {
+        $unreplied_objections = $("div[mj-message-template='false']").not(".filter_replied");
+        if ($("#replied_checkbox").prop('checked') == true) {
+            $unreplied_objections.fadeOut(300);
+        }
+        else {
+            $unreplied_objections.removeClass("hide");
+            $unreplied_objections.fadeIn(300);
+        }
+    });
+
     $(document).tooltip({'selector': '.metooed', 'title': 'Un me too!', 'placement': 'top'});
 
 

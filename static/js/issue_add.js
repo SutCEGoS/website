@@ -81,6 +81,8 @@ $window.on('load', function () {
         var $remove_search_filter = $("#remove_search_filter");
         $("#mine_checkbox").prop('checked', false)
             .closest("label").removeClass("active");
+        $("#replied_checkbox").prop('checked', false)
+            .closest("label").removeClass("active");
         if (value > 0) {
             $remove_search_filter.show();
             $remove_search_filter.removeClass("hide");
