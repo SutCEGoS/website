@@ -339,14 +339,22 @@ header .panel-heading {
 
 }
 
+.remove_search_filter_style .glyphicon {
+    transform: translateY(1px);
+}
 
 .remove_search_filter_style{
-    padding: 2px;
-    color: #d7d7d7;
+    /*padding: 2px;*/
+    color: white;
+    border-radius: 30px;
+    padding: 4px 12px;
+    margin: -5px 0;
+    background: transparent;
+    border: 1px solid white;
     /*background-color: rgba(106, 233, 255, 0.30);*/
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     /*text-shadow: 2px,7px,3px,5px;*/
-    text-shadow: 0.1em 0.1em 0.2em black;
+    /*text-shadow: 0.1em 0.1em 0.2em black;*/
 
 }
 
@@ -354,6 +362,8 @@ header .panel-heading {
     color: #ffffff;
     /*background-color: rgba(0, 0, 0, 0.28);*/
     cursor: pointer;
+    background: rgb(255, 115, 85);
+    border: 1px solid rgba(255, 115, 85, 0.6);
 }
 
 .btn-label{
