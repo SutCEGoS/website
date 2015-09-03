@@ -82,7 +82,7 @@ $window.on('search.finished', function (e) {
     setTimeout(function () {
         $loading.fadeOut(200);
         //$loading.hide();
-    }, 900);
+    }, 750);
 //    $loading.hide();
     if (!parseInt($('select[name=category]').find(':selected').val())) {
         $add_message_button.addClass('disabled');
@@ -105,9 +105,9 @@ $window.on('search.result', function (e, messages, append) {
     }
 
     if (append || messages.length < 10) {
-        fade_in_time = 350;
+        fade_in_time = 250;
     } else {
-        fade_in_time = 120;
+        fade_in_time = 100;
     }
 
     // Create
