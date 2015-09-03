@@ -8,12 +8,12 @@
 	  }
 
 
-@font-face {
-  font-family: 'BMitra';
-  src: url('../font/BMitra.eot?#') format('eot'),  /* IE6–8 */
-       url('../font/BMitra.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-       url('../font/BMitra.ttf') format('truetype');  /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
-}
+/*@font-face {*/
+  /*font-family: 'BMitra';*/
+  /*src: url('../font/BMitra.eot?#') format('eot'),  /!* IE6–8 *!/*/
+       /*url('../font/BMitra.woff') format('woff'),  /!* FF3.6+, IE9, Chrome6+, Saf5.1+*!/*/
+       /*url('../font/BMitra.ttf') format('truetype');  /!* Saf3—5, Chrome4+, FF3.5, Opera 10+ *!/*/
+/*}*/
 
 
 footer,a {
@@ -24,11 +24,38 @@ footer,a {
     transition: all .3s ease-out;
 }
 
+@font-face {
+  font-family: 'IranSans';
+  src: url('/static/fonts/IRANSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IranSansLight';
+  src: url('/static/fonts/IRANSansLight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IranSansUltraLight';
+  src: url('/static/fonts/IRANSansUltraLight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
+    font-family: Raleway, IranSans, BRoya, 'B roya', Tahoma, Arial, sans-serif;
     background: url('../image/bg.jpg') center center fixed;
     color: #111;
-    font-family: 'B roya', Raleway, Tahoma;
-    font-size: 17px;
+    font-size: 14px;
+}
+
+.panel-title {
+    font-size: 13px;
+}
+
+.user {
+    font-family: Raleway, Tahoma, Arial, Helvetica, sans-serif;
 }
 
 a, a:hover, a:active, a:link, a:visited {
@@ -162,7 +189,7 @@ header {
 
 .request-id {
     /**font-family: corbel;**/
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: #999999;
 }
 .metoo-wrapper{
@@ -196,10 +223,6 @@ header {
     /* FIXME (semora) */
 }
 
-.footer.base:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
 .footer.base {
     line-height: 40px;
     height: 60px;
@@ -225,7 +248,7 @@ footer {
 
 footer:hover {
     color: #111;
-    background: rgba(255, 255, 255, .3);
+    /*background: rgba(255, 255, 255, .3);*/
     text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -o-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
     -moz-text-shadow: 1px 1px 0 rgba(255, 255, 255, .4);
