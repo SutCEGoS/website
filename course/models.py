@@ -14,7 +14,7 @@ class Field(Named):
 
 
 class Course(Named):
-    course_number = models.CharField(max_length=10, unique=False)
+    course_number = models.CharField(max_length=10, unique=True)
 
 
 class OfferedCourse(models.Model):
