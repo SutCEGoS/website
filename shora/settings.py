@@ -25,7 +25,7 @@ DEBUG = True
 
 if 'DATABASE_URL' in os.environ:
 # if os.environ.has_key('DATABASE_URL'):
-    DEBUG = False
+    DEBUG = True
 
 TEMPLATE_DEBUG = True
 
