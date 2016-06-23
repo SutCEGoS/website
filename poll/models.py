@@ -54,7 +54,7 @@ class Vote(Logged):
     choice = models.ForeignKey(PollChoice)
     comment = models.TextField(blank=True, null=True)
     verified = models.BooleanField(default=False)
-    ip = models.IPAddressField(verbose_name='user\'s IP', null=True, blank=True)
+    ip = models.GenericIPAddressField(verbose_name='user\'s IP', null=True, blank=True)
 
 
 

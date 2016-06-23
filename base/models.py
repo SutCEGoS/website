@@ -2,16 +2,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from model_utils import Choices
+from model_utils.models import TimeStampedModel as Logged
 
 LEVEL = Choices((1, u'کارشناسی'), (2, u'ارشد'), (3, u'دکتری'))
-
-
-class Logged(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True, auto_now=True)
-
-    class Meta:
-        abstract = True
 
 
 class Named(models.Model):
