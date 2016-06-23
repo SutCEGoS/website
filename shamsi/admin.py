@@ -48,13 +48,13 @@ class ShamsiModelAdmin(ModelAdmin):
                         tp = 2
                     break
             if tp == 1:
-                exec 'def ' + field + '_shamsi (obj): return Shamsi(obj.' + field + \
+                exec ('def ' + field + '_shamsi (obj): return Shamsi(obj.' + field + \
                      ').strfshamsi(Shamsi.LONG_DATE) \n' + field + '_shamsi.short_description = u"' + verbose_name +\
-                     '"\nself.' + field + '_shamsi = ' + field + '_shamsi'
+                     '"\nself.' + field + '_shamsi = ' + field + '_shamsi')
             if tp == 2:
-                exec 'def ' + field + '_shamsi (obj): return Shamsi(obj.' + field + \
+                exec ('def ' + field + '_shamsi (obj): return Shamsi(obj.' + field + \
                      ').strfshamsi(Shamsi.LONG_DATETIME_SEC) \n' + field + '_shamsi.short_description = u"' + \
-                     verbose_name + '"\nself.' + field + '_shamsi = ' + field + '_shamsi'
+                     verbose_name + '"\nself.' + field + '_shamsi = ' + field + '_shamsi')
             if tp:
                 field += "_shamsi"
             result += (field, )

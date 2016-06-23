@@ -42,9 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'south',
     'password_reset',
-    'djrill',
     'shamsi',
     'tinymce',
 
@@ -80,12 +78,6 @@ DATABASES = {
     }
 }
 
-# if os.environ.has_key('DATABASE_URL'):
-if 'DATABASE_URL' in os.environ:
-    import dj_database_url
-
-    DATABASES['default'] = dj_database_url.config()
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -101,7 +93,6 @@ STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -164,16 +155,14 @@ LOGGING = {
 CURRENT_TERM = 2
 CURRENT_YEAR = 1394
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.mandrillapp.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'shora.cesharif@gmail.com'
-EMAIL_HOST_PASSWORD = 'YiN1om03JN1rv9fA1JQa4g'
-MANDRILL_API_KEY = "YiN1om03JN1rv9fA1JQa4g"
-EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
     'cleanup_on_startup': False,
 }
+
+
+# Local settings
+f = os.path.join(os.path.join(BASE_DIR, 'shora'), 'local_settings.py')
+if os.path.exists(f):
+    exec (open(f, "rb").read())
+

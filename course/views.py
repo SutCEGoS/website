@@ -1,5 +1,11 @@
 import json
-import urllib2
+# import urllib2
+
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
+
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -20,7 +26,7 @@ def update_courses_list(request):
     if not request.user.is_superuser:
         raise PermissionDenied
     url = "http://term.inator.ir/courses/list/38/"
-    data = urllib2.urlopen(url)
+    data = urlopen(url)
     courses_list = json.loads(data.read())
     for item in courses_list:
         grp = item['course_id'].split('-')[-1]

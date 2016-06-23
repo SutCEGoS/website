@@ -5,8 +5,8 @@ from tinymce.models import HTMLField
 
 from base.models import Named, Logged, Member
 
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^tinymce\.models.\HTMLField"])
+# from south.modelsinspector import add_introspection_rules
+# add_introspection_rules([], ["^tinymce\.models.\HTMLField"])
 
 
 class Poll(Named):

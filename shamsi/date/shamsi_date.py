@@ -121,7 +121,7 @@ class Shamsi(object):
         """
         if self.is_none():
             return u'ندارد'
-        letter_re = re.compile(ur'%[a-z A-Z]', re.UNICODE)
+        letter_re = re.compile(r'%[a-z A-Z]', re.UNICODE)
         return letter_re.sub(lambda m: Shamsi.letter_funcs[m.group(0)](self), pattern)
 
     @classmethod
@@ -189,7 +189,7 @@ equal to:
         if not format_regex:
             try:
                 format_regex = _TimeRE_cache.compile(date_format)
-            except KeyError, err:
+            except KeyError as err:
                 bad_directive = err.args[0]
                 if bad_directive == "\\":
                     bad_directive = "%"
