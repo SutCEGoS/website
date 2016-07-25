@@ -1,4 +1,5 @@
 dj-database-url
+raven
 django-toolbelt
 Django
 psycopg2
