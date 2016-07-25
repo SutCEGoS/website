@@ -1,8 +1,8 @@
 from django.conf.urls import patterns, url
+from . import views
 
-urlpatterns = patterns('poll.views',
-                       url(r'^$', 'all_polls', name='all-polls'),
-                       url(r'^get-poll/$', 'get_poll', name='get-poll'),
-                       url(r'^submit-vote/$', 'submit_vote', name='submit-vote'),
-
-)
+urlpatterns = [
+    url(r'^$', views.all_polls, name='all-polls'),
+    url(r'^get-poll/$', views.get_poll, name='get-poll'),
+    url(r'^submit-vote/$', views.submit_vote, name='submit-vote'),
+]
