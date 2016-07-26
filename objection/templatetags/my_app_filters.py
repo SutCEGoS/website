@@ -16,19 +16,19 @@ def get_form_field_as_div(field,css_class=""):
         css_class=s[1]
     obj = '<div class="' + css_class + ' col-lg-' + str(size) + ' col-md-' + str(size) + ' col-sm-' + str(size) + '">'
     if field.errors:
-        obj += '<div class="control-group error"><label class="control-label">' + unicode(field.label)
+        obj += '<div class="control-group error"><label class="control-label">' + str(field.label)
         if field.field.required:
             obj += '<span style="font-size: 16px;color: red;">*</span>'
-        obj += '</label><div class="controls">' + unicode(field) + '<span class="help-inline">'
+        obj += '</label><div class="controls">' + str(field) + '<span class="help-inline">'
         for error in field.errors:
-            obj += unicode(error)
+            obj += str(error)
         obj += '</span></div></div>'
     else:
-        obj += '<div class ="control-group"><label class ="control-label">' + unicode(field.label)
+        obj += '<div class ="control-group"><label class ="control-label">' + str(field.label)
 
         if field.field.required:
             obj += '<span style="font-size: 16px;color: red;">*</span>'
-        obj += '</label><div class="controls">' + unicode(field)
+        obj += '</label><div class="controls">' + str(field)
         obj += '</div></div>'
     obj += '<div class="details"></div></div>'
     return obj
