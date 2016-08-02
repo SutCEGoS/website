@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # url(r'^$', 'home', name='home'),
-    url(r'^/?$', views.home, name='home'),
+    url(r'^/?$', views.index, name='home'),
     url(r'^login/?$', views.login, name='login'),
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^create-account-from-file-by-admin-qsc/$', views.create_accounts, name='create-account'),

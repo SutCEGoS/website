@@ -30,6 +30,9 @@ def home(request):
             return HttpResponseRedirect(reverse('requests'))
         return HttpResponseRedirect(reverse('issues'))
 
+def index(request):
+    return render(request, 'index.html')
+
 
 def logout(request):
     dj_logout(request)
