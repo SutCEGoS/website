@@ -51,6 +51,17 @@ body {
     font-size: 14px;
 }
 
+.navitems li a{
+    font-family: Raleway, IranSans, BRoya, 'B roya', Tahoma, Arial, sans-serif;
+    /*background: url('../image/bg.jpg') center center fixed;*/
+    color: #3982c1;
+    font-size: 14px;
+}
+
+.navitems li {
+    vertical-align: text-top;
+}
+
 .panel-title {
     font-size: 13px;
 }
