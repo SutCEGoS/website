@@ -1,4 +1,6 @@
 {% load static %}
+{% load gravatar %}
+
 <!-- In the name of god :D -->
 <!doctype html>
 <html>
@@ -10,6 +12,10 @@
     <script type="text/javascript" language="JavaScript">
         var $window = $(window);
         window.csrf_token = "{{ csrf_token }}";
+
+
+
+
     </script>
     <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -23,19 +29,99 @@
     {% block extra_styles %}{% endblock %}
 </head>
 <body>
-{% block navbar %}{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-right">
+
+            <a class="navbar-brand" href="#">
+                <div class="navbar-inner" id="topbar">
+                    <div class="container">
+                        <div class=" logo dir-rtl">
+                            <p>شورای صنفی دانشکده مهندسی کامپیوتر</p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="nav navbar-nav {% block size0 %}col-lg-10 col-md-10{% endblock %} navitems"
+                style="display:table">
+                <li class="col-lg-6 col-md-6">
+                    <div class="">
+                        {% if user.is_authenticated %}
+                        <div class="panel panel-default panel-background-color">
+                            <div class="panel-body">
+                                <div class="circle avatar">
+                                    <img class="circle" src="{% gravatar_url user.email %}">
+                                </div>
+                                <span class="user name">{{ user }}</span>
+
+                                <div class="user actions pull-right">
+                                    <a href="{% url 'logout' %}">خروج</a>
+                                    |
+                                    <a href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% else %}
+                        <div class="panel panel-default panel-background-color">
+                            <div class="panel-body">
+                                <div class="circle avatar">
+                                    <img class="circle" src="{% gravatar_url '' %}">
+                                </div>
+
+                                <div class="user actions pull-right">
+                                    <a style="color:#777777">شما وارد نشده‌اید</a>
+                                    |
+                                    <a href="{% url 'login' %}">ورود</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="col-lg-6 col-md-6" style="height:40px">
+
+                </li>
+                <li><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">سامانه‌ها<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="pull-right"><a href="{% url 'issues' %}">رسیدگی به مشکلات رفاهی</a></li>
+                        <li><a href="{% url 'requests' %}">رسیدگی به مشکلات برنامه درسی</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'home' %}">اطلاعیه‌ها</a></li>
+                <li><a href="{% url 'home' %}">اعضا</a></li>
+                <li><a href="{% url 'all-events' %}">رویداد‌ها</a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+{% endblock %}
+
 {% block user_infos %}{% endblock %}
 <div class="margin-bottom-lg">
     {% block body %}{% endblock %}
 </div>
 {% block footer %}
-    <footer class="footer base navbar-fixed-bottom">
-        <p class="english">
-            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
-                href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>. <span class="terminator">Thank you <a
-                href="http://term.inator.ir/" target="_blank">Terminator</a> :-)</span>
-        </p>
-    </footer>
+<footer class="footer base navbar-fixed-bottom">
+    <p class="english">
+        Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
+            href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
+    </p>
+</footer>
 {% endblock %}
 </body>
 <script>
@@ -52,6 +138,10 @@
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-66577449-1', 'auto');
     ga('send', 'pageview');
+
+
+
+
 </script>
 </html>
 <!-- Telbaaaaas -->
