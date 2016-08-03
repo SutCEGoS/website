@@ -16,6 +16,8 @@
 
 
 
+
+
     </script>
     <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -117,10 +119,20 @@
 </div>
 {% block footer %}
 <footer class="footer base navbar-fixed-bottom">
-    <p class="english">
-        Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
-            href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
-    </p>
+    <div class="col-lg-6 col-md-6">
+        <p class="english">
+            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
+                href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
+        </p>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+        <p class="pull-right">
+            <a href="{% url 'home' %}">شورای صنفی</a> <a href="http://ce.sharif.edu">دانشکده مهندسی کامپیوتر</a>، <a href="http://sharif.ir">دانشگاه
+            صنعتی شریف</a> &copy;
+        </p>
+    </div>
+
 </footer>
 {% endblock %}
 </body>
@@ -138,6 +150,8 @@
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-66577449-1', 'auto');
     ga('send', 'pageview');
+
+
 
 
 
