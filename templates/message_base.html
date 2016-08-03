@@ -7,41 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
-{% block navbar %}{% endblock %}
 {% block footer %}{% endblock %}
-{% block user_infos %}
-    <header>
-        <div class="container">
-            <div class="row" style="margin-top: 20px">
-
-                <div class="{% block size0 %}col-lg-4 col-md-4{% endblock %}">
-                    {% if user.is_authenticated %}
-                    <div class="panel panel-default panel-background-color">
-                        <div class="panel-body">
-                            <div class="circle avatar"><img class="circle" src="{% gravatar_url user.email %}"></div>
-                            <span class="user name">{{ user }}</span>
-
-                            <div class="user actions pull-right">
-                                <a href="{% url 'password_reset_change' %}">Change Password</a>
-                                |
-                                <a href="{% url 'logout' %}">Logout</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    {% endif %}
-                </div>
-
-                <div class="{% block size1 %}col-lg-8 col-md-8{% endblock %} logo dir-rtl">
-                    <p>شورای صنفی دانشکده مهندسی کامپیوتر</p>
-
-                    <p class="system-name hidden-phone">{% block system_name %}{% endblock %}</p>
-                </div>
-
-            </div>
-        </div>
-    </header>
-{% endblock %}
 {% block body %}
     <div class="container">
         {#        <div class="row">#}
