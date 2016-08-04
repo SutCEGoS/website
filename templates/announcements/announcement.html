@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load gravatar %}
+{% load shamsi_template_tags %}
+{% block title %} اطلاعیه - {{ announcement.title }}{% endblock title %}
+
+{% block size0 %}col-lg-10 col-md-10{% endblock %}
+{% block size1 %}col-lg-6 col-md-6{% endblock %}
+{% block size2 %}col-lg-6 col-md-6{% endblock %}
+{% block size3 %}col-lg-6 col-md-6{% endblock %}
+
+{% block body %}
+<div class="panel panel-default panel-background-color">
+    <div class="panel-heading dir-rtl">
+        <span class="request-id glyphicon glyphicon-tag"></span>
+        <span class="panel-title"> {{ announcement.title }} </span>
+        <span id="announcement-countdown-{{ announcement.id }}" class="pull-left poll-countdown">
+            {{ announcement.date }}
+        </span>
+    </div>
+
+    <div class="panel-body dir-rtl">
+        {{ announcement.body|safe }}
+
+    </div>
+
+
+</div>
+{% endblock %}

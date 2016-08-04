@@ -496,7 +496,7 @@ equal to:
         :param zf:
         :return:
         """
-        return unicode(num).zfill(zf)
+        return str(num).zfill(zf)
 
     def __eq__(self, other):
         return (self.year, self.month, self.day, self.hour, self.minute, self.second, self.jd) == (
