@@ -18,6 +18,7 @@ urlpatterns += [
                    url(r'^issues/', include('issue.urls')),
                    url(r'^polls/', include('poll.urls')),
                    url(r'^events/', include('event.urls')),
+                   url(r'^announcements/', include('announcements.urls')),
                    url(r'^tinymce/', include('tinymce.urls')),
 
                ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'issue',
     'poll',
     'event',
+    'announcements',
 )
 
 MIDDLEWARE_CLASSES = (
