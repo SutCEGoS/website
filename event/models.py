@@ -20,7 +20,7 @@ class Event(Named):
         return datetime.datetime.now() < self.reg_end.replace(tzinfo=None)
 
     def get_end(self):
-        return unicode(self.reg_end.replace(tzinfo=None))
+        return str(self.reg_end.replace(tzinfo=None))
 
     def get_count(self):
         return EventRegister.objects.filter(event=self).count()

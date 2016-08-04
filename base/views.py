@@ -12,7 +12,8 @@ from django.template import loader
 
 from base.forms import *
 from base.models import Member
-
+from announcements.models import Announcement
+from shamsi.templatetags.shamsi_template_tags import pdatetime
 
 def home(request):
     go_course = False
@@ -30,8 +31,14 @@ def home(request):
             return HttpResponseRedirect(reverse('requests'))
         return HttpResponseRedirect(reverse('issues'))
 
+
 def index(request):
-    return render(request, 'index.html')
+    announcements = Announcement.objects.order_by('-date')[:5]
+    for an in announcements:
+        an.date = pdatetime(an.date)
+    return render(request, 'index.html', {
+        'announcements': announcements,
+    })
 
 
 def logout(request):
@@ -148,4 +155,3 @@ def password_reset_change(request):
                       'form': form,
                       'sent': sent,
                   })
-

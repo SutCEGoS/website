@@ -7,18 +7,48 @@
 
     <div class="col-md-1 col-lg-1"></div>
 
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-4 col-lg-4 btn btn-primary ">
         <div class="pull-right bigtile panel-body">
             <a href="{% url 'issues' %}">سامانه رسیدگی به مشکلات رفاهی</a>
         </div>
     </div>
-        <div class="col-md-2 col-lg-2"></div>
+    <div class="col-md-1 col-lg-1"></div>
 
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-5 col-lg-5  btn btn-primary ">
         <div class="pull-right bigtile panel-body">
             <a href="{% url 'requests' %}">سامانه رسیدگی به مشکلات برنامه درسی</a>
         </div>
     </div>
+</div>
+<div class="col-md-12 col-lg-12" style="height:20px"></div>
+
+<div class="col-md-12 col-lg-12">
+    <div class="col-md-1 col-lg-1"></div>
+
+    <div class="col-md-10 col-lg-10 ">
+        <div class="panel panel-primary panel-background-color">
+            <div class="panel-heading dir-rtl"> اطلاعیه‌ها</div>
+            <div class="panel-body">
+                {% for announcement in announcements %}
+                <div class="panel panel-default dir-rtl">
+                    <div class="panel-heading">
+                        <a href="{% url 'show-announcement' announcement.id %}" target="_self"
+                           class="permanent link event-link"
+                           data-id={{ announcement.id }}>
+                            <span class="request-id glyphicon glyphicon-tag"></span>
+                            <span class="panel-title"> {{ announcement.title }} </span>
+                        </a>
+                        <span id="announcement-countdown-{{ announcement.id }}" class="pull-left poll-countdown"> {{ announcement.date }} </span>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-1 col-lg-1"></div>
+
 </div>
 
 {% endblock %}

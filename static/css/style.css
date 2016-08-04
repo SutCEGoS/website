@@ -240,6 +240,7 @@ header {
     height: 60px;
     font-size: 14px;
     padding: 10px 50px;
+
 }
 
 .normal-p {
@@ -472,15 +473,6 @@ header .panel-heading {
     width: 700px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.bigtile {
-    background: #3982c1;
-    text-align: center;
-    margin: 2px;
-    border-width: thick;
-    border-color: #EEBB44;
-    border-style: solid;
 }
 
 .bigtile a {
