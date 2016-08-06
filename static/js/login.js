@@ -13,12 +13,12 @@ $window.on('load', function(){
                 placement: 'bottom',
                 title: 'Are you sure?',
                 content:
-                    'If you forgot your password really, you can press on the Yes button and we will send you an email. Then you can go and change your password!'
+                    'If you really forgot your password, you can press on the Yes button and we will send you an email with instructions for re-setting your password.'
                 ,
 //                yes: 'بله',
 //                no: 'خیر',
                 callback_yes: function () {
-                    window.location = forgot_link;
+                    window.location = window.forgot_link;
                     //TODO
                 }
             });
