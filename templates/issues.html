@@ -1,11 +1,13 @@
 {% extends 'message_base.html' %}
-{% load static %}
-{% load gravatar %}
+
+{% load static gravatar %}
+
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
+
 {% block extra_js %}
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search_issue' %}";
@@ -22,6 +24,7 @@
         var $load_url = '{% url 'get_objections_list_issue' %}';
     </script>
 {% endblock %}
+
 {% block form %}
     {% include 'issueform.html' %}
 {% endblock %}

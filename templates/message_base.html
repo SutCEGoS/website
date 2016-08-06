@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load gravatar %}
+{% load static gravatar %}
+
 {% block title %}Messages{% endblock title %}
+
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
+
 {% block footer %}{% endblock %}
+
 {% block body %}
     <div class="container">
         {#        <div class="row">#}
@@ -126,5 +129,7 @@
             </div>
         </div>
     </div>
-{% block message_template %}{% endblock %}
+
+    {% block message_template %}{% endblock %}
+
 {% endblock %}

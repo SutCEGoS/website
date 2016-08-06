@@ -1,13 +1,18 @@
 {% extends 'message_base.html' %}
-{% load static %}
-{% load gravatar %}
+{% load static gravatar %}
+
 {% block title %}رویدادها{% endblock title %}
+
 {% block size0 %}col-lg-6 col-md-6{% endblock %}
+
 {% block size1 %}col-lg-6 col-md-6{% endblock %}
+
 {% block size2 %}col-lg-12 col-md-12{% endblock %}
+
 {% block size3 %}col-lg-6 col-md-6 hidden{% endblock %}
 
 {% block navbar %}{% endblock %}
+
 {% block system_name %}
     سامانه اطلاع رسانی رویدادها
 {% endblock %}
@@ -17,15 +22,19 @@
     and Semora,
     Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
 {% endblock %}
+
 {% block form_title %}
 {% endblock %}
+
 {% block form %}
 {% endblock %}
+
 {% block panel_heading %}
     <div style="direction: rtl">
         نتیجه پرداخت
     </div>
 {% endblock %}
+
 {% block panel_body_top %}
     {% if donate_obj.is_success %}
         <div class="alert alert-success text-center"  style="direction: rtl">
@@ -44,6 +53,7 @@
         </div>
     {% endif %}
 {% endblock %}
+
 {% block panel_body_bottom %}
 {% endblock %}
 

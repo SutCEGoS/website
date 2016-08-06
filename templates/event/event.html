@@ -1,5 +1,4 @@
-{% load my_app_filters %}
-{% load shamsi_template_tags %}
+{% load my_app_filters shamsi_template_tags %}
 
 {% if event.has_register %}
     {% if event.active == True and has_registered == False %}
@@ -32,6 +31,7 @@
         </p>
     {% endif %}
 {% endif %}
+
 {% if event.has_donate %}
     <p></p>
     کمک به مراسم

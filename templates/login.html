@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load my_app_filters %}
+
+{% load static my_app_filters %}
+
 {% block title %}Login{% endblock title %}
+
 {% block extra_js %}
 <script>
         var forgot_link = '{% url "password_reset_recover" %}';
@@ -9,7 +11,9 @@
 </script>
 <script type="text/javascript" language="JavaScript" src="{% static 'js/login.js' %}"></script>
 {% endblock %}
+
 {% block navbar %}{% endblock %}
+
 {% block body %}
 <div class="container">
     <div class="row">

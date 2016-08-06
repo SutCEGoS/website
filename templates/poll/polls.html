@@ -1,11 +1,13 @@
 {% extends 'message_base.html' %}
-{% load static %}
-{% load gravatar %}
+{% load static gravatar %}
+
 {% block title %}نظرسنجی{% endblock title %}
+
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/polls.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
+
 {% block extra_js %}
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search_issue' %}";
@@ -15,7 +17,9 @@
     <script type="text/javascript" language="JavaScript">
     </script>
 {% endblock %}
+
 {% block navbar %}{% endblock %}
+
 {% block system_name %}
     سامانه نظرسنجی
 {% endblock %}
@@ -25,21 +29,26 @@
     and Semora,
     Powered by <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
 {% endblock %}
+
 {% block form_title %}
 
 {% endblock %}
+
 {% block form %}
     <div class="" id="poll-form">
 
     </div>
 {% endblock %}
+
 {% block panel_heading %}
     <div dir="rtl">
 نظرسنجی‌های فعال
     </div>
 {% endblock %}
+
 {% block panel_body_top %}
 {% endblock %}
+
 {% block panel_body_bottom %}
     {% for poll in polls %}
         <div class="panel panel-default dir-rtl {% if poll.active %}filter_active{% else %}filter_not_active{% endif %}">
@@ -67,6 +76,7 @@
         </div>
     {% endfor %}
 {% endblock %}
+
 {% block message_template %}
     <script type="text/javascript" language="JavaScript" src="{% static 'js/jquery.form.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/polls.js' %}"></script>
