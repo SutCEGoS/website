@@ -167,3 +167,18 @@ f = os.path.join(os.path.join(BASE_DIR, 'shora'), 'local_settings.py')
 if os.path.exists(f):
     exec (open(f, "rb").read())
 
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Host for sending e-mail.
+EMAIL_HOST = 'smtp.ce.sharif.edu'
+#EMAIL_HOST = 'smtp.gmail.com'
+
+# Port for sending e-mail.
+#EMAIL_PORT = 465
+EMAIL_PORT = 587
+
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = 'shora@ce.sharif.edu'
+EMAIL_HOST_PASSWORD = 'shora9412'
+EMAIL_USE_TLS = True

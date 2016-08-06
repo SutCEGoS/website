@@ -15,6 +15,9 @@ from base.models import Member
 from announcements.models import Announcement
 from shamsi.templatetags.shamsi_template_tags import pdatetime
 
+from django.core.mail import EmailMessage
+
+
 def home(request):
     go_course = False
     try:
@@ -33,6 +36,8 @@ def home(request):
 
 
 def index(request):
+    #email = EmailMessage('Hello', 'World', 'Shora CE', to=['khedesh16@gmail.com'])
+    #email.send()
     announcements = Announcement.objects.order_by('-date')[:5]
     for an in announcements:
         an.date = pdatetime(an.date)
