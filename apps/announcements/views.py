@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from shamsi.templatetags.shamsi_template_tags import pdatetime
+from django.shortcuts import render
 
+from vendor.shamsi.templatetags import pdatetime
 from .models import Announcement
 
 

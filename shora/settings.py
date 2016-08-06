@@ -42,17 +42,19 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # vendor plugins
     'password_reset',
-    'shamsi',
+    'vendor.shamsi',
     'tinymce',
 
-    'base',
-    'course',
-    'objection',
-    'issue',
-    'poll',
-    'event',
-    'announcements',
+    # website apps
+    'apps.base',
+    'apps.course',
+    'apps.objection',
+    'apps.issue',
+    'apps.poll',
+    'apps.event',
+    'apps.announcements',
 )
 
 MIDDLEWARE_CLASSES = (
