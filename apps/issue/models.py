@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import Q
 from model_utils import Choices
 
-from base.models import Member, Logged
+from apps.base.models import Member, Logged
 
 
 class Issue(models.Model):

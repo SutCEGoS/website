@@ -33,5 +33,5 @@ class Member(AbstractUser):
     password_changed = models.BooleanField(default=False)
 
     def has_voted(self, poll):
-        from apps.poll import Vote
+        from apps.poll.models import Vote
         return Vote.objects.filter(member=self, choice__poll=poll).exists()

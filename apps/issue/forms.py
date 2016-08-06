@@ -1,7 +1,7 @@
 # coding=utf-8
 from django import forms
 
-from issue.models import Issue
+from .models import Issue
 
 
 __author__ = 'mjafar'

@@ -1,7 +1,9 @@
 __author__ = 'mjafar'
 
+import hashlib
+import urllib
+
 from django import template
-import urllib, hashlib
 
 register = template.Library()
 

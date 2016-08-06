@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.contrib import admin
 
-from apps.poll import PollChoice, Poll, Vote
+from .models import PollChoice, Poll, Vote
 
 
 class PollChoiceInline(admin.StackedInline):

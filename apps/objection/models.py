@@ -1,12 +1,12 @@
 # coding=utf-8
-from course.views import get_current_year
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from model_utils import Choices
 
-from base.models import Member, EducationalYear
-from course.models import OfferedCourse
+from apps.base.models import Member, EducationalYear
+from apps.course.models import OfferedCourse
+from apps.course.views import get_current_year
 
 
 class Objection(models.Model):

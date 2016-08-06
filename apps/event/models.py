@@ -2,8 +2,8 @@ import datetime
 
 from django.db import models
 
-from base.models import Named, Member, Logged
-from event.normalize import unicode_normalize, replace_persian_numbers
+from apps.base.models import Named, Member
+from apps.event.normalize import unicode_normalize, replace_persian_numbers
 
 
 class Event(Named):

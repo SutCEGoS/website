@@ -1,6 +1,5 @@
 import json
 
-# import urllib2
 from django.core.management import BaseCommand
 
 try:
@@ -9,8 +8,6 @@ except ImportError:
     from urllib2 import urlopen
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 
 from base.models import EducationalYear
 

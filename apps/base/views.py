@@ -1,6 +1,3 @@
-from announcements.models import Announcement
-from base.forms import *
-from base.models import Member
 from django.contrib.auth import login as dj_login
 from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.decorators import login_required
@@ -8,13 +5,15 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.sites.requests import RequestSite
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
-from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
 
-from vendor.shamsi.templatetags import pdatetime
+from apps.announcements.models import Announcement
+from vendor.shamsi.templatetags.shamsi_template_tags import pdatetime
+from .forms import *
+from .models import Member
 
 
 def home(request):

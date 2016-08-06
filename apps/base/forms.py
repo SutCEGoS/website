@@ -2,8 +2,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 
-from base.models import Member
-
+from .models import Member
 
 __author__ = 'Amin'
 

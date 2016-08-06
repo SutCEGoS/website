@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 
-from apps.poll import Poll, PollChoice, Vote
+from .models import Poll, PollChoice, Vote
 
 
 def all_polls(request):

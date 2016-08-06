@@ -2,13 +2,13 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
+from django.shortcuts import render, get_object_or_404
 
-from issue.forms import IssueForm
-from issue.models import Issue
-from objection.models import Objection
+from apps.objection.models import Objection
+from .forms import IssueForm
+from .models import Issue
 
 
 @login_required

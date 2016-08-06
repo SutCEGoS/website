@@ -12,12 +12,12 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url(r'^', include('base.urls')),
-    url(r'^courses/', include('course.urls')),
-    url(r'^objections/', include('objection.urls')),
-    url(r'^issues/', include('issue.urls')),
-    url(r'^polls/', include('poll.urls')),
-    url(r'^events/', include('event.urls')),
-    url(r'^announcements/', include('announcements.urls')),
+    url(r'^', include('apps.base.urls')),
+    url(r'^courses/', include('apps.course.urls')),
+    url(r'^objections/', include('apps.objection.urls')),
+    url(r'^issues/', include('apps.issue.urls')),
+    url(r'^polls/', include('apps.poll.urls')),
+    url(r'^events/', include('apps.event.urls')),
+    url(r'^announcements/', include('apps.announcements.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
 ]

@@ -2,7 +2,7 @@
 from django.db import models
 from model_utils import Choices
 
-from base.models import Named, EducationalYear
+from apps.base.models import Named, EducationalYear
 
 
 class Professor(Named):

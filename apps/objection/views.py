@@ -5,14 +5,14 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
+from django.shortcuts import render, get_object_or_404
 
-from course.models import OfferedCourse
-from course.views import get_current_year
-from objection.forms import MessageForm
-from objection.models import Objection
+from apps.course.models import OfferedCourse
+from apps.course.views import get_current_year
+from .forms import MessageForm
+from .models import Objection
 
 
 @login_required

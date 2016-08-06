@@ -1,8 +1,7 @@
 # coding=utf-8
 from django.contrib import admin
 
-from issue.models import Issue, IssueReply
-from objection.models import Reply
+from .models import Issue, IssueReply
 
 
 class IssueReplyAdmin(admin.ModelAdmin):

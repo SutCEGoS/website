@@ -1,6 +1,5 @@
 # coding=utf-8
 import json
-import logging
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
@@ -8,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from suds.client import Client
 
-from event.models import Event, EventRegister, Donate
+from .models import Event, EventRegister, Donate
 
 
 def all_events(request):

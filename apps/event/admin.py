@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.contrib import admin
 
-from event.models import *
+from .models import *
 
 
 class EventAdmin(admin.ModelAdmin):

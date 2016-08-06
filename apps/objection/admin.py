@@ -4,9 +4,7 @@ from django.db.models import Q
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-from base.models import Member
-
-from objection.models import Objection, Reply
+from .models import Member, Objection, Reply
 
 
 @receiver(pre_save, sender=Reply, dispatch_uid='autocreate_author')
