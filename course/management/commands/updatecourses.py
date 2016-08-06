@@ -33,10 +33,10 @@ class Command(BaseCommand):
             prf = Professor.objects.get_or_create(name=prf)
             crs = item['course_number']
             crs_name = item['name']
-            crs = Course.objects.get_or_create(course_number=crs)
+            crs = Course.objects.get_or_create(course_number=crs,
+                                               name=crs_name, )
             dsc = item['info']
             capacity = int(item['capacity'])
-            self.stdout.write('Professor: %s' % item['instructor'])
             try:
                 obj = OfferedCourse.objects.get(group_number=int(grp),
                                                 course=crs[0],

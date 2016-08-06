@@ -13,15 +13,15 @@ class Named(models.Model):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
 class EducationalYear(models.Model):
     year = models.IntegerField()
 
-    def __unicode__(self):
-        return unicode(self.year)
+    def __str__(self):
+        return str(self.year)
 
 
 class Member(AbstractUser):

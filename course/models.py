@@ -32,9 +32,9 @@ class OfferedCourse(models.Model):
     class Meta:
         unique_together = ("course", "group_number", "term", "year")
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s-%d - %s - %s  " % (
-            unicode(self.course.course_number), self.group_number, unicode(self.course), self.professor.name)
+            str(self.course.course_number), self.group_number, str(self.course), str(self.professor))
 
     def get_name(self):
         return u"%s گروه %d استاد %s" % (self.course.name, self.group_number, self.professor)
