@@ -36,8 +36,8 @@ def home(request):
 
 
 def index(request):
-    #email = EmailMessage('Hello', 'World', 'Shora CE', to=['khedesh16@gmail.com'])
-    #email.send()
+    # email = EmailMessage('Hello', 'World', 'Shora CE', to=['khedesh16@gmail.com'])
+    # email.send()
     announcements = Announcement.objects.order_by('-date')[:5]
     for an in announcements:
         an.date = pdatetime(an.date)
@@ -160,3 +160,7 @@ def password_reset_change(request):
                       'form': form,
                       'sent': sent,
                   })
+
+
+def members(request):
+    return render(request, 'members.html')
