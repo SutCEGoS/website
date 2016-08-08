@@ -16,7 +16,7 @@ class Poll(Named):
     end = models.DateTimeField(null=True)
     details = HTMLField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.question
 
     @property
@@ -26,13 +26,13 @@ class Poll(Named):
         return self.is_active
 
     def get_end(self):
-        return unicode(self.end.replace(tzinfo=None))
+        return str(self.end.replace(tzinfo=None))
 
 
 class PollChoice(Named):
     poll = models.ForeignKey(Poll)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_result(self):
@@ -61,8 +61,8 @@ class Vote(Logged):
     class Meta:
         unique_together = ('member', 'choice')
 
-    def __unicode__(self):
-        return unicode(self.choice)
+    def __str__(self):
+        return str(self.choice)
 
     def get_member(self):
         return self.member or self.username

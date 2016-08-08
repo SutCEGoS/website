@@ -51,7 +51,7 @@ def logout(request):
 
 def login(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('requests'))
+        return HttpResponseRedirect(reverse('home'))
     if request.method == 'POST':
         form = SignInForm(request.POST)
         if form.is_valid():

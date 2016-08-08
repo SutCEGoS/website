@@ -13,10 +13,10 @@ $window.on('load', function(){
                 placement: 'bottom',
                 title: 'Are you sure?',
                 content:
-                    'If you really forgot your password, you can press on the Yes button and we will send you an email with instructions for re-setting your password.'
-                ,
-//                yes: 'بله',
-//                no: 'خیر',
+                    'اگر شما واقعاً گذرواژه‌تان را گم کردید، می‌توانید دکمه «بله» را فشار دهید و ما برای شما یک رایانامه با دستورالعملهای لازم برای بازتنظیم گذرواژه‌تان را برایتان ارسال کنیم.',
+                yes: 'بله',
+                no: 'خیر',
+                container: false,
                 callback_yes: function () {
                     window.location = window.forgot_link;
                     //TODO

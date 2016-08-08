@@ -136,16 +136,16 @@
         {% csrf_token %}
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                <div class="modal-header dir-rtl">
+                    <button class="pull-left" type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Login</h4>
+                    <h4 class="modal-title">ورود</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon">
-                                <div id="username">Username</div>
+                                <div id="username">نام کاربری</div>
                             </div>
                             <input type="text" class="form-control" name="username">
 
@@ -155,8 +155,8 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-addon">
-                                <div id="password">Password</div>
+                            <div class="input-group-addon" >
+                                <div id="password"  class="col-md-8 col-lg-8">گذرواژه</div>
                             </div>
                             <input type="password" class="form-control" name="password">
                         </div>
@@ -167,10 +167,9 @@
                     <div class="form-actions">
                         <div class="table-row">
                             <div class="table-cell">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary">ورود</button>
                             </div>
-                            <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">Forgot
-                                Password</a></label>
+                            <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">فراموشی گذرواژه</a></label>
                         </div>
                     </div>
                 </div>
