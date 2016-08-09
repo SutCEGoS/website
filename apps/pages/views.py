@@ -11,7 +11,10 @@ def page_visit(request, slug):
     if not link.enabled or (link.login_required and not request.user.is_authenticated()):
         raise Http404
 
-    link.visit(request.user)
+    if request.user.is_authenticated():
+        link.visit(request.user)
+    else:
+        link.visit(None)
 
     if link.type == 1:
         return HttpResponseRedirect(link.url)
