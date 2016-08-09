@@ -19,5 +19,6 @@ urlpatterns += [
     url(r'^polls/', include('apps.poll.urls')),
     url(r'^events/', include('apps.event.urls')),
     url(r'^announcements/', include('apps.announcements.urls')),
+    url(r'^pages/', include('apps.pages.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
 ]
