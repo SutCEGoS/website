@@ -27,8 +27,6 @@ if 'DATABASE_URL' in os.environ:
 # if os.environ.has_key('DATABASE_URL'):
     DEBUG = False
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -55,6 +53,7 @@ INSTALLED_APPS = (
     'apps.poll',
     'apps.event',
     'apps.announcements',
+    'apps.pages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,9 +99,6 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
 
 AUTH_USER_MODEL = 'base.Member'
 LOGIN_URL = '/'
@@ -121,21 +117,31 @@ STATICFILES_FINDERS = (
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    # "django.core.context_processors.debug",
-    # "django.core.context_processors.i18n",
-    # "django.core.context_processors.media",
-    # "django.core.context_processors.static",
-    "django.core.context_processors.request",
-    # "django.contrib.messages.context_processors.messages",
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                # 'django.template.context_processors.debug',
+                # 'django.template.context_processors.i18n',
+                # 'django.template.context_processors.media',
+                # 'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.core.context_processors.request',
+                # 'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+            'debug': True,
+        },
+    },
+]
 
 LOGGING = {
     'version': 1,
