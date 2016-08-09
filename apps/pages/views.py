@@ -17,6 +17,6 @@ def page_visit(request, slug):
         return HttpResponseRedirect(link.url)
 
     return render(request, 'pages/frame_page.html', {
-        'title': link.title,
-        'url': link.url,
+        'link_title': link.title,
+        'link_url': link.url,
     })
