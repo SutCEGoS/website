@@ -12,7 +12,7 @@ def all_announcements(request):
     for an in announcements:
         an.date = pdatetime(an.date)
 
-    return render(request, 'announcements/announcements.html', {
+    return render(request, 'announcements.html', {
         'announcements': announcements,
     })
 
@@ -25,6 +25,6 @@ def show_announcement(request, announcement_id):
     except Announcement.DoesNotExist:
         raise Http404("Announcement does not exist")
 
-    return render(request, 'announcements/announcement.html', {
+    return render(request, 'announcement.html', {
         'announcement': announcement,
     })

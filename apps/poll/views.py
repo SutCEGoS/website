@@ -11,7 +11,7 @@ from .models import Poll, PollChoice, Vote
 def all_polls(request):
     polls = Poll.objects.filter(is_active=True).order_by('-id')
 
-    return render(request, 'poll/polls.html', {
+    return render(request, 'polls.html', {
         'polls': polls,
     })
 
@@ -23,7 +23,7 @@ def get_poll(request):
     has_voted = False
     if request.user.is_authenticated():
         has_voted = request.user.has_voted(poll)
-    return render(request, 'poll/poll.html', {
+    return render(request, 'poll.html', {
         'poll_question': poll,
         'poll_choices': poll_choices,
         'has_voted': has_voted,
