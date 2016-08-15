@@ -13,7 +13,7 @@ from .models import Event, EventRegister, Donate
 def all_events(request):
     events = Event.objects.order_by('-id')
 
-    return render(request, 'event/events.html', {
+    return render(request, 'events.html', {
         'events': events,
     })
 
@@ -26,7 +26,7 @@ def get_event(request):
         has_registered = event.registered(std_id)
     else:
         has_registered = False
-    return render(request, 'event/event.html', {
+    return render(request, 'event.html', {
         'event': event,
         'has_registered': has_registered,
     })

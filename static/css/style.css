@@ -44,7 +44,7 @@ footer,a {
 }
 
 body {
-    font-family: Raleway, IranSans, BRoya, 'B roya', Tahoma, Arial, sans-serif;
+    font-family: Raleway, IranSans, Tahoma, Arial, sans-serif;
     /*background: url('../image/bg.jpg') center center fixed;*/
     background: url('../image/bg.png') center center fixed;
     color: #111;
@@ -52,7 +52,7 @@ body {
 }
 
 .navitems li a{
-    font-family: Raleway, IranSans, BRoya, 'B roya', Tahoma, Arial, sans-serif;
+    font-family: Raleway, IranSans, Tahoma, Arial, sans-serif;
     /*background: url('../image/bg.jpg') center center fixed;*/
     color: #3982c1;
     font-size: 14px;
@@ -476,7 +476,7 @@ header .panel-heading {
 }
 
 .bigtile a {
-    font-family: Raleway, IranSans, BRoya, 'B roya', Tahoma, Arial, sans-serif;
+    font-family: Raleway, IranSans, Tahoma, Arial, sans-serif;
     color: #FFFFFF;
     font-size: 25px;
     padding: 10px;

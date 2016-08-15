@@ -26,7 +26,7 @@ def requests(request):
         'user_email': user_email
     }
 
-    return render(request, 'messages.html', params)
+    return render(request, 'objections.html', params)
 
 
 @login_required
