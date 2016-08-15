@@ -3,7 +3,8 @@
 
 {% block title %}Messages{% endblock title %}
 
-{% block extra_styles %}
+{% block css %}
+    {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
