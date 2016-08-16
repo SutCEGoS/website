@@ -65,5 +65,5 @@ class IssueReply(Logged):
     text = models.TextField()
     author = models.ForeignKey(Member)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s: %s"%(self.author, self.text)
