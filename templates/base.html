@@ -7,106 +7,102 @@
     <title>{% block title %}{% endblock title %} | شورای صنفی دانشکده کامپیوتر دانشگاه صنعتی شریف</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    <script type="text/javascript" language="JavaScript">
-        var $window = $(window);
-        window.csrf_token = "{{ csrf_token }}";
-        window.forgot_link = '{% url "password_reset_recover" %}';
-    </script>
-    <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-    <!--if lt IE 9]><script type="text/javascript" src="{% static 'js/html5shiv.js' %}"></script><![endif]-->
-    <script type="text/javascript" src="{% static 'js/popover.js' %}"></script>
-    <script type="text/javascript" language="JavaScript" src="{% static 'js/login.js' %}"></script>
-    {% block extra_js %}{% endblock %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/royafont.css' %}"/>
-    {% block extra_styles %}{% endblock %}
+    {% block js %}
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script type="text/javascript" language="JavaScript">
+            var $window = $(window);
+            window.csrf_token = "{{ csrf_token }}";
+            window.forgot_link = '{% url "password_reset_recover" %}';
+        </script>
+        <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!--if lt IE 9]><script type="text/javascript" src="{% static 'js/html5shiv.js' %}"></script><![endif]-->
+        <script type="text/javascript" src="{% static 'js/popover.js' %}"></script>
+        <script type="text/javascript" language="JavaScript" src="{% static 'js/login.js' %}"></script>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/royafont.css' %}"/>
+    {% endblock %}
 </head>
 <body>
 {% block navbar %}
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header navbar-right">
+    <nav class="navbar">
+        <div class="container">
+            <div class="col-lg-5 col-md-5">
+                {% if user.is_authenticated %}
+                    <div class="panel panel-default panel-background-color">
+                        <div class="panel-body">
+                            <div class="circle avatar">
+                                <img class="circle" src="{% gravatar_url user.email %}">
+                            </div>
+                            <span class="user name">{{ user }}</span>
 
-            <a class="navbar-brand" href="#">
-                <div class="navbar-inner" id="topbar">
-                    <div class="container">
-                        <div class=" logo dir-rtl">
-                            <p>شورای صنفی دانشکده مهندسی کامپیوتر</p>
-
+                            <div class="user actions pull-right">
+                                <a href="{% url 'logout' %}">Logout</a>
+                                |
+                                <a href="{% url 'password_reset_change' %}">Change Password</a>
+                            </div>
                         </div>
+
+                    </div>
+                {% else %}
+                    <div class="panel panel-default panel-background-color">
+                        <div class="panel-body">
+                            <div class="circle avatar">
+                                <img class="circle" src="{% gravatar_url '' %}">
+                            </div>
+
+                            <div class="user actions pull-right">
+                                <a style="color:#777777">You are not logged in</a>
+                                |
+                                <a href="#login_modal" data-toggle="modal" data-target="#login_modal">Login</a>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="navbar-header navbar-right">
+                            <a href="#">
+                                <div class="navbar-inner" id="topbar">
+                                    <div class="container">
+                                        <div class=" logo dir-rtl">
+                                            <p>شورای صنفی دانشکده مهندسی کامپیوتر</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ul style="margin-right: 65px;" class="nav navbar-nav navitems navbar-right">
+                            <li><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">سامانه‌ها<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'issues' %}">رسیدگی به مشکلات رفاهی</a></li>
+                                    <li><a href="{% url 'requests' %}">رسیدگی به مشکلات برنامه درسی</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'all-announcements' %}">اطلاعیه‌ها</a></li>
+                            {#                <li><a href="{% url 'members' %}">اعضا</a></li>#}
+                            <li><a href="{% url 'all-events' %}">رویداد‌ها</a></li>
+                        </ul>
                     </div>
                 </div>
-
-            </a>
+            </div>
         </div>
-
-        <div class="collapse navbar-collapse">
-
-            <ul class="nav navbar-nav {% block size0 %}col-lg-10 col-md-10{% endblock %} navitems"
-                style="display:table">
-                <li class="col-lg-6 col-md-6">
-                    <div class="">
-                        {% if user.is_authenticated %}
-                        <div class="panel panel-default panel-background-color">
-                            <div class="panel-body">
-                                <div class="circle avatar">
-                                    <img class="circle" src="{% gravatar_url user.email %}">
-                                </div>
-                                <span class="user name">{{ user }}</span>
-
-                                <div class="user actions pull-right">
-                                    <a href="{% url 'logout' %}">خروج</a>
-                                    |
-                                    <a href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
-                                </div>
-                            </div>
-
-                        </div>
-                        {% else %}
-                        <div class="panel panel-default panel-background-color">
-                            <div class="panel-body">
-                                <div class="circle avatar">
-                                    <img class="circle" src="{% gravatar_url '' %}">
-                                </div>
-
-                                <div class="user actions pull-right">
-                                    <a style="color:#777777">شما وارد نشده‌اید</a>
-                                    |
-                                    <a href="#login_modal" data-toggle="modal" data-target="#login_modal">ورود</a>
-                                </div>
-                            </div>
-
-                        </div>
-                        {% endif %}
-                    </div>
-                </li>
-                <li class="col-lg-6 col-md-6" style="height:40px">
-
-                </li>
-                <li><a href="{% url 'home' %}">صفحه اصلی</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">سامانه‌ها<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li class="pull-right"><a href="{% url 'issues' %}">رسیدگی به مشکلات رفاهی</a></li>
-                        <li class="pull-right"><a href="{% url 'requests' %}">رسیدگی به مشکلات برنامه درسی</a></li>
-                        <li class="pull-right"><a href="{% url 'all-polls' %}">نظرسنجی‌ها</a></li>
-                    </ul>
-                </li>
-                <li><a href="{% url 'all-announcements' %}">اطلاعیه‌ها</a></li>
-                <li><a href="{% url 'members' %}">اعضا</a></li>
-                <li><a href="{% url 'all-events' %}">رویداد‌ها</a></li>
-
-            </ul>
-
-        </div>
-
-    </div>
-</nav>
+    </nav>
 {% endblock %}
 
 {% block user_infos %}{% endblock %}
@@ -114,22 +110,22 @@
     {% block body %}{% endblock %}
 </div>
 {% block footer %}
-<footer class="footer base">
-    <div class="col-lg-6 col-md-6">
-        <p class="english">
-            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a
-                href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
-        </p>
-    </div>
+    <footer class="footer base">
+        {#    <div class="col-lg-6 col-md-6">#}
+        {#        <p class="english">#}
+        {#            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a#}
+        {#                href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.#}
+        {#        </p>#}
+        {#    </div>#}
 
-    <div class="col-lg-6 col-md-6">
-        <p class="pull-right">
-            <a href="{% url 'home' %}">شورای صنفی</a> <a href="http://ce.sharif.edu">دانشکده مهندسی کامپیوتر</a>، <a href="http://sharif.ir">دانشگاه
-            صنعتی شریف</a> &copy;
-        </p>
-    </div>
+        {#    <div class="col-lg-6 col-md-6">#}
+        {#        <p class="pull-right">#}
+        {#            <a href="{% url 'home' %}">شورای صنفی</a> <a href="http://ce.sharif.edu">دانشکده مهندسی کامپیوتر</a>، <a href="http://sharif.ir">دانشگاه#}
+        {#            صنعتی شریف</a> &copy;#}
+        {#        </p>#}
+        {#    </div>#}
 
-</footer>
+    </footer>
 {% endblock %}
 
 <div class="modal fade" tabindex="-1" role="dialog" id="login_modal">
@@ -140,13 +136,13 @@
                 <div class="modal-header dir-rtl">
                     <button class="pull-left" type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">ورود</h4>
+                    <h4 class="modal-title">Login</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon">
-                                <div id="username">نام کاربری</div>
+                                <div id="username">Username</div>
                             </div>
                             <input type="text" class="form-control" name="username">
 
@@ -156,8 +152,8 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-addon" >
-                                <div id="password"  class="col-md-8 col-lg-8">گذرواژه</div>
+                            <div class="input-group-addon">
+                                <div id="password" class="col-md-8 col-lg-8">Password</div>
                             </div>
                             <input type="password" class="form-control" name="password">
                         </div>
@@ -168,9 +164,10 @@
                     <div class="form-actions">
                         <div class="table-row">
                             <div class="table-cell">
-                                <button type="submit" class="btn btn-primary">ورود</button>
+                                <button type="submit" class="btn btn-primary">Login</button>
                             </div>
-                            <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">فراموشی گذرواژه</a></label>
+                            <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">Forgot
+                                Password</a></label>
                         </div>
                     </div>
                 </div>
@@ -193,10 +190,6 @@
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-66577449-1', 'auto');
     ga('send', 'pageview');
-
-
-
-
 
 
 </script>

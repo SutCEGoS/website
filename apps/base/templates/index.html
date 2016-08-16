@@ -3,53 +3,89 @@
 
 {% block title %} صفحه اصلی {% endblock title %}
 
-{% block body%}
-<div class="panel panel-default panel-background-color">
+{% block body %}
+    <div class="container">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="panel panel-primary panel-background-color">
+                <div class="panel-heading dir-rtl"> اطلاعیه‌ها</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for announcement in announcements %}
+                            <li class="list-group-item">
+                                <div class="panel-heading">
+                                    <a href="{% url 'show-announcement' announcement.id %}" target="_self"
+                                       class="permanent link event-link"
+                                       data-id={{ announcement.id }}>
+                                        <span class="request-id glyphicon glyphicon-tag"></span>
+                                        <span class="panel-title"> {{ announcement.title }} </span>
+                                    </a>
+                                    <span id="announcement-countdown-{{ announcement.id }}"
+                                          class="pull-left poll-countdown"> {{ announcement.date }} </span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
 
-    <div class="col-md-1 col-lg-1"></div>
-
-    <div class="col-md-4 col-lg-4 btn btn-primary ">
-        <div class="pull-right bigtile panel-body">
-            <a href="{% url 'issues' %}">سامانه رسیدگی به مشکلات رفاهی</a>
-        </div>
-    </div>
-    <div class="col-md-1 col-lg-1"></div>
-
-    <div class="col-md-5 col-lg-5  btn btn-primary ">
-        <div class="pull-right bigtile panel-body">
-            <a href="{% url 'requests' %}">سامانه رسیدگی به مشکلات برنامه درسی</a>
-        </div>
-    </div>
-</div>
-<div class="col-md-12 col-lg-12" style="height:20px"></div>
-
-<div class="col-md-12 col-lg-12">
-    <div class="col-md-1 col-lg-1"></div>
-
-    <div class="col-md-10 col-lg-10 ">
-        <div class="panel panel-primary panel-background-color">
-            <div class="panel-heading dir-rtl"> اطلاعیه‌ها</div>
-            <div class="panel-body">
-                {% for announcement in announcements %}
-                <div class="panel panel-default dir-rtl">
-                    <div class="panel-heading">
-                        <a href="{% url 'show-announcement' announcement.id %}" target="_self"
-                           class="permanent link event-link"
-                           data-id={{ announcement.id }}>
-                            <span class="request-id glyphicon glyphicon-tag"></span>
-                            <span class="panel-title"> {{ announcement.title }} </span>
-                        </a>
-                        <span id="announcement-countdown-{{ announcement.id }}" class="pull-left poll-countdown"> {{ announcement.date }} </span>
-
-                    </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
+        {% if request.user.is_authenticated %}
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Services</div>
+                <div class="panel-body">
+                    <center>
+                        <a href="{% url 'issues' %}" class="btn btn-lg btn-raised btn-default">رسیدگی به مشکلات
+                            رفاهی</a>
+                        <div class="clear"></div>
+                        <a href="{% url 'requests' %}" class="btn btn-lg btn-raised btn-default">رسیدگی به مشکلات برنامه
+                            درسی</a>
+                    </center>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Login</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <div id="username">Username</div>
+                                    </div>
+                                    <input type="text" class="form-control" name="username">
 
-    <div class="col-md-1 col-lg-1"></div>
+                                    <div class="input-group-addon">@ce.sharif.edu</div>
+                                </div>
+                                <div>{{ form.errors.username }}</div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <div id="password" class="col-md-8 col-lg-8">Password</div>
+                                    </div>
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                                <div>{{ form.errors.password }}</div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="form-actions">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                    </div>
+                                    <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">Forgot
+                                        Password</a></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
-</div>
-
+            </div>
+        {% endif %}
+        </div>
 {% endblock %}

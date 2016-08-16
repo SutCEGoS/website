@@ -6,11 +6,13 @@
 {% block size1 %}col-lg-6 col-md-6{% endblock %}
 {% block size2 %}col-lg-6 col-md-6{% endblock %}
 {% block size3 %}col-lg-6 col-md-6{% endblock %}
-{% block extra_styles %}
+{% block css %}
+    {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/polls.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
-{% block extra_js %}
+{% block js %}
+    {{ block.super }}
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search_issue' %}";
         window.$get_event_url = "{% url 'get-event' %}";

@@ -2,13 +2,15 @@
 
 {% load static gravatar %}
 
-{% block extra_styles %}
+{% block css %}
+    {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
 
-{% block extra_js %}
+{% block js %}
+    {{ block.super }}
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search_issue' %}";
         window.$message_add_url = "{% url 'add_objection_issue' %}";
