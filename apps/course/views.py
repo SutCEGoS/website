@@ -27,7 +27,7 @@ def update_courses_list(request):
         raise PermissionDenied
     url = "http://term.inator.ir/courses/list/38/"
     data = urlopen(url)
-    courses_list = json.loads(data.read())
+    courses_list = json.loads(data.read().decode('utf-8'))
     for item in courses_list:
         grp = item['course_id'].split('-')[-1]
         exam_time = item['exam_time']
