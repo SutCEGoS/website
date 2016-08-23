@@ -1,4 +1,4 @@
-{% extends "password_reset/base.html" %}{% load i18n %}
+{% extends "base.html" %}{% load i18n %}
 
 {% block title %}Change password{% endblock title %}
 <script>
@@ -14,8 +14,8 @@
 
     });
 </script>
-{% block content %}
-    {% if invalid %}{% url "password_reset_recover" as recovery_url %}
+{% block body %}
+    {% if invalid %}{% url "reset_password" as recovery_url %}
         <div class="container">
             <div class="row">
 
@@ -57,7 +57,7 @@
             </div>
             <div class="row">
                 <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
-                <form method="post" action="{% url "password_reset_reset" token %}">
+                <form method="post" action="{% url 'password_reset_reset' token %}">
                     <div class="col-md-6 col-lg-5 col-centered">
                         <div class="panel panel-primary ">
                             <div class="panel-heading">{% trans "Change password" %}</div>
@@ -99,7 +99,7 @@
                                     <div class="table-row">
                                         <div class="table-cell">
                                             <input class="btn btn-primary" type="submit"
-                                                   value="{% trans "Set new password" %}"></p>
+                                                   value="{% trans 'Set new password' %}"></p>
                                         </div>
                                     </div>
                                 </div>

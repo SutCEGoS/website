@@ -1,6 +1,7 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^members/?$', views.members, name='members'),
@@ -9,4 +10,7 @@ urlpatterns = [
     url(r'^create-account-from-file-by-admin-qsc/$', views.create_accounts, name='create-account'),
     url(r'^change-password/?$', views.password_reset_change, name='password_reset_change'),
     url(r'^$', views.index, name='home'),
+    url('^password_reset/', auth_views.password_reset, {'template_name': 'password_reset/password_reset_form.html'},
+        name='password_reset'),
+    url('^', include('django.contrib.auth.urls')),
 ]

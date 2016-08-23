@@ -12,13 +12,12 @@ $window.on('load', function(){
         $this.popConfirm({
                 placement: 'bottom',
                 title: 'Are you sure?',
-                content:
-                    'اگر شما واقعاً گذرواژه‌تان را گم کردید، می‌توانید دکمه «بله» را فشار دهید و ما برای شما یک رایانامه با دستورالعملهای لازم برای بازتنظیم گذرواژه‌تان را برایتان ارسال کنیم.',
-                yes: 'بله',
-                no: 'خیر',
+                content: 'If you are sure press on yes button?'
+                yes: 'Yes',
+                no: 'No',
                 container: false,
                 callback_yes: function () {
-                    window.location = window.forgot_link;
+                    window.location.replace(window.forgot_link);
                     //TODO
                 }
             });

@@ -88,15 +88,12 @@ a:hover {
 }
 
 .logo {
-    margin: 0;
     padding: 0px 85px 0px 15px;
     background: url('/static/image/logo.png');
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
-    line-height: 75px;
     text-align: right;
-    height: 75px
 }
 
 .logo p {
