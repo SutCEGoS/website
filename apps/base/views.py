@@ -119,13 +119,10 @@ def create_accounts(request):
                             'password': new_password,
                             'secure': request.is_secure(),
                         }
-                        subject = loader.render_to_string("account_create/new_account_email_subject.txt",
-                                                          context).strip()
-                        text_body = loader.render_to_string("account_create/new_account_email.txt",
-                                                            context).strip()
+                        subject = loader.render_to_string("account_create/new_account_email_subject.txt", context).strip()
+                        text_body = loader.render_to_string("account_create/new_account_email.txt", context).strip()
 
-                        msg = EmailMessage(subject=subject, from_email="shora.cesharif@gmail.com",
-                                           to=[new_email], body=text_body)
+                        msg = EmailMessage(subject=subject, from_email="shora.cesharif@gmail.com", to=[new_email], body=text_body)
                         msg.send()
                         new_member = Member.objects.create(username=new_username,
                                                            std_id=new_std_id,
