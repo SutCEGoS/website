@@ -41,9 +41,10 @@ def update_courses_list(request):
         try:
             obj = OfferedCourse.objects.get(group_number=int(grp),
                                             course=crs[0],
-                                            professor=prf[0],
                                             term=settings.CURRENT_TERM,
                                             year=get_current_year(), )
+                                            
+                                            #professor=prf[0],
             obj.capacity = capacity
             obj.details = dsc
             obj.exam_time = exam_time
