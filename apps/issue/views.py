@@ -5,6 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.objection.models import Objection
 from .forms import IssueForm
@@ -53,10 +54,11 @@ def search_issue(request):
     return HttpResponse(json.dumps(objections_list), content_type="application/json")
 
 
-@login_required
+# @login_required
+@csrf_exempt
 def add_issue(request):
     data = request.POST.copy()
-    data['sender'] = request.user.id
+    data['sender'] = request.user.id if request.user.is_authenticated() else None
     data['status'] = 1
     form = IssueForm(data=data)
     if form.is_valid():

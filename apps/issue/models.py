@@ -25,7 +25,7 @@ class Issue(models.Model):
                      (3, 'reply pending', u"منتظر پاسخ"), (4, 'ignored', u"مشاهده شده"),
                      (5, 'replied', u"پاسخ داده شده"))
 
-    sender = models.ForeignKey(Member)
+    sender = models.ForeignKey(Member, null=True, blank=True)
     like = models.ManyToManyField(Member, null=True, blank=True, related_name="issue_liked_member")
     title = models.CharField(max_length=63)
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
