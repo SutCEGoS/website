@@ -29,6 +29,7 @@ class Issue(models.Model):
     like = models.ManyToManyField(Member, null=True, blank=True, related_name="issue_liked_member")
     title = models.CharField(max_length=63)
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
+    category_optional = models.CharField(max_length=60, null=True, blank=True)
     message = models.TextField(null=True, blank=True, verbose_name=u'متن')
     status = models.PositiveSmallIntegerField(choices=STATUS)
     reply = models.ForeignKey('IssueReply', null=True, blank=True)

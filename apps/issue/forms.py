@@ -30,3 +30,9 @@ class IssueForm(forms.ModelForm):
         cd['category'] = category
 
         return cd
+
+
+class BotIssueForm(forms.Form):
+    place = forms.CharField(max_length=60)
+    title = forms.CharField(max_length=63)
+    description = forms.CharField(required=False)

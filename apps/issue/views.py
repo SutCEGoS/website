@@ -1,14 +1,17 @@
 import json
+import hmac
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from django.views.decorators.http import require_POST
 
 from apps.objection.models import Objection
-from .forms import IssueForm
+from .forms import IssueForm, BotIssueForm
 from .models import Issue
 
 
@@ -54,8 +57,7 @@ def search_issue(request):
     return HttpResponse(json.dumps(objections_list), content_type="application/json")
 
 
-# @login_required
-@csrf_exempt
+@login_required
 def add_issue(request):
     data = request.POST.copy()
     data['sender'] = request.user.id if request.user.is_authenticated() else None
@@ -68,6 +70,42 @@ def add_issue(request):
     else:
         x = dict(form.errors).values()
         return HttpResponse(json.dumps(x), content_type="application/json", status=400)
+
+
+@csrf_exempt
+@require_POST
+def add_issue_bot(request):
+    request_body = request.body.decode('utf-8')
+    data = json.loads(request_body)
+    mac = request.META.get('HTTP_X_MAC', None)
+    computed_mac = hmac.new(settings.SHORA_SIGN_SECRET.encode('utf-8'))
+    computed_mac.update(request_body.encode('utf-8'))
+    if not mac or not hmac.compare_digest(mac, str(computed_mac.hexdigest())):
+        return JsonResponse({
+            'success': False,
+            'message': 'Not authorized'
+        })
+
+    form = BotIssueForm(data=data)
+    if form.is_valid():
+        Issue.objects.create(
+            sender=None,
+            title=form.cleaned_data['title'],
+            category=30,
+            category_optional=form.cleaned_data['place'],
+            message=form.cleaned_data['description'],
+            status=1,
+        )
+        return JsonResponse({
+            'success': True,
+            'message': 'Issue created'
+        })
+    else:
+        return JsonResponse({
+            'success': False,
+            'message': 'Data format error in following fields: %s' % list(', '.join(form.errors))
+        })
+
 
 
 @login_required

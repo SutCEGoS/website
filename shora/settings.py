@@ -27,6 +27,8 @@ if 'DATABASE_URL' in os.environ:
 # if os.environ.has_key('DATABASE_URL'):
     DEBUG = False
 
+SHORA_SIGN_SECRET = os.environ.get('SHORA_SIGN_SECRET', SECRET_KEY)
+
 ALLOWED_HOSTS = ['*']
 
 
