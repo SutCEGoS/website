@@ -59,15 +59,11 @@ body {
 }
 
 .navitems li {
-    vertical-align: text-top;
+    vertical-align: middle;
 }
 
 .panel-title {
     font-size: 13px;
-}
-
-.user {
-    font-family: Raleway, Tahoma, Arial, Helvetica, sans-serif;
 }
 
 a, a:hover, a:active, a:link, a:visited {
@@ -88,20 +84,23 @@ a:hover {
 }
 
 .logo {
-    padding: 0px 85px 0px 15px;
-    background: url('/static/image/logo.png');
-    background-repeat: no-repeat;
-    background-position: right;
+    padding: 0 55px 0 15px;
+    background: url('/static/image/logo.png') no-repeat right;
     background-size: contain;
     text-align: right;
+    height: 50px;
+    display: inline-block;
 }
 
 .logo p {
     display: inline-block;
-    font-size: 25px;
+    font-size: 18px;
+    line-height: 50px;
+    margin: 0;
     color: #3982c1;
     text-align: right;
     font-weight: bold;
+    vertical-align: middle;
 }
 
 .logo p.system-name {
@@ -113,13 +112,12 @@ a:hover {
     text-shadow: -1px 1px 0px whitesmoke;
 }
 
-.logo
-
 .avatar {
-    margin: -15px 5px -15px -15px;
-    border: 3px solid #309fff;
+    margin: -20px 0 -20px 0;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
     display: inline-block;
-    transform: translateY(-20px) translateX(-20px);
 }
 
 #messages-container > .panel-default> .panel-heading {

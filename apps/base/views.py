@@ -34,9 +34,7 @@ def home(request):
 
 
 def index(request):
-    # email = EmailMessage('Hello', 'World', 'Shora CE', to=['khedesh16@gmail.com'])
-    # email.send()
-    announcements = Announcement.objects.order_by('-date')[:5]
+    announcements = Announcement.objects.order_by('-date')[:3]
     for an in announcements:
         an.date = pdatetime(an.date)
     return render(request, 'index.html', {
