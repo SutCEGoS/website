@@ -53,9 +53,9 @@
                 {% else %}
                     <a style="color:#777777">شما وارد سایت نشده‌اید
                 {% endif %}
-                    <div class="circle avatar">
-                        <img class="circle" src="{% gravatar_url user.email %}">
-                    </div>
+                <div class="circle avatar">
+                    <img class="circle" src="{% gravatar_url user.email %}">
+                </div>
                 </a>
             </li>
 
@@ -69,25 +69,52 @@
     </nav>
 {% endblock %}
 
-<div class="margin-bottom-lg">
-    {% block body %}{% endblock %}
-</div>
+{% block body %}{% endblock %}
 {% block footer %}
     <footer class="footer base">
-        {#    <div class="col-lg-6 col-md-6">#}
-        {#        <p class="english">#}
-        {#            Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a> and Semora, Powered by <a> #}
-        {#                href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.#}
-        {#        </p>#}
-        {#    </div>#}
-
-        {#    <div class="col-lg-6 col-md-6">#}
-        {#        <p class="pull-right">#}
-        {#            <a href="{% url 'home' %}">شورای صنفی</a> <a href="http://ce.sharif.edu">دانشکده مهندسی کامپیوتر</a>، <a href="http://sharif.ir">دانشگاه#}
-        {#            صنعتی شریف</a> &copy;#}
-        {#        </p>#}
-        {#    </div>#}
-
+        <div class="top-part">
+            <p>همکف دانشکدهٔ مهندسی کامپیوتر، اتاق ۰۰۴، اتاق فوق‌برنامه، شورای صفی و رفاهی دانشکده مهندسی کامپیوتر</p>
+            <p class="dir-ltr pull-left"><a href="https://telegram.me/shora_ce">@shora_ce</a> (Channel)</p>
+        </div>
+        <div class="container">
+            <div class="col-lg-4 col-sm-12">
+                <h4>خدمات شورای صنفی</h4>
+                <p>
+                    <a href="{% url 'issues' %}" target="_blank">مشکلات برنامه درسی</a> <br/>
+                    <a href="{% url 'requests' %}" target="_blank">مشکلات و پیشنهادات رفاهی</a> <br/>
+                    <a href="#" target="_blank">کتاب‌خانه</a> <br/>
+                    <a href="#" target="_blank">لوازم ضروری</a> <br/>
+                    <a href="#" target="_blank">کمدها</a> <br/>
+                    <a href="#" target="_blank">گم‌شده‌ها</a> <br/>
+                </p>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <h4>بخش‌های سایت</h4>
+                <p>
+                    <a href="#login_modal" data-toggle="modal" data-target="#login_modal">ورود</a> <br/>
+                    <a href="https://telegram.me/shora_ce" target="_blank">کانال تلگرامی شورا</a> <br/>
+                    <a href="https://telegram.me/shora_ce_bot" target="_blank">روبات تلگرامی شورا</a> <br/>
+                    <a href="{% url 'issues' %}" target="_blank">مشکلات برنامه درسی</a> <br/>
+                    <a href="{% url 'requests' %}" target="_blank">مشکلات و پیشنهادات رفاهی</a> <br/>
+                </p>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <h4>لینک‌های مرتبط</h4>
+                <p>
+                    <a href="http://sharif.ir" target="_blank" rel="nofollow">دانشگاه صنعتی شریف</a> <br/>
+                    <a href="http://ce.sharif.edu" target="_blank" rel="nofollow">وب‌گاه دانشکده</a> <br/>
+                    <a href="http://internship.ce.sharif.edu" target="_blank" rel="nofollow">سامانهٔ کارآموزی
+                        دانشکده</a> <br/>
+                    <a href="http://ce.sharif.edu/programs-and-courses#Courses" target="_blank" rel="nofollow">سامانهٔ
+                        درس‌افزار دانشکده</a> <br/>
+                    <a href="http://mail.ce.sharif.edu" target="_blank" rel="nofollow">سامانهٔ ایمیل دانشکده</a> <br/>
+                </p>
+            </div>
+        </div>
+        <p>
+            &copy;
+            <a href="{% url 'home' %}">شورای صنفی</a>دانشگاه صنعتی شریف
+        </p>
     </footer>
 {% endblock %}
 
