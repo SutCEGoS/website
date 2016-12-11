@@ -46,6 +46,7 @@ footer,a {
 body {
     font-family: Raleway, IranSans, Tahoma, Arial, sans-serif;
     /*background: url('../image/bg.jpg') center center fixed;*/
+    background: #efefef;
     color: #111;
     font-size: 14px;
     line-height: 20px;
