@@ -82,7 +82,7 @@ DATABASES = {
     }
 }
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa_IR'
 
 TIME_ZONE = 'UTC'
 
@@ -103,7 +103,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 AUTH_USER_MODEL = 'base.Member'
-LOGIN_URL = '/'
+LOGIN_URL = '/login'
 
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
