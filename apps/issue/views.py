@@ -107,7 +107,6 @@ def add_issue_bot(request):
         })
 
 
-
 @login_required
 def add_me_too(request):
     item_id = request.POST.get('data_id')
