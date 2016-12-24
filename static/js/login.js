@@ -12,7 +12,7 @@ $window.on('load', function(){
         $this.popConfirm({
                 placement: 'bottom',
                 title: 'Are you sure?',
-                content: 'If you are sure press on yes button?'
+                content: 'If you are sure press on yes button?',
                 yes: 'Yes',
                 no: 'No',
                 container: false,
