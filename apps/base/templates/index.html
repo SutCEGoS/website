@@ -21,17 +21,20 @@
             color: #2a6496;
         }
 
-        #title_section .big-logo {
+        .big-logo {
             background-image: url('{% static 'image/logo.png' %}');
             background-size: contain;
-            display: inline-block;
-            z-index: 100000000000;
-            position: absolute;
-            right: -185px;
-            top:-38px;
-            width: 160px;
-            height: 160px;
+            /*display: inline-block;*/
+            z-index: 10000000;
+            /*position: absolute;*/
+            /*right: -185px;*/
+            /*top:-38px;*/
+            /*width: 160px;*/
+            min-height: 160px;
             vertical-align: middle;
+            padding-right:165px;
+            background-repeat: no-repeat;
+            background-position: right;
         }
 
         #title_section h1 {
@@ -47,7 +50,7 @@
             width: 2470px;
             left: 50%;
             margin-left: -1235px;
-            top: 225px;
+            top: 275px;
             z-index: 2;
             transform: rotate(-4.4deg);
             -moz-transform: rotate(-4.4deg);
@@ -78,7 +81,8 @@
         }
 
         #announcements_section, #about_section {
-        {#            background: #2a6496;#} color: rgba(255, 255, 255, 0.69);
+        {#            background: #2a6496;#} 
+            color: rgba(255, 255, 255, 0.69);
         }
 
         #announcements_section {
@@ -186,9 +190,9 @@
     <div class="container-fluid">
         <div class="row" id="title_section">
             <div class="container">
-                <div class="col-lg-9 col-sm-6 hide-xs">
-                    <div class="big-logo"></div>
-                    <h1>شورای صنفی و رفاهی دانشکده مهندسی کامپیوتر</h1>
+                <div class="col-lg-9 col-sm-6 hide-xs big-logo">
+                    <!--<div class="big-logo"></div>-->
+                    <h1>شورای صنفی رفاهی دانشکده مهندسی کامپیوتر</h1>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-xs-12">
                     <div align="center">
@@ -278,7 +282,10 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="card">
                         <p>
-                            شورای صنفی و رفاهی فیلان است و بهمان
+شورای صنفی دانشگاه که بعدها به شورای صنفی رفاهی دانشجویان تغییر نام یافت، یکی از سازمان‌های دانشگاه است که برای مشارکت و تصمیم گیری در کارهای صنفی، رفاهی، آموزشی، و پژوهشی دانشجویان دانشگاه به وجود آمد. این سازمان پس از انحلال موقت در سال 1388، از اردیبهشت 1391 کار خود را از سر گرفت که شورای صنفی دانشگاه صنعتی شریف و بالتبع شورای صنفی دانشکده مهندسی کامپیوتر شریف نیز از این قاعده مستثنی نبودند.
+</p>
+<p>
+محوریت اصلی فعالیت‌های شورا پیگیری حقوق صنفی دانشجویان در زمینه‌های مختلف و رساندن صدای دانشجو به مسئولین و ایجاد راه تعاملی بهتر و مثمرثمر تر است. در کنار این موارد، می‌توان به دیگر کارهایی که بسته به نیاز و تقاضای دانشجویان مطرح شده و در حوزه‌ی فعالیتی شورا می‌گنجد نیز اشاره کرد؛ اعم از اداره‌ی امور رفاهی درون دانشکده‌ای مانند ایجاد کتابخانه، اجاره‌ی کمدهای شخصی، برگزاری مراسم یادبود «یاد استاد» با همکاری انجمن علمی و فوق برنامه و ...؛ و همچنین امور مربوط به آموزش مانند برگزاری کلاس‌های رفع اشکال و سمینارهای راهنمای انتخاب واحد ویژه دانشجویان ورودی.
                         </p>
                     </div>
                 </div>
@@ -295,10 +302,35 @@
                             <li>امیرحسین حمیدیان <span class="text-muted">تأسیسات</span></li>
                             <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
                         </ul>
-                        <a href="#" class="cta-button">اعضای دوره‌های قبلی</a>
+                        <a href="#" class="cta-button" data-toggle="modal" data-target="#prevMembers">اعضای دوره‌های قبلی</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="prevMembers" tabindex="-1" role="dialog" aria-labelledby="prevMembersLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="prevMembersLabel">اعضای سابق شورای صنفی</h4>
+      </div>
+      <div class="modal-body">
+        <h4>دورهٔ ۹۳-۹۴</h4>
+        <ul>
+            <li>امین صباغیان <span class="text-muted">دبیر</span></li>
+            <li>محسن رشیدی <span class="text-muted">نایب دبیر</span></li>
+            <li>پویا مصدق <span class="text-muted">نماینده شورا مرکز</span></li>
+            <li>سید رضی موسوی <span class="text-muted">مالی و اموال</span></li>
+            <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
+            <li>رامتین یزدانیان <span class="text-muted">مراسم‌ها و کتابخانه</span></li>
+            <li>صدرا مرادیان <span class="text-muted"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
