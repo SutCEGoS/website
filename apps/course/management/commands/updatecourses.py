@@ -9,9 +9,9 @@ except ImportError:
 
 from django.conf import settings
 
-from base.models import EducationalYear
+from apps.base.models import EducationalYear
 
-from course.models import Professor, Course, OfferedCourse
+from apps.course.models import Professor, Course, OfferedCourse
 
 
 def get_current_year():
