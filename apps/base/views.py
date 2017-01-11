@@ -35,8 +35,7 @@ def home(request):
 
 def index(request):
     announcements = Announcement.objects.all()[:3]
-    for an in announcements:
-        an.date = pdatetime(an.date)
+
     return render(request, 'index.html', {
         'announcements': announcements,
     })
