@@ -4,39 +4,28 @@
 {% load shamsi_template_tags %}
 {% block title %} اطلاعیه‌ها {% endblock title %}
 
-{% block size0 %}col-lg-10 col-md-10{% endblock %}
-{% block size1 %}col-lg-6 col-md-6{% endblock %}
-{% block size2 %}col-lg-6 col-md-6{% endblock %}
-{% block size3 %}col-lg-6 col-md-6{% endblock %}
 
 {% block body %}
-<div class="col-md-1 col-lg-1"></div>
-<div class="col-md-10 col-lg-10">
-    <div class="panel panel-primary panel-background-color">
-
-        <div class="panel-heading dir-rtl"> اطلاعیه‌ها</div>
-        <div class="panel-body">
-            {% for announcement in announcements %}
-            <div class="panel panel-default dir-rtl">
-                <div class="panel-heading">
-                    <a href="{% url 'show-announcement' announcement.id %}" target="_self"
-                       class="permanent link event-link"
-                       data-id={{ announcement.id }}>
-                        <span class="request-id glyphicon glyphicon-tag"></span>
-                    <span class="panel-title">
-                        {{ announcement.title }}
-                    </span>
-                    </a>
-        <span id="announcement-countdown-{{ announcement.id }}" class="pull-left poll-countdown">
-            {{ announcement.date }}
-        </span>
-
-                </div>
+    <div class="col-md-10 col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-12">
+{#        <div class="panel panel-primary panel-background-color">#}
+            <div class="panel-heading dir-rtl"> اطلاعیه‌ها</div>
+            <div class="panel-body">
+                {% for announcement in announcements %}
+                    <div class="panel panel-default dir-rtl">
+                        <div class="panel-heading">
+                            <a href="{% url 'show-announcement' announcement.id %}"
+                               class="permanent link event-link">
+                                <span class="request-id glyphicon glyphicon-tag"></span>
+                                <span class="panel-title">{{ announcement.title }}</span>
+                            </a>
+                            <span id="announcement-countdown-{{ announcement.id }}" class="pull-left poll-countdown">
+                                {{ announcement.created|pdatetime }}
+                            </span>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-    </div>
 
-</div>
-<div class="col-md-1 col-lg-1"></div>
+    </div>
 {% endblock %}

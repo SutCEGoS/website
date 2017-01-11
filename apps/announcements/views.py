@@ -1,16 +1,13 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
+from apps.announcements.models import AnnouncementView
 from vendor.shamsi.templatetags.shamsi_template_tags import pdatetime
 from .models import Announcement
 
 
-# Create your views here.
-
 def all_announcements(request):
-    announcements = Announcement.objects.order_by('-id')
-    for an in announcements:
-        an.date = pdatetime(an.date)
+    announcements = Announcement.objects.all()[:10]
 
     return render(request, 'announcements.html', {
         'announcements': announcements,
@@ -18,13 +15,9 @@ def all_announcements(request):
 
 
 def show_announcement(request, announcement_id):
-    try:
-        announcement = Announcement.objects.get(pk=announcement_id)
-        announcement.date = pdatetime(announcement.date)
+    announcement = get_object_or_404(Announcement, pk=announcement_id)
 
-    except Announcement.DoesNotExist:
-        raise Http404("Announcement does not exist")
-
+    announcement.register_view(request.user)
     return render(request, 'announcement.html', {
         'announcement': announcement,
     })
