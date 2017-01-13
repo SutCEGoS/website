@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static gravatar %}
 
-{% block title %}Messages{% endblock title %}
+{% block title %}مشکلات{% endblock title %}
 
 {% block css %}
     {{ block.super }}
@@ -29,11 +29,11 @@
             <div class="{% block size3 %}col-lg-4 col-md-4{% endblock %}">
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading" id="form-heading">
-                        <span>{% block form_title %}Search & Add{% endblock %}</span>
+                        <span>{% block form_title %}جست‌وجو و طرح مشکل{% endblock %}</span>
 
                         <span class="hide" id="remove_search_filter">
                             <a class="remove_search_filter_style pull-right">
-                                <span>remove search filter</span>
+                                <span>بازنشانی</span>
 {#                                <span class="glyphicon glyphicon-filter"></span>#}
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                             </a>
@@ -57,7 +57,7 @@
                 <div class="panel panel-primary panel-background-color">
                     <div class="panel-heading">
                         {% block panel_heading %}
-                        Messages
+                        مشکلات
                         <div class="pull-right" id="loading">
                             loading
                             <img src="{% static 'image/92.GIF' %}" style="width: 20px;height: 20px;">
@@ -83,18 +83,18 @@
                             </div>
                             <div class="pull-left">
                                 <div class="btn-group" data-toggle="buttons">
-                                    <span class="btn btn-sm disabled btn-label">sort by </span>
+                                    <span class="btn btn-sm disabled btn-label">مرتب سازی بر اساس</span>
                                     {#                                    <label class="btn btn-flat btn-sm">#}
                                     {#                                        <input type="radio" >#}
                                     {#                                        flat test#}
                                     {#                                    </label>#}
                                     <label class="btn btn-flat btn-sm">
                                         <input type="radio" name="sort" id="me_too_radio" value="metoo">
-                                        me too
+                                        تعداد افراد
                                     </label>
                                     <label class="btn btn-flat btn-sm active">
                                         <input type="radio" name="sort" id="id_radio" value="id" checked>
-                                        time
+                                        زمان
                                     </label>
 
                                 </div>
@@ -118,7 +118,7 @@
                             <div class="full hide" id="no_result">
                                 <div class="no_result_wrapper">
                                     <span class="no_result_wrapper_text">
-                                        No messages matched your search. You can make a new message!
+                                        هیچ پیامی با شرایط داده شده پیدا نشد، می‌توانید مشکل جدیدی ثبت کنید.
                                     </span>
                                 </div>
                             </div>
