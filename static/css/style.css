@@ -201,8 +201,8 @@ header {
     color: #999999;
 }
 .metoo-wrapper{
-    direction: ltr !important;
-    text-align: left !important;
+    /*direction: ltr !important;*/
+    /*text-align: left !important;*/
 }
 .metoo{
 
