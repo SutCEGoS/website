@@ -45,11 +45,11 @@
                         {% endblock %}
                     </div>
                 </div>
-                <footer class="footer panel-body">
-                    <p class="english normal-p">
-                        {% block footer_menu %}{% endblock %}
-                    </p>
-                </footer>
+{#                <footer class="footer panel-body">#}
+{#                    <p class="english normal-p">#}
+{#                        {% block footer_menu %}{% endblock %}#}
+{#                    </p>#}
+{#                </footer>#}
 
             </div>
 
@@ -133,4 +133,12 @@
 
     {% block message_template %}{% endblock %}
 
+{% endblock %}
+
+
+{% block footer %}
+Designed by <a href="http://mjafar.me/" target="_blank">MJafar</a>
+    and Semora,
+    and <a href="http://amin.sabbaghian.ir/" target="_blank">A'min</a>.
+    <span class="">Thanks to <a href="http://term.inator.ir/" target="_blank">Terminator</a>.</span>
 {% endblock %}
