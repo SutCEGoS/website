@@ -30,29 +30,26 @@ class Command(BaseCommand):
             prf = Professor.objects.get_or_create(name=prf)
             crs = item['course_number']
             crs_name = item['name']
-            crs = Course.objects.get_or_create(course_number=crs,
+            crs, new = Course.objects.get_or_create(course_number=crs,
                                                defaults={'name':crs_name})
-            crs.name = crs_name
-            crs.save()
+            if not new:
+                crs.name = crs_name
+                crs.save()
             dsc = item['info']
             capacity = int(item['capacity'])
-            try:
-                obj = OfferedCourse.objects.get(group_number=int(grp),
-                                                course=crs[0],
-                                                professor=prf[0],
-                                                term=settings.CURRENT_TERM,
-                                                year=get_current_year(), )
+            obj, new = OfferedCourse.objects.get_or_create(group_number=int(grp),
+                                                           course=crs[0],
+                                                           professor=prf[0],
+                                                           term=settings.CURRENT_TERM,
+                                                           year=get_current_year(),
+                                                           defaults={
+                                                               'capacity': capacity,
+                                                               'details': dsc,
+                                                               'exam_time': exam_time})
+            if not new:
                 obj.capacity = capacity
                 obj.details = dsc
                 obj.exam_time = exam_time
-            except OfferedCourse.DoesNotExist:
-                obj = OfferedCourse.objects.create(group_number=int(grp),
-                                                   course=crs[0],
-                                                   professor=prf[0],
-                                                   term=settings.CURRENT_TERM,
-                                                   year=get_current_year(),
+                obj.save()
 
-                                                   capacity=capacity,
-                                                   details=dsc,
-                                                   exam_time=exam_time, )
         self.stdout.write(self.style.SUCCESS('Success!'))
