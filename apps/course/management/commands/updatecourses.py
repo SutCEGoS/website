@@ -31,7 +31,9 @@ class Command(BaseCommand):
             crs = item['course_number']
             crs_name = item['name']
             crs = Course.objects.get_or_create(course_number=crs,
-                                               name=crs_name, )
+                                               defaults={'name':crs_name})
+            crs.name = crs_name
+            crs.save()
             dsc = item['info']
             capacity = int(item['capacity'])
             try:
