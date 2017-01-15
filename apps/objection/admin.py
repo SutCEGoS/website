@@ -10,7 +10,7 @@ from .models import Member, Objection, Reply
 @receiver(pre_save, sender=Reply, dispatch_uid='autocreate_author')
 def create_username(sender, instance, *args, **kwargs):
     try:
-        instance.author = Member.objects.get(username="izadi")
+        instance.author = Member.objects.get(username="dr.ejlali")
     except:
         instance.author = Member.objects.filter(is_superuser=True).last()
 
