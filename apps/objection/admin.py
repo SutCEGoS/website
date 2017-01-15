@@ -86,7 +86,7 @@ class ObjectionAdmin(admin.ModelAdmin):
 
     mark_as_read.short_description = u"علامت زدن موارد انتخابی به عنوان خوانده شده"
 
-    list_filter = ['status', 'category', 'offered_course', 'term', 'year']
+    list_filter = ['status', 'category', 'term', 'year']
     search_fields = ['offered_course', 'category', 'message']
 
 
