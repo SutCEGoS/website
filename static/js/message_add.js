@@ -16,7 +16,7 @@ $window.on('message_add.do', function (e, data) {
         $window.trigger('message_add.finished', [response]);
     }).error(function (response) {
         $window.trigger('message_add.error', [response.responseJSON]);
-    }).done(function() {
+    }).complete(function() {
         $add_message_button.removeClass('disabled').removeAttr('disabled');
     });
 });
