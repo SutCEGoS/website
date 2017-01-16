@@ -1,4 +1,6 @@
 # coding=utf-8
+import logging
+
 from django import forms
 from django.conf import settings
 
@@ -8,6 +10,7 @@ from .models import Objection
 
 __author__ = 'mjafar'
 
+logger = logging.getLogger(__name__)
 
 
 class MessageForm(forms.ModelForm):
@@ -38,7 +41,7 @@ class MessageForm(forms.ModelForm):
         offered_course = cd.get('offered_course')
         category = int(cd.get('category'))
         cd['category'] = category
-        message = cd.get('message')
+
         if category is not None:
             if category == 0:
                 self.errors['category'] = self.error_class([u'انتخاب دسته ی مشکل لازم است'])
@@ -56,6 +59,7 @@ class MessageForm(forms.ModelForm):
                     self.errors['second_course'] = self.error_class(
                         [u'در صورت تلاقی دروس وارد کردن نام درس دوم اجباری است.'])
                 elif offered_course == second_course:
+                    logger.warning('Achievement of conflicts unlocked')
                     self.errors['second_course'] = self.error_class([
                         u'خب دوست خوبم، بدیهی است هر درسی با خودش تلاقی داره، ولی achievement آنلاک کردی راضیم ازت :)'])
             else:
