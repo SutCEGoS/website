@@ -263,6 +263,15 @@ footer .top-part {
     vertical-align: middle;
 }
 
+footer .top-part a, footer .top-part a:link, footer .top-part a:target {
+    color: #bfbfbf;
+}
+
+footer .top-part a:hover {
+    color: #eeeeee;
+}
+
+
 footer a, footer a:link, footer a:target {
     color: #4088d6;
 }
