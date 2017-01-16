@@ -54,7 +54,7 @@ $(document).ready(function() {
             $second_course.select2();
         })
         .error(function() {
-            alert("Failed to load courses list, please refresh the page.");
+            alert("اشکالی در دریافت اطلاعات پیش آمد. لطفاً صفحه را ریفرش کنید.");
         });
 });
 
@@ -62,7 +62,7 @@ $window.on('load', function () {
     var location_parts = window.location.search.split('&');
     var has_id = false;
     var id;
-    $.each(location_parts, function(index,value) {
+    $.each(location_parts, function (index, value) {
         var index_of_id = value.indexOf('id=');
         if (index_of_id == 0 || (index_of_id == 1 && value[0] == '?')) {
             id = value.substr(index_of_id + 'id='.length);
@@ -72,7 +72,7 @@ $window.on('load', function () {
     });
     if (has_id) {
         $window.trigger('search.do', [
-            {id:id}
+            {id: id}
         ]);
     } else {
         $window.trigger('search.do', [
@@ -89,17 +89,17 @@ $window.on('search.do', function (e, data) {
         dataType: 'json',
         data: data
     }).success(function (response) {
-            $window.trigger('search.finished');
-            if (response.length == 0) {
-                $window.trigger('search.no_result');
-            } else {
-                window.last_response = response;
-                $window.trigger('search.result', [response, false]);
-            }
-        }).error(function () {
-            $window.trigger('search.finished');
-            alert("Error occurred, please check your connection or refresh the page.");
-        });
+        $window.trigger('search.finished');
+        if (response.length == 0) {
+            $window.trigger('search.no_result');
+        } else {
+            window.last_response = response;
+            $window.trigger('search.result', [response, false]);
+        }
+    }).error(function () {
+        $window.trigger('search.finished');
+        alert("اشکالی در دریافت اطلاعات پیش آمد. لطفاً صفحه را ریفرش کنید.");
+    });
 });
 
 $window.on('search.started', function (e) {
@@ -111,19 +111,19 @@ $window.on('search.started', function (e) {
 $window.on('search.no_result', function (e) {
     $messages_container.children().remove();
 
-    setTimeout(function(){
+    setTimeout(function () {
         //$no_result.fadeIn(100);
         $no_result.show();
-    },1000);
+    }, 1000);
     //$no_result.show();
 });
 
 $window.on('search.finished', function (e) {
     $add_message_button.removeClass('disabled');
-    setTimeout(function(){
+    setTimeout(function () {
         $loading.fadeOut(200);
         //$loading.hide();
-    },900);
+    }, 750);
 //    $loading.hide();
     if (!parseInt($('select[name=category]').find(':selected').val())) {
         $add_message_button.addClass('disabled');
@@ -133,7 +133,9 @@ $window.on('search.finished', function (e) {
 $window.on('search.result', function (e, messages, append) {
     var to_add;
     window.sort_type = $('input:radio[name=sort]:checked').val();
-                messages.sort(item_compare);
+    if (!(messages instanceof Array))
+        messages = [messages];
+    messages.sort(item_compare);
     if (!append) {
         $messages_container.children().remove();
         $messages = messages;
@@ -144,9 +146,9 @@ $window.on('search.result', function (e, messages, append) {
     }
 
     if (append || messages.length < 10) {
-        fade_in_time = 350;
+        fade_in_time = 250;
     } else {
-        fade_in_time = 120;
+        fade_in_time = 100;
     }
 
     // Create
@@ -183,7 +185,7 @@ $window.on('search.result', function (e, messages, append) {
         //htmlrepr.find('[mj-category!=else]').hide();
         //item_dom.find('[mj-category]').filter('[mj-category!="else"]').hide();
         item_dom.find('[mj-category]').hide();
-        for (var j=1; j<=6; ++j) {
+        for (var j = 1; j <= 6; ++j) {
             if (item.category_id == j) {
                 item_dom.find('[mj-category="' + j + '"]').show();
                 //item_dom.find('[mj-category="else"]').hide();
@@ -211,8 +213,7 @@ $window.on('search.result', function (e, messages, append) {
             item_dom.addClass('filter_mine');
             item_dom.find('[mj-metoo-link]').remove();
         }
-        if(item.metooed || !item.can_me_too)
-        {
+        if (item.metooed || !item.can_me_too) {
             item_dom.addClass('filter_mine_or_metooed');
         }
 
@@ -281,30 +282,30 @@ $window.on('search.result', function (e, messages, append) {
                 csrfmiddlewaretoken: window.csrf_token
             }
         }).success(function (response) {
-                $this.html(response.metoos);
+            $this.html(response.metoos);
 
-                var local_id = $this.closest('[mj-message-template]').attr('mj-dataid');
-                var local_response = $.grep(window.last_response,function(e){
-                    return e.data_id == local_id;
-                });
-                local_response[0].metoos = response.metoos;
-                local_response[0].metooed = response.metooed;
-
-                if (response.metooed) {
-                    $this.addClass('metooed');
-                    $me_too_link.filter(':visible').hide(300);
-                    $this.closest('[mj-message-template]').addClass('filter_metooed');
-                    $this.closest('[mj-message-template]').addClass('filter_mine_or_metooed');
-                } else {
-                    $this.tooltip('destroy');
-                    $this.removeClass('metooed');
-                    $me_too_link.show(300);
-                    $this.closest('[mj-message-template]').removeClass('filter_metooed');
-                    $this.closest('[mj-message-template]').removeClass('filter_mine_or_metooed');
-                }
-            }).error(function () {
-                $this.addClass('metooed');
+            var local_id = $this.closest('[mj-message-template]').attr('mj-dataid');
+            var local_response = $.grep(window.last_response, function (e) {
+                return e.data_id == local_id;
             });
+            local_response[0].metoos = response.metoos;
+            local_response[0].metooed = response.metooed;
+
+            if (response.metooed) {
+                $this.addClass('metooed');
+                $me_too_link.filter(':visible').hide(300);
+                $this.closest('[mj-message-template]').addClass('filter_metooed');
+                $this.closest('[mj-message-template]').addClass('filter_mine_or_metooed');
+            } else {
+                $this.tooltip('destroy');
+                $this.removeClass('metooed');
+                $me_too_link.show(300);
+                $this.closest('[mj-message-template]').removeClass('filter_metooed');
+                $this.closest('[mj-message-template]').removeClass('filter_mine_or_metooed');
+            }
+        }).error(function () {
+            $this.addClass('metooed');
+        });
     });
 
 
@@ -314,11 +315,9 @@ $window.on('search.result', function (e, messages, append) {
 $window.on('messages.lazyShow', function () {
     //console.log($('input:checkbox[name=mine]:checked').length == 0);
     var first_hide;
-    if($('input:checkbox[name=mine]:checked').length == 0)
-    {
+    if ($('input:checkbox[name=mine]:checked').length == 0) {
         first_hide = $messages_container.children('div.panel.hide:first');
-    }
-    else{
+    } else {
         first_hide = $messages_container.children('div.panel.hide.filter_mine_or_metooed:first');
     }
 

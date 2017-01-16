@@ -53,11 +53,11 @@ $window.on('search.do', function (e, data) {
             $window.trigger('search.no_result');
         } else {
             window.last_response = response;
-            $window.trigger('search.result', [response], false);
+            $window.trigger('search.result', [response, false]);
         }
     }).error(function () {
         $window.trigger('search.finished');
-        alert("Error occurred, please check your connection or refresh the page.");
+        alert("اشکالی در دریافت اطلاعات پیش آمد. لطفاً صفحه را ریفرش کنید.");
     });
 });
 
@@ -277,8 +277,7 @@ $window.on('messages.lazyShow', function () {
     var first_hide;
     if ($('input:checkbox[name=mine]:checked').length == 0) {
         first_hide = $messages_container.children('div.panel.hide:first');
-    }
-    else {
+    } else {
         first_hide = $messages_container.children('div.panel.hide.filter_mine_or_metooed:first');
     }
 
