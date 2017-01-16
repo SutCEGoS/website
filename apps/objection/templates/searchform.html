@@ -1,6 +1,6 @@
 {% load static my_app_filters %}
 
-<form action="" method="POST" class="" name="search_form">
+<form action="{% url 'add_objection' %}" method="POST" class="" name="search_form">
     {% csrf_token %}
     <fieldset>
         {{ form.category|get_form_field_as_div:"12$searchable"|safe }}

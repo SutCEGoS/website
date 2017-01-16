@@ -1,73 +1,25 @@
 /**
  * Created by mjafar on 2015/01/01.
  */
-var $searchables = $('.searchable');
-var $add_message_button;
 
-$window.on('issue_add.do', function (e, data) {
-    $window.trigger('issue_add.started');
-    data.csrfmiddlewaretoken = window.csrf_token;
-    $.ajax({
-        url: window.$message_add_url,
-        type: 'post',
-        dataType: 'json',
-        data: data
-    }).success(function (response) {
-        $window.trigger('issue_add.finished', [response]);
-    }).error(function (response) {
-        $window.trigger('issue_add.error', [response.responseJSON]);
-    });
-});
+var _get_search_items = function (category_id) {
+    return {
+        category: category_id,
+        offered_course: $('select[name=offered_course]').find(':selected').val(),
+        second_course: $('select[name=second_course]').find(':selected').val(),
+        course_name: $('input[name=course_name]').val()
+    };
+}
 
-$window.on('issue_add.finished', function (e, response) {
-    toastr.success("Your message have been sent.", "Message sent");
-    $no_result.hide();
-    $window.trigger('search.result', [response], true);
-    $window.trigger('searchform.resetform');
-});
-
-$window.on('issue_add.error', function (e, response) {
-    if (response == undefined) {
-        toastr.error("We're sorry, an unexpected error occurred while sending your message.", "Error :-(");
-    } else {
-        toastr.error('<p dir="rtl">' + response + '</p>', "Error :-(");
-    }
-});
-
-$window.on('issue_add.started', function (e) {
-    toastr.info("Hold on...", "Sending message");
-});
+var _get_message_data = function () {
+    return {
+        category: $('select[name=category]').find(':selected').val(),
+        message: $('textarea[name="message"]').val(),
+        title: $('input[name=title]').val()
+    };
+}
 
 $window.on('load', function () {
-    $add_message_button = $('#add_issue');
-    $searchables = $('.searchable');
-
-    $searchables.bind('change', function () {
-        var category_id = $('select[name=category]').find(':selected').val();
-        if (parseInt(category_id)) {
-            $window.trigger('search.do', [
-                {
-                    category: category_id
-                }
-            ]);
-        } else {
-            $window.trigger('search.do', [{}]);
-        }
-    });
-
-    $add_message_button.on('click', function (e) {
-        var $this = $(this);
-        if ($this.hasClass('disabled')) {
-            return;
-        }
-        e.preventDefault();
-
-        $window.trigger('issue_add.do', [{
-            category: $('select[name=category]').find(':selected').val(),
-            message: $('textarea[name="message"]').val(),
-            title: $('input[name=title]').val()
-        }]);
-    });
 
     /** A'min code: **/
     $('.collapse').collapse();

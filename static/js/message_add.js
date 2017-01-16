@@ -8,7 +8,7 @@ $window.on('message_add.do', function (e, data) {
     $window.trigger('message_add.started');
     data.csrfmiddlewaretoken = window.csrf_token;
     $.ajax({
-        url: window.$message_add_url,
+        url: $('form[name=search_form]').attr('action'),
         type: 'post',
         dataType: 'json',
         data: data
@@ -16,11 +16,13 @@ $window.on('message_add.do', function (e, data) {
         $window.trigger('message_add.finished', [response]);
     }).error(function (response) {
         $window.trigger('message_add.error', [response.responseJSON]);
+    }).done(function() {
+        $add_message_button.removeClass('disabled').removeAttr('disabled');
     });
 });
 
 $window.on('message_add.finished', function(e, response) {
-    toastr.success("Your message have been sent.", "Message sent");
+    toastr.success("پیام شما با موفقیت ثبت شد.", "ارسال پیام");
     $no_result.hide();
     $window.trigger('search.result', [response, true]);
     $window.trigger('searchform.resetform');
@@ -28,15 +30,36 @@ $window.on('message_add.finished', function(e, response) {
 
 $window.on('message_add.error', function(e, response) {
     if (response == undefined) {
-        toastr.error("We're sorry, an unexpected error occurred while sending your message.", "Error :-(");
+        toastr.error("متأسفیم، اشکالی در ارسال پیامتان پیش آمد.", "خطا :(");
     } else {
-        toastr.error('<p dir="rtl">' + response + '</p>', "Error :-(");
+        toastr.error('<p dir="rtl">' + response + '</p>', "خطا :(");
     }
 });
 
 $window.on('message_add.started', function(e) {
-    toastr.info("Hold on...", "Sending message");
+    toastr.info("چند لحظه صبر کنید...", "در حال ارسال پیام");
+    $add_message_button.addClass('disabled').attr('disabled', 'disabled');
 });
+
+
+var _get_search_items = function (category_id) {
+    return {
+        category: category_id,
+        offered_course: $('select[name=offered_course]').find(':selected').val(),
+        second_course: $('select[name=second_course]').find(':selected').val(),
+        course_name: $('input[name=course_name]').val()
+    };
+}
+
+var _get_message_data = function () {
+    return {
+        category: $('select[name=category]').find(':selected').val(),
+        offered_course: $('select[name=offered_course]').find(':selected').val(),
+        second_course: $('select[name=second_course]').find(':selected').val(),
+        course_name: $('input[name=course_name]').val(),
+        message: $('textarea[name="message"]').val()
+    };
+}
 
 $window.on('load', function() {
     $add_message_button = $('#add_message');
@@ -46,12 +69,7 @@ $window.on('load', function() {
         var category_id = $('select[name=category]').find(':selected').val();
         if (parseInt(category_id)) {
             $window.trigger('search.do', [
-                {
-                    category: category_id,
-                    offered_course: $('select[name=offered_course]').find(':selected').val(),
-                    second_course: $('select[name=second_course]').find(':selected').val(),
-                    course_name: $('input[name=course_name]').val()
-                }
+                _get_search_items(category_id)
             ]);
         } else {
             $window.trigger('search.do', [{}]);
@@ -65,13 +83,7 @@ $window.on('load', function() {
         }
         e.preventDefault();
 
-        $window.trigger('message_add.do', [{
-            category: $('select[name=category]').find(':selected').val(),
-            offered_course: $('select[name=offered_course]').find(':selected').val(),
-            second_course: $('select[name=second_course]').find(':selected').val(),
-            course_name: $('input[name=course_name]').val(),
-            message: $('textarea[name="message"]').val()
-        }]);
+        $window.trigger('message_add.do', [_get_message_data()]);
     });
 
     /** A'min code: **/
@@ -113,24 +125,4 @@ $window.on('load', function() {
             $remove_search_filter.hide();
         }
     }
-
-    /*
-    $('#id_offered_course').bind('change', function () {
-        appendDetails($(this));
-    });
-    $('#id_second_course').bind('change', function () {
-        appendDetails($(this));
-    });
-    function appendDetails(t) {
-        $.ajax({
-            url: "/get-course-details/",
-            type: 'POST',
-            dataType: 'json',
-            data: {csrfmiddlewaretoken: window.csrf_token, courseId: t.val()}
-        }).success(function (r) {
-            t.parent().parent().parent().find('.details').html('<p class="course-details">' + r.details + '</p>');
-        }).error(function () {
-        });
-    }
-    */
 });

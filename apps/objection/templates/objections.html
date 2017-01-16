@@ -6,7 +6,6 @@
     {{ block.super }}
     <script type="text/javascript" language="JavaScript">
         window.$ajax_search = "{% url 'objection_ajax_search' %}";
-        window.$message_add_url = "{% url 'add_objection' %}";
         window.$course_list_url = "{% url 'get_courses_list' %}";
         window.csrf_token = "{{ csrf_token }}";
     </script>
