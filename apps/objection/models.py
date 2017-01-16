@@ -5,8 +5,8 @@ from django.db.models import Q
 from model_utils import Choices
 
 from apps.base.models import Member, EducationalYear
+from apps.course.management.commands.updatecourses import get_current_year
 from apps.course.models import OfferedCourse
-from apps.course.views import get_current_year
 
 
 class Objection(models.Model):
@@ -79,11 +79,23 @@ class Objection(models.Model):
             return self.second_course.get_name()
         return -1
 
+    @property
     def requests(self):
         return 1 + self.like.count()
+
+    class Meta:
+        verbose_name = 'مشکل درسی'
+        verbose_name_plural = 'مشکلات درسی'
 
 
 class Reply(models.Model):
     text = models.TextField()
     objection = models.ForeignKey(Objection)
     author = models.ForeignKey(Member)
+
+    def __str__(self):
+        return "%s: %s"%(self.author, self.text)
+
+    class Meta:
+        verbose_name = 'پاسخ'
+        verbose_name_plural = 'پاسخ‌ها'

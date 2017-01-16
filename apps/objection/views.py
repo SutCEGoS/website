@@ -9,8 +9,8 @@ from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 
+from apps.course.management.commands.updatecourses import get_current_year
 from apps.course.models import OfferedCourse
-from apps.course.views import get_current_year
 from .forms import MessageForm
 from .models import Objection
 

@@ -61,6 +61,10 @@ class Issue(models.Model):
     def requests(self):
         return 1 + self.like.count()
 
+    class Meta:
+        verbose_name = 'مشکل رفاهی'
+        verbose_name_plural = 'مشکلات رفاهی'
+
 
 class IssueReply(Logged):
     text = models.TextField()
@@ -68,3 +72,7 @@ class IssueReply(Logged):
 
     def __str__(self):
         return "%s: %s"%(self.author, self.text)
+
+    class Meta:
+        verbose_name = 'پاسخ'
+        verbose_name_plural = 'پاسخ‌ها'

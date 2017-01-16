@@ -10,7 +10,6 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^', include('apps.base.urls')),
-    url(r'^courses/', include('apps.course.urls')),
     url(r'^objections/', include('apps.objection.urls')),
     url(r'^issues/', include('apps.issue.urls')),
     url(r'^polls/', include('apps.poll.urls')),

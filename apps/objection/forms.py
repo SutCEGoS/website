@@ -4,8 +4,8 @@ import logging
 from django import forms
 from django.conf import settings
 
+from apps.course.management.commands.updatecourses import get_current_year
 from apps.course.models import OfferedCourse
-from apps.course.views import get_current_year
 from .models import Objection
 
 __author__ = 'mjafar'
