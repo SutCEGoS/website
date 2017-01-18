@@ -6,13 +6,13 @@ from django.dispatch import receiver
 
 from .models import Member, Objection, Reply
 
-
-@receiver(pre_save, sender=Reply, dispatch_uid='autocreate_author')
-def create_username(sender, instance, *args, **kwargs):
-    try:
-        instance.author = Member.objects.get(username="dr.ejlali")
-    except:
-        instance.author = Member.objects.filter(is_superuser=True).last()
+#
+# @receiver(pre_save, sender=Reply, dispatch_uid='autocreate_author')
+# def create_username(sender, instance, *args, **kwargs):
+#     try:
+#         instance.author = Member.objects.get(username="dr.ejlali")
+#     except:
+#         instance.author = Member.objects.filter(is_superuser=True).last()
 
 
 class ReplyInline(admin.StackedInline):
@@ -62,7 +62,7 @@ class ObjectionAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         qs = super(ObjectionAdmin, self).queryset(request)
-        if request.user.groups.filter(name='Replier').exists():
+        if request.user.groups.filter(name='مسئول آموزشی').exists():
             return qs.filter(Q(status__gte=3) | Q(status=1))
         return qs
 

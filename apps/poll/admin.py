@@ -58,7 +58,7 @@ class VoteAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         qs = super(VoteAdmin, self).queryset(request)
-        if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
+        if request.user.groups.filter(name='روابط عمومی').exists() and not request.user.is_superuser:
             self.readonly_fields = ('comment', 'choice')
             self.fieldsets = (
                 (u'نظر', {
@@ -72,7 +72,7 @@ class VoteAdmin(admin.ModelAdmin):
 
     def get_list_display(self, request):
         dl = super(VoteAdmin, self).get_list_display(request)
-        if request.user.groups.filter(name='Replier').exists() and not request.user.is_superuser:
+        if request.user.groups.filter(name='روابط عمومی').exists() and not request.user.is_superuser:
             if 'get_member' in dl:
                 dl.remove('get_member')
             if 'verified' in dl:
