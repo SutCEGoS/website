@@ -16,7 +16,7 @@ echo Activating virtual environment
 . ~/venv/bin/activate
 
 echo Installing new python dependencies
-pip install -U -r configs/requirements.txt
+pip install -U -r requirements.txt
 
 echo Collecting static files
 python manage.py collectstatic --noinput -c -l
