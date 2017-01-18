@@ -1,5 +1,6 @@
 import json
 import hmac
+import logging
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -14,6 +15,8 @@ from apps.objection.models import Objection
 from .forms import IssueForm, BotIssueForm
 from .models import Issue
 
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def requests(request):
@@ -81,6 +84,7 @@ def add_issue_bot(request):
     computed_mac = hmac.new(settings.SHORA_SIGN_SECRET.encode('utf-8'))
     computed_mac.update(request_body.encode('utf-8'))
     if not mac or not hmac.compare_digest(mac, str(computed_mac.hexdigest())):
+        logger.warning('HMAC authorization failed for bot. Header: ' + mac)
         return JsonResponse({
             'success': False,
             'message': 'Not authorized'
@@ -101,6 +105,7 @@ def add_issue_bot(request):
             'message': 'Issue created'
         })
     else:
+        logger.error('Bot bad request')
         return JsonResponse({
             'success': False,
             'message': 'Data format error in following fields: %s' % list(', '.join(form.errors))
