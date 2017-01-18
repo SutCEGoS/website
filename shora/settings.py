@@ -46,6 +46,9 @@ INSTALLED_APPS = (
     'password_reset',
     'vendor.shamsi',
     'tinymce',
+    'hijack',
+    'compat',
+    'hijack_admin',
 
     # website apps
     'apps.base',
@@ -170,6 +173,13 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
     'cleanup_on_startup': False,
 }
+
+# Hijack admin
+HIJACK_REGISTER_ADMIN = False
+HIJACK_ALLOW_GET_REQUESTS = True
+HIJACK_USE_BOOTSTRAP = True
+HIJACK_LOGIN_REDIRECT_URL = '/'
+HIJACK_LOGOUT_REDIRECT_URL = '/manage/base/member/'
 
 
 # Local settings

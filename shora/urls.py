@@ -16,5 +16,8 @@ urlpatterns += [
     url(r'^events/', include('apps.event.urls')),
     url(r'^announcements/', include('apps.announcements.urls')),
     url(r'^pages/', include('apps.pages.urls')),
+
+    # Plugins
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^hijack/', include('hijack.urls')),
 ]

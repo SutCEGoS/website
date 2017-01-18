@@ -8,3 +8,5 @@ django-password-reset
 pillow
 django-tinymce
 suds-jurko
+django-hijack
+django-hijack-admin

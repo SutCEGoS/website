@@ -1,5 +1,4 @@
-{% load static gravatar %}
-
+{% load static gravatar staticfiles hijack_tags %}
 <!-- In the name of god :D -->
 <!doctype html>
 <html>
@@ -24,10 +23,12 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap-rtl.min.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'hijack/hijack-styles.css' %}" />
         <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     {% endblock %}
 </head>
 <body>
+{% hijack_notification %}
 {% block navbar %}
     <nav class="navbar">
         <div class="navbar-header">
