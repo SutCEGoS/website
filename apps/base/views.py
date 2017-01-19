@@ -11,7 +11,6 @@ from django.shortcuts import render, redirect
 from django.template import loader
 
 from apps.announcements.models import Announcement
-from vendor.shamsi.templatetags.shamsi_template_tags import pdatetime
 from .forms import *
 from .models import Member
 
@@ -38,6 +37,7 @@ def index(request):
 
     return render(request, 'index.html', {
         'announcements': announcements,
+        'navbar_no_logo': True,
     })
 
 
@@ -154,7 +154,3 @@ def password_reset_change(request):
                       'form': form,
                       'sent': sent,
                   })
-
-
-def members(request):
-    return render(request, 'members.html')
