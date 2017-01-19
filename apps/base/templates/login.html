@@ -4,17 +4,13 @@
 
 {% block title %}Login{% endblock title %}
 
-{% block navbar %}{% endblock %}
-
 {% block body %}
 <div class="container">
-    <div class="row">
-
-        <div class="col-lg-2 col-centered">
-            <img src="{% static 'image/logo.png' %}"/>
-        </div>
-
-    </div>
+{#    <div class="row">#}
+{#        <div class="col-lg-2 col-centered">#}
+{#            <img src="{% static 'image/logo.png' %}"/>#}
+{#        </div>#}
+{#    </div>#}
     <div class="row">
         <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
         <form action="{% url 'login' %}?next={{ next }}" method="post">
@@ -47,12 +43,16 @@
                                 <div class="table-cell">
                                     <button type="submit" class="btn btn-primary">ورود</button>
                                 </div>
-                                <label class="flush-right table-cell dropdown-toggle"><a href="{%url 'password_reset'%}">فراموشی گذرواژه</a></label>
+                                <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#">فراموشی رمز</a></label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
+        <form method="post" action="{% url 'password_reset_recover' %}" class="hidden" name="forgot_password_form">
+            {% csrf_token %}
+            <input type="hidden" class="form-control" id="id_username_or_email" name="username_or_email"/>
         </form>
     </div>
 </div>
