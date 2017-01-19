@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static gravatar %}
 
-{% block navbar %}{% endblock %}
-
 {% block css %}
     {{ block.super }}
     <style>
@@ -15,8 +13,16 @@
             padding: 0;
         }
 
+        .navbar {
+            margin-bottom: 0;
+            background: #efefef;
+            border-radius: 0;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+        }
+
         #title_section {
-            padding: 120px 0 150px;
+            padding: 120px 0 100px;
             background: #efefef;
             color: #2a6496;
         }
@@ -24,12 +30,7 @@
         .big-logo {
             background-image: url('{% static 'image/logo.png' %}');
             background-size: contain;
-            /*display: inline-block;*/
-            z-index: 10000000;
-            /*position: absolute;*/
-            /*right: -185px;*/
-            /*top:-38px;*/
-            /*width: 160px;*/
+            z-index: 1000;
             min-height: 160px;
             vertical-align: middle;
             padding-right:165px;
