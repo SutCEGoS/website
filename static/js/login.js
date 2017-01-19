@@ -2,25 +2,21 @@
  * Created by seyed on 1/1/15.
  */
 
-var $forgot_link;
 $window.on('load', function(){
-    $forgot_link = $('#forgot');
-
-    $forgot_link.on('click', function(e) {
-
-        var $this = $(this);
-        $this.popConfirm({
-                placement: 'bottom',
-                title: 'Are you sure?',
-                content: 'If you are sure press on yes button?',
-                yes: 'Yes',
-                no: 'No',
-                container: false,
-                callback_yes: function () {
-                    window.location.replace(window.forgot_link);
-                    //TODO
-                }
-            });
+    $('#forgot').on('click', function(e) {
+        $(this).popConfirm({
+            placement: 'bottom',
+            title: 'رمزتان را فراموش کردید؟',
+            content: 'لطفا نام کاربریتان را در فرم ورود به سایت (بالا) وارد کنید و روی دکمهٔ ادامه کلیک کنید.',
+            yes: 'ادامه',
+            no: 'بستن',
+            container: false,
+            callback_yes: function () {
+                forgot_form = $('form[name=forgot_password_form]');
+                forgot_form.find('input#id_username_or_email').val($('input[name=username]').val());
+                forgot_form.submit();
+            }
+        });
     });
     var $username = $('#username');
     var $password = $('#password');
@@ -28,7 +24,4 @@ $window.on('load', function(){
 
     $username.css("width",maxWidth);
     $password.css("width",maxWidth);
-     //$username.width(maxWidth);
-     //$password.width(maxWidth);
-
 });

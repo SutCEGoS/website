@@ -20,8 +20,8 @@
             callback_no: function () {
             }
         }, options);
-        var yes = $('<button class="btn btn-danger" data-delete-yes></button>').text(settings.yes);
-        var no = $('<button class="btn btn-default" data-delete-yes></button>').text(settings.no);
+        var yes = $('<button type="button" class="btn btn-danger" data-delete-yes></button>').text(settings.yes);
+        var no = $('<button type="button" class="btn btn-default" data-delete-yes></button>').text(settings.no);
 
         yes.on('click', function () {
             state = false;
@@ -36,7 +36,7 @@
             settings.callback_no();
         });
 
-        var group = $('<div class="btn-group pull-right margin-bottom" ></div>');
+        var group = $('<div class="btn-group pull-left margin-bottom" ></div>');
         group.append(no).append(yes);
         var div = $('<div class=""></div>');
         div.text(settings.content);

@@ -11,7 +11,7 @@
         <script type="text/javascript" language="JavaScript">
             var $window = $(window);
             window.csrf_token = "{{ csrf_token }}";
-            window.forgot_link = '{% url 'password_reset' %}';
+            window.forgot_link = '{% url 'password_reset_recover' %}';
         </script>
         <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -31,6 +31,7 @@
 {% hijack_notification %}
 {% block navbar %}
     <nav class="navbar">
+        {% if not navbar_no_logo %}
         <div class="navbar-header">
             <a href="{% url 'home' %}">
                 <div class="navbar-inner" id="topbar">
@@ -40,6 +41,7 @@
                 </div>
             </a>
         </div>
+        {% endif %}
         <ul class="nav navbar-nav navitems navbar-right">
             <li><a href="{% url 'issues' %}">رسیدگی به مشکلات رفاهی</a></li>
             <li><a href="{% url 'requests' %}">رسیدگی به مشکلات برنامه درسی</a></li>
@@ -51,8 +53,6 @@
             <li>
                 {% if user.is_authenticated %}
                     <a href="#" class="user name">{{ user }}
-                {% else %}
-                    <a style="color:#777777">شما وارد سایت نشده‌اید
                 {% endif %}
                 <div class="circle avatar">
                     <img class="circle" src="{% gravatar_url user.email %}">
@@ -61,7 +61,7 @@
             </li>
 
             {% if user.is_authenticated %}
-                <li><a href="{% url 'password_change' %}">تغییر گذرواژه</a></li>
+                <li><a href="{% url 'password_reset_change' %}">تغییر گذرواژه</a></li>
                 <li><a href="{% url 'logout' %}">خروج</a></li>
             {% else %}
                 <li><a href="#login_modal" data-toggle="modal" data-target="#login_modal">ورود</a></li>
@@ -135,21 +135,20 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="input-group">
+                            <div class="input-group-addon">@ce.sharif.edu</div>
+                            <input type="text" class="form-control" name="username">
                             <div class="input-group-addon">
                                 <div id="username">نام کاربری</div>
                             </div>
-                            <input type="text" class="form-control" name="username">
-
-                            <div class="input-group-addon">@ce.sharif.edu</div>
                         </div>
                         <div>{{ form.errors.username }}</div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
+                            <input type="password" class="form-control" name="password">
                             <div class="input-group-addon">
                                 <div id="password" class="col-md-8 col-lg-8">گذرواژه</div>
                             </div>
-                            <input type="password" class="form-control" name="password">
                         </div>
                         <div>{{ form.errors.password }}</div>
                     </div>
@@ -160,13 +159,18 @@
                             <div class="table-cell">
                                 <button type="submit" class="btn btn-primary">ورود</button>
                             </div>
-                            <label class="flush-right table-cell dropdown-toggle"><a href="{% url 'password_reset' %}">فراموشی
+                            <label class="flush-right table-cell dropdown-toggle"><a id="forgot" href="#{# url 'password_reset' #}">فراموشی
                                 رمز</a></label>
                         </div>
                     </div>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
+    </form>
+
+    <form method="post" action="{% url 'password_reset_recover' %}" class="hidden" name="forgot_password_form">
+        {% csrf_token %}
+        <input type="hidden" class="form-control" id="id_username_or_email" name="username_or_email"/>
     </form>
 </div><!-- /.modal -->
 {% endif %}
