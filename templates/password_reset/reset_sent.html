@@ -1,0 +1,10 @@
+{% extends "password_reset/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Password recovery sent" %}{% endblock %}
+
+{% block content %}
+    <p>{% blocktrans with ago=timestamp|timesince %}An email was sent to
+    <strong><a href="http://mail.ce.sharif.edu/" target="_blank">{{ email }}</a></strong> {{ ago }} ago. Use the link in
+    it to set a new password.{% endblocktrans %}
+{% endblock %}
