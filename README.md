@@ -17,7 +17,7 @@ Create a virtual environment (optional)
     
 Install dependencies:
 
-    pip install -r requiremets.txt
+    pip install -r requirements.txt
 
 Migrate and create database for first run:
 
