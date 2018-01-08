@@ -50,15 +50,24 @@ class ObjectionAdmin(admin.ModelAdmin):
 
         return super(ObjectionAdmin, self).response_change(request, obj)
 
-    def save_related(self, request, form, formsets, change):
-        q = super(ObjectionAdmin, self).save_related(request, form, formsets, change)
-        for item in formsets:
-            try:
-                item.author = request.user
-                item.save()
-            except:
-                pass
-        return q
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for obj in formset.deleted_objects:
+            obj.delete()
+        for instance in instances:
+            instance.author = request.user
+            instance.save()
+        formset.save_m2m()
+
+    # def save_related(self, request, form, formsets, change):
+    #     q = super(ObjectionAdmin, self).save_related(request, form, formsets, change)
+    #     for item in formsets:
+    #         try:
+    #             item.author = request.user
+    #             item.save()
+    #         except:
+    #             pass
+    #     return q
 
     def queryset(self, request):
         qs = super(ObjectionAdmin, self).queryset(request)

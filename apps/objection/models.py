@@ -83,9 +83,15 @@ class Objection(models.Model):
     def requests(self):
         return 1 + self.like.count()
 
+    # def validate_unique(self, exclude=None):
+    #     from django.core.exceptions import ValidationError
+    #
+    #     super(Objection, self).validate_unique(exclude)
+
     class Meta:
         verbose_name = 'مشکل درسی'
         verbose_name_plural = 'مشکلات درسی'
+        unique_together = ('category', 'offered_course', 'second_course', 'course_name', 'message')
 
 
 class Reply(models.Model):
