@@ -25,8 +25,8 @@ class ObjectionAdmin(admin.ModelAdmin):
     inlines = [ReplyInline]
 
     actions = ['mark_as_unconfirmed', 'mark_as_waiting', 'mark_as_read']
-    list_display = ['id', 'requests', 'status', 'category', 'message', 'offered_course', 'second_course',
-                    'course_name', 'term', 'year']
+    list_display = ['id', 'requests', 'term', 'status', 'category', 'message', 'offered_course', 'second_course',
+                    'course_name', 'year']
     fieldsets = (
         (u'پیام', {
             'fields':
