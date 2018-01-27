@@ -30,7 +30,7 @@ class OfferedCourse(models.Model):
     details = models.CharField(max_length=1023)
 
     class Meta:
-        unique_together = ("course", "group_number", "term", "year", "professor")
+        unique_together = ("course", "group_number", "term", "year")
 
     def __str__(self):
         return "%s-%d - %s - %s  " % (

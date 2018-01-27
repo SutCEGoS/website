@@ -19,6 +19,7 @@ def get_current_year():
 
 
 def create_course_offer(capacity, crs, dsc, exam_time, grp, prf):
+    print("New offered course: ", grp, crs, prf)
     course_offer, new = OfferedCourse.objects.get_or_create(group_number=int(grp),
                                                             course=crs,
                                                             professor=prf,
