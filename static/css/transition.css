@@ -1,0 +1,97 @@
+.entry .content, .entry:before {
+    visibility: hidden;
+}
+.show-notif .content, .show-notif:before {
+    visibility: visible!important;
+}
+.show-notif:before, .show-notif .content
+{
+    opacity: 0;
+    -webkit-animation: fade 1s forwards;
+    -o-animation: fade 1s forwards;
+    animation: fade 1s forwards;
+}
+@keyframes fade {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@media screen and (min-width: 769px) {
+    .show-notif:nth-child(odd){
+        -webkit-animation: showodd 1s forwards;
+        -o-animation: showodd 1s forwards;
+        animation: showodd 1s forwards;
+    }
+
+    .show-notif:nth-child(even){
+        -webkit-animation: showeven 1s forwards;
+        -o-animation: showeven 1s forwards;
+        animation: showeven 1s forwards;
+    }
+
+    .show-notif:nth-child(even):before {
+        opacity: 1;
+        -webkit-animation: showevent 1s forwards;
+        -o-animation: showevent 1s forwards;
+        animation: showevent 1s forwards;
+    }
+
+    @keyframes showodd {
+        from {
+            padding-left: 6rem;
+            padding-right: 0rem;
+        }
+        to {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+
+    @keyframes showeven {
+        from {
+            padding-left: 0rem;
+            padding-right: 6rem;
+        }
+        to {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+
+    @keyframes showevent {
+        from {
+            opacity: 0;
+            left: -.75rem;
+        }
+        to {
+            opacity: 1;
+            left: 2.25rem;
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+    .show-notif{
+        opacity: 1;
+        -webkit-animation: showodd 1s forwards;
+        -o-animation: showodd 1s forwards;
+        animation: showodd 1s forwards;
+    }
+    @keyframes showodd {
+        from {
+            padding-left: 6rem;
+            padding-right: 0rem;
+        }
+        to {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+}
+
+.memberHidden {
+    visibility: hidden;
+    /*opacity: 0;*/
+}
