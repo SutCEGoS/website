@@ -1,305 +1,263 @@
-{% extends 'base.html' %}
-{% load static gravatar %}
+{% load static %}
+{% load staticfiles %}
 
-{% block css %}
-    {{ block.super }}
-    <style>
-        body {
-            overflow-x: hidden;
-            background: #2a6496;
-        }
+<!DOCTYPE html>
+<html lang="en">
 
-        body > .container-fluid {
-            padding: 0;
-        }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+    shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        .navbar {
-            margin-bottom: 0;
-            background: #efefef;
-            border-radius: 0;
-            -webkit-border-radius: 0;
-            -moz-border-radius: 0;
-        }
+    <title>شورا صنفی دانشکده کامپیتر</title>
 
-        #title_section {
-            padding: 120px 0 100px;
-            background: #efefef;
-            color: #2a6496;
-        }
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/transition.css' %}" >
 
-        .big-logo {
-            background-image: url('{% static 'image/logo.png' %}');
-            background-size: contain;
-            z-index: 1000;
-            min-height: 160px;
-            vertical-align: middle;
-            padding-right:165px;
-            background-repeat: no-repeat;
-            background-position: right;
-        }
+</head>
 
-        #title_section h1 {
-            vertical-align: middle;
+<body class="dir-rtl text-right">
 
-        }
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-        #title_section:after {
-            content: "";
-            background: #efefef;
-            height: 220px;
-            position: absolute;
-            width: 2470px;
-            left: 50%;
-            margin-left: -1235px;
-            top: 275px;
-            z-index: 2;
-            transform: rotate(-4.4deg);
-            -moz-transform: rotate(-4.4deg);
-            -webkit-transform: rotate(-4.4deg);
-            -o-transform: rotate(-4.4deg);
-            -ms-transform: rotate(-4.4deg);
-            -webkit-box-shadow: 0 8px 10px 0 rgba(0, 0, 0, .12), 0 8px 10px 0 rgba(0, 0, 0, .12);
-            box-shadow: 0 8px 10px 0 rgba(0, 0, 0, .12), 0 8px 10px 0 rgba(0, 0, 0, .12);
-        }
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title ml-auto">ورود</h4>
+                <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+            </div>
 
-        #title_section .btn {
-            background: transparent;
-            border: 2px solid #2a6496;
-            color: #2a6496;
-            width: 140px;
-            margin: 5px auto;
-        }
-
-        #title_section .btn:active, #title_section .btn:target {
-            -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .02), 0 3px 6px 0 rgba(0, 0, 0, .12);
-            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .02), 0 3px 6px 0 rgba(0, 0, 0, .12);
-        }
-
-        #title_section .btn:hover {
-            background: #2a6496;
-            color: whitesmoke;
-            text-shadow: none;
-        }
-
-        #announcements_section, #about_section {
-        {#            background: #2a6496;#} 
-            color: rgba(255, 255, 255, 0.69);
-        }
-
-        #announcements_section {
-            z-index: 1;
-            padding: 55px 30px 55px 30px;
-            min-height: 550px;
-        }
-
-        #announcements_section h2, #about_section h2 {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        #announcements_section p, #about_section p {
-            text-align: justify;
-        }
-
-        #announcements_section .announcements-list {
-            margin-top: 33px;
-        }
-
-        #announcements_section .announcements-list h4 {
-            font-weight: bold;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        #announcements_section .announcements-list-item:not(:first-child) {
-            border-right: 1px dotted rgba(255, 255, 255, 0.2);
-            min-height: 200px;
-            height: 100%;
-            padding-right: 35px;
-            padding-left: 35px;
-        }
-
-        #announcements_section:after {
-            bottom: -120px;
-            background: #efefef;
-        }
-
-        #services_section:after {
-            bottom: -120px;
-            background: #2a6496;
-        }
-
-        #announcements_section:after, #services_section:after {
-            content: "";
-            height: 220px;
-            position: relative;
-            width: 2470px;
-            left: 50%;
-            margin-left: -1235px;
-            transform: rotate(-4.4deg);
-            -moz-transform: rotate(-4.4deg);
-            -webkit-transform: rotate(-4.4deg);
-            -o-transform: rotate(-4.4deg);
-            -ms-transform: rotate(-4.4deg);
-            -webkit-box-shadow: 0 -8px 10px 0 rgba(0, 0, 0, .12), 0 -8px 10px 0 rgba(0, 0, 0, .12);
-            box-shadow: 0 -8px 10px 0 rgba(0, 0, 0, .12), 0 -8px 10px 0 rgba(0, 0, 0, .12);
-        }
-
-        #services_section {
-            background: #efefef;
-            z-index: 10;
-            padding-top: 0;
-        }
-
-        #services_section h2 {
-            color: rgba(41, 105, 148, 0.95);
-        }
-
-        .card {
-            background: white;
-            -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .12), 0 4px 5px 0 rgba(0, 0, 0, .12);
-            box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .12), 0 4px 5px 0 rgba(0, 0, 0, .12);
-            padding: 15px 25px;
-            margin: 15px 10px;
-            text-align: justify;
-            color: #222222;
-        }
-
-        .cta-button {
-            margin: 10px 7px;
-            padding: 10px 15px;
-            background: transparent;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        #about_section h2 {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        #about_section h4 {
-            font-weight: bold;
-            color: rgba(0, 0, 0, 0.85);
-        }
-    </style>
-{% endblock %}
-
-{% block title %}{{ block.super }} صفحه اصلی {% endblock title %}
-
-{% block body %}
-    <div class="container-fluid">
-        <div class="row" id="title_section">
-            <div class="container">
-                <div class="col-lg-9 col-sm-6 hide-xs big-logo">
-                    <!--<div class="big-logo"></div>-->
-                    <h1>شورای صنفی رفاهی دانشکده مهندسی کامپیوتر</h1>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div align="center">
-                        <a class="btn btn-default btn-lg" href="#about">دربارهٔ شورا</a>
-                        <div class="clear"></div>
-                        <a class="btn btn-default btn-lg" href="#services">خدمات شورا</a>
+            <!-- Modal body -->
+            <div class="container py-3 text-right">
+                <form action="/action_page.php">
+                    <div class="form-group">
+                        <label for="email">آدرس ایمیل</label>
+                        <input type="email" class="form-control" id="email">
                     </div>
+                    <div class="form-group">
+                        <label for="pwd">گذرواژه</label>
+                        <input type="password" class="form-control" id="pwd">
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label pr-4">
+                            <input class="form-check-input" type="checkbox"> مرا به خاطر بسپار
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">برو!</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<aside class="col-xl-2 bg-white p-0">
+    <nav class="navbar navbar-expand-xl navbar-light flex-xl-column p-0 h-100">
+        <!-- Brand -->
+        <div class="navbar-brand m-0 p-0">
+            <div id="logo-container" class="bg-red" style="text-align: center">
+                <a href="index.html">
+                    <img src="{% static 'img/white-logo.png' %}" alt="Logo">
+                </a>
+            </div>
+            <span class="text-center w-100">
+                <button class="btn btn btn-success" type="button" data-toggle="modal"
+                        data-target="#loginModal">ورود</button>
+            </span>
+        </div>
+
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse" data-target="#collapsibleNavbar"
+                style="margin-left: 15px">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse w-100 justify-content-between flex-column" id="collapsibleNavbar">
+            <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">خانه</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="announcements">اطلاعیه&zwnj;ها</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ثبت گزارش</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">کتابخانه</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="locker">کمد</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <div class="mx-auto d-inline-flex my-3" id="contact-icons">
+                    <a href="https://t.me/SenfiCE" data-toggle="tooltip" data-placement="top" title="تلگرام">
+                        <i class="telegram-icon"></i>
+                    </a>
+                    <a href="mailto:shora.cesharif@gmail.com" data-toggle="tooltip" data-placement="top" title="ایمیل">
+                        <i class="email-icon"></i>
+                    </a>
+                    <a href="https://t.me/shora_ce" data-toggle="tooltip" data-placement="top" title="کانال تلگرام">
+                        <i class="channel-icon"></i>
+                    </a>
                 </div>
             </div>
         </div>
+    </nav>
+</aside>
 
-        <div class="row" id="announcements_section">
-            <div class="container-fluid">
-                <div class="col-lg-12 col-sm-12"><h2>اطلاعیه‌ها</h2></div>
-                <div class="announcements-list">
-                    {% for announcement in announcements %}
-                        <div class="col-lg-4 col-sm-12 announcements-list-item">
-                            <a href="{% url 'show-announcement' announcement.id %}" target="_blank">
-                                <h4>{{ announcement.title }}</h4></a>
-                            <p>{% autoescape off %}{{ announcement.body|truncatewords_html:20 }}{% endautoescape %}</p>
-                            <a href="{% url 'show-announcement' announcement.id %}" target="_blank">متن کامل</a>
-                        </div>
-                    {% endfor %}
+<main class="col-xl-10 mr-auto p-0 text-right">
+    <header id="intro">
+        <div class="header-wrapper">
+            <div class="container text-center m-auto">
+                <img src="{% static 'img/white-logo.png' %}" alt="Logo" class="mx-auto d-block">
+                <h1 class="text-white">شورای صنفی دانشکده&zwnj;ی مهندسی کامپیوتر</h1>
+                <button type="button" class="btn btn-outline-light ml-3" onclick="about_us.scrollIntoView(
+        {
+            behavior:'smooth',
+            block:'start'
+        });">
+                    درباره ی ما
+                </button>
+                <button type="button" class="btn btn-outline-light" onclick="members.scrollIntoView(
+        {
+            behavior:'smooth',
+            block:'start'
+        });">
+                    اعضای شورا
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Announcements -->
+    <section class="bg-red py-5">
+        <div class="container">
+            <h2 class="mb-4 mx-2 px-4 text-white border-right-white">اطلاعیه&zwnj;ها</h2>
+            <div class="timeline mx-2">
+                <span class="line"></span>
+                {% for X in announcements %}
+                <div class="entry">
+                    <div class="content">
+                        <h2>{{ X.title }}</h2>
+                        <p>{{ X.body|truncatechars:50|safe }}</p>
+                        <!--<a role="button" class="btn btn-sm btn-primary" href="#">ادامه</a>-->
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mt-4 text-center">
+                <a href="announcements" class="btn btn-outline-light mx-auto">همه&zwnj;ی اطلاعیه&zwnj;ها</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="bg-light-blue py-5" id="services">
+        <div class="container">
+            <h2 class="mb-4 mx-2 px-4  text-navy-blue border-right-navy-blue">خدمات شورا</h2>
+            <div class="row pt-3">
+                <div class="col-md">
+                    <img src="{% static 'img/icon/inbox.svg' %}" class="list-icon">
+                    <h5 class="mr-4">رسیدگی به مشکلات درسی و رفاهی</h5>
+                </div>
+                <div class="col-md bg-white">
+                    <img src="{% static 'img/icon/wardrobe.svg' %}" class="list-icon">
+                    <h5 class="mr-4"> اجاره&zwnj;ی کمد </h5>
+                </div>
+                <div class="col-md">
+                    <img src="{% static 'img/icon/books.svg' %}" class="list-icon">
+                    <h5 class="mr-4">قرض گرفتن کتاب</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md bg-red">
+                    <img src="{% static 'img/icon/pencil-box.svg' %}" class="list-icon">
+                    <h5 class="text-white mr-4">قرض گرفتن اشیا ضروری</h5>
+                </div>
+                <div class="col-md">
+                    <img src="{% static 'img/icon/loupe.svg' %}" class="list-icon">
+                    <h5 class="mr-4">پیگیری وسایل گم شده</h5>
+                </div>
+                <div class="col-md bg-navy-blue">
+                    <img src="{% static 'img/icon/open-book.svg' %}" class="list-icon">
+                    <h5 class="text-white mr-4">رزرو اتاق مطالعه</h5>
                 </div>
             </div>
         </div>
-
-        <div class="row" id="services_section">
-            <div class="container-fluid">
-                <a name="services"></a>
-                <div class="col-lg-12 col-sm-12"><h2>خدمات شورا</h2></div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card">
-                        <a href="{% url 'requests' %}"><h4>رسیدگی به مشکلات درسی</h4></a>
-                        <p class="text-muted">در سامانهٔ رسیدگی به مشکلات درسی، مشکلاتی از قبیل عدم ارائهٔ درس، تلاقی
-                            زمان امتحان، ظرفیت کم
-                            درس و... را می‌توانید مطرح کنید و مشکلاتی که سایر دانشجویان مطرح کرده اند را me too کنید.
-                            این مشکلات مستقیماً به اطلاع معاون آموزشی می‌رسند و مرتفع می‌شوند.</p>
-
-                        <a href="{% url 'requests' %}" class="cta-button">ورود به سامانه</a>
-                    </div>
-                    
-                    <div class="card">
-                        <a><h4>کتابخانه</h4></a>
-                        <p class="text-muted">با مراجعه به دفتر شورا می‌توانید از کتابخانهٔ شورا کتاب‌های مورد نیازتان
-                            را به امانت بگیرید.</p>
-                        <!--
-                        <a href="#" class="cta-button">فهرست کتاب‌ها</a>
-                        -->
-                    </div>
+    </section>
+    <!-- Members -->
+    <section class="bg-navy-blue py-5" id="members">
+        <div class="container">
+            <h2 class="mb-4 mx-2 px-4 text-white border-right-white">اعضای شورا</h2>
+            <div class="row" style="justify-content: space-evenly">
+                <div class="col-md-3 my-3">
+                    <img src="{% static "img/members/ali_babaei.png" %}" class="rounded-top">
+                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">علی بابایی <span
+                            class="badge badge-light">ورزش</span></h5>
                 </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card">
-                        <a href="{% url 'issues' %}"><h4>رسیدگی به مشکلات رفاهی</h4></a>
-                        <p class="text-muted">در سامانهٔ رسیدگی به مشکلات رفاهی، مشکلات و پیشنهادات رفاهی از کم نور بودن
-                            کلاس x و نبودن خودپرداز در لابی دانشکده تا چکهٔ شیر آب آبدارخانهٔ طبقه y و سرد بودن لابی را
-                            می‌توانید مطرح کنید یا مواردی که از قبل مطرح شده‌اند را me too کنید. این موارد با مسئولین
-                            دانشکده در میان گذاشته خواهد شد و در صورت امکان‌پذیری اجرا و حل می‌شوند. </p>
-
-                        <a href="{% url 'issues' %}" class="cta-button">ورود به سامانه</a>
-                    </div>
-                    <div class="card">
-                        <a><h4>گم‌شده‌ها</h4></a>
-                        <p class="text-muted">در صورتی که در ساختمان دانشکده وسیله‌ای را گم کرده‌اید به دفتر شورای صنفی سر بزنید؛ احتمالا گم‌شدهٔ شما در کمد گمشده‌های شورا باشد.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card">
-                        <a><h4>کمد</h4></a>
-                        <p class="text-muted">برای نگهداری وسایل‌تان می‌توانید از کمدهایی که در طبقهٔ اول دانشکده قرار
-                            دارند استفاده کنید. جهت اجارهٔ یک‌سالهٔ کمد یا تمدید اجارهٔ کمدی که از قبل اجاره کرده‌اید به
-                            دفتر شورا مراجعه فرمایید.</p>
-                           <!--
-                        <a href="#" class="cta-button">اجاره/تمدید کمد</a>
-                        -->
-                    </div>
-                    <div class="card">
-                        <a><h4>لوازم ضروری</h4></a>
-                        <p class="text-muted">شما می‌توانید با مراجعه به دفتر شورا و ارائهٔ کارت دانشجویی، وسایلی از
-                            قبیل شارژر تلفن همراه، دستهٔ بازی، مبدل HDMI به VGA، سه‌راهی، شارژر لپ‌تاپ و... را قرض
-                            بگیرید</p>
-                            <!--
-                        <a href="#" class="cta-button">فهرست کامل لوازم</a>
-                        -->
-                    </div>
+                <div class="col-md-3 my-3">
+                    <img src="{% static "img/members/amin_isaai.png" %}" class="rounded-top">
+                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">امین عیسائی <span
+                            class="badge badge-light">تأسیسات</span></h5>
                 </div>
             </div>
-        </div>
-
-        <div class="row" id="about_section">
-            <div class="container-fluid">
-                <a name="about"></a>
-                <div class="col-lg-12 col-sm-12"><h2>دربارهٔ شورا</h2></div>
-                <div class="col-lg-8 col-sm-12">
-                    <div class="card">
-                        <p>
-شورای صنفی دانشگاه که بعدها به شورای صنفی رفاهی دانشجویان تغییر نام یافت، یکی از سازمان‌های دانشگاه است که برای مشارکت و تصمیم گیری در کارهای صنفی، رفاهی، آموزشی، و پژوهشی دانشجویان دانشگاه به وجود آمد. این سازمان پس از انحلال موقت در سال 1388، از اردیبهشت 1391 کار خود را از سر گرفت که شورای صنفی دانشگاه صنعتی شریف و بالتبع شورای صنفی دانشکده مهندسی کامپیوتر شریف نیز از این قاعده مستثنی نبودند.
-</p>
-<p>
-محوریت اصلی فعالیت‌های شورا پیگیری حقوق صنفی دانشجویان در زمینه‌های مختلف و رساندن صدای دانشجو به مسئولین و ایجاد راه تعاملی بهتر و مثمرثمر تر است. در کنار این موارد، می‌توان به دیگر کارهایی که بسته به نیاز و تقاضای دانشجویان مطرح شده و در حوزه‌ی فعالیتی شورا می‌گنجد نیز اشاره کرد؛ اعم از اداره‌ی امور رفاهی درون دانشکده‌ای مانند ایجاد کتابخانه، اجاره‌ی کمدهای شخصی، برگزاری مراسم یادبود «یاد استاد» با همکاری انجمن علمی و فوق برنامه و ...؛ و همچنین امور مربوط به آموزش مانند برگزاری کلاس‌های رفع اشکال و سمینارهای راهنمای انتخاب واحد ویژه دانشجویان ورودی.
-                        </p>
-                    </div>
+            <div class="row" style="justify-content: space-between">
+                <div class="col-md-3 my-3">
+                    <img src="{% static "img/members/hoda_torabi.png" %}" class="rounded-top">
+                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">هدی ترابی <span
+                            class="badge badge-light">روابط عمومی</span></h5>
                 </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card">
-                        <h4>اعضای فعلی شورا</h4>
+                <div class="col-md-3 my-3">
+                    <img src="{% static "img/members/rasoul_ghasemi.png" %}" class="rounded-top">
+                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">رسول قاسمی <span
+                            class="badge badge-light">دبیر و نماینده مرکز</span></h5>
+                </div>
+                <div class="col-md-3 my-3">
+                    <img src="{% static "img/members/hoora_aboutalebi.png" %}" class="rounded-top">
+                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">حورا ابوطالبی <span
+                            class="badge badge-light">آموزش - نایب رئیس</span></h5>
+                </div>
+            </div>
+            <div class="row" style="justify-content: space-evenly">
+                <div class="col-md-3 my-3">
+                    <img src="{% static "img/members/mr_jafarzadeh.png" %}" class="rounded-top">
+                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">محمدرضا جعفرزاده <span
+                            class="badge badge-light">؟؟؟؟؟</span></h5>
+                </div>
+                <div class="col-md-3 my-3">
+                    <img src="{% static "img/members/parsa_salavati.png" %}" class="rounded-top">
+                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">پارسا صلواتی <span
+                            class="badge badge-light">فنی - مالی و اموال</span></h5>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <a href="#" class="btn btn-outline-light mx-auto" data-toggle="modal"
+                   data-target="#prevMembers">اعضای دوره‌های قبلی</a>
+            </div>
+        </div>
+        <div class="modal fade" id="prevMembers" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title ml-auto">
+                            اعضای سابق شورای صنفی
+                        </h4>
+                        <button type="button" class="close ml-0"
+                                data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body">
+                        <h4>دوره&zwnj;ی ۹۶-۹۷ </h4>
                         <ul>
                             <li>سامان هادیان <span class="text-muted">دبیر و نماینده شورا مرکز</span></li>
                             <li>حمید هاشمی <span class="text-muted">نایب دبیر</span></li>
@@ -309,48 +267,70 @@
                             <li>علی بهجتی <span class="text-muted">فنی</span></li>
                             <li>علیرضا ظهری <span class="text-muted">تأسیسات</span></li>
                         </ul>
-                        <a href="#" class="cta-button" data-toggle="modal" data-target="#prevMembers">اعضای دوره‌های قبلی</a>
+                    </div>
+                    <div class="modal-body">
+                        <h4>دوره&zwnj;ی ۹۵-۹۶</h4>
+                        <ul>
+                            <li>رامتین یزدانیان<span class="text-muted">دبیر</span></li>
+                            <li>سیدمحمد حسینی <span class="text-muted">نایب دبیر</span></li>
+                            <li>سامان هادیان <span class="text-muted">نماینده شورا مرکز</span></li>
+                            <li>صدرا مرادیان <span class="text-muted">مالی و اموال</span></li>
+                            <li>فرزانه هاشمی <span class="text-muted">روابط عمومی</span></li>
+                            <li>محمدجعفر مشهدی <span class="text-muted">فنی</span></li>
+                            <li>امیرحسین حمیدیان <span class="text-muted">تأسیسات</span></li>
+                            <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
+                        </ul>
+                    </div>
+                    <div class="modal-body">
+                        <h4>دوره&zwnj;ی ۹۴-۹۵</h4>
+                        <ul>
+                            <li>امین صباغیان <span class="text-muted">دبیر</span></li>
+                            <li>محسن رشیدی <span class="text-muted">نایب دبیر</span></li>
+                            <li>پویا مصدق <span class="text-muted">نماینده شورا مرکز</span></li>
+                            <li>سید رضی موسوی <span class="text-muted">مالی و اموال</span></li>
+                            <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
+                            <li>رامتین یزدانیان <span class="text-muted">مراسم‌ها و کتابخانه</span></li>
+                            <li>صدرا مرادیان <span class="text-muted"></span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- About us -->
+    <section class="bg-light-blue py-5" id="about_us">
+        <div class="container">
+            <h2 class="mb-4 mx-2 px-4 text-navy-blue border-right-navy-blue">درباره&zwnj;ی شورا</h2>
+            <div class="col-md-10 m-auto p-3 rounded">
+                <p>
+                شورای صنفی دانشگاه که بعدها به شورای صنفی رفاهی دانشجویان تغییر نام یافت، یکی از سازمان‌های دانشگاه است
+                که برای مشارکت و تصمیم گیری در کارهای صنفی، رفاهی، آموزشی، و پژوهشی دانشجویان دانشگاه به وجود آمد. این
+                سازمان پس از انحلال موقت در سال 1388، از اردیبهشت 1391 کار خود را از سر گرفت که شورای صنفی دانشگاه صنعتی
+                شریف و بالتبع شورای صنفی دانشکده مهندسی کامپیوتر شریف نیز از این قاعده مستثنی نبودند.
 
+                محوریت اصلی فعالیت‌های شورا پیگیری حقوق صنفی دانشجویان در زمینه‌های مختلف و رساندن صدای دانشجو به
+                مسئولین و ایجاد راه تعاملی بهتر و مثمرثمر تر است. در کنار این موارد، می‌توان به دیگر کارهایی که بسته به
+                نیاز و تقاضای دانشجویان مطرح شده و در حوزه‌ی فعالیتی شورا می‌گنجد نیز اشاره کرد؛ اعم از اداره‌ی امور
+                رفاهی درون دانشکده‌ای مانند ایجاد کتابخانه، اجاره‌ی کمدهای شخصی، برگزاری مراسم یادبود «یاد استاد» با
+                همکاری انجمن علمی و فوق برنامه و ...؛ و همچنین امور مربوط به آموزش مانند برگزاری کلاس‌های رفع اشکال و
+                سمینارهای راهنمای انتخاب واحد ویژه دانشجویان ورودی.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
 
-<!-- Modal -->
-<div class="modal fade" id="prevMembers" tabindex="-1" role="dialog" aria-labelledby="prevMembersLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="prevMembersLabel">اعضای سابق شورای صنفی</h4>
-      </div>
-        <div class="modal-body">
-        <h4>دورهٔ ۹۴-۹۵</h4>
-        <ul>
-            <li>رامتین یزدانیان <span class="text-muted">دبیر</span></li>
-            <li>سیدمحمد حسینی <span class="text-muted">نایب دبیر</span></li>
-            <li>سامان هادیان <span class="text-muted">نماینده شورا مرکز</span></li>
-            <li>صدرا مرادیان <span class="text-muted">مالی و اموال</span></li>
-            <li>فرزانه هاشمی <span class="text-muted">روابط عمومی</span></li>
-            <li>محمدجعفر مشهدی <span class="text-muted">فنی</span></li>
-            <li>امیرحسین حمیدیان <span class="text-muted">تأسیسات</span></li>
-            <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
-        </ul>
-      </div>
-      <div class="modal-body">
-        <h4>دورهٔ ۹۳-۹۴</h4>
-        <ul>
-            <li>امین صباغیان <span class="text-muted">دبیر</span></li>
-            <li>محسن رشیدی <span class="text-muted">نایب دبیر</span></li>
-            <li>پویا مصدق <span class="text-muted">نماینده شورا مرکز</span></li>
-            <li>سید رضی موسوی <span class="text-muted">مالی و اموال</span></li>
-            <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
-            <li>رامتین یزدانیان <span class="text-muted">مراسم‌ها و کتابخانه</span></li>
-            <li>صدرا مرادیان <span class="text-muted"></span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
+<!-- SCRIPTS -->
+<script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
+<script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
+<script type="text/javascript" src="{% static "js/transition.js" %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>
+</body>
+
+</html>

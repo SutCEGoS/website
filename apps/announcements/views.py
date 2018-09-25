@@ -18,6 +18,6 @@ def show_announcement(request, announcement_id):
     announcement = get_object_or_404(Announcement, pk=announcement_id)
 
     announcement.register_view(request.user)
-    return render(request, 'announcement.html', {
+    return render(request, 'article.html', {
         'announcement': announcement,
     })

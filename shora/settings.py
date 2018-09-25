@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'apps.event',
     'apps.announcements',
     'apps.pages',
+    'apps.locker',
 )
 
 MIDDLEWARE_CLASSES = (
