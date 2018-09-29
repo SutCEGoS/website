@@ -192,7 +192,7 @@
                 <h2 class="mb-4 mx-2 px-4 text-white border-right-white">رزرو کمد</h2>
                 <div class="form-group">
                     <label for="rules">اول قوانینُ بخون:</label>
-                    <textarea id="rules" class="form-control d-block" readonly>قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین</textarea>
+                    <textarea id="rules" class="form-control d-block" readonly>rules</textarea>
                 </div>
                 <div class="form-group custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="agreement" required>
@@ -251,13 +251,15 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group form-inline">
-                    <label for="chosen-locker" class="ml-2">شماره کمد:</label>
-                    <input type="text" id="chosen-locker" class="form-control" pattern="[A-LN-P][1-4][1-3]" required>
+                    <!--<label for="chosen-locker" class="ml-2">شماره کمد:</label>-->
+                    <div>
+                      {% include "rackForm.html" %}
+                      <!--<input type="text" id="chosen-locker" class="form-control" pattern="[A-LN-P][1-4][1-3]" required>-->
+                    <div>
                 </div>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-success">تایید و پرداخت</button>
-                </div>
+
             </form>
         </div>
     </section>

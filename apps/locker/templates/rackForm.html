@@ -1,0 +1,11 @@
+{% load static my_app_filters %}
+
+<form action="{% url 'add_rack' %}" , method="post">
+  {% csrf_token %}
+  <fieldset  id="chosen-locker",class="form-control">
+    {{ form.name|get_form_field_as_div:12|safe }}
+  </fieldset>
+  <div class="form-group text-center">
+      <button type="submit" class="btn btn-success">تایید و پرداخت</button>
+  </div>
+</form>

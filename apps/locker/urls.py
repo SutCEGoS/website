@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^$',views.lock,name='locker'),
-	url(r"^(?P<locker_id>[0-17]+)/show/$", views.show_locker_condition, name='show-locker'),
+    url(r'^ajax/add$', views.add, name='add_rack'),
 ]
