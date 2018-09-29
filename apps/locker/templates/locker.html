@@ -1,5 +1,7 @@
 {% load static %}
 {% load staticfiles %}
+{% load static gravatar staticfiles hijack_tags %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,49 +12,53 @@
     shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Preview</title>
+    <title>درخواست کمد</title>
 
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
 </head>
 
 <body class="dir-rtl text-right">
 
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal">
+      <div class="modal-dialog">
+          <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title ml-auto">ورود</h4>
-                <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-            </div>
+              <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title ml-auto">ورود</h4>
+                  <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+                </div>
 
-            <!-- Modal body -->
-            <div class="container py-3 text-right">
-                <form action="/action_page.php">
-                    <div class="form-group">
-                        <label for="email">آدرس ایمیل</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">گذرواژه</label>
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label pr-4">
-                            <input class="form-check-input" type="checkbox"> مرا به خاطر بسپار
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">برو!</button>
-                </form>
-            </div>
+              <!-- Modal body -->
+              <div class="container py-3 text-right">
+                  <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                      <div class="form-group dir-ltr">
+                          <label for="email">آدرس ایمیل</label>
+                          <div class="input-group">
+                              <input type="text" class="form-control" id="email" name="username">
+                              <div class="input-group-append">
+                                  <span class="input-group-text">@ce.sharif.edu</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group dir-ltr">
+                          <label for="pwd">گذرواژه</label>
+                          <input type="password" class="form-control" id="pwd" name="password">
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                          <input class="custom-control-input" type="checkbox" id="remember-me">
+                          <label class="custom-control-label" for="remember-me"> مرا به خاطر بسپار </label>
+                      </div>
+                      <button type="submit" class="btn btn-primary mt-3">برو!</button>
+                  </form>
+              </div>
 
-        </div>
-    </div>
-</div>
-
+          </div>
+      </div>
+  </div>
 <!-- Locker Modal -->
 <div class="modal fade" id="lockerModal">
     <div class="modal-dialog">
@@ -60,33 +66,32 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title ml-auto">کمد Letter</h4>
+                <h4 class="modal-title ml-auto" id="locker-title">کمد Letter</h4>
                 <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="container text-right py-3">
-                <div class="locker">
+                <div class="locker dir-ltr">
                     <div class="row px-3">
-                      {% for rack in racks3 %}
-                        <div class="col m-1 rounded" id="l1">
-                          {{rack.number}}
-                        </div>
-                      {% endfor %}
+                        <div class="col m-1 rounded" id="11">11</div>
+                        <div class="col m-1 rounded" id="12">12</div>
+                        <div class="col m-1 rounded" id="13">13</div>
                     </div>
                     <div class="row px-3">
-                      {% for rack in racks2 %}
-                        <div class="col m-1 rounded" id="l1">
-                          {{rack.number}}
-                        </div>
-                      {% endfor %}
+                        <div class="col m-1 rounded" id="21">21</div>
+                        <div class="col m-1 rounded" id="22">22</div>
+                        <div class="col m-1 rounded" id="23">23</div>
                     </div>
                     <div class="row px-3">
-                      {% for rack in racks1 %}
-                        <div class="col m-1 rounded" id="l1">
-                          {{rack.number}}
-                        </div>
-                      {% endfor %}
+                        <div class="col m-1 rounded" id="31">31</div>
+                        <div class="col m-1 rounded" id="32">32</div>
+                        <div class="col m-1 rounded" id="33">33</div>
+                    </div>
+                    <div class="row px-3">
+                        <div class="col m-1 rounded" id="41">41</div>
+                        <div class="col m-1 rounded" id="42">42</div>
+                        <div class="col m-1 rounded" id="43">43</div>
                     </div>
                 </div>
             </div>
@@ -100,13 +105,38 @@
         <!-- Brand -->
         <div class="navbar-brand m-0 p-0">
             <div id="logo-container" class="bg-red" style="text-align: center">
-                <a href="index.html">
-                    <img src="{% static 'img/white-logo.png' %}" alt="Logo">
+                <a href="/">
+                    <img src="{% static "img/white-logo.png" %}" alt="Logo">
                 </a>
             </div>
-            <span class="text-center w-100">
-                <button class="btn btn btn-success" type="button" data-toggle="modal"
-                        data-target="#loginModal">ورود</button>
+            <span class="w-100 nav-logo-box">
+                <!--guest-->
+                <!--<button class="btn btn-success" type="button" data-toggle="modal"-->
+                <!--data-target="#loginModal">ورود</button>-->
+
+                <!--logged in-->
+                {% if user.is_authenticated %}
+                  <div class="d-flex w-100">
+                    <div class="dropdown w-100">
+                        <div class="btn dropdown-toggle w-100" data-toggle="dropdown">
+                            <img class="rounded-circle" src="{% gravatar_url user.email %}">
+                            <span class="btn-username">{{user|truncatechars:10}}</span>
+                        </div>
+                        <div class="dropdown-menu text-right">
+                            <span class="dropdown-item dropdown-username">{{user|truncatechars:10}}</span>
+                            <a class="dropdown-item" href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
+                        </div>
+                    </div>
+                  </div>
+                {% else %}
+                <span class="text-center w-100">
+                    <button class="btn btn btn-success" type="button" data-toggle="modal"
+                            data-target="#loginModal">ورود</button>
+                </span>
+                {% endif %}
+
+
             </span>
         </div>
 
@@ -119,23 +149,23 @@
 
         <!-- Navbar links -->
         <div class="collapse navbar-collapse w-100 justify-content-between flex-column" id="collapsibleNavbar">
-            <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">خانه</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ثبت گزارش</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">کتابخانه</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">کمد</a>
-                </li>
-            </ul>
+          <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+              <li class="nav-item">
+                  <a class="nav-link active" href="/">خانه</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">ثبت گزارش</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">کتابخانه</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/locker">کمد</a>
+              </li>
+          </ul>
             <div class="d-flex">
                 <div class="mx-auto d-inline-flex my-3" id="contact-icons">
                     <a href="https://t.me/SenfiCE" data-toggle="tooltip" data-placement="top" title="تلگرام">
@@ -157,71 +187,86 @@
 
     <!-- Announcements -->
     <section class="bg-navy-blue py-5">
-        <div class="container">
-            <!--<h2 class="mb-4 mx-2 px-4 text-white border-right-white">اطلاعیه&zwnj;ها</h2>-->
+        <div class="mx-sm-5 px-3">
+            <form class="text-white" action="">
+                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">رزرو کمد</h2>
+                <div class="form-group">
+                    <label for="rules">اول قوانینُ بخون:</label>
+                    <textarea id="rules" class="form-control d-block" readonly>قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین قوانین</textarea>
+                </div>
+                <div class="form-group custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="agreement" required>
+                    <label for="agreement" class="custom-control-label">قبوله!</label>
+                </div>
+                <div class="position-relative dir-ltr map-container form-group">
+                    <!--<img src="img/map.svg" id="map">-->
+                    <div class="locker-container">
+                        <div class="d-flex" style="margin-right: 14%; padding: 1.5% 1.5% 0 1.5%;">
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%" onclick='changeLetter("B");'>B</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn mr-auto" id="lockerA" onclick='changeLetter("A");'>A</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerP" onclick='changeLetter("P");'>P</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerO" onclick='changeLetter("O");'>O</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerN" onclick='changeLetter("N");'>N</a>
+                        </div>
+                        <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn mr-auto" id="lockerC" onclick='changeLetter("C");'>C</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerM" onclick='changeLetter("M");'>M</a>
+                        </div>
+                        <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn mr-auto" id="lockerD" onclick='changeLetter("D");'>D</a>
 
-            <div class="position-relative py-3 dir-ltr map-container">
-                <!--<img src="{% static 'img/map.svg' %}" id="map">-->
-                <div class="locker-container" >
-                    <div class="d-flex px-3" style="margin-right: 14%">
-                      <!-- For Block -->
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%">B</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn mr-auto" id="lockerA">A</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerP">P</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerO">O</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerN">N</a>
-                    </div>
-                    <div class="d-flex px-3" style="margin-right: 14%">
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn mr-auto" id="lockerC">C</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerM">M</a>
-                    </div>
-                    <div class="d-flex px-3" style="margin-right: 14%">
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn mr-auto" id="lockerD">D</a>
+                        </div>
 
-                    </div>
-
-                    <div class="d-flex px-3 pt-2">
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn ml-auto" id="lockerL">L</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerK">k</a>
-                    </div>
-                    <div class="d-flex px-3 pt-5">
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerE">E</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn ml-auto" id="lockerJ">J</a>
-                    </div>
-                    <div class="d-flex px-3 pb-1">
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerF">F</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn ml-auto" id="lockerI">I</a>
-                    </div>
-                    <div class="d-flex px-3 pt-4">
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerG">G</a>
-                        <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                           class="btn btn-light locker-btn" id="lockerH">H</a>
+                        <div class="d-flex d-padding" style="padding: 0 1.5% 3.5% 1.5%;">
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn ml-auto" id="lockerL" onclick='changeLetter("L");'>L</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerK" onclick='changeLetter("K");'>K</a>
+                        </div>
+                        <div class="d-flex" style="padding: 0 1.5%;">
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerE" onclick='changeLetter("E");'>E</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn ml-auto" id="lockerJ" onclick='changeLetter("J");'>J</a>
+                        </div>
+                        <div class="d-flex" style="padding: 0 1.5%;">
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerF" onclick='changeLetter("F");'>F</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn ml-auto" id="lockerI" onclick='changeLetter("I");'>I</a>
+                        </div>
+                        <div class="d-flex" style="padding: 3.5% 1.5% 25% 1.5%;">
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerG" onclick='changeLetter("G");'>G</a>
+                            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                               class="btn btn-light locker-btn" id="lockerH" onclick='changeLetter("H");'>H</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="form-group form-inline">
+                    <label for="chosen-locker" class="ml-2">شماره کمد:</label>
+                    <input type="text" id="chosen-locker" class="form-control" pattern="[A-LN-P][1-4][1-3]" required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">تایید و پرداخت</button>
+                </div>
+            </form>
         </div>
     </section>
-
 </main>
 
 <!-- SCRIPTS -->
-<script type="text/javascript" src="{% static 'js/jquery-3.3.1.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
+<script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
+<script type="text/javascript" src="{% static "js/locker.js" %}"></script>
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
