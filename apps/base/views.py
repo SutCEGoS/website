@@ -1,7 +1,7 @@
 from django.contrib.auth import login as dj_login
 from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -31,7 +31,6 @@ def index(request):
 
     return render(request, 'index.html', {
         'announcements': announcements,
-        'navbar_no_logo': True,
     })
 
 
@@ -41,7 +40,7 @@ def logout(request):
 
 
 def login(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home'))
     next = request.GET.get('next', reverse('home'))
 

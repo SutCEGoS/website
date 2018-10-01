@@ -20,11 +20,11 @@ class Course(Named):
 class OfferedCourse(models.Model):
     TERM = Choices((1, 'fall', u'پاییز'), (2, 'spring', u'بهار'), (3, 'summer', u'تابستان'))
 
-    course = models.ForeignKey(Course)
-    professor = models.ForeignKey(Professor)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     group_number = models.SmallIntegerField(default=1)
     term = models.PositiveSmallIntegerField(choices=TERM)
-    year = models.ForeignKey(EducationalYear)
+    year = models.ForeignKey(EducationalYear, on_delete=models.CASCADE)
     exam_time = models.CharField(max_length=255)
     capacity = models.IntegerField()
     details = models.CharField(max_length=1023)

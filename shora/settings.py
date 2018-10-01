@@ -62,7 +62,7 @@ INSTALLED_APPS = (
     'apps.locker',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -137,7 +137,7 @@ TEMPLATES = [
                 # 'django.template.context_processors.media',
                 # 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
-                'django.core.context_processors.request',
+                'django.template.context_processors.request',
                 # 'django.contrib.messages.context_processors.messages',
             ],
             'loaders': [

@@ -34,8 +34,8 @@ class Announcement(TimeStampedModel):
 
 
 class AnnouncementView(TimeStampedModel):
-    user = models.ForeignKey(Member, null=True)
-    announcement = models.ForeignKey(Announcement, null=False, blank=False)
+    user = models.ForeignKey(Member, null=True, on_delete=models.CASCADE)
+    announcement = models.ForeignKey(Announcement, null=False, blank=False, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'بازدید کاربر %s از %s' % (self.user.get_full_name(), self.announcement.title)

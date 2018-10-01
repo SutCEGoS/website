@@ -30,7 +30,7 @@ class Poll(Named):
 
 
 class PollChoice(Named):
-    poll = models.ForeignKey(Poll)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -49,9 +49,9 @@ class PollChoice(Named):
 
 
 class Vote(Logged):
-    member = models.ForeignKey(Member, null=True)
+    member = models.ForeignKey(Member, null=True, on_delete=models.CASCADE)
     username = models.CharField(max_length=63, null=True, blank=True)
-    choice = models.ForeignKey(PollChoice)
+    choice = models.ForeignKey(PollChoice, on_delete=models.CASCADE)
     comment = models.TextField(blank=True, null=True)
     verified = models.BooleanField(default=False)
     ip = models.GenericIPAddressField(verbose_name='user\'s IP', null=True, blank=True)

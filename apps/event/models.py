@@ -31,7 +31,7 @@ class Event(Named):
 
 class EventRegister(models.Model):
     std_id = models.CharField(max_length=63)
-    event = models.ForeignKey(Event)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.std_id
@@ -54,8 +54,8 @@ class EventRegister(models.Model):
 
 class Donate(models.Model):
     name = models.CharField(max_length=63, null=True, blank=True)
-    event = models.ForeignKey(Event)
-    user = models.ForeignKey(Member, blank=True, null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(Member, blank=True, null=True, on_delete=models.CASCADE)
     value = models.IntegerField(default=0)
     is_success = models.NullBooleanField(null=True, default=True)
 

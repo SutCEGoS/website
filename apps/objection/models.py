@@ -21,14 +21,15 @@ class Objection(models.Model):
                      (3, 'reply pending', u"منتظر پاسخ"), (4, 'ignored', u"مشاهده شده"),
                      (5, 'replied', u"پاسخ داده شده"))
 
-    sender = models.ForeignKey(Member)
-    like = models.ManyToManyField(Member, null=True, blank=True, related_name="liked_member")
+    sender = models.ForeignKey(Member, on_delete=models.CASCADE)
+    like = models.ManyToManyField(Member, blank=True, related_name="liked_member")
 
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
 
-    offered_course = models.ForeignKey(OfferedCourse, null=True, blank=True, verbose_name=u'درس')
+    offered_course = models.ForeignKey(OfferedCourse, null=True, blank=True, verbose_name=u'درس', on_delete=models.CASCADE)
     second_course = models.ForeignKey(OfferedCourse, null=True, related_name='second', blank=True,
-                                      verbose_name=u'تلاقی با')
+                                      verbose_name=u'تلاقی با',
+                                      on_delete=models.CASCADE)
     course_name = models.CharField(max_length=255, blank=True, null=True, verbose_name=u'درس ارائه نشده')
     message = models.TextField(null=True, blank=True, verbose_name=u'متن')
 
@@ -37,7 +38,7 @@ class Objection(models.Model):
     TERM = Choices((1, 'fall', u'پاییز'), (2, 'spring', u'بهار'), (3, 'summer', u'تابستان'))
 
     term = models.PositiveSmallIntegerField(choices=TERM)
-    year = models.ForeignKey(EducationalYear)
+    year = models.ForeignKey(EducationalYear, on_delete=models.CASCADE)
 
     @classmethod
     def get_available(cls, member):
@@ -96,8 +97,8 @@ class Objection(models.Model):
 
 class Reply(models.Model):
     text = models.TextField()
-    objection = models.ForeignKey(Objection)
-    author = models.ForeignKey(Member)
+    objection = models.ForeignKey(Objection, on_delete=models.CASCADE)
+    author = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s: %s"%(self.author, self.text)
