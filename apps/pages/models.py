@@ -26,6 +26,6 @@ class Link(models.Model):
 
 
 class LinkVisit(Logged):
-    link = models.ForeignKey(Link, related_name='visits', blank=False, null=False, verbose_name='لینک')
-    member = models.ForeignKey(Member, blank=True, null=True, verbose_name='کاربر')
+    link = models.ForeignKey(Link, related_name='visits', blank=False, null=False, verbose_name='لینک', on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, blank=True, null=True, verbose_name='کاربر', on_delete=models.CASCADE)
 

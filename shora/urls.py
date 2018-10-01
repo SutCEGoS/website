@@ -4,7 +4,7 @@ from password_reset.views import recover_done, recover, reset_done, reset
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     # url(r'^accounts/', include('password_reset.urls')),
     url(r'^accounts/', include([
         url(r'^recover/(?P<signature>.+)/$', recover_done, name='password_reset_sent'),

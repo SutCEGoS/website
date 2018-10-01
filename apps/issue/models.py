@@ -25,14 +25,14 @@ class Issue(models.Model):
                      (3, 'reply pending', u"منتظر پاسخ"), (4, 'ignored', u"مشاهده شده"),
                      (5, 'replied', u"پاسخ داده شده"))
 
-    sender = models.ForeignKey(Member, null=True, blank=True)
-    like = models.ManyToManyField(Member, null=True, blank=True, related_name="issue_liked_member")
+    sender = models.ForeignKey(Member, null=True, blank=True, on_delete=models.CASCADE)
+    like = models.ManyToManyField(Member, blank=True, related_name="issue_liked_member")
     title = models.CharField(max_length=63)
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
     category_optional = models.CharField(max_length=60, null=True, blank=True)
     message = models.TextField(null=True, blank=True, verbose_name=u'متن')
     status = models.PositiveSmallIntegerField(choices=STATUS)
-    reply = models.ForeignKey('IssueReply', null=True, blank=True)
+    reply = models.ForeignKey('IssueReply', null=True, blank=True, on_delete=models.CASCADE)
 
     @classmethod
     def get_available(cls, member):
@@ -68,7 +68,7 @@ class Issue(models.Model):
 
 class IssueReply(Logged):
     text = models.TextField()
-    author = models.ForeignKey(Member)
+    author = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s: %s"%(self.author, self.text)

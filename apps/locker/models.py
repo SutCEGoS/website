@@ -10,7 +10,7 @@ class rack(models.Model):
                            (1, 'unavailable'),
                            )
         name = models.CharField(max_length=3)
-        receiver = models.ForeignKey(Member,blank=True,null=True)
+        receiver = models.ForeignKey(Member,blank=True,null=True, on_delete=models.CASCADE)
         condition = models.PositiveSmallIntegerField(choices=CONDITION,default=0)
         def __str__(self):
             return self.name
