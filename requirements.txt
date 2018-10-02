@@ -1,7 +1,7 @@
 dj-database-url
 raven
 django-toolbelt
-Django==1.9
+Django==2.1.1
 psycopg2
 django-model-utils
 django-password-reset
