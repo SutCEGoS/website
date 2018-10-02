@@ -11,13 +11,15 @@ class rack(models.Model):
                            )
         name = models.CharField(max_length=3)
         receiver = models.ForeignKey(Member,blank=True,null=True, on_delete=models.CASCADE)
+        payment = models.BooleanField(default=False)
+        receivie_date = models.DateTimeField(auto_now_add=True)
         condition = models.PositiveSmallIntegerField(choices=CONDITION,default=0)
         def __str__(self):
             return self.name
-        def get_serialized(self, member):
-            return {
-                'data_id': self.id,
-                'name': self.name,
-                'condition_id': self.condition,
-                'condition_name': self.get_condition_display(),
-            }
+class sell(models.Model):
+    value = models.IntegerField(default=20000)
+    user = models.ForeignKey(Member, on_delete=models.CASCADE)
+    locker = models.ForeignKey(rack, on_delete=models.CASCADE)
+    is_success = models.NullBooleanField(null=True, default=True)
+    def get_code(self):
+        return "%s%s" % ("SHG", str(self.id))

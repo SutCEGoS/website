@@ -3,5 +3,7 @@ from . import views
 
 urlpatterns = [
 	url(r'^$',views.lock,name='locker'),
-    url(r'^ajax/add$', views.add, name='add_rack'),
+    url(r'^add/$', views.add_new, name='add_rack'),
+	url(r'^payment/(?P<rack_id>[0-9]+)$', views.payment, name='pay'),
+	url(r'^payment-result/(?P<sell_id>[0-10]+)$', views.payment_result),
 ]
