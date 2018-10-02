@@ -118,15 +118,15 @@ h2 {
     overflow: hidden;
 }
 
-#map {
-    width: 100%;
+#rules {
+    height: 140px;
 }
 
 .map-container {
     background: url("../img/map.svg") no-repeat scroll top;
+    background-size: contain;
     background-size: 100%;
-    height: 100vh;
-    max-height: 100vh;
+    max-height: 102vh;
 }
 
 .locker-container {
@@ -134,13 +134,11 @@ h2 {
 }
 
 .locker-btn {
-    object-fit: scale-down;
-}
-
-.locker-btn {
-    margin: 0.25rem;
-    width: 4rem;
-    height: 2rem;
+    font-size: 1vw !important;
+    width: 5.5%;
+    height: 2vw;
+    padding: .5% !important;
+    margin: .5% !important;
 }
 
 .locker .row {
@@ -154,11 +152,57 @@ h2 {
     cursor: pointer;
 }
 
-#lockerB, #lockerC, #lockerD, #lockerE, #lockerF, #lockerI, #lockerJ, #lockerM, #lockerN {
-    max-width: 2rem;
-    height: 4rem;
-    line-height: 3rem;
+#lockerB, #lockerC, #lockerD, #lockerE, #lockerF, #lockerI, #lockerJ, #lockerO, #lockerN {
+    max-width: 3.5%;
+    height: 4vw;
+    line-height: 3vw;
     text-align: center;
+}
+
+#lockerE, #lockerF, #lockerI, #lockerJ {
+    max-width: 3% !important;
+}
+
+#lockerA, #lockerQ, #lockerP {
+    width: 6.5% !important;
+}
+
+@media (max-width: 576px) {
+    .d-padding {
+        padding-top: 4% !important;
+    }
+
+    .btn-username {
+        display: none !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .d-padding {
+        padding-top: 2% !important;
+    }
+
+    .dropdown-username {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .d-padding {
+        padding-top: 3.5% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .d-padding {
+        padding-top: 4% !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .d-padding {
+        padding-top: 1% !important;
+    }
 }
 
 /* timeline */
@@ -298,7 +342,7 @@ nav li a {
         height: 100%;
     }
 
-    .navbar-brand span {
+    .navbar-brand .nav-logo-box {
         padding: 1.5rem;
     }
 
@@ -306,7 +350,7 @@ nav li a {
         padding: 3rem 0;
     }
 
-    .navbar-brand span {
+    .navbar-brand .nav-logo-box {
         display: block;
     }
 
@@ -324,7 +368,7 @@ nav li a {
         display: flex !important;
     }
 
-    .navbar-brand > span {
+    .navbar-brand .nav-logo-box {
         padding-left: 0;
         padding-right: 0;
         margin: auto 0;
@@ -334,12 +378,20 @@ nav li a {
         padding: 0;
     }
 
-    .navbar-brand img {
+    .navbar-brand .logo {
         width: 85%;
     }
 
     #contact-icons {
         margin: auto 0;
+    }
+
+    .navbar .dropdown-toggle {
+        text-align: right;
+    }
+
+    .navbar-brand .btn {
+        margin-right: 1rem;
     }
 }
 
