@@ -13,9 +13,9 @@
 
     <title>شورای صنفی | دانشکده مهندسی کامپیوتر</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" >
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" >
-    <link rel="stylesheet" type="text/css" href="{% static 'css/transition.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/transition.css' %}">
 
 </head>
 
@@ -27,15 +27,15 @@
         <div class="modal-content">
 
             <!-- Modal Header -->
-              <div class="modal-header">
+            <div class="modal-header">
                 <h4 class="modal-title ml-auto">ورود</h4>
                 <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-              </div>
+            </div>
 
             <!-- Modal body -->
             <div class="container py-3 text-right">
                 <form action="{% url 'login' %}" method="post">
-                  {% csrf_token %}
+                    {% csrf_token %}
                     <div class="form-group dir-ltr">
                         <label for="email">آدرس ایمیل</label>
                         <div class="input-group">
@@ -71,33 +71,24 @@
                 </a>
             </div>
             <span class="w-100 nav-logo-box">
-                <!--guest-->
-                <!--<button class="btn btn-success" type="button" data-toggle="modal"-->
-                <!--data-target="#loginModal">ورود</button>-->
-
-                <!--logged in-->
                 {% if user.is_authenticated %}
-                  <div class="d-flex w-100">
+                    <div class="d-flex w-100">
                     <div class="dropdown w-100">
                         <div class="btn dropdown-toggle w-100" data-toggle="dropdown">
                             <img class="rounded-circle" src="{% gravatar_url user.email %}">
-                            <span class="btn-username">{{user}}</span>
+                            <span class="btn-username">{{ user }}</span>
                         </div>
                         <div class="dropdown-menu text-right">
-                            <span class="dropdown-item dropdown-username">{{user}}</span>
+                            <span class="dropdown-item dropdown-username">{{ user }}</span>
                             <a class="dropdown-item" href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
                             <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
                         </div>
                     </div>
                   </div>
                 {% else %}
-                <span class="text-center w-100">
                     <button class="btn btn btn-success" type="button" data-toggle="modal"
                             data-target="#loginModal">ورود</button>
-                </span>
                 {% endif %}
-
-
             </span>
         </div>
 
@@ -110,23 +101,23 @@
 
         <!-- Navbar links -->
         <div class="collapse navbar-collapse w-100 justify-content-between flex-column" id="collapsibleNavbar">
-          <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
-              <li class="nav-item">
-                  <a class="nav-link active" href="/">خانه</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'all-announcements' %}">اطلاعیه&zwnj;ها</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">ثبت گزارش</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">کتابخانه</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'locker' %}">کمد</a>
-              </li>
-          </ul>
+            <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">خانه</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all-announcements' %}">اطلاعیه&zwnj;ها</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ثبت گزارش</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">کتابخانه</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'locker' %}">کمد</a>
+                </li>
+            </ul>
             <div class="d-flex">
                 <div class="mx-auto d-inline-flex my-3" id="contact-icons">
                     <a href="https://t.me/SenfiCE" data-toggle="tooltip" data-placement="top" title="تلگرام">
@@ -174,14 +165,14 @@
             <h2 class="mb-4 mx-2 px-4 text-white border-right-white">اطلاعیه&zwnj;ها</h2>
             <div class="timeline mx-2">
                 <span class="line"></span>
-                {% for announcement in announcements  %}
-                <article class="entry">
-                    <div class="content">
-                        <h2>{{ announcement.title }}</h2>
-                        <p>{{ announcement.body|safe|truncatechars:50 }}</p>
-                        <a role="button" class="btn btn-sm btn-primary" href="article.html">ادامه</a>
-                    </div>
-                </article>
+                {% for announcement in announcements %}
+                    <article class="entry">
+                        <div class="content">
+                            <h2>{{ announcement.title }}</h2>
+                            <p>{{ announcement.body|safe|truncatechars:50 }}</p>
+                            <a role="button" class="btn btn-sm btn-primary" href="article.html">ادامه</a>
+                        </div>
+                    </article>
                 {% endfor %}
             </div>
             <div class="mt-4 text-center">

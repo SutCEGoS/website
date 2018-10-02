@@ -13,9 +13,9 @@
 
     <title>Preview</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" >
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" >
-    <link rel="stylesheet" type="text/css" href="{% static 'css/transition.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/transition.css' %}">
 
 
     <style>
@@ -33,84 +33,75 @@
 
 <body class="dir-rtl text-right">
 <div id="app">
-  <!-- Login Modal -->
-  <div class="modal fade" id="loginModal">
-      <div class="modal-dialog">
-          <div class="modal-content">
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-              <!-- Modal Header -->
+                <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title ml-auto">ورود</h4>
-                  <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title ml-auto">ورود</h4>
+                    <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
                 </div>
 
-              <!-- Modal body -->
-              <div class="container py-3 text-right">
-                  <form action="{% url 'login' %}" method="post">
-                    {% csrf_token %}
-                      <div class="form-group dir-ltr">
-                          <label for="email">آدرس ایمیل</label>
-                          <div class="input-group">
-                              <input type="text" class="form-control" id="email" name="username">
-                              <div class="input-group-append">
-                                  <span class="input-group-text">@ce.sharif.edu</span>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="form-group dir-ltr">
-                          <label for="pwd">گذرواژه</label>
-                          <input type="password" class="form-control" id="pwd" name="password">
-                      </div>
-                      <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="remember-me">
-                          <label class="custom-control-label" for="remember-me"> مرا به خاطر بسپار </label>
-                      </div>
-                      <button type="submit" class="btn btn-primary mt-3">برو!</button>
-                  </form>
-              </div>
+                <!-- Modal body -->
+                <div class="container py-3 text-right">
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group dir-ltr">
+                            <label for="email">آدرس ایمیل</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="email" name="username">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">@ce.sharif.edu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group dir-ltr">
+                            <label for="pwd">گذرواژه</label>
+                            <input type="password" class="form-control" id="pwd" name="password">
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" id="remember-me">
+                            <label class="custom-control-label" for="remember-me"> مرا به خاطر بسپار </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">برو!</button>
+                    </form>
+                </div>
 
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
 
     <aside class="col-xl-2 bg-white p-0">
         <nav class="navbar navbar-expand-xl navbar-light flex-xl-column p-0 h-100">
             <!-- Brand -->
             <div class="navbar-brand m-0 p-0">
                 <div id="logo-container" class="bg-red" style="text-align: center">
-                    <a href="index.html">
-                        <img src="{% static "img/white-logo.png" %}" alt="Logo">
+                    <a href="/">
+                        <img src="{% static "img/white-logo.png" %}" class="logo" alt="Logo">
                     </a>
                 </div>
                 <span class="w-100 nav-logo-box">
-                    <!--guest-->
-                    <!--<button class="btn btn-success" type="button" data-toggle="modal"-->
-                    <!--data-target="#loginModal">ورود</button>-->
-
-                    <!--logged in-->
-                    {% if user.is_authenticated %}
-                      <div class="d-flex w-100">
-                        <div class="dropdown w-100">
-                            <div class="btn dropdown-toggle w-100" data-toggle="dropdown">
-                                <img class="rounded-circle" src="{% gravatar_url user.email %}">
-                                <span class="btn-username">{{user}}</span>
-                            </div>
-                            <div class="dropdown-menu text-right">
-                                <span class="dropdown-item dropdown-username">{{user}}</span>
-                                <a class="dropdown-item" href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
-                                <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
-                            </div>
+                {% if user.is_authenticated %}
+                    <div class="d-flex w-100">
+                    <div class="dropdown w-100">
+                        <div class="btn dropdown-toggle w-100" data-toggle="dropdown">
+                            <img class="rounded-circle" src="{% gravatar_url user.email %}">
+                            <span class="btn-username">{{ user }}</span>
                         </div>
-                      </div>
-                    {% else %}
-                    <span class="text-center w-100">
-                        <button class="btn btn btn-success" type="button" data-toggle="modal"
-                                data-target="#loginModal">ورود</button>
-                    </span>
-                    {% endif %}
-
-
-                </span>
+                        <div class="dropdown-menu text-right">
+                            <span class="dropdown-item dropdown-username">{{ user }}</span>
+                            <a class="dropdown-item" href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
+                        </div>
+                    </div>
+                  </div>
+                {% else %}
+                    <button class="btn btn btn-success" type="button" data-toggle="modal"
+                            data-target="#loginModal">ورود</button>
+                {% endif %}
+            </span>
             </div>
 
             <!-- Toggler/collapsibe Button -->
@@ -122,23 +113,23 @@
 
             <!-- Navbar links -->
             <div class="collapse navbar-collapse w-100 justify-content-between flex-column" id="collapsibleNavbar">
-              <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
-                  <li class="nav-item">
-                      <a class="nav-link active" href="/">خانه</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">ثبت گزارش</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">کتابخانه</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/locker">کمد</a>
-                  </li>
-              </ul>
+                <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ثبت گزارش</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">کتابخانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/locker">کمد</a>
+                    </li>
+                </ul>
                 <div class="d-flex">
                     <div class="mx-auto d-inline-flex my-3" id="contact-icons">
                         <a href="https://t.me/SenfiCE" data-toggle="tooltip" data-placement="top" title="تلگرام">
@@ -164,13 +155,14 @@
                 <div class="timeline mx-2">
                     <span class="line"></span>
                     {% for announcement in announcements %}
-                    <article class="entry">
-                        <div class="content">
-                            <h2>{{announcement.title}}</h2>
-                            <p>{{announcement.body|safe|truncatechars:50}}</p>
-                            <a role="button" class="btn btn-sm btn-primary" href="{{announcement.get_absolute_url}}">ادامه</a>
-                        </div>
-                    </article>
+                        <article class="entry">
+                            <div class="content">
+                                <h2>{{ announcement.title }}</h2>
+                                <p>{{ announcement.body|safe|truncatechars:50 }}</p>
+                                <a role="button" class="btn btn-sm btn-primary"
+                                   href="{{ announcement.get_absolute_url }}">ادامه</a>
+                            </div>
+                        </article>
                     {% endfor %}
                 </div>
                 <div class="mt-4 text-center">
