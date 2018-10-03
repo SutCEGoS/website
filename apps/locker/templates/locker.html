@@ -179,82 +179,107 @@
 
     <section class="bg-navy-blue py-5">
         <div class="mx-sm-5 px-3">
-          <form class="text-white" action="{% url 'add_rack' %}" method="post">
-            {% csrf_token %}
-              <h2 class="mb-4 mx-2 px-4 text-white border-right-white">رزرو کمد</h2>
-              <div class="form-group">
-                  <label for="rules">اول قوانینُ بخون:</label>
-                  <textarea id="rules" class="form-control d-block" readonly>rules</textarea>
-              </div>
-              <div class="form-group custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="agreement" required>
-                  <label for="agreement" class="custom-control-label">قبوله!</label>
-              </div>
-              <div class="position-relative dir-ltr map-container form-group">
-                  <!--<img src="img/map.svg" id="map">-->
-                  <div class="locker-container">
-                      <div class="d-flex" style="margin-right: 14%; padding: 1.5% 1.5% 0 1.5%;">
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%" onclick='changeLetter("B");'>B</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn mr-auto" id="lockerA" onclick='changeLetter("A");'>A</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerP" onclick='changeLetter("P");'>P</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerO" onclick='changeLetter("O");'>O</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerN" onclick='changeLetter("N");'>N</a>
-                      </div>
-                      <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn mr-auto" id="lockerC" onclick='changeLetter("C");'>C</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerM" onclick='changeLetter("M");'>M</a>
-                      </div>
-                      <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn mr-auto" id="lockerD" onclick='changeLetter("D");'>D</a>
+            <form class="text-white" action="{% url 'add_rack' %}" method="post">
+                {% csrf_token %}
+                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">رزرو کمد</h2>
+                <div class="form-group">
+                    <label for="rules">اول قوانینُ بخون:</label>
+                    <textarea id="rules" class="form-control d-block" readonly>rules</textarea>
+                </div>
+                <div class="form-group custom-control custom-checkbox">
+                    <span onclick="lockerSelector.scrollIntoView(
+                                                    {
+                                                        behavior:'smooth',
+                                                        block:'start'
+                                                    });">
 
-                      </div>
+                        <input type="checkbox" class="custom-control-input" id="agreement" required>
+                        <label for="agreement" class="custom-control-label">قبوله!</label>
+                    </span>
+                </div>
+                <div class="form-group" id="lockerSelector">
+                    <label for="locker-map">کمدتو انتخاب کن:</label>
+                    <div class="position-relative dir-ltr map-container form-group" id="locker-map">
+                        <div class="locker-container">
+                            <div class="d-flex" style="margin-right: 14%; padding: 1.5% 1.5% 0 1.5%;">
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%"
+                                   onclick='changeLetter("B");'>B</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn mr-auto" id="lockerA"
+                                   onclick='changeLetter("A");'>A</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerP" onclick='changeLetter("P");'>P</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerQ" onclick='changeLetter("Q");'>Q</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerN" onclick='changeLetter("N");'>N</a>
+                            </div>
+                            <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn mr-auto" id="lockerC"
+                                   onclick='changeLetter("C");'>C</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerO" onclick='changeLetter("O");'>O</a>
+                            </div>
+                            <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn mr-auto" id="lockerD"
+                                   onclick='changeLetter("D");'>D</a>
 
-                      <div class="d-flex d-padding" style="padding: 0 1.5% 3.5% 1.5%;">
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn ml-auto" id="lockerL" onclick='changeLetter("L");'>L</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerK" onclick='changeLetter("K");'>K</a>
-                      </div>
-                      <div class="d-flex" style="padding: 0 1.5%;">
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerE" onclick='changeLetter("E");'>E</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn ml-auto" id="lockerJ" onclick='changeLetter("J");'>J</a>
-                      </div>
-                      <div class="d-flex" style="padding: 0 1.5%;">
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerF" onclick='changeLetter("F");'>F</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn ml-auto" id="lockerI" onclick='changeLetter("I");'>I</a>
-                      </div>
-                      <div class="d-flex" style="padding: 3.5% 1.5% 25% 1.5%;">
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerG" onclick='changeLetter("G");'>G</a>
-                          <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                             class="btn btn-light locker-btn" id="lockerH" onclick='changeLetter("H");'>H</a>
-                      </div>
-                  </div>
-              </div>
+                            </div>
 
-              <div class="form-group form-inline">
-                  <label for="chosen-locker" class="ml-2">شماره کمد:</label>
-                  <div>
-                    <input type="text" id="chosen-locker" class="form-control" pattern="[A-LN-P][1-4][1-3]" name="locker-name" required>
-                  <div>
-                  <div class="form-group text-center">
-                      <button type="submit" class="btn btn-success">تایید و پرداخت</button>
-                  </div>
-              </div>
+                            <div class="d-flex d-padding" style="padding: 0 1.5% 3.5% 1.5%;">
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn ml-auto" id="lockerL"
+                                   onclick='changeLetter("L");'>L</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerK" onclick='changeLetter("K");'>K</a>
+                            </div>
+                            <div class="d-flex" style="padding: 0 1.5%;">
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerE" onclick='changeLetter("E");'>E</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn ml-auto" id="lockerJ"
+                                   onclick='changeLetter("J");'>J</a>
+                            </div>
+                            <div class="d-flex" style="padding: 0 1.5%;">
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerF" onclick='changeLetter("F");'>F</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn ml-auto" id="lockerI"
+                                   onclick='changeLetter("I");'>I</a>
+                            </div>
+                            <div class="d-flex" style="padding: 3.5% 1.5% 25% 1.5%;">
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerG" onclick='changeLetter("G");'>G</a>
+                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                   class="btn btn-light locker-btn" id="lockerH" onclick='changeLetter("H");'>H</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-          </form>
+                <div class="form-group form-row">
+                    <div class="form-group col-md">
+                        <label for="chosen-locker">شماره کمد</label>
+                        <input type="text" id="chosen-locker" class="form-control" placeholder="از روی نقشه انتخاب کن!"
+                               pattern="[A-LN-P][1-4][1-3]" readonly required>
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="reservation-date">تاریخ</label>
+                        <input type="date" id="reservation-date" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="locker-price">مبلغ <span class="badge badge-warning">ریال</span></label>
+                        <input type="number" id="locker-price" class="form-control" readonly required>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">تایید و پرداخت</button>
+                </div>
+
+            </form>
         </div>
     </section>
 </main>
