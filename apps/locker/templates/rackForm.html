@@ -1,20 +1,48 @@
+{% load static %}
+
 <html>
   <head>
     <title>payment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+    shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
   </head>
   <body>
-    <form action="{% url 'pay' rack.id %}" id="sell-form" method="post"
-          class="form-inline">
+    <form action="{% url 'pay' rack.id %}" id="sell-form" method="post" class="form-inline">
         {% csrf_token %}
+        <!--<div class="form-group col-md">
+            <label for="chosen-locker">  :شماره کمد</label>
+            <input type="text" id="chosen-locker" class="form-control" name="locker-name" value="{{rack.name}}"  readonly required>
+        </div>
         <input name="user" type="text" class="form-control" style="width: 30%;" value="{{user}}" disabled>
         <input name="sell-value" type="number" class="form-control" value=20000 style="width: 20%;" disabled>
         <button class="btn btn-primary" id="send-donate" role="button" style="width: 10%;">
             پرداخت
-        </button>
+        </button> -->
+        <div class="form-group form-row">
+            <div class="form-group col-md">
+                <label for="chosen-locker">شماره کمد</label>
+                <input type="text" id="chosen-locker" class="form-control" name="locker-name" value="{{rack.name}}" readonly required>
+            </div>
+            <div class="form-group col-md">
+                <label for="reservation-date">کاربر</label>
+                <input type="text" id="reservation-date" class="form-control" value="{{user}}" readonly required>
+            </div>
+            <div class="form-group col-md">
+                <label for="locker-price">مبلغ <span class="badge badge-warning">تومان</span></label>
+                <input type="number" id="locker-price" value="20000"class="form-control" readonly required>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-success">پرداخت</button>
+        </div>
         <!-- Gateway Verify Logo -->
 
         <!-- Gateway Verify Logo -->
-        <p></p>
+
     </form>
   </body>
 </html>

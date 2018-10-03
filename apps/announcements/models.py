@@ -12,12 +12,12 @@ class Announcement(TimeStampedModel):
     body = tinymce_models.HTMLField()
 
     def get_absolute_url(self):
-        from django.core.urlresolvers import reverse
+        from django.urls import reverse
         if self.pk:
             return reverse('show-announcement', args=[self.pk])
 
     def register_view(self, user):
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             user = None
 
         return AnnouncementView.objects.create(
