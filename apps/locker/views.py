@@ -20,12 +20,15 @@ def lock(request):
 def add_new(request):
     if request.method == "POST":
         name = request.POST.get('locker-name')
-        user = request.user
-        Rack = rack(name=name,receiver=user,payment=False,receivie_date=timezone.now(),condition=0)
-        Rack.save()
-        return render(request,'rackForm.html',{'rack':Rack})
+        if rack.objects.filter(name__contains=name):
+            return HttpResponse('this locker has been chosen before sorry!')
+        else:
+            user = request.user
+            Rack = rack(name=name,receiver=user,payment=False,receivie_date=timezone.now(),condition=0)
+            Rack.save()
+            return render(request,'rackForm.html',{'rack':Rack})
     else:
-        HttpResponse('You choose badway !')
+        return HttpResponse('You choose badway !')
 
 
 

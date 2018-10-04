@@ -23,3 +23,5 @@ class sell(models.Model):
     is_success = models.NullBooleanField(null=True, default=True)
     def get_code(self):
         return "%s%s" % ("SHG", str(self.id))
+    def __str__(self):
+        return "'  %s  ' HAS BEEN SOLD TO '  %s ( %s ) '" %( self.locker.name , self.user , self.user.std_id)
