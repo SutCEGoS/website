@@ -118,6 +118,10 @@ h2 {
     overflow: hidden;
 }
 
+.under-construction::after {
+    content: '\01F6A7';
+}
+
 #rules {
     height: 140px;
 }
