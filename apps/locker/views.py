@@ -13,7 +13,7 @@ from django.utils import timezone
 
 @login_required
 def lock(request):
-    Racks = rack.objects.all()
+    Racks = rack.objects.filter(receiver=request.user)
     return render(request,'locker.html',{ 'racks':Racks })
 
 @login_required
