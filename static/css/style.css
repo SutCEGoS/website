@@ -478,3 +478,12 @@ nav li a {
 .receipt img {
     top: 0;
 }
+
+.under-construction-bg {
+    background: url("../img/under-construction.png") no-repeat center center fixed;
+    background-size: contain;
+}
+
+.under-construction-bg button {
+    margin-top: 60vh;
+}
