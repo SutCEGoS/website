@@ -37,26 +37,28 @@ def add_new(request):
         return HttpResponse('You choose badway !')
 
 
+url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
+client = Client(url)
+MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
 
 
 def payment(request, rack_id):
 
     if request.method == "POST":
-        moneyt = 20000
+        moneyt = 1000
         Rack = get_object_or_404(rack, id=rack_id)
         Sell = sell(value=moneyt, locker=Rack, is_success=False)
         if request.user.is_authenticated:
             Sell.user = request.user
         Sell.save()
-        site_name = request.META.get('HTTP_HOST', 'shora.sabbaghian.ir')
+        site_name = request.META.get('HTTP_HOST', 'shora.ce.sharif.edu')
         url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
-        MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
-        callBackUrl = "https://%s/locker/payment-result/%s" % (site_name, str(Rack.id))
-        s = client.service.PaymentRequest(MERCHANT, 20000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
+        callBackUrl = "https://%s/locker/payment-result/" % (site_name)
+        s = client.service.PaymentRequest(MERCHANT, 1000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
-        print(s , site_name)
+        print(s , Sell.authority , site_name)
         if s.Status == 100:
             return redirect("https://www.zarinpal.com/pg/StartPay/"+str(s.Authority))
         else:
@@ -64,18 +66,16 @@ def payment(request, rack_id):
 
     return HttpResponse("Badway!")  # Todo Login page ~
 
-def payment_result(request,sell_id):
+def payment_result(request):
     try:
-        Sell = sell.objects.get(authority=request.GET['Authority'])
+        Sell = sell.objects.get(authority=request.GET.get('Authority'))
     except sell.DoesNotExist:
         raise Http404
     if request.GET.get('Status') == 'OK':
-        url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
-        client = Client(url)
-        result = client.service.PaymentVerification(MERCHANT, request.GET['Authority'], Sell.value)
+        result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 1000)
         if result.Status == 100:
             try:
-                Sell = sell.objects.get(authority=request.GET['Authority'])
+                Sell = sell.objects.get(authority=request.GET.get('Authority'))
             except sell.DoesNotExist:
                 raise Http404
             ref_num = str(result.RefID)
@@ -84,6 +84,7 @@ def payment_result(request,sell_id):
             Sell.is_success = True
             Sell.locker.payment = True
             Sell.save()
+            Sell.locker.save()
             return render(request, 'success.html', {'sell': Sell})
         elif result.Status == 101:
             return render(request, 'success.html', {'sell': Sell})
