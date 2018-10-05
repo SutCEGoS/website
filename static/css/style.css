@@ -126,10 +126,6 @@ h2 {
     content: '\01F6A7';
 }
 
-#rules {
-    height: 140px;
-}
-
 .map-container {
     background: url("../img/map.svg") no-repeat scroll top;
     background-size: contain;
