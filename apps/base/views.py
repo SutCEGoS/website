@@ -38,6 +38,20 @@ def logout(request):
     dj_logout(request)
     return redirect('home')
 
+def profile(request):
+    return render(request,'complete_profile.html',{})
+
+def complete_profile(request):
+    usingEmail = request.GET.get('email')
+    fName = request.GET.get('firstName')
+    lName = request.GET.get('lastName')
+    user = request.user
+    user.email = usingEmail
+    user.first_name = fName
+    user.last_name = lName
+    user.save()
+    return HttpResponseRedirect(reverse('home'))
+
 
 def login(request):
     if request.user.is_authenticated:
