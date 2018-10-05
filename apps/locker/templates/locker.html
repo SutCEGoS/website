@@ -223,12 +223,13 @@
                 </div>
                 <div class="form-group" id="lockerSelector">
                     <label for="locker-map">انتخاب کمد</label>
-                    <label for="locker-map">( your lockers :
+                    <label for="locker-map"><legend>( your lockers :
                       {% for rack in racks  %}
                       {% if rack.payment %}
                       {{rack}}
                       {% endif %}
                       {% endfor %})
+                      </legend>
                       </label>
                     <div class="position-relative dir-ltr map-container form-group" id="locker-map">
                         <div class="locker-container">

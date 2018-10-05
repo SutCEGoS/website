@@ -67,7 +67,7 @@ def login(request):
             return HttpResponseRedirect(next)
     else:
         form = SignInForm()
-    return render(request, 'login.html', {
+    return render(request, 'login2.html', {
         'form': form,
         'next': next,
     })
@@ -82,6 +82,7 @@ def password_reset_change(request):
     else:
         form = PasswordForm(user=request.user)
         sent = False
+        
     return render(request,
                   'password_reset/password_change.html',
                   {
