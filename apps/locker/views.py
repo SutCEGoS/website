@@ -49,16 +49,16 @@ def payment(request, rack_id):
             Sell.user = request.user
         Sell.save()
         site_name = request.META.get('HTTP_HOST', 'shora.sabbaghian.ir')
-        url = "http://www.zarinpal.com/pg/services/WebGate/wsdl"
+        url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
         MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
-        callBackUrl = "http://%s/locker/payment-result/%s" % (site_name, str(Rack.id))
+        callBackUrl = "https://%s/locker/payment-result/%s" % (site_name, str(Rack.id))
         s = client.service.PaymentRequest(MERCHANT, 20000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
         print(s , site_name)
         if s.Status == 100:
-            return redirect("//http//:www.zarinpal.com/pg/StartPay/"+str(s.Authority))
+            return redirect("https://www.zarinpal.com/pg/StartPay/"+str(s.Authority))
         else:
             return HttpResponse(s.Status)
 
@@ -70,7 +70,7 @@ def payment_result(request,sell_id):
     except sell.DoesNotExist:
         raise Http404
     if request.GET.get('Status') == 'OK':
-        url = "http://www.zarinpal.com/pg/services/WebGate/wsdl"
+        url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
         result = client.service.PaymentVerification(MERCHANT, request.GET['Authority'], Sell.value)
         if result.Status == 100:
