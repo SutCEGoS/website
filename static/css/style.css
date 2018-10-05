@@ -4,6 +4,10 @@
     --my-red: #ed344b;
 }
 
+::selection {
+    background-color: #F58E9B;
+}
+
 @font-face {
     font-family: 'Vazir';
     src: url('../font/Vazir.eot'); /* IE9 Compat Modes */

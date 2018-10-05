@@ -11,52 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,
     shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>{{ announcement.title }}</title>
-
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/transition.css' %}">
-
-
-    <style>
-        .single-entry::after {
-            background-color: #ed344b;
-            border-color: #1c3861;
-        }
-
-        .timeline::after {
-            background-color: #ed344b;
-        }
-
-        .timeline .line {
-            left: 100%;
-            margin-left: -5px;
-        }
-
-        .single-entry {
-            width: 100%;
-            padding-left: 0rem;
-            padding-right: 3rem;
-        }
-
-        .single-entry::before {
-            left: auto !important;
-            border: solid transparent !important;
-            border-width: .75rem .75rem 0.75rem !important;
-            border-left-color: white !important;
-        }
-
-        .single-entry:nth-child(even)::after {
-            left: auto;
-            margin-right: 2.5px;
-        }
-    </style>
-
+    <title>Title</title>
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
 </head>
 
 <body class="dir-rtl text-right">
-
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal">
     <div class="modal-dialog">
@@ -102,12 +62,11 @@
         <!-- Brand -->
         <div class="navbar-brand m-0 p-0">
             <div id="logo-container" class="bg-red" style="text-align: center">
-                <a href="index.html">
-                    <img src="{% static "img/white-logo.png" %}" alt="Logo">
+                <a href="/">
+                    <img src="{% static " img/white-logo.png" %}" class="logo" alt="Logo">
                 </a>
             </div>
             <span class="w-100 nav-logo-box">
-
                 {% if user.is_authenticated %}
                     <div class="d-flex w-100">
                     <div class="dropdown w-100">
@@ -126,10 +85,7 @@
                 {% else %}
                     <button class="btn btn btn-success" type="button" data-toggle="modal"
                             data-target="#loginModal">ورود</button>
-
                 {% endif %}
-
-
             </span>
         </div>
 
@@ -155,54 +111,73 @@
                 <li class="nav-item">
                     <a class="nav-link under-construction" href="#">کتابخانه</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/locker">کمد</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/locker">کمد</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
+                    </li>
+                {% endif %}
+
             </ul>
             <div class="d-flex">
                 <div class="mx-auto d-inline-flex my-3" id="contact-icons">
                     <a href="https://t.me/SenfiCE" data-toggle="tooltip" data-placement="top" title="تلگرام">
-                        <i class="telegram-icon m-1"></i>
+                        <i class="telegram-icon"></i>
                     </a>
                     <a href="mailto:shora.cesharif@gmail.com" data-toggle="tooltip" data-placement="top" title="ایمیل">
-                        <i class="email-icon m-1"></i>
+                        <i class="email-icon"></i>
                     </a>
                     <a href="https://t.me/shora_ce" data-toggle="tooltip" data-placement="top" title="کانال تلگرام">
-                        <i class="channel-icon m-1"></i>
+                        <i class="channel-icon"></i>
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 </aside>
-
 <main class="col-xl-10 mr-auto p-0 text-right">
+
     <section class="bg-navy-blue py-5">
-        <article class="container">
-            <h2 class="mb-4 mx-2 px-4 text-white border-right-white">{{ announcement.title }}</h2>
-            <div class="timeline mx-2">
-                <span class="line"></span>
-                <div class="single-entry">
-                    <div class="content">
-                        <p>{{ announcement.body|safe }}</p>
-                    </div>
+        <div class="container">
+            <form class="text-white">
+                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">تکمیل پروفایل</h2>
+                <div class="form-group col-lg-5">
+                    <label for="first-name">نام</label>
+                    <input type="text" class="form-control" id="first-name" required>
                 </div>
-            </div>
-        </article>
+                <div class="form-group col-lg-5">
+                    <label for="last-name">نام خانوادگی</label>
+                    <input type="text" class="form-control" id="last-name" required>
+                </div>
+                <div class="form-group col-lg-5">
+                    <label for="email">ایمیل</label>
+                    <input type="email" class="form-control" id="email" required>
+                    <small class="form-text text-muted">لطفا یک ایمیل شخصی وارد کنید.</small>
+                </div>
+                <div class="form-group col-lg-5">
+                    <label for="tel">تلفن</label>
+                    <input type="tel" class="form-control" id="tel">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">ثبت</button>
+                </div>
+            </form>
+
+        </div>
     </section>
 </main>
+
 <!-- SCRIPTS -->
 <script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
 <script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
-<script type="text/javascript" src="{% static "js/transition.js" %}"></script>
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
-        showAnnouncements(event);
-
     });
 
 </script>
 </body>
-
 </html>
