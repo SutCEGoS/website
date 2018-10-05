@@ -20,13 +20,19 @@ def lock(request):
 def add_new(request):
     if request.method == "POST":
         name = request.POST.get('locker-name')
-        if rack.objects.filter(name__contains=name):
-            return HttpResponse('this locker has been chosen before sorry!')
-        else:
+        if rack.objects.filter(name__contains=name) :
+            if rack.objects.get(name__contains=name).receiver == request.user:
+                if rack.objects.get(name__contains=name).payment:
+                    return HttpResponse(" This locker is yours :) ")
+                else :
+                    return render(request,'confirmation.html',{'rack':rack.objects.get(name__contains=name)})
+            else:
+                return HttpResponse('this locker has been chosen before sorry!')
+        else :
             user = request.user
             Rack = rack(name=name,receiver=user,payment=False,receivie_date=timezone.now(),condition=0)
             Rack.save()
-            return render(request,'rackForm.html',{'rack':Rack})
+            return render(request,'confirmation.html',{'rack':Rack})
     else:
         return HttpResponse('You choose badway !')
 
@@ -47,7 +53,7 @@ def payment(request, rack_id):
         client = Client(url)
         MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
         callBackUrl = "http://%s/locker/payment-result/%s" % (site_name, str(Rack.id))
-        s = client.service.PaymentRequest(MERCHANT, 20000, "receive locker",'', "",callBackUrl)
+        s = client.service.PaymentRequest(MERCHANT, 20000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
         print(s , site_name)
@@ -76,14 +82,15 @@ def payment_result(request,sell_id):
             if not ref_num:
                 raise PermissionDenied
             Sell.is_success = True
+            Sell.locker.payment = True
             Sell.save()
-            return render(request, 'payment_result.html', {'sell': Sell})
+            return render(request, 'success.html', {'sell': Sell})
         elif result.Status == 101:
-            return render(request, 'payment_result.html', {'sell': Sell})
+            return render(request, 'success.html', {'sell': Sell})
         else:
-            return render(request, 'payment_result.html', {'sell': Sell})
+            return render(request, 'success.html', {'sell': Sell})
     else:
-        return render(request, 'payment_result.html', {'sell': Sell})
+        return render(request, 'success.html', {'sell': Sell})
 
 
 #@csrf_exempt

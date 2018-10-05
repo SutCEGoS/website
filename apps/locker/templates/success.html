@@ -143,22 +143,27 @@
         <div class="container">
             <h2 class="mb-4 mx-2 px-4 text-white border-right-white">&zwnj;نتیجه&zwnj;ی پرداخت</h2>
 
+            {% if sell.is_success %}
             <!--success-->
-            <div class="alert alert-success" role="alert">
+
+              <div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">تمام!</h4>
                 <p>پرداخت با موفقیت انجام و کمد برای شما ثبت شد.</p>
+                <p>)کد رهگیری) {{sell.authority}}</p>
                 <hr>
                 <p class="mb-0">برای دریافت کلید کمد خود به شورای صنفی مراجعه کنید.</p>
-            </div>
-            <div class="get-key mx-auto">
-                <img src="img/key.png" alt="کلید را از شوراس صنفی دریافت کنید." class="w-100"> <!--TODO fix the image src-->
-            </div>
-
+              </div>
+              <div class="get-key mx-auto">
+                <img src="{% static "image/key.png" %}" alt="کلید را از شوراس صنفی دریافت کنید." class="w-100"> <!--TODO fix the image src-->
+              </div>
+            {% else %}
             <!--failure-->
-            <div class="alert alert-danger" role="alert">
+
+              <div class="alert alert-danger" role="alert">
                 <h4 class="alert-heading">خطا :(</h4>
                 <p>پرداخت موفقیت آمیز نبود.</p>
-            </div>
+              </div>
+            {% endif %}
 
         </div>
     </section>

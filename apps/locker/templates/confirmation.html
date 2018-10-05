@@ -23,8 +23,9 @@
         <div class="container">
             <h2 class="mb-4 mx-2 px-4 text-navy-blue border-right-navy-blue">&zwnj;تایید اطلاعات</h2>
 
-            <form class="receipt mx-auto position-relative pt-sm-4"> <!--TODO fix the form action-->
-                <img src="img/receipt.png" class="w-100 position-absolute"> <!--TODO fix the image link-->
+            <form class="receipt mx-auto position-relative pt-sm-4" action="{% url 'pay' rack.id %}" method="post"> <!--TODO fix the form action-->
+              {% csrf_token %}
+                <img src="{% static "image/receipt.png" %}" class="w-100 position-absolute"> <!--TODO fix the image link-->
                 <div class="receipt-container">
                     <div class="form-group position-relative">
                         <label for="chosen-locker">شماره کمد</label>
@@ -33,7 +34,7 @@
                     </div>
                     <div class="form-group position-relative">
                         <label for="user">کاربر</label>
-                        <input type="text" id="user" class="form-control" value="{{user}}" readonly required>
+                        <input type="text" id="user" class="form-control" value="{{user}} ( {{user.std_id}} )" readonly required>
                     </div>
                     <div class="form-group position-relative">
                         <label for="chosen-locker">مبلغ</label>
