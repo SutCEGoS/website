@@ -463,7 +463,7 @@ nav li a {
     margin-right: -1.25rem;
 }
 
-.receipt {
+.receipt, .get-key {
     max-width: 400px;
 }
 

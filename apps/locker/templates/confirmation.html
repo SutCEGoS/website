@@ -1,0 +1,56 @@
+{% load static %}
+{% load staticfiles %}
+{% load static gravatar staticfiles hijack_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+    shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+</head>
+
+<body class="dir-rtl text-right">
+<main class="p-0 text-right">
+    <!-- confirmation -->
+    <section class="bg-warning py-5">
+        <div class="container">
+            <h2 class="mb-4 mx-2 px-4 text-navy-blue border-right-navy-blue">&zwnj;تایید اطلاعات</h2>
+
+            <form class="receipt mx-auto position-relative pt-sm-4"> <!--TODO fix the form action-->
+                <img src="img/receipt.png" class="w-100 position-absolute"> <!--TODO fix the image link-->
+                <div class="receipt-container">
+                    <div class="form-group position-relative">
+                        <label for="chosen-locker">شماره کمد</label>
+                        <input type="text" id="chosen-locker" class="form-control" name="locker-name"
+                               value="{{rack.name}}" readonly required>
+                    </div>
+                    <div class="form-group position-relative">
+                        <label for="user">کاربر</label>
+                        <input type="text" id="user" class="form-control" value="{{user}}" readonly required>
+                    </div>
+                    <div class="form-group position-relative">
+                        <label for="chosen-locker">مبلغ</label>
+                        <input type="number" id="locker-price" value="20000" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group text-center position-relative">
+                        <button type="submit" class="btn btn-success">تایید و پرداخت</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </section>
+</main>
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
+<script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
+</body>
+</html>
