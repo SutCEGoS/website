@@ -63,7 +63,7 @@
         <div class="navbar-brand m-0 p-0">
             <div id="logo-container" class="bg-red" style="text-align: center">
                 <a href="/">
-                    <img src="{% static " img/white-logo.png" %}" class="logo" alt="Logo">
+                    <img src="{% static  'img/white-logo.png' %}" class="logo" alt="Logo">
                 </a>
             </div>
             <span class="w-100 nav-logo-box">
@@ -77,7 +77,7 @@
                         <div class="dropdown-menu text-right">
                             <span class="dropdown-item dropdown-username">{{ user }}</span>
                             <a class="dropdown-item" href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
-                            {% if not user.first_name %}<a class="dropdown-item" href="{% url 'profile' %}">تکمیل پروفایل</a>{% endif %}
+                            <a class="dropdown-item" href="{% url 'profile' %}">تکمیل پروفایل</a>
                             <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
                         </div>
                     </div>

@@ -54,7 +54,7 @@ def payment(request, rack_id):
         site_name = request.META.get('HTTP_HOST', 'shora.ce.sharif.edu')
         url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
-        callBackUrl = "https://%s/locker/payment-result/" % (site_name)
+        callBackUrl = "http://%s/locker/payment-result/" % (site_name)
         s = client.service.PaymentRequest(MERCHANT, 1000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
