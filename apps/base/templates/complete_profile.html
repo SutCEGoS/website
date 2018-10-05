@@ -153,15 +153,23 @@
                     <input type="text" class="form-control" id="last-name" name="lastName" required>
                 </div>
                 <div class="form-group col-lg-5">
+                    <label for="student-id">شماره&zwnj;ی دانشجویی</label>
+                    <input type="number" class="form-control" id="student-id" name="student-id" value="" readonly>
+                </div>
+                <div class="form-group col-lg-5">
+                    <label for="ce-mail">ایمیل دانشکده</label>
+                    <input type="email" class="form-control" id="ce-mail" name="" value="" readonly>
+                </div>
+                <div class="form-group col-lg-5">
                     <label for="email">ایمیل</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" pattern="^((?!@ce.sharif).)*$" required>
                     <small class="form-text text-muted">لطفا یک ایمیل شخصی وارد کنید.</small>
                 </div>
                 <!--<div class="form-group col-lg-5">
                     <label for="tel">تلفن (اختیاری)</label>
                     <input type="tel" class="form-control" id="tel">
                 </div>-->
-                <div class="form-group">
+                <div class="form-group col-lg-5 text-center">
                     <button type="submit" class="btn btn-success">ثبت</button>
                 </div>
             </form>
