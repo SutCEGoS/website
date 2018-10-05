@@ -189,6 +189,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>-->
+                {% if user.firstName %}
                 <div class="form-group">
                     <label for="rules">اول قوانینُ بخون:</label>
                     <textarea id="rules" class="form-control d-block" readonly>rules</textarea>
@@ -284,12 +285,14 @@
                     </div>-->
                 </div>
                   <div class="form-group text-center">
-                    {% if user.first_name %}
                       <button type="submit" class="btn btn-success">ادامه</button>
-                    {% else %}
-                      <p>ابتدا پروفایل خود را تکمیل کنید </p>
-                    {% endif %}
                   </div>
+                {% else %}
+                <div class="form-group text-center">
+                    <p>ابتدا پروفایل خود را تکمیل کنید</p>
+                </div>
+                {% endif %}
+
 
 
             </form>
