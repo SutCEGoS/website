@@ -462,3 +462,15 @@ nav li a {
 .form-check-input {
     margin-right: -1.25rem;
 }
+
+.receipt {
+    max-width: 400px;
+}
+
+.receipt-container {
+    padding: 20% 17% 0 17%;
+}
+
+.receipt img {
+    top: 0;
+}
