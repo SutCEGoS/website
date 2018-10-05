@@ -45,10 +45,12 @@ def payment(request, rack_id):
         site_name = request.META.get('HTTP_HOST', 'shora.sabbaghian.ir')
         url = "http://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
-        s = client.service.PaymentRequest('11380930-2456-11e8-8cb6-005056a205be', 20000, "", "",
-                                          "",
-                                          "http://%s/locker/payment-result/%s" % (site_name, str(Rack.id)))
-        print(s)
+        MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
+        callBackUrl = "http://%s/locker/payment-result/%s" % (site_name, str(Rack.id))
+        s = client.service.PaymentRequest(MERCHANT, 20000, "receive locker",'', "",callBackUrl)
+        Sell.authority = s.Authority
+        Sell.save()
+        print(s , site_name)
         if s.Status == 100:
             return redirect("//http//:www.zarinpal.com/pg/StartPay/"+str(s.Authority))
         else:
@@ -56,35 +58,63 @@ def payment(request, rack_id):
 
     return HttpResponse("Badway!")  # Todo Login page ~
 
-
-@csrf_exempt
-def payment_result(request, sell_id):
-    if not request.method == "POST":
-        raise PermissionDenied
+def payment_result(request,sell_id):
     try:
-        Sell = sell.objects.get(id=int(sell_id))
-    except Sell.DoesNotExist:
-        raise PermissionDenied # # TODO: Http404
-    if not request.POST.get('resnumber') == Sell.get_code():
-        raise PermissionDenied
-    ref_num = request.POST.get('RefID')
-    if not ref_num:
-        raise PermissionDenied
-    verify_payment(Sell, ref_num)
-    if Sell.is_success:
-        Sell.save()
-    return render(request, 'payment_result.html', {'sell': Sell})
+        Sell = sell.objects.get(authority=request.GET['Authority'])
+    except sell.DoesNotExist:
+        raise Http404
+    if request.GET.get('Status') == 'OK':
+        url = "http://www.zarinpal.com/pg/services/WebGate/wsdl"
+        client = Client(url)
+        result = client.service.PaymentVerification(MERCHANT, request.GET['Authority'], Sell.value)
+        if result.Status == 100:
+            try:
+                Sell = sell.objects.get(authority=request.GET['Authority'])
+            except sell.DoesNotExist:
+                raise Http404
+            ref_num = str(result.RefID)
+            if not ref_num:
+                raise PermissionDenied
+            Sell.is_success = True
+            Sell.save()
+            return render(request, 'payment_result.html', {'sell': Sell})
+        elif result.Status == 101:
+            return render(request, 'payment_result.html', {'sell': Sell})
+        else:
+            return render(request, 'payment_result.html', {'sell': Sell})
+    else:
+        return render(request, 'payment_result.html', {'sell': Sell})
+
+
+#@csrf_exempt
+#def payment_result(request, sell_id):
+#    if not request.method == "POST":
+#        raise PermissionDenied
+#    try:
+#        Sell = sell.objects.get(id=int(sell_id))
+#    except Sell.DoesNotExist:
+#        raise PermissionDenied # # TODO: Http404
+#    if not request.POST.get('resnumber') == Sell.get_code():
+#        raise PermissionDenied
+#    ref_num = request.POST.get('RefID')
+#    if not ref_num:
+#        raise PermissionDenied
+#    verify_payment(Sell, ref_num)
+#    if Sell.is_success:
+#        Sell.save()
+#    return render(request, 'payment_result.html', {'sell': Sell})
 
 
 
 
 
-def verify_payment(Sell, ref_num):
-    url = "http://www.zarinpal.com/pg/services/WebGate/wsdl"
-    client = Client(url)
-    s = client.service.PaymentVerification("11380930-2456-11e8-8cb6-005056a205be", Sell.value, ref_num)
-    status = s.Status
-    price = s.PayementedPrice
-    Sell.credit = int(price)
-    Sell.is_success = (status == "Verifyed" or status == "success")
-    Sell.save()
+#def verify_payment(Sell, ref_num):
+#    url = "http://www.zarinpal.com/pg/services/WebGate/wsdl"
+#    client = Client(url)
+#    MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
+#    s = client.service.PaymentVerification(MERCHANT, Sell.value, ref_num)
+#    status = s.Status
+#    price = s.PayementedPrice
+#    Sell.credit = int(price)
+#    Sell.is_success = (status == "Verifyed" or status == "success")
+#    Sell.save()
