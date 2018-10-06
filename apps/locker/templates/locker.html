@@ -146,30 +146,30 @@
 
         <!-- Navbar links -->
         <div class="collapse navbar-collapse w-100 justify-content-between flex-column" id="collapsibleNavbar">
-          <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
-              <li class="nav-item">
-                  <a class="nav-link active" href="/">خانه</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link under-construction" href="{% url 'under_construction' %}">ثبت گزارش</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
-              </li>
-              {% if user.is_authenticated %}
-                  <li class="nav-item">
-                      <a class="nav-link" href="/locker">کمد</a>
-                  </li>
-              {% else %}
-                  <li class="nav-item">
-                      <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
-                  </li>
-              {% endif %}
+            <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">خانه</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link under-construction" href="{% url 'under_construction' %}">ثبت گزارش</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/locker">کمد</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
+                    </li>
+                {% endif %}
 
-          </ul>
+            </ul>
             <div class="d-flex">
                 <div class="mx-auto d-inline-flex my-3" id="contact-icons">
                     <a href="https://t.me/SenfiCE" data-toggle="tooltip" data-placement="top" title="تلگرام">
@@ -201,28 +201,41 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>-->
-          {% if not user.first_name %}
-                <div class="form-group text-center">
-                    <p>ابتدا پروفایل خود را تکمیل کنید</p>
-                <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل پروفایل</a>
-                </div>
-          {% else %}
-                <div class="form-group">
-                    <label for="rules">قوانین:</label>
-                    <div id="rules" class="alert alert-primary" readonly>
-                        <ol>
-                            <li>مدت واگذاری تقریبا برابر یک سال است و موعد باز تحویل کمد توسط شورای صنفی اعلام خواهد شد.</li>
-                            <li>برای امنیت هر چه بیشتر کمدها تمهیداتی از قبیل قفل اضافه اندیشیده&zwnj;ایم اما همچنان به دلیل کامل نبودن امنیت کمدها، شورای صنفی مسئولیتی نسبت به گم شدن یا سرقت اموال نگهداری شده در کمد&zwnj;نمی پذیرد.</li>
-                            <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورای صنفی نگهداری خواهد شد.</li>
-                            <li>شورای صنفی پس از اتمام موعد تخلیه و تحویل کمد اقدام به تخلیه کمد خواهد کرد و مسئولیتی نسبت به اموال یافت شده در کمد نمی&zwnj;پذیرد.</li>
-                            <li>مبلغ 200000 ریال ضمن تکمیل این فرم به شورای صنفی پرداخت می شود و در هنگام بازتحویل کمد 75 درصد مبلغ ودیعه به دانشجو بازگردانده می&zwnj;شود.</li>
-                            <li>در صورتی که دانشجو به کمد خسارتی وارد کند، تامین معادل مالی این خسارت به عهده دانشجو است و شورای صنفی می&zwnj;تواند از محل مبلغ ودیعه اقدام به تامین مبلغ خسارت کند.</li>
-                            <li>در صورت بازگرداندن کمد پس از موعد تعیین شده برای تحویل کمدها، پولی به دانشجو بازگردانده نخواهد شد.</li>
-                        </ol>
+                {% if not user.first_name %}
+                    <div class="form-group text-center">
+                        <p>ابتدا پروفایل خود را تکمیل کنید</p>
+                        <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل پروفایل</a>
                     </div>
-                </div>
-                <div class="form-group custom-control custom-checkbox">
-                    <span onclick="lockerSelector.scrollIntoView(
+                {% else %}
+                    <div class="form-group">
+                        <label for="rules">قوانین:</label>
+                        <div id="rules" class="alert alert-primary" readonly>
+                            <ol>
+                                <li>مدت واگذاری تقریبا برابر یک سال است و موعد باز تحویل کمد توسط شورای صنفی اعلام خواهد
+                                    شد.
+                                </li>
+                                <li>برای امنیت هر چه بیشتر کمدها تمهیداتی از قبیل قفل اضافه اندیشیده&zwnj;ایم اما همچنان
+                                    به دلیل کامل نبودن امنیت کمدها، شورای صنفی مسئولیتی نسبت به گم شدن یا سرقت اموال
+                                    نگهداری شده در کمد&zwnj;نمی پذیرد.
+                                </li>
+                                <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورای صنفی نگهداری خواهد شد.</li>
+                                <li>شورای صنفی پس از اتمام موعد تخلیه و تحویل کمد اقدام به تخلیه کمد خواهد کرد و
+                                    مسئولیتی نسبت به اموال یافت شده در کمد نمی&zwnj;پذیرد.
+                                </li>
+                                <li>مبلغ 200000 ریال ضمن تکمیل این فرم به شورای صنفی پرداخت می شود و در هنگام بازتحویل
+                                    کمد 75 درصد مبلغ ودیعه به دانشجو بازگردانده می&zwnj;شود.
+                                </li>
+                                <li>در صورتی که دانشجو به کمد خسارتی وارد کند، تامین معادل مالی این خسارت به عهده دانشجو
+                                    است و شورای صنفی می&zwnj;تواند از محل مبلغ ودیعه اقدام به تامین مبلغ خسارت کند.
+                                </li>
+                                <li>در صورت بازگرداندن کمد پس از موعد تعیین شده برای تحویل کمدها، پولی به دانشجو
+                                    بازگردانده نخواهد شد.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="form-group custom-control custom-checkbox">
+                    <span onclick="if($('#agreement').prop('checked'))lockerSelector.scrollIntoView(
                                                     {
                                                         behavior:'smooth',
                                                         block:'start'
@@ -232,97 +245,98 @@
                         <label for="agreement" class="custom-control-label">قبول
                             دارم</label>
                     </span>
-                </div>
-                <div class="form-group" id="lockerSelector">
-                    <label for="locker-map">انتخاب کمد</label>
-                    <label for="locker-map"><legend>( your lockers :
-                      {% for rack in racks  %}
-                      {% if rack.payment %}
-                      {{rack}}
-                      {% endif %}
-                      {% endfor %})
-                      </legend>
-                      </label>
-                    <div class="position-relative dir-ltr map-container form-group" id="locker-map">
-                        <div class="locker-container">
-                            <div class="d-flex" style="margin-right: 14%; padding: 1.5% 1.5% 0 1.5%;">
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%"
-                                   onclick='changeLetter("B");'>B</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn mr-auto" id="lockerA"
-                                   onclick='changeLetter("A");'>A</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerP" onclick='changeLetter("P");'>P</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerQ" onclick='changeLetter("Q");'>Q</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerN" onclick='changeLetter("N");'>N</a>
-                            </div>
-                            <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn mr-auto" id="lockerC"
-                                   onclick='changeLetter("C");'>C</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerO" onclick='changeLetter("O");'>O</a>
-                            </div>
-                            <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn mr-auto" id="lockerD"
-                                   onclick='changeLetter("D");'>D</a>
+                    </div>
+                    <div class="form-group" id="lockerSelector">
+                        <label for="locker-map">انتخاب کمد</label>
+                        <label for="locker-map">
+                            <legend>( your lockers :
+                                {% for rack in racks %}
+                                    {% if rack.payment %}
+                                        {{ rack }}
+                                    {% endif %}
+                                {% endfor %})
+                            </legend>
+                        </label>
+                        <div class="position-relative dir-ltr map-container form-group" id="locker-map">
+                            <div class="locker-container">
+                                <div class="d-flex" style="margin-right: 14%; padding: 1.5% 1.5% 0 1.5%;">
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%"
+                                       onclick='changeLetter("B");'>B</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn mr-auto" id="lockerA"
+                                       onclick='changeLetter("A");'>A</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerP" onclick='changeLetter("P");'>P</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerQ" onclick='changeLetter("Q");'>Q</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerN" onclick='changeLetter("N");'>N</a>
+                                </div>
+                                <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn mr-auto" id="lockerC"
+                                       onclick='changeLetter("C");'>C</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerO" onclick='changeLetter("O");'>O</a>
+                                </div>
+                                <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn mr-auto" id="lockerD"
+                                       onclick='changeLetter("D");'>D</a>
 
-                            </div>
+                                </div>
 
-                            <div class="d-flex d-padding" style="padding: 0 1.5% 3.5% 1.5%;">
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn ml-auto" id="lockerL"
-                                   onclick='changeLetter("L");'>L</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerK" onclick='changeLetter("K");'>K</a>
-                            </div>
-                            <div class="d-flex" style="padding: 0 1.5%;">
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerE" onclick='changeLetter("E");'>E</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn ml-auto" id="lockerJ"
-                                   onclick='changeLetter("J");'>J</a>
-                            </div>
-                            <div class="d-flex" style="padding: 0 1.5%;">
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerF" onclick='changeLetter("F");'>F</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn ml-auto" id="lockerI"
-                                   onclick='changeLetter("I");'>I</a>
-                            </div>
-                            <div class="d-flex" style="padding: 3.5% 1.5% 25% 1.5%;">
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerG" onclick='changeLetter("G");'>G</a>
-                                <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                   class="btn btn-light locker-btn" id="lockerH" onclick='changeLetter("H");'>H</a>
+                                <div class="d-flex d-padding" style="padding: 0 1.5% 3.5% 1.5%;">
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn ml-auto" id="lockerL"
+                                       onclick='changeLetter("L");'>L</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerK" onclick='changeLetter("K");'>K</a>
+                                </div>
+                                <div class="d-flex" style="padding: 0 1.5%;">
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerE" onclick='changeLetter("E");'>E</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn ml-auto" id="lockerJ"
+                                       onclick='changeLetter("J");'>J</a>
+                                </div>
+                                <div class="d-flex" style="padding: 0 1.5%;">
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerF" onclick='changeLetter("F");'>F</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn ml-auto" id="lockerI"
+                                       onclick='changeLetter("I");'>I</a>
+                                </div>
+                                <div class="d-flex" style="padding: 3.5% 1.5% 25% 1.5%;">
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerG" onclick='changeLetter("G");'>G</a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+                                       class="btn btn-light locker-btn" id="lockerH" onclick='changeLetter("H");'>H</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group form-row">
-                    <div class="form-group col-md-4">
-                        <label for="chosen-locker">شماره کمد</label>
-                        <input type="text" id="chosen-locker" class="form-control" name="locker-name"
-                               placeholder="از روی نقشه انتخاب کن!"
-                               pattern="[A-LN-P][1-4][1-3]" readonly required>
+                    <div class="form-group form-row">
+                        <div class="form-group col-md-4">
+                            <label for="chosen-locker">شماره کمد</label>
+                            <input type="text" id="chosen-locker" class="form-control" name="locker-name"
+                                   placeholder="از روی نقشه انتخاب کن!"
+                                   pattern="[A-LN-P][1-4][1-3]" readonly required>
+                        </div>
+                        <!--div class="form-group col-md">
+                            <label for="reservation-date">تاریخ</label>
+                            <input type="date" id="reservation-date" class="form-control" readonly required>
+                        </div>
+                        <div class="form-group col-md">
+                            <label for="locker-price">مبلغ <span class="badge badge-warning">تومان</span></label>
+                            <input type="number" id="locker-price" value="20000"class="form-control" readonly required>
+                        </div>-->
                     </div>
-                    <!--div class="form-group col-md">
-                        <label for="reservation-date">تاریخ</label>
-                        <input type="date" id="reservation-date" class="form-control" readonly required>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success" id="continueButton">ادامه</button>
                     </div>
-                    <div class="form-group col-md">
-                        <label for="locker-price">مبلغ <span class="badge badge-warning">تومان</span></label>
-                        <input type="number" id="locker-price" value="20000"class="form-control" readonly required>
-                    </div>-->
-                </div>
-                  <div class="form-group text-center">
-                      <button type="submit" class="btn btn-success" id="continueButton">ادامه</button>
-                  </div>
                 {% endif %}
             </form>
         </div>
@@ -337,6 +351,67 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+    var lockerLetter = 'M';
+
+    function changeLetter(ch) {
+        var occupied = [];
+        {% for rack in racks %}
+            console.log("SAG");
+            occupied.push("{{rack.name}}");
+        {% endfor %}
+
+        // console.log(racks);
+        // var rr = {{racks}};
+
+        $("#locker-title").html("کمد " + ch);
+        lockerLetter = ch;
+        $(".locker > .row > .col ").each(function () {
+            var my = $(this).html();
+            my = my.slice(my.length - 2, my.length);
+            $(this).html(lockerLetter + my);
+            my = $(this).html();
+            if (occupied.includes(my)) {
+                $(this).addClass("occupiedLocker").prop("onclick", null).off("click");
+                ;
+            }
+            else {
+                $(this).removeClass("bg-danger btn-danger occupiedLocker");
+                $(this).click(function () {
+                    $("#chosen-locker").val($(this).html());
+                    $("#lockerModal").modal('toggle');
+                    $("#lockerModal").on("hidden.bs.modal", function () {
+                        continueButton.scrollIntoView(
+                            {
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                    });
+                });
+                $(this).css("cursor", "pointer");
+
+            }
+            $(".occupiedLocker").each(function () {
+                console.log("SALAM");
+                $(this).addClass("bg-danger btn btn-danger")
+                $(this).css("cursor", "not-allowed");
+                $(this).click(null);
+            })
+        });
+    }
+
+    $(".locker > .row > .col ").click(function () {
+            $("#chosen-locker").val($(this).html());
+            $("#lockerModal").modal('toggle');
+            $("#lockerModal").on("hidden.bs.modal", function () {
+                continueButton.scrollIntoView(
+                    {
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+            });
+
+        }
+    );
 
 </script>
 </body>
