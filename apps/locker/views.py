@@ -13,8 +13,10 @@ from django.utils import timezone
 
 @login_required
 def lock(request):
-    Racks = rack.objects.filter(receiver=request.user)
-    return render(request,'locker.html',{ 'racks':Racks })
+    theRacks = rack.objects.filter(receiver=request.user)
+    racks = rack.objects.all()
+    user = request.user
+    return render(request,'locker.html',{ 'racks':racks,'theRacks':theRacks , 'user':user })
 
 @login_required
 def add_new(request):
@@ -47,6 +49,8 @@ def payment(request, rack_id):
     if request.method == "POST":
         moneyt = 1000
         Rack = get_object_or_404(rack, id=rack_id)
+        if len(Rack.name)>3 or not Rack.name.isdigit():
+            return HttpResponse('PermissionDenied')
         Sell = sell(value=moneyt, locker=Rack, is_success=False)
         if request.user.is_authenticated:
             Sell.user = request.user

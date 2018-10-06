@@ -1,419 +1,287 @@
+{% extends "base_of_new_website.html" %}
 {% load static %}
 {% load staticfiles %}
 {% load static gravatar staticfiles hijack_tags %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-    shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>درخواست کمد</title>
-
-    <link href="{% static "css/style.css" %}" rel="stylesheet">
-    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
-</head>
-
-<body class="dir-rtl text-right">
-
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title ml-auto">ورود</h4>
-                <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="container py-3 text-right">
-                <form action="{% url 'login' %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group dir-ltr">
-                        <label for="email">آدرس ایمیل</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="email" name="username">
-                            <div class="input-group-append">
-                                <span class="input-group-text">@ce.sharif.edu</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group dir-ltr">
-                        <label for="pwd">گذرواژه</label>
-                        <input type="password" class="form-control" id="pwd" name="password">
-                    </div>
-                    <div class="form-group custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="remember-me">
-                        <label class="custom-control-label" for="remember-me"> مرا به خاطر بسپار </label>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">برو!</button>
-                        <a role="button" class="btn btn-outline-primary" href="{% url 'password_reset_recover' %}">فراموشی
-                            گذرواژه</a>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
+{% block title %}
+  انتخاب کمد
+{% endblock %}
 <!-- Locker Modal -->
-<div class="modal fade" id="lockerModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+{% block navbar %}
+  {{ block.super }}
+  <div class="modal fade" id="lockerModal">
+      <div class="modal-dialog">
+          <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title ml-auto" id="locker-title">کمد Letter</h4>
-                <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-            </div>
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title ml-auto" id="locker-title">کمد Letter</h4>
+                  <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+              </div>
 
-            <!-- Modal body -->
-            <div class="container text-right py-3">
-                <div class="locker dir-ltr">
-                    <div class="row px-3">
-                        <div class="col m-1 rounded" id="11">11</div>
-                        <div class="col m-1 rounded" id="12">12</div>
-                        <div class="col m-1 rounded" id="13">13</div>
-                    </div>
-                    <div class="row px-3">
-                        <div class="col m-1 rounded" id="21">21</div>
-                        <div class="col m-1 rounded" id="22">22</div>
-                        <div class="col m-1 rounded" id="23">23</div>
-                    </div>
-                    <div class="row px-3">
-                        <div class="col m-1 rounded" id="31">31</div>
-                        <div class="col m-1 rounded" id="32">32</div>
-                        <div class="col m-1 rounded" id="33">33</div>
-                    </div>
-                    <div class="row px-3">
-                        <div class="col m-1 rounded" id="41">41</div>
-                        <div class="col m-1 rounded" id="42">42</div>
-                        <div class="col m-1 rounded" id="43">43</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<aside class="col-xl-2 bg-white p-0">
-    <nav class="navbar navbar-expand-xl navbar-light flex-xl-column p-0 h-100">
-        <!-- Brand -->
-        <div class="navbar-brand m-0 p-0">
-            <div id="logo-container" class="bg-red" style="text-align: center">
-                <a href="/">
-                    <img src="{% static "img/white-logo.png" %}" class="logo" alt="Logo">
-                </a>
-            </div>
-            <span class="w-100 nav-logo-box">
-                {% if user.is_authenticated %}
-                    <div class="d-flex w-100">
-                    <div class="dropdown w-100">
-                        <div class="btn dropdown-toggle w-100" data-toggle="dropdown">
-                            <img class="rounded-circle" src="{% gravatar_url user.email %}">
-                            <span class="btn-username">{{ user }}</span>
-                        </div>
-                        <div class="dropdown-menu text-right">
-                            <span class="dropdown-item dropdown-username">{{ user }}</span>
-                            <a class="dropdown-item" href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
-                            <a class="dropdown-item" href="{% url 'profile' %}">ویرایش اطلاعات</a>
-                            <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
-                        </div>
-                    </div>
+              <!-- Modal body -->
+              <div class="container text-right py-3">
+                  <div class="locker dir-ltr">
+                      <div class="row px-3">
+                          <div class="col m-1 rounded" id="11">11</div>
+                          <div class="col m-1 rounded" id="12">12</div>
+                          <div class="col m-1 rounded" id="13">13</div>
+                      </div>
+                      <div class="row px-3">
+                          <div class="col m-1 rounded" id="21">21</div>
+                          <div class="col m-1 rounded" id="22">22</div>
+                          <div class="col m-1 rounded" id="23">23</div>
+                      </div>
+                      <div class="row px-3">
+                          <div class="col m-1 rounded" id="31">31</div>
+                          <div class="col m-1 rounded" id="32">32</div>
+                          <div class="col m-1 rounded" id="33">33</div>
+                      </div>
+                      <div class="row px-3">
+                          <div class="col m-1 rounded" id="41">41</div>
+                          <div class="col m-1 rounded" id="42">42</div>
+                          <div class="col m-1 rounded" id="43">43</div>
+                      </div>
                   </div>
-                {% else %}
-                    <button class="btn btn btn-success" type="button" data-toggle="modal"
-                            data-target="#loginModal">ورود</button>
-                {% endif %}
-            </span>
-        </div>
+              </div>
 
-        <!-- Toggler/collapsibe Button -->
-        <button class="navbar-toggler" type="button"
-                data-toggle="collapse" data-target="#collapsibleNavbar"
-                style="margin-left: 15px">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+          </div>
+      </div>
+  </div>
+{% endblock %}
 
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse w-100 justify-content-between flex-column" id="collapsibleNavbar">
-            <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">خانه</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link under-construction" href="{% url 'under_construction' %}">ثبت گزارش</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/locker">کمد</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
-                    </li>
-                {% endif %}
-
-            </ul>
-            <div class="d-flex">
-                <div class="mx-auto d-inline-flex my-3" id="contact-icons">
-                    <a href="https://t.me/SenfiCE" data-toggle="tooltip" data-placement="top" title="تلگرام">
-                        <i class="telegram-icon"></i>
-                    </a>
-                    <a href="mailto:shora.cesharif@gmail.com" data-toggle="tooltip" data-placement="top" title="ایمیل">
-                        <i class="email-icon"></i>
-                    </a>
-                    <a href="https://t.me/shora_ce" data-toggle="tooltip" data-placement="top" title="کانال تلگرام">
-                        <i class="channel-icon"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</aside>
+{% block body_main %}
 
 <main class="col-xl-10 mr-auto p-0 text-right">
 
 
-    <section class="bg-navy-blue py-5">
-        <div class="mx-sm-5 px-3">
-            <form class="text-white" action="{% url 'add_rack' %}" method="post">
-                {% csrf_token %}
-                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">رزرو کمد</h2>
-                <!--<div class="alert alert-danger" role="alert">
-                    کمد انتخاب شده قبلا رزرو شده است :(
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="float: left">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>-->
-                {% if not user.first_name %}
-                    <div class="form-group text-center">
-                        <p>ابتدا پروفایل خود را تکمیل کنید</p>
-                        <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل پروفایل</a>
-                    </div>
-                {% else %}
-                    <div class="form-group">
-                        <label for="rules">قوانین:</label>
-                        <div id="rules" class="alert alert-primary" readonly>
-                            <ol>
-                                <li>مدت واگذاری تقریبا برابر یک سال است و موعد باز تحویل کمد توسط شورای صنفی اعلام خواهد
-                                    شد.
-                                </li>
-                                <li>برای امنیت هر چه بیشتر کمدها تمهیداتی از قبیل قفل اضافه اندیشیده&zwnj;ایم اما همچنان
-                                    به دلیل کامل نبودن امنیت کمدها، شورای صنفی مسئولیتی نسبت به گم شدن یا سرقت اموال
-                                    نگهداری شده در کمد&zwnj;نمی پذیرد.
-                                </li>
-                                <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورای صنفی نگهداری خواهد شد.</li>
-                                <li>شورای صنفی پس از اتمام موعد تخلیه و تحویل کمد اقدام به تخلیه کمد خواهد کرد و
-                                    مسئولیتی نسبت به اموال یافت شده در کمد نمی&zwnj;پذیرد.
-                                </li>
-                                <li>مبلغ 200000 ریال ضمن تکمیل این فرم به شورای صنفی پرداخت می شود و در هنگام بازتحویل
-                                    کمد 75 درصد مبلغ ودیعه به دانشجو بازگردانده می&zwnj;شود.
-                                </li>
-                                <li>در صورتی که دانشجو به کمد خسارتی وارد کند، تامین معادل مالی این خسارت به عهده دانشجو
-                                    است و شورای صنفی می&zwnj;تواند از محل مبلغ ودیعه اقدام به تامین مبلغ خسارت کند.
-                                </li>
-                                <li>در صورت بازگرداندن کمد پس از موعد تعیین شده برای تحویل کمدها، پولی به دانشجو
-                                    بازگردانده نخواهد شد.
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <div class="form-group custom-control custom-checkbox">
-                    <span onclick="if($('#agreement').prop('checked'))lockerSelector.scrollIntoView(
-                                                    {
-                                                        behavior:'smooth',
-                                                        block:'start'
-                                                    });">
+  <section class="bg-navy-blue py-5">
+    <div class="mx-sm-5 px-3">
+      <form class="text-white" action="{% url 'add_rack' %}" method="post">
+        {% csrf_token %}
+        <h2 class="mb-4 mx-2 px-4 text-white border-right-white">رزرو کمد</h2>
+        <!--<div class="alert alert-danger" role="alert">
+        کمد انتخاب شده قبلا رزرو شده است :(
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="float: left">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>-->
+    {% if not user.first_name %}
+    <div class="form-group text-center">
+      <p>ابتدا پروفایل خود را تکمیل کنید</p>
+      <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل پروفایل</a>
+    </div>
+    {% else %}
+    <div class="form-group">
+      <label for="rules">قوانین:</label>
+      <div id="rules" class="alert alert-primary" readonly>
+        <ol>
+          <li>مدت واگذاری تقریبا برابر یک سال است و موعد باز تحویل کمد توسط شورای صنفی اعلام خواهد
+            شد.
+          </li>
+          <li>برای امنیت هر چه بیشتر کمدها تمهیداتی از قبیل قفل اضافه اندیشیده&zwnj;ایم اما همچنان
+            به دلیل کامل نبودن امنیت کمدها، شورای صنفی مسئولیتی نسبت به گم شدن یا سرقت اموال
+            نگهداری شده در کمد&zwnj;نمی پذیرد.
+          </li>
+          <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورای صنفی نگهداری خواهد شد.</li>
+          <li>شورای صنفی پس از اتمام موعد تخلیه و تحویل کمد اقدام به تخلیه کمد خواهد کرد و
+            مسئولیتی نسبت به اموال یافت شده در کمد نمی&zwnj;پذیرد.
+          </li>
+          <li>مبلغ 200000 ریال ضمن تکمیل این فرم به شورای صنفی پرداخت می شود و در هنگام بازتحویل
+            کمد 75 درصد مبلغ ودیعه به دانشجو بازگردانده می&zwnj;شود.
+          </li>
+          <li>در صورتی که دانشجو به کمد خسارتی وارد کند، تامین معادل مالی این خسارت به عهده دانشجو
+            است و شورای صنفی می&zwnj;تواند از محل مبلغ ودیعه اقدام به تامین مبلغ خسارت کند.
+          </li>
+          <li>در صورت بازگرداندن کمد پس از موعد تعیین شده برای تحویل کمدها، پولی به دانشجو
+            بازگردانده نخواهد شد.
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="form-group custom-control custom-checkbox">
+      <span onclick="if($('#agreement').prop('checked'))lockerSelector.scrollIntoView(
+      {
+        behavior:'smooth',
+        block:'start'
+      });">
 
-                        <input type="checkbox" class="custom-control-input" id="agreement" required>
-                        <label for="agreement" class="custom-control-label">قبول
-                            دارم</label>
-                    </span>
-                    </div>
-                    <div class="form-group" id="lockerSelector">
-                        <label for="locker-map">انتخاب کمد</label>
-                        <label for="locker-map">
-                            <legend>( your lockers :
-                                {% for rack in racks %}
-                                    {% if rack.payment %}
-                                        {{ rack }}
-                                    {% endif %}
-                                {% endfor %})
-                            </legend>
-                        </label>
-                        <div class="position-relative dir-ltr map-container form-group" id="locker-map">
-                            <div class="locker-container">
-                                <div class="d-flex" style="margin-right: 14%; padding: 1.5% 1.5% 0 1.5%;">
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%"
-                                       onclick='changeLetter("B");'>B</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn mr-auto" id="lockerA"
-                                       onclick='changeLetter("A");'>A</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerP" onclick='changeLetter("P");'>P</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerQ" onclick='changeLetter("Q");'>Q</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerN" onclick='changeLetter("N");'>N</a>
-                                </div>
-                                <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn mr-auto" id="lockerC"
-                                       onclick='changeLetter("C");'>C</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerO" onclick='changeLetter("O");'>O</a>
-                                </div>
-                                <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn mr-auto" id="lockerD"
-                                       onclick='changeLetter("D");'>D</a>
+      <input type="checkbox" class="custom-control-input" id="agreement" required>
+      <label for="agreement" class="custom-control-label">قبول
+        دارم</label>
+      </span>
+    </div>
+    <div class="form-group" id="lockerSelector">
+      <label for="locker-map">انتخاب کمد</label>
+      <label for="locker-map">
+        <legend>( your lockers :
+          {% for rack in theRacks %}
+          {% if rack.payment %}
+          {{ rack }}
+          {% endif %}
+          {% endfor %})
+        </legend>
+      </label>
+      <div class="position-relative dir-ltr map-container form-group" id="locker-map">
+        <div class="locker-container">
+          <div class="d-flex" style="margin-right: 14%; padding: 1.5% 1.5% 0 1.5%;">
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerB" style="margin-right: 8%"
+            onclick='changeLetter("B");'>B</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn mr-auto" id="lockerA"
+            onclick='changeLetter("A");'>A</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerP" onclick='changeLetter("P");'>P</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerQ" onclick='changeLetter("Q");'>Q</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerN" onclick='changeLetter("N");'>N</a>
+          </div>
+          <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn mr-auto" id="lockerC"
+            onclick='changeLetter("C");'>C</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerO" onclick='changeLetter("O");'>O</a>
+          </div>
+          <div class="d-flex" style="margin-right: 14%; padding: 0 1.5%;">
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn mr-auto" id="lockerD"
+            onclick='changeLetter("D");'>D</a>
 
-                                </div>
+          </div>
 
-                                <div class="d-flex d-padding" style="padding: 0 1.5% 3.5% 1.5%;">
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn ml-auto" id="lockerL"
-                                       onclick='changeLetter("L");'>L</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerK" onclick='changeLetter("K");'>K</a>
-                                </div>
-                                <div class="d-flex" style="padding: 0 1.5%;">
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerE" onclick='changeLetter("E");'>E</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn ml-auto" id="lockerJ"
-                                       onclick='changeLetter("J");'>J</a>
-                                </div>
-                                <div class="d-flex" style="padding: 0 1.5%;">
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerF" onclick='changeLetter("F");'>F</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn ml-auto" id="lockerI"
-                                       onclick='changeLetter("I");'>I</a>
-                                </div>
-                                <div class="d-flex" style="padding: 3.5% 1.5% 25% 1.5%;">
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerG" onclick='changeLetter("G");'>G</a>
-                                    <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
-                                       class="btn btn-light locker-btn" id="lockerH" onclick='changeLetter("H");'>H</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group form-row">
-                        <div class="form-group col-md-4">
-                            <label for="chosen-locker">شماره کمد</label>
-                            <input type="text" id="chosen-locker" class="form-control" name="locker-name"
-                                   placeholder="از روی نقشه انتخاب کن!"
-                                   pattern="[A-LN-P][1-4][1-3]" readonly required>
-                        </div>
-                        <!--div class="form-group col-md">
-                            <label for="reservation-date">تاریخ</label>
-                            <input type="date" id="reservation-date" class="form-control" readonly required>
-                        </div>
-                        <div class="form-group col-md">
-                            <label for="locker-price">مبلغ <span class="badge badge-warning">تومان</span></label>
-                            <input type="number" id="locker-price" value="20000"class="form-control" readonly required>
-                        </div>-->
-                    </div>
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-success" id="continueButton">ادامه</button>
-                    </div>
-                {% endif %}
-            </form>
+          <div class="d-flex d-padding" style="padding: 0 1.5% 3.5% 1.5%;">
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn ml-auto" id="lockerL"
+            onclick='changeLetter("L");'>L</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerK" onclick='changeLetter("K");'>K</a>
+          </div>
+          <div class="d-flex" style="padding: 0 1.5%;">
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerE" onclick='changeLetter("E");'>E</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn ml-auto" id="lockerJ"
+            onclick='changeLetter("J");'>J</a>
+          </div>
+          <div class="d-flex" style="padding: 0 1.5%;">
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerF" onclick='changeLetter("F");'>F</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn ml-auto" id="lockerI"
+            onclick='changeLetter("I");'>I</a>
+          </div>
+          <div class="d-flex" style="padding: 3.5% 1.5% 25% 1.5%;">
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerG" onclick='changeLetter("G");'>G</a>
+            <a href="#" role="button" data-toggle="modal" data-target="#lockerModal"
+            class="btn btn-light locker-btn" id="lockerH" onclick='changeLetter("H");'>H</a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+
+    <div class="form-group form-row">
+      <div class="form-group col-md-4">
+        <label for="chosen-locker">شماره کمد</label>
+        <input type="text" id="chosen-locker" class="form-control" name="locker-name"
+        placeholder="از روی نقشه انتخاب کن!"
+        pattern="[A-LN-P][1-4][1-3]" readonly required>
+      </div>
+      <!--div class="form-group col-md">
+      <label for="reservation-date">تاریخ</label>
+      <input type="date" id="reservation-date" class="form-control" readonly required>
+    </div>
+    <div class="form-group col-md">
+    <label for="locker-price">مبلغ <span class="badge badge-warning">تومان</span></label>
+    <input type="number" id="locker-price" value="20000"class="form-control" readonly required>
+  </div>-->
+  </div>
+<div class="form-group text-center">
+  <button type="submit" class="btn btn-success" id="continueButton">ادامه</button>
+</div>
+{% endif %}
+</form>
+</div>
+</section>
 </main>
+{% endblock %}
 
 <!-- SCRIPTS -->
+{% block js %}
+
 <script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
 <script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
 <script type="text/javascript" src="{% static "js/locker.js" %}"></script>
 <script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    var lockerLetter = 'M';
+$(document).ready(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+var lockerLetter = 'M';
 
-    function changeLetter(ch) {
-        var occupied = [];
-        {% for rack in racks %}
-            console.log("SAG");
-            occupied.push("{{rack.name}}");
-        {% endfor %}
+function changeLetter(ch) {
+  var occupied = [];
+  {% for rack in racks %}
+  {% if rack.receiver != user %}
+  console.log("SAG");
+  occupied.push("{{rack.name}}");
+  {% endif %}
+  {% endfor %}
 
-        // console.log(racks);
-        // var rr = {{racks}};
+  // console.log(racks);
+  // var rr = {{racks}};
 
-        $("#locker-title").html("کمد " + ch);
-        lockerLetter = ch;
-        $(".locker > .row > .col ").each(function () {
-            var my = $(this).html();
-            my = my.slice(my.length - 2, my.length);
-            $(this).html(lockerLetter + my);
-            my = $(this).html();
-            if (occupied.includes(my)) {
-                $(this).addClass("occupiedLocker").prop("onclick", null).off("click");
-                ;
-            }
-            else {
-                $(this).removeClass("bg-danger btn-danger occupiedLocker");
-                $(this).click(function () {
-                    $("#chosen-locker").val($(this).html());
-                    $("#lockerModal").modal('toggle');
-                    $("#lockerModal").on("hidden.bs.modal", function () {
-                        continueButton.scrollIntoView(
-                            {
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                    });
-                });
-                $(this).css("cursor", "pointer");
-
-            }
-            $(".occupiedLocker").each(function () {
-                console.log("SALAM");
-                $(this).addClass("bg-danger btn btn-danger")
-                $(this).css("cursor", "not-allowed");
-                $(this).click(null);
-            })
-        });
+  $("#locker-title").html("کمد " + ch);
+  lockerLetter = ch;
+  $(".locker > .row > .col ").each(function () {
+    var my = $(this).html();
+    my = my.slice(my.length - 2, my.length);
+    $(this).html(lockerLetter + my);
+    my = $(this).html();
+    if (occupied.includes(my)) {
+      $(this).addClass("occupiedLocker").prop("onclick", null).off("click");
+      ;
     }
-
-    $(".locker > .row > .col ").click(function () {
-            $("#chosen-locker").val($(this).html());
-            $("#lockerModal").modal('toggle');
-            $("#lockerModal").on("hidden.bs.modal", function () {
-                continueButton.scrollIntoView(
-                    {
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+    else {
+      $(this).removeClass("bg-danger btn-danger occupiedLocker");
+      $(this).click(function () {
+        $("#chosen-locker").val($(this).html());
+        $("#lockerModal").modal('toggle');
+        $("#lockerModal").on("hidden.bs.modal", function () {
+          continueButton.scrollIntoView(
+            {
+              behavior: 'smooth',
+              block: 'start'
             });
+          });
+        });
+        $(this).css("cursor", "pointer");
 
-        }
-    );
+      }
+      $(".occupiedLocker").each(function () {
+        console.log("SALAM");
+        $(this).addClass("bg-danger btn btn-danger")
+        $(this).css("cursor", "not-allowed");
+        $(this).click(null);
+      })
+    });
+  }
+
+  $(".locker > .row > .col ").click(function () {
+    $("#chosen-locker").val($(this).html());
+    $("#lockerModal").modal('toggle');
+    $("#lockerModal").on("hidden.bs.modal", function () {
+      continueButton.scrollIntoView(
+      {
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
+
+  }
+  );
 
 </script>
-</body>
-
-</html>
+{% endblock %}
