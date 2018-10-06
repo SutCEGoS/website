@@ -16,13 +16,13 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^', include('apps.base.urls')),
-    url(r'^objections/', include('apps.objection.urls')),
+    #url(r'^objections/', include('apps.objection.urls')),
     url(r'^locker/',include('apps.locker.urls')),
-    url(r'^issues/', include('apps.issue.urls')),
-    url(r'^polls/', include('apps.poll.urls')),
-    url(r'^events/', include('apps.event.urls')),
+    #url(r'^issues/', include('apps.issue.urls')),
+    #url(r'^polls/', include('apps.poll.urls')),
+    #url(r'^events/', include('apps.event.urls')),
     url(r'^announcements/', include('apps.announcements.urls')),
-    url(r'^pages/', include('apps.pages.urls')),
+    #url(r'^pages/', include('apps.pages.urls')),
 
     # Plugins
     url(r'^tinymce/', include('tinymce.urls')),

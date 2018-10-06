@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^$', views.index, name='home'),
     url(r'^profile',views.profile,name='profile'),
     url(r'^complete_profile',views.complete_profile,name='complete_profile'),
+    url(r'^under_construction',views.under_construction,name='under_construction')
     # url('^password_reset/', auth_views.password_reset, {'template_name': 'password_reset/password_reset_form.html'}, name='password_reset'),
     # url('^', include('django.contrib.auth.urls')),
 ]

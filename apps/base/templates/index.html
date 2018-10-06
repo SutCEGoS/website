@@ -114,10 +114,10 @@
                     <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link under-construction" href="#">ثبت گزارش</a>
+                    <a class="nav-link under-construction" href="{% url 'under_construction' %}">ثبت گزارش</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link under-construction" href="#">کتابخانه</a>
+                    <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">

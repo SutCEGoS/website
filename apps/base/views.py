@@ -25,6 +25,8 @@ def home(request):
             return HttpResponseRedirect(reverse('requests'))
         return HttpResponseRedirect(reverse('issues'))
 
+def under_construction(request):
+    return render(request,'under-construction.html',{})
 
 def index(request):
     announcements = Announcement.objects.all()[:3]
@@ -82,7 +84,7 @@ def password_reset_change(request):
     else:
         form = PasswordForm(user=request.user)
         sent = False
-        
+
     return render(request,
                   'password_reset/password_change.html',
                   {
