@@ -18,6 +18,12 @@
     <script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
     <script type="text/javascript" src="{% static "js/transition.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
     {% endblock %}
 
     {% block css %}
