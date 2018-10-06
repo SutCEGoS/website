@@ -480,6 +480,6 @@ nav li a {
     background-size: contain;
 }
 
-.under-construction-bg button {
+.under-construction-bg a {
     margin-top: 60vh;
 }
