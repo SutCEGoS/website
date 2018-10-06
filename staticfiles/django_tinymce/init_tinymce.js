@@ -1,0 +1,1 @@
+/home/parsa/Envs/env2/lib/python3.7/site-packages/tinymce/static/django_tinymce/init_tinymce.js

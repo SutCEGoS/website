@@ -1,0 +1,1 @@
+/home/parsa/Desktop/shora/website/vendor/shamsi/static/shamsi.js

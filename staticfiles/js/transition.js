@@ -1,0 +1,1 @@
+/home/parsa/Desktop/shora/website/static/js/transition.js

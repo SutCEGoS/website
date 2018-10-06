@@ -1,0 +1,33 @@
+{% extends "password_reset/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Password recovery" %}{% endblock %}
+
+{% block content %}
+    <div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">
+    <form method="post" action="{{ url }}">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <div id="username">Username</div>
+                </div>
+                <input type="text" class="form-control" id="id_username_or_email"
+                       name="username_or_email"/>
+
+                <div class="input-group-addon">@ce.sharif.edu</div>
+            </div>
+        </div>
+        {% for item in form.errors.values %}
+            <label>{{ item }}</label>
+        {% endfor %}
+        <div class="form-actions">
+            <div class="table-row">
+                <div class="table-cell">
+                    <input class="btn btn-primary" type="submit"
+                           value="{% trans "Recover my password" %}">
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
