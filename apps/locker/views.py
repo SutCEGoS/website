@@ -23,17 +23,21 @@ def add_new(request):
     if request.method == "POST":
         name = request.POST.get('locker-name')
         if rack.objects.filter(name__contains=name) :
-            if rack.objects.get(name__contains=name).receiver == request.user:
+            if sell.objects.get(locker=rack.objects.get(name__contains=name)).is_success and not sell.objects.get(locker=rack.objects.get(name__contains=name)).tired:
                 if rack.objects.get(name__contains=name).payment:
                     return HttpResponse(" This locker is yours :) ")
                 else :
                     return render(request,'confirmation.html',{'rack':rack.objects.get(name__contains=name)})
             else:
-                return HttpResponse('this locker has been chosen before sorry!')
+                return HttpResponse('this locker is on payment')
         else :
             user = request.user
             Rack = rack(name=name,receiver=user,payment=False,receivie_date=timezone.now(),condition=0)
             Rack.save()
+            if sell.objects.filter(locker=Rack):
+                Sell = sell.objects.get(locker=Rack)
+                Sell.tried = True
+                Sell.save()
             return render(request,'confirmation.html',{'rack':Rack})
     else:
         return HttpResponse('You choose badway !')
@@ -49,9 +53,9 @@ def payment(request, rack_id):
     if request.method == "POST":
         moneyt = 1000
         Rack = get_object_or_404(rack, id=rack_id)
-        if len(Rack.name)>3 or not Rack.name.isdigit():
-            return HttpResponse('PermissionDenied')
-        Sell = sell(value=moneyt, locker=Rack, is_success=False)
+        # if len(Rack.name)>3 or not Rack.name.isdigit():
+        #     return HttpResponse('PermissionDenied')
+        Sell = sell(value=moneyt, locker=Rack, is_success=False,tried=True)
         if request.user.is_authenticated:
             Sell.user = request.user
         Sell.save()
@@ -91,10 +95,16 @@ def payment_result(request):
             Sell.locker.save()
             return render(request, 'success.html', {'sell': Sell})
         elif result.Status == 101:
+            Sell.tried = False
+            Sell.save()
             return render(request, 'success.html', {'sell': Sell})
         else:
+            Sell.tried = False
+            Sell.save()
             return render(request, 'success.html', {'sell': Sell})
     else:
+        Sell.tried = False
+        Sell.save()
         return render(request, 'success.html', {'sell': Sell})
 
 

@@ -22,6 +22,6 @@ class sell(models.Model):
     locker = models.ForeignKey(rack, on_delete=models.CASCADE)
     is_success = models.NullBooleanField(null=True, default=True)
     authority = models.CharField(max_length=63)
-
+    tried = models.NullBooleanField(default=False)
     def __str__(self):
         return "'  %s  ' HAS BEEN SOLD TO '  %s ( %s ) '" %( self.locker.name , self.user , self.user.std_id)
