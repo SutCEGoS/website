@@ -86,9 +86,9 @@ DATABASES = {
     }
 }
 
-LANGUAGE_CODE = 'fa_IR'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Iran'
 
 USE_I18N = True
 

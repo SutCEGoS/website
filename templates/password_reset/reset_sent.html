@@ -1,5 +1,6 @@
 {#% extends "password_reset/base.html" %#}
 {#% load i18n %#}
+{% load static gravatar staticfiles hijack_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,
     shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% trans "Password recovery" %}</title>
+	<title>بازنشانی پسورد</title>
     <link href="{% static "css/style.css" %}" rel="stylesheet">
     <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
 </head>
@@ -145,10 +146,10 @@
 
     <section class="bg-navy-blue py-5 text-white">
         <div class="container">
-            <p>{% blocktrans with ago=timestamp|timesince %}An email was sent to
+            <p>{#% blocktrans with ago=timestamp|timesince %#}An email was sent to
                 <strong><a href="http://mail.ce.sharif.edu/" target="_blank">{{ email }}</a></strong> {{ ago }} ago. Use
                 the link in
-                it to set a new password.{% endblocktrans %}
+                it to set a new password.{#% endblocktrans %#}
         </div>
     </section>
 </main>
