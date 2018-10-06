@@ -6,7 +6,6 @@
 {% load i18n %}
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,11 +48,15 @@
                         <label for="pwd">گذرواژه</label>
                         <input type="password" class="form-control" id="pwd" name="password">
                     </div>
-                    <div class="custom-control custom-checkbox">
+                    <div class="form-group custom-control custom-checkbox">
                         <input class="custom-control-input" type="checkbox" id="remember-me">
                         <label class="custom-control-label" for="remember-me"> مرا به خاطر بسپار </label>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">برو!</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">برو!</button>
+                        <a role="button" class="btn btn-outline-primary" href="{% url 'password_reset_recover' %}">فراموشی
+                            گذرواژه</a>
+                    </div>
                 </form>
             </div>
 
@@ -81,7 +84,8 @@
                         <div class="dropdown-menu text-right">
                             <span class="dropdown-item dropdown-username">{{ user }}</span>
                             <a class="dropdown-item" href="{% url 'password_reset_change' %}">تغییر گذرواژه</a>
-                            {% if not user.first_name %}<a class="dropdown-item" href="{% url 'profile' %}">تکمیل پروفایل</a>{% endif %}
+                            {% if not user.first_name %}
+                                <a class="dropdown-item" href="{% url 'profile' %}">تکمیل پروفایل</a>{% endif %}
                             <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
                         </div>
                     </div>
@@ -144,33 +148,30 @@
 </aside>
 <main class="col-xl-10 mr-auto p-0 text-right">
 
-    <section class="bg-navy-blue py-5">
+    <section class="bg-navy-blue py-5 text-white">
         <div class="container">
-          <form method="post" action="{{ url }}">
-              {% csrf_token %}
-              <div class="form-group">
-                  <div class="input-group">
-                      <div class="input-group-addon">
-                          <div id="username">Username</div>
-                      </div>
-                      <input type="text" class="form-control" id="id_username_or_email"
-                             name="username_or_email"/>
+            <form method="post" action="{{ url }}">
+                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">فراموشی گذرواژه</h2>
 
-                      <div class="input-group-addon">@ce.sharif.edu</div>
-                  </div>
-              </div>
-              {% for item in form.errors.values %}
-                  <label>{{ item }}</label>
-              {% endfor %}
-              <div class="form-actions">
-                  <div class="table-row">
-                      <div class="table-cell">
-                          <input class="btn btn-primary" type="submit"
-                                 value="{% trans "Recover my password" %}">
-                      </div>
-                  </div>
-              </div>
-          </form>
+                {% csrf_token %}
+                <div class="form-group col-lg-5">
+                    <label for="id_username_or_email">ایمیل</label>
+                    <div class="input-group dir-ltr">
+                        <input type="text" class="form-control" id="id_username_or_email"
+                               name="username_or_email"/>
+                        <div class="input-group-append">
+                            <span class="input-group-text">@ce.sharif.edu</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% for item in form.errors.values %}
+                    <label>{{ item }}</label>
+                {% endfor %}
+                <div class="form-actions col-lg-5 text-center">
+                    <button class="btn btn-success" type="submit">بازیابی گذرواژه</button>
+                </div>
+            </form>
 
         </div>
     </section>
