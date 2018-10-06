@@ -182,7 +182,7 @@
                         <div class="content">
                             <h2>{{ announcement.title }}</h2>
                             <p>{{ announcement.body|safe|truncatechars:50 }}</p>
-                            <a role="button" class="btn btn-sm btn-primary" href="article.html">ادامه</a>
+                            <a role="button" class="btn btn-sm btn-primary" href="{{ announcement.get_absolute_url }}">ادامه</a>
                         </div>
                     </article>
                 {% endfor %}
