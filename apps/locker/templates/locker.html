@@ -239,10 +239,12 @@
             {% for rack in racks %}
                 {% if rack.receiver != user %}
                     occupied.push("{{rack.name}}");
-                {% else %}
-                    myLockers.push("{{rack.name}}");
                 {% endif %}
-
+            {% endfor %}
+            {% for rack in theRacks %}
+              {% if rack.payment == True %}
+                myLockers.push("{{rack.name}}");
+              {% endif %}
             {% endfor %}
 
             // console.log(racks);
