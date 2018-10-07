@@ -31,7 +31,7 @@ $window.on('load', function () {
     <div class="container">
       {% if invalid %}{% url "reset_password" as recovery_url %}
 
-      <p>{% blocktrans %}Sorry, this password reset link is invalid. You can still <a href="{{ recovery_url }}">request a new one</a>.{% endblocktrans %}</p>
+      <p>{% blocktrans %}متاسفانه این لینک دیگر برای بازیابی گذرواژه معتبر نیست. می&zwnj;توانید <a href="{{ recovery_url }}">دوباره درخواست دهید</a>.{% endblocktrans %}</p>
       {% else %}
       <!--<div class="center-block col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3 ">-->
       <form method="post" action="{% url 'password_reset_reset' token %}">
