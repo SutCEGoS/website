@@ -73,32 +73,26 @@
                         </div>
                     {% else %}
                         <div class="form-group">
-                            <label for="rules">قوانین:</label>
+                            <label for="rules" class="font-weight-bold">قوانین</label>
                             <div id="rules" class="alert alert-primary" readonly>
                                 <ol>
-                                    <li>مدت واگذاری تقریبا برابر یک سال است و موعد باز تحویل کمد توسط شورای صنفی اعلام
-                                        خواهد
+                                    <li>مدت تحویل تقریبا برابر یک سال است و موعد باز تحویل توسط شورای صنفی اعلام خواهد
                                         شد.
                                     </li>
-                                    <li>برای امنیت هر چه بیشتر کمدها تمهیداتی از قبیل قفل اضافه اندیشیده&zwnj;ایم اما
-                                        همچنان
-                                        به دلیل کامل نبودن امنیت کمدها، شورای صنفی مسئولیتی نسبت به گم شدن یا سرقت اموال
-                                        نگهداری شده در کمد&zwnj;نمی پذیرد.
+                                    <li>برای امنیت هر چه بیشتر کمدها تمهیداتی از قبیل قفل اضافه و دوربین اندیشیده&zwnj;ایم
+                                        اما همچنان شورای صنفی مسئولیتی نسبت به امنیت وسایل داخل کمدها نمی&zwnj;پذیرد.
                                     </li>
-                                    <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورای صنفی نگهداری خواهد شد.</li>
-                                    <li>شورای صنفی پس از اتمام موعد تخلیه و تحویل کمد اقدام به تخلیه کمد خواهد کرد و
-                                        مسئولیتی نسبت به اموال یافت شده در کمد نمی&zwnj;پذیرد.
+                                    <li>در صورت وارد کردن خسارت به کمد و متعلقات آن و عدم جبران خسارت وارد شده توسط مالک
+                                        کمد، در هنگام بازپس&zwnj;گیری کمد، هیچ مبلغی بازگردانده نمی&zwnj;شود.
                                     </li>
-                                    <li>مبلغ 200000 ریال ضمن تکمیل این فرم به شورای صنفی پرداخت می شود و در هنگام
-                                        بازتحویل
-                                        کمد 75 درصد مبلغ ودیعه به دانشجو بازگردانده می&zwnj;شود.
+                                    <li>شورای صنفی پس از اعلام قبلی و پس از موعد اتمام کمدها اقدام به تخلیه آن&zwnj;ها
+                                        خواهد کرد و مسئولیتی نسبت به اقلام یافت شده در کمد نمی&zwnj;پذیرد.
                                     </li>
-                                    <li>در صورتی که دانشجو به کمد خسارتی وارد کند، تامین معادل مالی این خسارت به عهده
-                                        دانشجو
-                                        است و شورای صنفی می&zwnj;تواند از محل مبلغ ودیعه اقدام به تامین مبلغ خسارت کند.
+                                    <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورا صنفی نگهداری خواهد شد و در صورت
+                                        لزوم شورا با اطلاع قبلی قفل اضافه را باز خواهد کرد.
                                     </li>
-                                    <li>در صورت بازگرداندن کمد پس از موعد تعیین شده برای تحویل کمدها، پولی به دانشجو
-                                        بازگردانده نخواهد شد.
+                                    <li>مبلغ دریافتی برای اجاره&zwnj;ی کمد است و پس از اتمام موعد کمد و تحویل آن و مطابق
+                                        بندهای فوق مبلغ به شما بازگردانده خواهد شد.
                                     </li>
                                 </ol>
                             </div>
@@ -116,15 +110,15 @@
       </span>
                         </div>
                         <div class="form-group" id="lockerSelector">
-                            <label for="locker-map">انتخاب کمد</label>
+                            <label for="locker-map" class="font-weight-bold">انتخاب کمد</label>
                             <label for="locker-map">
-                                <legend>( your lockers :
+                                <span class="badge badge-primary" style="font-size: inherit"> کمدهای شما :
                                     {% for rack in theRacks %}
                                         {% if rack.payment %}
                                             {{ rack }}
                                         {% endif %}
-                                    {% endfor %})
-                                </legend>
+                                    {% endfor %}
+                                </span>
                             </label>
                             <div class="position-relative dir-ltr map-container form-group" id="locker-map">
                                 <div class="locker-container">
@@ -198,7 +192,7 @@
 
                         <div class="form-group form-row">
                             <div class="form-group col-md-4">
-                                <label for="chosen-locker">شماره کمد</label>
+                                <label for="chosen-locker" class="font-weight-bold">شماره کمد</label>
                                 <input type="text" id="chosen-locker" class="form-control" name="locker-name"
                                        placeholder="از روی نقشه انتخاب کن!"
                                        pattern="[A-LN-P][1-4][1-3]" readonly required>
@@ -242,9 +236,9 @@
                 {% endif %}
             {% endfor %}
             {% for rack in theRacks %}
-              {% if rack.payment == True %}
-                myLockers.push("{{rack.name}}");
-              {% endif %}
+                {% if rack.payment == True %}
+                    myLockers.push("{{rack.name}}");
+                {% endif %}
             {% endfor %}
 
             // console.log(racks);
