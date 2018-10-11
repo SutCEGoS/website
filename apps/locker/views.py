@@ -22,15 +22,23 @@ def lock(request):
 def add_new(request):
     if request.method == "POST":
         name = request.POST.get('locker-name')
-        if rack.objects.filter(name__contains=name) :
-            if sell.objects.get(locker=rack.objects.get(name__contains=name)).is_success and not sell.objects.get(locker=rack.objects.get(name__contains=name)).tired:
-                if rack.objects.get(name__contains=name).payment:
-                    return HttpResponse(" This locker is yours :) ")
-                else :
-                    return render(request,'confirmation.html',{'rack':rack.objects.get(name__contains=name)})
+        if rack.objects.filter(name__contains=name):
+            if rack.objects.get(name=name).payment == True:
+                return HttpResponse('has chosen before')
             else:
-                return HttpResponse('this locker is on payment')
-        else :
+                Rack = rack.objects.get(name=name)
+                Sell = sell.objects.get(locker=rack.objects.get(name=name),is_success=False)
+                if Sell.tried == True:
+                    return HttpResponse('on payment')
+                else:
+                    Rack.receiver = request.user
+                    Rack.save()
+                    Sell.user = request.user
+                    Sell.locker = Rack
+                    Sell.tried = True
+                    Sell.save()
+                    return render(request,'confirmation.html',{'rack':Rack})
+        else:
             user = request.user
             Rack = rack(name=name,receiver=user,payment=False,receivie_date=timezone.now(),condition=0)
             Rack.save()
@@ -38,8 +46,11 @@ def add_new(request):
                 Sell = sell.objects.get(locker=Rack)
                 Sell.tried = True
                 Sell.save()
+            else:
+                Sell = sell(locker=Rack,user=request.user,tried=True)
+                Sell.save()
             return render(request,'confirmation.html',{'rack':Rack})
-    else:
+    else :
         return HttpResponse('You choose badway !')
 
 
@@ -96,47 +107,21 @@ def payment_result(request):
             return render(request, 'success.html', {'sell': Sell})
         elif result.Status == 101:
             Sell.tried = False
+            Sell.is_success = False
+            Sell.locker.name = 'Non'
+            Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
         else:
             Sell.tried = False
+            Sell.locker.name = 'Non'
+            Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
     else:
         Sell.tried = False
+        Sell.is_success = False
+        Sell.locker.name = 'Non'
+        Sell.locker.save()
         Sell.save()
         return render(request, 'success.html', {'sell': Sell})
-
-
-#@csrf_exempt
-#def payment_result(request, sell_id):
-#    if not request.method == "POST":
-#        raise PermissionDenied
-#    try:
-#        Sell = sell.objects.get(id=int(sell_id))
-#    except Sell.DoesNotExist:
-#        raise PermissionDenied # # TODO: Http404
-#    if not request.POST.get('resnumber') == Sell.get_code():
-#        raise PermissionDenied
-#    ref_num = request.POST.get('RefID')
-#    if not ref_num:
-#        raise PermissionDenied
-#    verify_payment(Sell, ref_num)
-#    if Sell.is_success:
-#        Sell.save()
-#    return render(request, 'payment_result.html', {'sell': Sell})
-
-
-
-
-
-#def verify_payment(Sell, ref_num):
-#    url = "http://www.zarinpal.com/pg/services/WebGate/wsdl"
-#    client = Client(url)
-#    MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
-#    s = client.service.PaymentVerification(MERCHANT, Sell.value, ref_num)
-#    status = s.Status
-#    price = s.PayementedPrice
-#    Sell.credit = int(price)
-#    Sell.is_success = (status == "Verifyed" or status == "success")
-#    Sell.save()
