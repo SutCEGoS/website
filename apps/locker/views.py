@@ -97,7 +97,12 @@ def payment_result(request):
     except sell.DoesNotExist:
         raise Http404
     if request.GET.get('Status') == 'OK':
+<<<<<<< HEAD
         result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 40000)
+=======
+        result = client.service.PaymentVerification(MERCHANT,
+                request.GET.get('Authority'), 40000)
+>>>>>>> 660098294c030777ec6f79fb5acf33dbb5ee3e50
         if result.Status == 100:
             try:
                 Sell = sell.objects.get(authority=request.GET.get('Authority'))
