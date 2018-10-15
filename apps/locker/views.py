@@ -79,7 +79,7 @@ def payment(request, rack_id):
         url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
         callBackUrl = "http://%s/locker/payment-result/" % (site_name)
-        s = client.service.PaymentRequest(MERCHANT, 1000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
+        s = client.service.PaymentRequest(MERCHANT, 40000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
         print(s , Sell.authority , site_name)
@@ -96,7 +96,8 @@ def payment_result(request):
     except sell.DoesNotExist:
         raise Http404
     if request.GET.get('Status') == 'OK':
-        result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 1000)
+        result = client.service.PaymentVerification(MERCHANT,
+                request.GET.get('Authority'), 40000)
         if result.Status == 100:
             try:
                 Sell = sell.objects.get(authority=request.GET.get('Authority'))
