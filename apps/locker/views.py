@@ -56,13 +56,12 @@ def add_new(request):
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 client = Client(url)
-MERCHANT = 'e0d2334e-86fb-11e7-af91-000c295eb8fc'
-
+MERCHANT = '6a2283ec-cff3-11e8-a51b-000c295eb8fc'
 
 def payment(request, rack_id):
 
     if request.method == "POST":
-        moneyt = 1000
+        moneyt = 40000
         Rack = get_object_or_404(rack, id=rack_id)
         # if len(Rack.name)>3 or not Rack.name.isdigit():
         #     return HttpResponse('PermissionDenied')
