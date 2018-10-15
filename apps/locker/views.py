@@ -27,17 +27,23 @@ def add_new(request):
                 return HttpResponse('has chosen before')
             else:
                 Rack = rack.objects.get(name=name)
-                Sell = sell.objects.get(locker=rack.objects.get(name=name),is_success=False)
-                if Sell.tried == True:
-                    return HttpResponse('on payment')
+                if sell.objects.filter(locker=Rack):
+                    Sell = sell.objects.get(locker=rack.objects.get(name=name),is_success=False)
+                    if Sell.tried == True:
+                        return HttpResponse('on payment')
+                    else:
+                        Rack.receiver = request.user
+                        Rack.save()
+                        Sell.user = request.user
+                        Sell.locker = Rack
+                        Sell.tried = True
+                        Sell.save()
+                        return render(request,'confirmation.html',{'rack':Rack})
                 else:
-                    Rack.receiver = request.user
-                    Rack.save()
-                    Sell.user = request.user
-                    Sell.locker = Rack
-                    Sell.tried = True
+                    Sell = sell(user=request.user,locker=Rack,is_success=False,tried=True)
                     Sell.save()
                     return render(request,'confirmation.html',{'rack':Rack})
+
         else:
             user = request.user
             Rack = rack(name=name,receiver=user,payment=False,receivie_date=timezone.now(),condition=0)
