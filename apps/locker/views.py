@@ -29,7 +29,7 @@ def add_new(request):
                 Rack = rack.objects.get(name=name)
                 if sell.objects.filter(locker=Rack):
                     Sell = sell.objects.get(locker=rack.objects.get(name=name),is_success=False)
-                    if Sell.tried == True and Rack.payment == True:
+                    if Rack.payment == True and Sell.tried == True:
                         return HttpResponse('on payment')
                     else:
                         Rack.receiver = request.user
