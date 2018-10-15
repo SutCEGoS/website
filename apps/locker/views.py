@@ -29,7 +29,7 @@ def add_new(request):
                 Rack = rack.objects.get(name=name)
                 if sell.objects.filter(locker=Rack):
                     Sell = sell.objects.get(locker=rack.objects.get(name=name),is_success=False)
-                    if Sell.tried == True:
+                    if Sell.tried == True and Rack.payment == True:
                         return HttpResponse('on payment')
                     else:
                         Rack.receiver = request.user
@@ -65,12 +65,11 @@ client = Client(url)
 MERCHANT = '6a2283ec-cff3-11e8-a51b-000c295eb8fc'
 
 def payment(request, rack_id):
-
+    Rack = get_object_or_404(rack, id=rack_id)
     if request.method == "POST":
+        if Rack.payment==True:
+            return HttpResponse('someone else is on payment')
         moneyt = 40000
-        Rack = get_object_or_404(rack, id=rack_id)
-        # if len(Rack.name)>3 or not Rack.name.isdigit():
-        #     return HttpResponse('PermissionDenied')
         Sell = sell(value=moneyt, locker=Rack, is_success=False,tried=True)
         if request.user.is_authenticated:
             Sell.user = request.user
@@ -79,11 +78,13 @@ def payment(request, rack_id):
         url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
         callBackUrl = "http://%s/locker/payment-result/" % (site_name)
-        s = client.service.PaymentRequest(MERCHANT, 1000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
+        s = client.service.PaymentRequest(MERCHANT, 40000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
         print(s , Sell.authority , site_name)
         if s.Status == 100:
+            Rack.payment = True
+            Rack.save()
             return redirect("https://www.zarinpal.com/pg/StartPay/"+str(s.Authority))
         else:
             return HttpResponse(s.Status)
@@ -96,7 +97,7 @@ def payment_result(request):
     except sell.DoesNotExist:
         raise Http404
     if request.GET.get('Status') == 'OK':
-        result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 1000)
+        result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 40000)
         if result.Status == 100:
             try:
                 Sell = sell.objects.get(authority=request.GET.get('Authority'))
@@ -114,18 +115,22 @@ def payment_result(request):
             Sell.tried = False
             Sell.is_success = False
             Sell.locker.name = 'Non'
+            Sell.locker.payment = False
             Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
         else:
             Sell.tried = False
             Sell.locker.name = 'Non'
+            Sell.is_success = False
+            Sell.locker.payment = False
             Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
     else:
         Sell.tried = False
         Sell.is_success = False
+        Sell.locker.payment = False
         Sell.locker.name = 'Non'
         Sell.locker.save()
         Sell.save()
