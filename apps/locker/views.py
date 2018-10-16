@@ -15,6 +15,11 @@ from django.utils import timezone
 def lock(request):
     theRacks = rack.objects.filter(receiver=request.user)
     racks = rack.objects.all()
+    for track in racks:
+        if sell.objects.filter(locker=track,is_success=False):
+            if track.payment == True:
+                track.payment = False
+                track.save()
     user = request.user
     return render(request,'locker.html',{ 'racks':racks,'theRacks':theRacks , 'user':user })
 
@@ -62,7 +67,7 @@ def add_new(request):
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 client = Client(url)
-MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
+MERCHANT = '6a2283ec-cff3-11e8-a51b-000c295eb8fc'
 
 def payment(request, rack_id):
     Rack = get_object_or_404(rack, id=rack_id)
@@ -98,6 +103,7 @@ def payment_result(request):
         raise Http404
     if request.GET.get('Status') == 'OK':
         result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 40000)
+
         if result.Status == 100:
             try:
                 Sell = sell.objects.get(authority=request.GET.get('Authority'))
