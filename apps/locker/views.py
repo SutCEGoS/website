@@ -29,7 +29,7 @@ def add_new(request):
                 Rack = rack.objects.get(name=name)
                 if sell.objects.filter(locker=Rack):
                     Sell = sell.objects.get(locker=rack.objects.get(name=name),is_success=False)
-                    if Rack.payment == True and Sell.tried == True:
+                    if Rack.payment == True:
                         return HttpResponse('on payment')
                     else:
                         Rack.receiver = request.user
@@ -62,7 +62,7 @@ def add_new(request):
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 client = Client(url)
-MERCHANT = '6a2283ec-cff3-11e8-a51b-000c295eb8fc'
+MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
 
 def payment(request, rack_id):
     Rack = get_object_or_404(rack, id=rack_id)
@@ -97,12 +97,7 @@ def payment_result(request):
     except sell.DoesNotExist:
         raise Http404
     if request.GET.get('Status') == 'OK':
-<<<<<<< HEAD
         result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 40000)
-=======
-        result = client.service.PaymentVerification(MERCHANT,
-                request.GET.get('Authority'), 40000)
->>>>>>> 660098294c030777ec6f79fb5acf33dbb5ee3e50
         if result.Status == 100:
             try:
                 Sell = sell.objects.get(authority=request.GET.get('Authority'))
