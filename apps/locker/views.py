@@ -14,6 +14,17 @@ from django.utils import timezone
 @login_required
 def lock(request):
     theRacks = rack.objects.filter(receiver=request.user)
+    broken_lockers = ['A23', 'A42', 'B13', 'B22', 'B23', 'B32', 'B41', 'C21',
+            'C41', 'D11', 'D12', 'D23', 'E11', 'E12', 'E13', 'E21', 'E22',
+            'E41', 'E42', 'F11', 'F12', 'F13', 'F21', 'F23', 'F32', 'F41',
+            'F42', 'F43', 'G11', 'G12', 'G13', 'G22', 'G41', 'G42', 'G43',
+            'H11', 'H12', 'H23', 'H33', 'H42', 'I23', 'I33', 'J11', 'J12',
+            'J13', 'J21', 'J23', 'J41', 'K11', 'K12', 'K21', 'K22', 'K23',
+            'K32', 'L13', 'L22', 'L31', 'L32', 'L33', 'L42', 'L43', 'O11',
+            'O12', 'O13', 'O21', 'O31', 'N13', 'N21', 'N22', 'N23', 'N32',
+            'N33', 'N41', 'Q11', 'Q12', 'Q21', 'Q22', 'Q31', 'Q32', 'Q33',
+            'Q41', 'Q42', 'P13', 'P21', 'P22', 'P23', 'P31', 'P33', 'P42',
+            'P43',]
     racks = rack.objects.all()
     for track in racks:
         if sell.objects.filter(locker=track,is_success=False):
@@ -21,7 +32,8 @@ def lock(request):
                 track.payment = False
                 track.save()
     user = request.user
-    return render(request,'locker.html',{ 'racks':racks,'theRacks':theRacks , 'user':user })
+    return render(request,'locker.html',{ 'racks':racks,'theRacks':theRacks , 'user':user,
+        'broken_lockers': broken_lockers})
 
 @login_required
 def add_new(request):
