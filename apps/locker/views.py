@@ -27,10 +27,17 @@ def lock(request):
             'P43',]
     racks = rack.objects.all()
     for track in racks:
-        if sell.objects.filter(locker=track,is_success=False):
+        if sell.objects.filter(locker=track):
             if track.payment == True:
-                track.payment = False
-                track.save()
+                if sell.objects.filter(locker=track,is_success=False):
+                    track.payment = False
+                    track.save()
+            elif track.payment == False:
+                if sell.objects.filter(locker=track).count()==1:
+                    tsell = sell.objects.get(locker=track)
+                    tsell.is_success = False
+                    tsell.save()
+
     user = request.user
     return render(request,'locker.html',{ 'racks':racks,'theRacks':theRacks , 'user':user,
         'broken_lockers': broken_lockers})
