@@ -51,30 +51,30 @@
     </div>
 {% endblock %}
 {% block activation %}
-<ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="/">خانه</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link under-construction" href="{% url 'under_construction' %}">ثبت گزارش</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
-  </li>
-  {% if user.is_authenticated %}
-  <li class="nav-item active">
-    <a class="nav-link" href="/locker">کمد</a>
-  </li>
-  {% else %}
-  <li class="nav-item">
-    <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
-  </li>
-  {% endif %}
+    <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/">خانه</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link under-construction" href="{% url 'under_construction' %}">ثبت گزارش</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/locker">کمد</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
+            </li>
+        {% endif %}
 
-</ul>
+    </ul>
 {% endblock %}
 
 {% block body_main %}
@@ -118,7 +118,8 @@
                                     <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورای صنفی نگهداری خواهد شد و در صورت
                                         لزوم شورا با اطلاع قبلی قفل اضافه را باز خواهد کرد.
                                     </li>
-                                    <li>مبلغ دریافتی برای اجاره&zwnj;ی کمد 40 هزار تومان است و پس از اتمام موعد کمد و تحویل آن و مطابق
+                                    <li>مبلغ دریافتی برای اجاره&zwnj;ی کمد 40 هزار تومان است و پس از اتمام موعد کمد و
+                                        تحویل آن و مطابق
                                         بندهای فوق مبلغ 35 هزار تومان به شما بازگردانده خواهد شد.
                                     </li>
                                 </ol>
@@ -256,7 +257,7 @@
         var lockerLetter = 'M';
 
         function changeLetter(ch) {
-            var occupied = [], myLockers = [];
+            var occupied = [], myLockers = [], broken = [];
             {% for rack in racks %}
                 {% if rack.receiver != user and rack.payment == True %}
                     occupied.push("{{rack.name}}");
@@ -267,7 +268,9 @@
                     myLockers.push("{{rack.name}}");
                 {% endif %}
             {% endfor %}
-
+            {% for rack in broken_lockers %}
+                myLockers.push("{{rack.name}}");
+            {% endfor %}
             // console.log(racks);
             // var rr = {{racks}};
 
@@ -279,10 +282,13 @@
                 $(this).html(lockerLetter + my);
                 my = $(this).html();
                 if (occupied.includes(my)) {
-                    $(this).addClass("occupiedLocker").prop("onclick", null).off("click");
+                    $(this).removeClass("bg-warning btn-warning bg-primary btn-primary brokenLocker myLocker").addClass("occupiedLocker").prop("onclick", null).off("click");
                 }
                 else if (myLockers.includes(my)) {
-                    $(this).addClass("myLocker").prop("onclick", null).off("click");
+                    $(this).removeClass("bg-warning btn-warning bg-danger btn-danger brokenLocker occupiedLocker").addClass("myLocker").prop("onclick", null).off("click");
+                }
+                else if (broken.includes(my)) {
+                    $(this).removeClass("bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker").addClass("brokenLocker").prop("onclick", null).off("click");
                 }
                 else {
                     $(this).removeClass("bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker")
@@ -302,7 +308,6 @@
                     $(this).css("cursor", "pointer");
                 }
                 $(".occupiedLocker").each(function () {
-                    console.log("SALAM");
                     $(this).addClass("bg-danger btn btn-danger")
                         .css("cursor", "not-allowed")
                         .click(null)
@@ -312,11 +317,18 @@
 
                 });
                 $(".myLocker").each(function () {
-                    console.log("Khodafez");
                     $(this).addClass("bg-primary btn btn-primary")
                         .css("cursor", "not-allowed")
                         .click(null)
                         .attr("title", "شما این کمد را اجاره کرده اید.").tooltip();
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                });
+                $(".brokenLocker").each(function () {
+                    $(this).addClass("bg-danger btn btn-danger")
+                        .css("cursor", "not-allowed")
+                        .click(null)
+                        .attr("title", "این کمد قابل اجاره دادن نمی باشد").tooltip();
                     $('[data-toggle="tooltip"]').tooltip();
 
                 });
