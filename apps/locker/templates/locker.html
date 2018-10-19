@@ -269,7 +269,7 @@
                 {% endif %}
             {% endfor %}
             {% for rack in broken_lockers %}
-                myLockers.push("{{rack.name}}");
+                broken.push("{{rack}}");
             {% endfor %}
             // console.log(racks);
             // var rr = {{racks}};
@@ -282,17 +282,16 @@
                 $(this).html(lockerLetter + my);
                 my = $(this).html();
                 if (occupied.includes(my)) {
-                    $(this).removeClass("bg-warning btn-warning bg-primary btn-primary brokenLocker myLocker").addClass("occupiedLocker").prop("onclick", null).off("click");
+                    $(this).removeClass("bg-success btn-success bg-warning btn-warning bg-primary btn-primary brokenLocker myLocker").addClass("occupiedLocker").prop("onclick", null).off("click");
                 }
                 else if (myLockers.includes(my)) {
-                    $(this).removeClass("bg-warning btn-warning bg-danger btn-danger brokenLocker occupiedLocker").addClass("myLocker").prop("onclick", null).off("click");
+                    $(this).removeClass("bg-success btn-success bg-warning btn-warning bg-danger btn-danger brokenLocker occupiedLocker").addClass("myLocker").prop("onclick", null).off("click");
                 }
                 else if (broken.includes(my)) {
-                    $(this).removeClass("bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker").addClass("brokenLocker").prop("onclick", null).off("click");
+                    $(this).removeClass("bg-success btn-success bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker").addClass("brokenLocker").prop("onclick", null).off("click");
                 }
                 else {
-                    $(this).removeClass("bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker")
-                        .attr("title", "می توانید این کمد را اجاره کنید.").tooltip();
+                    $(this).removeClass("bg-warning btn-warning bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker brokenLocker").addClass("bg-success btn-success").attr("title", "می توانید این کمد را اجاره کنید.").tooltip();
 
                     $(this).click(function () {
                         $("#chosen-locker").val($(this).html());
@@ -325,10 +324,10 @@
 
                 });
                 $(".brokenLocker").each(function () {
-                    $(this).addClass("bg-danger btn btn-danger")
+                    $(this).addClass("bg-warning btn btn-warning")
                         .css("cursor", "not-allowed")
                         .click(null)
-                        .attr("title", "این کمد قابل اجاره دادن نمی باشد").tooltip();
+                        .attr("title", "این کمد بع علت مشکلات فنی قابل اجاره دادن نمی باشد").tooltip();
                     $('[data-toggle="tooltip"]').tooltip();
 
                 });
