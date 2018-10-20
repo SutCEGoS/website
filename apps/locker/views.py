@@ -86,7 +86,7 @@ def add_new(request):
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 client = Client(url)
-MERCHANT = '6a2283ec-cff3-11e8-a51b-000c295eb8fc'
+MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
 
 def payment(request, rack_id):
     Rack = get_object_or_404(rack, id=rack_id)
