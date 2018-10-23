@@ -21,10 +21,10 @@ def lock(request):
             'H11', 'H12', 'H23', 'H33', 'H42', 'I23', 'I33', 'J11', 'J12',
             'J13', 'J21', 'J23', 'J41', 'K11', 'K12', 'K21', 'K22', 'K23',
             'K32', 'L13', 'L22', 'L31', 'L32', 'L33', 'L42', 'L43', 'O11',
-            'O12', 'O13', 'O21', 'O31', 'N13', 'N21', 'N22', 'N23', 'N32',
-            'N33', 'N41', 'Q11', 'Q12', 'Q21', 'Q22', 'Q31', 'Q32', 'Q33',
-            'Q41', 'Q42', 'P13', 'P21', 'P22', 'P23', 'P31', 'P33', 'P42',
-            'P43',]
+            'O12', 'O13', 'O21', 'O31', 'O33', 'N13', 'N21', 'N22', 'N23',
+            'N32', 'N33', 'N41', 'Q11', 'Q12', 'Q21', 'Q22', 'Q31', 'Q32',
+            'Q33', 'Q41', 'Q42', 'P13', 'P21', 'P22', 'P23', 'P31', 'P33',
+            'P42', 'P43',]
     racks = rack.objects.all()
     for track in racks:
         if sell.objects.filter(locker=track):
@@ -33,10 +33,10 @@ def lock(request):
                     track.payment = False
                     track.save()
             elif track.payment == False:
-                if sell.objects.filter(locker=track).count()==1:
-                    tsell = sell.objects.get(locker=track)
+                for tsell in sell.objects.filter(locker=track):
                     tsell.is_success = False
                     tsell.save()
+
 
     user = request.user
     return render(request,'locker.html',{ 'racks':racks,'theRacks':theRacks , 'user':user,
@@ -52,16 +52,13 @@ def add_new(request):
             else:
                 Rack = rack.objects.get(name=name)
                 if sell.objects.filter(locker=Rack):
-                    Sell = sell.objects.get(locker=rack.objects.get(name=name),is_success=False)
+                    Sell = sell(user=request.user,locker=Rack,is_success=False,tried=True)
                     if Rack.payment == True:
                         return HttpResponse('on payment')
                     else:
-                        Rack.receiver = request.user
+                        Rack.receiver=request.user
+                        Rack.receivie_date = timezone.now()
                         Rack.save()
-                        Sell.user = request.user
-                        Sell.locker = Rack
-                        Sell.tried = True
-                        Sell.save()
                         return render(request,'confirmation.html',{'rack':Rack})
                 else:
                     Sell = sell(user=request.user,locker=Rack,is_success=False,tried=True)
