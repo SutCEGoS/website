@@ -10,6 +10,12 @@ import json
 from django.utils import timezone
 
 
+def calculate_difference(x,y):
+    day = y.day-x.day
+    hour = y.hour-x.hour
+    minute = y.minute-x.minute
+    return day*24*60+hour*60+minute
+
 
 @login_required
 def lock(request):
@@ -30,8 +36,9 @@ def lock(request):
         if sell.objects.filter(locker=track):
             if track.payment == True:
                 if sell.objects.filter(locker=track,is_success=False):
-                    track.payment = False
-                    track.save()
+                    if calculate_difference(track.receivie_date,timezone.now()) > 10:
+                        track.payment = False
+                        track.save()
             elif track.payment == False:
                 for tsell in sell.objects.filter(locker=track):
                     tsell.is_success = False
@@ -51,30 +58,22 @@ def add_new(request):
                 return HttpResponse('has chosen before')
             else:
                 Rack = rack.objects.get(name=name)
-                if sell.objects.filter(locker=Rack):
-                    Sell = sell(user=request.user,locker=Rack,is_success=False,tried=True)
-                    if Rack.payment == True:
-                        return HttpResponse('on payment')
-                    else:
-                        Rack.receiver=request.user
-                        Rack.receivie_date = timezone.now()
-                        Rack.save()
-                        return render(request,'confirmation.html',{'rack':Rack})
-                else:
-                    Sell = sell(user=request.user,locker=Rack,is_success=False,tried=True)
-                    Sell.save()
-                    return render(request,'confirmation.html',{'rack':Rack})
-
+                Sell = sell(user=request.user,locker=Rack,is_success=False)
+                Rack.receiver=request.user
+                Rack.receivie_date = timezone.now()
+                Rack.save()
+                return render(request,'confirmation.html',{'rack':Rack})
         else:
             user = request.user
-            Rack = rack(name=name,receiver=user,payment=False,receivie_date=timezone.now(),condition=0)
+            Rack = rack(name=name,receiver=user,payment=True,receivie_date=timezone.now())
             Rack.save()
             if sell.objects.filter(locker=Rack):
                 Sell = sell.objects.get(locker=Rack)
-                Sell.tried = True
+                Sell.is_success = False
                 Sell.save()
             else:
-                Sell = sell(locker=Rack,user=request.user,tried=True)
+                Sell = sell(locker=Rack,user=request.user)
+                Sell.is_success = False
                 Sell.save()
             return render(request,'confirmation.html',{'rack':Rack})
     else :
@@ -89,9 +88,9 @@ def payment(request, rack_id):
     Rack = get_object_or_404(rack, id=rack_id)
     if request.method == "POST":
         if Rack.payment==True:
-            return HttpResponse('someone else is on payment')
+            return HttpResponse('someone else is on payment for this locker')
         moneyt = 40000
-        Sell = sell(value=moneyt, locker=Rack, is_success=False,tried=True)
+        Sell = sell(value=moneyt, locker=Rack, is_success=False)
         if request.user.is_authenticated:
             Sell.user = request.user
         Sell.save()
@@ -129,30 +128,22 @@ def payment_result(request):
             if not ref_num:
                 raise PermissionDenied
             Sell.is_success = True
-            Sell.locker.payment = True
             Sell.save()
-            Sell.locker.save()
             return render(request, 'success.html', {'sell': Sell})
         elif result.Status == 101:
-            Sell.tried = False
             Sell.is_success = False
             Sell.locker.name = 'Non'
-            Sell.locker.payment = False
             Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
         else:
-            Sell.tried = False
             Sell.locker.name = 'Non'
             Sell.is_success = False
-            Sell.locker.payment = False
             Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
     else:
-        Sell.tried = False
         Sell.is_success = False
-        Sell.locker.payment = False
         Sell.locker.name = 'Non'
         Sell.locker.save()
         Sell.save()
