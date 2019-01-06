@@ -16,7 +16,7 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^', include('apps.base.urls')),
-    #url(r'^objections/', include('apps.objection.urls')),
+    url(r'^objections/', include('apps.objection.urls')),
     url(r'^locker/',include('apps.locker.urls')),
     #url(r'^issues/', include('apps.issue.urls')),
     #url(r'^polls/', include('apps.poll.urls')),

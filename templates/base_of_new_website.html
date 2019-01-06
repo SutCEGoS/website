@@ -15,6 +15,17 @@
     <title> {% block title %}{% endblock %}| شورا صنفی دانشکده مهندسی کامپیوتر </title>
 
     {% block js %}
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" language="JavaScript">
+        var $window = $(window);
+        window.csrf_token = "{{ csrf_token }}";
+        window.forgot_link = '{% url 'password_reset_recover' %}';
+    </script>
+    <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!--if lt IE 9]><script type="text/javascript" src="{% static 'js/html5shiv.js' %}"></script><![endif]-->
+    <script type="text/javascript" src="{% static 'js/popover.js' %}?v=1"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/login.js' %}?v=1"></script>
     <script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
     <script type="text/javascript" src="{% static "js/transition.js" %}"></script>
@@ -131,7 +142,7 @@
               <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link under-construction" href="{% url 'under_construction' %}">ثبت گزارش</a>
+              <a class="nav-link under-construction" href="objections">ثبت گزارش</a>
             </li>
             <li class="nav-item">
               <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
@@ -167,6 +178,10 @@
 {% endblock %}
 
 {% block body_main %}
+
+{% endblock %}
+
+{% block message_template %}
 
 {% endblock %}
 

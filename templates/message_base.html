@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_of_new_website.html' %}
 {% load static gravatar %}
 
 {% block title %}مشکلات{% endblock title %}
@@ -9,8 +9,24 @@
     <link rel="stylesheet" type="text/css" href="{% static 'js/select2/select2-bootstrap.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}"/>
 {% endblock %}
+{% block js %}
+  {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" language="JavaScript">
+        var $window = $(window);
+        window.csrf_token = "{{ csrf_token }}";
+        window.forgot_link = '{% url "password_reset_recover" %}';
+    </script>
+    <script type="text/javascript" src="{% static 'js/json.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!--if lt IE 9]><script type="text/javascript" src="{% static 'js/html5shiv.js' %}"></script><![endif]-->
+    <script type="text/javascript" src="{% static 'js/popover.js' %}?v=1"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static 'js/login.js' %}?v=1"></script>
+{% endblock %}
 
-{% block body %}
+{% block body_main %}
+<main class="col-xl-10 mr-auto p-0 text-right">
+  <section class="bg-navy-blue py-5">
     <div class="container">
         {#        <div class="row">#}
         {##}
@@ -130,5 +146,7 @@
     </div>
 
     {% block message_template %}{% endblock %}
+  </section>
+</main>
 
 {% endblock %}

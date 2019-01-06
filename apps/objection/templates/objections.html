@@ -15,9 +15,10 @@
     <script type="text/javascript" language="JavaScript" src="{% static 'js/messages.js' %}"></script>
     <script type="text/javascript" language="JavaScript" src="{% static 'js/remove_search_filter.js' %}"></script>
     <script type="text/javascript" language="JavaScript">
-        var $ajax_metoo = '{% url 'add_me_too' %}';
-        var $load_url = '{% url 'get_objections_list' %}';
+        var $ajax_metoo = '{% url "add_me_too" %}';
+        var $load_url = '{% url "get_objections_list" %}';
     </script>
+    
 {% endblock %}
 
 {% block title%}
