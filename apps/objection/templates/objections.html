@@ -18,7 +18,7 @@
         var $ajax_metoo = '{% url "add_me_too" %}';
         var $load_url = '{% url "get_objections_list" %}';
     </script>
-    
+
 {% endblock %}
 
 {% block title%}
@@ -28,7 +28,32 @@
 {% block system_name %}
 سامانه رسیدگی به مشکلات برنامه درسی
 {% endblock %}
+{% block activation %}
+<ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/">خانه</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
+  </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'requests' %}">objection</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
+  </li>
+  {% if user.is_authenticated %}
+  <li class="nav-item">
+    <a class="nav-link" href="/locker">کمد</a>
+  </li>
+  {% else %}
+  <li class="nav-item">
+    <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
+  </li>
+  {% endif %}
 
+</ul>
+{% endblock %}
 {% block message_template %}
     <div class="panel panel-default dir-rtl hide" mj-dataid="" mj-category-id="" mj-message-template="true">
         <div class="panel-heading" style="margin-bottom: -1px;">
