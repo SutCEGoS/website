@@ -79,6 +79,9 @@
                         <input class="custom-control-input" type="checkbox" id="remember-me">
                         <label class="custom-control-label" for="remember-me"> مرا به خاطر بسپار </label>
                     </div>
+                    <div>
+                      <input type="hidden" name="next" value="{{request.path}}">
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">برو!</button>
                         <a role="button" class="btn btn-outline-primary" href="{% url 'password_reset_recover' %}">فراموشی

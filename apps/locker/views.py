@@ -87,7 +87,7 @@ MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
 def payment(request, rack_id):
     Rack = get_object_or_404(rack, id=rack_id)
     if request.method == "POST":
-        if Rack.payment==True:
+        if Rack.payment==True and Rack.receiver != request.user:
             return HttpResponse('someone else is on payment for this locker')
         moneyt = 40000
         Sell = sell(value=moneyt, locker=Rack, is_success=False)

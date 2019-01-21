@@ -56,9 +56,9 @@ def complete_profile(request):
 
 
 def login(request):
+    next = request.GET.get('next', reverse('home'))
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home'))
-    next = request.GET.get('next', reverse('home'))
 
     if request.method == 'POST':
         form = SignInForm(request.POST)
@@ -66,6 +66,9 @@ def login(request):
             cd = form.cleaned_data
             user = form.user
             dj_login(request, user)
+            next = request.POST.get('next')
+            if next == None:
+                next = request.GET.get('next', reverse('home'))
             return HttpResponseRedirect(next)
     else:
         form = SignInForm()
