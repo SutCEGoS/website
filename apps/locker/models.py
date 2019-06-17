@@ -6,11 +6,15 @@ from apps.base.models import Member
 
 # Create your models here.
 class rack(models.Model):
+        CONDITION = Choices((0, 'available'),
+                            (1, 'unavailable'),
+                            )
         name = models.CharField(max_length=3)
         receiver = models.ForeignKey(Member,blank=True,null=True, on_delete=models.CASCADE)
         payment = models.BooleanField(default=False)
         receivie_date = models.DateTimeField(auto_now_add=True)
-        condition = models.BooleanField(default=True)
+        condition = models.PositiveSmallIntegerField(choices=CONDITION,
+                default=0)
         def __str__(self):
             return self.name
 class sell(models.Model):
