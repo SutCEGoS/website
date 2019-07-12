@@ -56,7 +56,7 @@ def create_course(course_name, course_number):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        url = "http://term.inator.ir/courses/list/38/"
+        url = "kttp://term.inator.ir/courses/list/38/"
         data = urlopen(url)
         courses_list = json.loads(data.read().decode('utf8'))
 

@@ -7,7 +7,7 @@ log_file="$log_directory$log_file_name"
 mkdir -p $log_directory
 touch $log_file
 
-exec &> >(tee -a "$log_file")
+# exec &> >(tee -a "$log_file")
 
 echo Deploy started
 echo User: $USER
