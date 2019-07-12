@@ -123,7 +123,8 @@
                                         بندهای فوق مبلغ 35 هزار تومان به شما بازگردانده خواهد شد.
                                     </li>
                                     <li>
-                                    پس از دریافت کمد به هر دلیلی اگر پرداخت شما صحیح نباشد کمد پس از مدتی از شما پس گرفته می شود.
+                                        پس از دریافت کمد به هر دلیلی اگر پرداخت شما صحیح نباشد کمد پس از مدتی از شما پس
+                                        گرفته می شود.
                                     </li>
                                 </ol>
                             </div>
@@ -286,14 +287,11 @@
                 my = $(this).html();
                 if (occupied.includes(my)) {
                     $(this).removeClass("bg-success btn-success bg-warning btn-warning bg-primary btn-primary brokenLocker myLocker").addClass("occupiedLocker").prop("onclick", null).off("click");
-                }
-                else if (myLockers.includes(my)) {
+                } else if (myLockers.includes(my)) {
                     $(this).removeClass("bg-success btn-success bg-warning btn-warning bg-danger btn-danger brokenLocker occupiedLocker").addClass("myLocker").prop("onclick", null).off("click");
-                }
-                else if (broken.includes(my)) {
+                } else if (broken.includes(my)) {
                     $(this).removeClass("bg-success btn-success bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker").addClass("brokenLocker").prop("onclick", null).off("click");
-                }
-                else {
+                } else {
                     $(this).removeClass("bg-warning btn-warning bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker brokenLocker").addClass("bg-success btn-success").attr("title", "می توانید این کمد را اجاره کنید.").tooltip();
 
                     $(this).click(function () {

@@ -1,0 +1,139 @@
+{% extends "base_of_new_website.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load static gravatar staticfiles hijack_tags %}
+
+{% block title %}
+    انتخاب کمد
+{% endblock %}
+<!-- Locker Modal -->
+{% block navbar %}
+    {{ block.super }}
+
+    <div class="modal fade" id="lockerModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title ml-auto" id="locker-title">کمد Letter</h4>
+                    <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="container text-right py-3">
+                    <div class="locker dir-ltr">
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="11">11</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="12">12</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="13">13</div>
+                        </div>
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="21">21</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="22">22</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="23">23</div>
+                        </div>
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="31">31</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="32">32</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="33">33</div>
+                        </div>
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="41">41</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="42">42</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="43">43</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block activation %}
+    <ul class="navbar-nav flex-xl-column w-100 text-center p-0 mb-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/">خانه</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'requests' %}">objection</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/locker">کمد</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
+            </li>
+        {% endif %}
+
+    </ul>
+{% endblock %}
+
+{% block body_main %}
+
+    <main class="col-xl-10 mr-auto p-0 text-right">
+
+
+        <section class="bg-navy-blue py-5">
+            <div class="mx-sm-5 px-3">
+                <form class="text-white" action="{% url 'add_rack' %}" method="post">
+                    {% csrf_token %}
+                    <h2 class="mb-4 mx-2 px-4 text-white border-right-white">رزرو کمد</h2>
+                    <!--<div class="alert alert-danger" role="alert">
+                    کمد انتخاب شده قبلا رزرو شده است :(
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="float: left">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>-->
+                    {% if not user.first_name %}
+                        <div class="form-group text-center">
+                            <p>ابتدا مشخصات خود را تکمیل کنید</p>
+                            <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل مشخصات</a>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="rules" class="font-weight-bold">قوانین</label>
+                            <div id="rules" class="alert alert-primary" readonly>
+                                <ol>
+                                    <li>مدت تحویل تقریبا برابر یک سال است و موعد باز تحویل توسط شورای صنفی اعلام خواهد
+                                        شد.
+                                    </li>
+                                    <li>برای امنیت هر چه بیشتر کمدها تمهیداتی از قبیل قفل اضافه و دوربین اندیشیده&zwnj;ایم
+                                        اما همچنان شورای صنفی مسئولیتی نسبت به امنیت وسایل داخل کمدها نمی&zwnj;پذیرد.
+                                    </li>
+                                    <li>در صورت وارد کردن خسارت به کمد و متعلقات آن و عدم جبران خسارت وارد شده توسط مالک
+                                        کمد، در هنگام بازپس&zwnj;گیری کمد، هیچ مبلغی بازگردانده نمی&zwnj;شود.
+                                    </li>
+                                    <li>شورای صنفی پس از اعلام قبلی و پس از موعد اتمام کمدها اقدام به تخلیه آن&zwnj;ها
+                                        خواهد کرد و مسئولیتی نسبت به اقلام یافت شده در کمد نمی&zwnj;پذیرد.
+                                    </li>
+                                    <li>یک نسخه از کلید قفل اضافه&zwnj;ی کمد نزد شورای صنفی نگهداری خواهد شد و در صورت
+                                        لزوم شورا با اطلاع قبلی قفل اضافه را باز خواهد کرد.
+                                    </li>
+                                    <li>مبلغ دریافتی برای اجاره&zwnj;ی کمد 40 هزار تومان است و پس از اتمام موعد کمد و
+                                        تحویل آن و مطابق
+                                        بندهای فوق مبلغ 35 هزار تومان به شما بازگردانده خواهد شد.
+                                    </li>
+                                    <li>
+                                        پس از دریافت کمد به هر دلیلی اگر پرداخت شما صحیح نباشد کمد پس از مدتی از شما پس
+                                        گرفته می شود.
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        درحال حاضر امکان رزرو کمد وجود ندارد. با شروع ترم پاییز سال تحصیلی ۹۸-۹۹ امکان رزور کمد مجددا فراهم خواهد شد.
+                    {% endif %}
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
