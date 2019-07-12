@@ -1,41 +1,41 @@
-from .models import rack,sell
+from .models import rack, sell
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
-#from suds.client import Client
+# from suds.client import Client
 from zeep import Client
 import json
 from django.utils import timezone
 
 
-def calculate_difference(x,y):
-    day = y.day-x.day
-    hour = y.hour-x.hour
-    minute = y.minute-x.minute
-    return day*24*60+hour*60+minute
+def calculate_difference(x, y):
+    day = y.day - x.day
+    hour = y.hour - x.hour
+    minute = y.minute - x.minute
+    return day * 24 * 60 + hour * 60 + minute
 
 
 @login_required
 def lock(request):
     theRacks = rack.objects.filter(receiver=request.user)
     broken_lockers = ['A42', 'B23', 'B41',
-            'D11',
-            'F42', 'G12', 'G22', 'G42', 'G43',
-            'H12', 'J12',
-            'K23',
-            'K32', 'K42',
-            'O13', 'N22',
-            'N32', 'N41', 'Q21',
-            'P13', 'P22', 'P23', 'P31',
-            ]
+                      'D11',
+                      'F42', 'G12', 'G22', 'G42', 'G43',
+                      'H12', 'J12',
+                      'K23',
+                      'K32', 'K42',
+                      'O13', 'N22',
+                      'N32', 'N41', 'Q21',
+                      'P13', 'P22', 'P23', 'P31',
+                      ]
     racks = rack.objects.all()
     for track in racks:
         if sell.objects.filter(locker=track):
             if track.payment == True:
-                if sell.objects.filter(locker=track,is_success=False):
-                    if calculate_difference(track.receivie_date,timezone.now()) > 10:
+                if sell.objects.filter(locker=track, is_success=False):
+                    if calculate_difference(track.receivie_date, timezone.now()) > 10:
                         track.payment = False
                         track.save()
             elif track.payment == False:
@@ -43,10 +43,15 @@ def lock(request):
                     tsell.is_success = False
                     tsell.save()
 
-
     user = request.user
-    return render(request,'locker.html',{ 'racks':racks,'theRacks':theRacks , 'user':user,
-        'broken_lockers': broken_lockers})
+    return render(request, 'locker.html', {'racks': racks, 'theRacks': theRacks, 'user': user,
+                                           'broken_lockers': broken_lockers})
+
+
+@login_required
+def lock_disable(request):
+    return render(request, 'locker_disable.html')
+
 
 @login_required
 def add_new(request):
@@ -57,25 +62,25 @@ def add_new(request):
                 return HttpResponse('has chosen before')
             else:
                 Rack = rack.objects.get(name=name)
-                Sell = sell(user=request.user,locker=Rack,is_success=False)
-                Rack.receiver=request.user
+                Sell = sell(user=request.user, locker=Rack, is_success=False)
+                Rack.receiver = request.user
                 Rack.receivie_date = timezone.now()
                 Rack.save()
-                return render(request,'confirmation.html',{'rack':Rack})
+                return render(request, 'confirmation.html', {'rack': Rack})
         else:
             user = request.user
-            Rack = rack(name=name,receiver=user,payment=True,receivie_date=timezone.now())
+            Rack = rack(name=name, receiver=user, payment=True, receivie_date=timezone.now())
             Rack.save()
             if sell.objects.filter(locker=Rack):
                 Sell = sell.objects.get(locker=Rack)
                 Sell.is_success = False
                 Sell.save()
             else:
-                Sell = sell(locker=Rack,user=request.user)
+                Sell = sell(locker=Rack, user=request.user)
                 Sell.is_success = False
                 Sell.save()
-            return render(request,'confirmation.html',{'rack':Rack})
-    else :
+            return render(request, 'confirmation.html', {'rack': Rack})
+    else:
         return HttpResponse('You choose badway !')
 
 
@@ -83,10 +88,11 @@ url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 client = Client(url)
 MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
 
+
 def payment(request, rack_id):
     Rack = get_object_or_404(rack, id=rack_id)
     if request.method == "POST":
-        if Rack.payment==True and Rack.receiver != request.user:
+        if Rack.payment == True and Rack.receiver != request.user:
             return HttpResponse('someone else is on payment for this locker')
         moneyt = 40000
         Sell = sell(value=moneyt, locker=Rack, is_success=False)
@@ -97,18 +103,20 @@ def payment(request, rack_id):
         url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
         callBackUrl = "http://%s/locker/payment-result/" % (site_name)
-        s = client.service.PaymentRequest(MERCHANT, 40000, "receive locker "+str(Sell.locker.name),'', "",callBackUrl)
+        s = client.service.PaymentRequest(MERCHANT, 40000, "receive locker " + str(Sell.locker.name), '', "",
+                                          callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
-        print(s , Sell.authority , site_name)
+        print(s, Sell.authority, site_name)
         if s.Status == 100:
             Rack.payment = True
             Rack.save()
-            return redirect("https://www.zarinpal.com/pg/StartPay/"+str(s.Authority))
+            return redirect("https://www.zarinpal.com/pg/StartPay/" + str(s.Authority))
         else:
             return HttpResponse(s.Status)
 
     return HttpResponse("Badway!")  # Todo Login page ~
+
 
 def payment_result(request):
     try:
