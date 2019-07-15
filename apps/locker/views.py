@@ -9,6 +9,8 @@ from zeep import Client
 import json
 from django.utils import timezone
 
+moneyt = 100
+
 
 def calculate_difference(x, y):
     day = y.day - x.day
@@ -66,7 +68,7 @@ def add_new(request):
                 Rack.receiver = request.user
                 Rack.receivie_date = timezone.now()
                 Rack.save()
-                return render(request, 'confirmation.html', {'rack': Rack})
+                return render(request, 'confirmation.html', {'rack': Rack, 'price': sell.value})
         else:
             user = request.user
             Rack = rack(name=name, receiver=user, payment=True, receivie_date=timezone.now())
@@ -81,7 +83,7 @@ def add_new(request):
                 Sell.save()
             return render(request, 'confirmation.html', {'rack': Rack})
     else:
-        return HttpResponse('You choose badway !')
+        return HttpResponse('You choose bad way :)')
 
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
@@ -94,7 +96,6 @@ def payment(request, rack_id):
     if request.method == "POST":
         if Rack.payment == True and Rack.receiver != request.user:
             return HttpResponse('someone else is on payment for this locker')
-        moneyt = 40000
         Sell = sell(value=moneyt, locker=Rack, is_success=False)
         if request.user.is_authenticated:
             Sell.user = request.user
@@ -103,13 +104,14 @@ def payment(request, rack_id):
         url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
         client = Client(url)
         callBackUrl = "http://%s/locker/payment-result/" % (site_name)
-        s = client.service.PaymentRequest(MERCHANT, 40000, "receive locker " + str(Sell.locker.name), '', "",
+        s = client.service.PaymentRequest(MERCHANT, moneyt, "receive locker " + str(Sell.locker.name), '', "",
                                           callBackUrl)
         Sell.authority = s.Authority
         Sell.save()
         print(s, Sell.authority, site_name)
         if s.Status == 100:
             Rack.payment = True
+            Rack.condition = 2
             Rack.save()
             return redirect("https://www.zarinpal.com/pg/StartPay/" + str(s.Authority))
         else:
@@ -124,7 +126,7 @@ def payment_result(request):
     except sell.DoesNotExist:
         raise Http404
     if request.GET.get('Status') == 'OK':
-        result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), 40000)
+        result = client.service.PaymentVerification(MERCHANT, request.GET.get('Authority'), moneyt)
 
         if result.Status == 100:
             try:
@@ -135,17 +137,23 @@ def payment_result(request):
             if not ref_num:
                 raise PermissionDenied
             Sell.is_success = True
+            Sell.locker.condition = 1
+            Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
         elif result.Status == 101:
             Sell.is_success = False
             Sell.locker.name = 'Non'
+            Sell.locker.condition = 0
+            Sell.locker.save()
             Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
         else:
             Sell.locker.name = 'Non'
             Sell.is_success = False
+            Sell.locker.save()
+            Sell.locker.condition = 0
             Sell.locker.save()
             Sell.save()
             return render(request, 'success.html', {'sell': Sell})
