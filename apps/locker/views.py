@@ -9,7 +9,7 @@ from zeep import Client
 import json
 from django.utils import timezone
 
-moneyt = 100
+moneyt = 40000
 
 
 def calculate_difference(x, y):
@@ -68,7 +68,7 @@ def add_new(request):
                 Rack.receiver = request.user
                 Rack.receivie_date = timezone.now()
                 Rack.save()
-                return render(request, 'confirmation.html', {'rack': Rack, 'price': sell.value})
+                return render(request, 'confirmation.html', {'rack': Rack, 'price': moneyt})
         else:
             user = request.user
             Rack = rack(name=name, receiver=user, payment=True, receivie_date=timezone.now())
