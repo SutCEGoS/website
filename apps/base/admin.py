@@ -10,4 +10,4 @@ class MemberAdmin(admin.ModelAdmin, HijackUserAdminMixin):
     search_fields = ('first_name', 'last_name', 'username', 'std_id', 'email')
     list_filter = ('is_active', 'start_year', 'is_superuser', 'is_staff')
     list_display_links = ('get_full_name', 'username', 'email')
-    readonly_fields = ('hijack_field')
+    readonly_fields = ('hijack_field', )
