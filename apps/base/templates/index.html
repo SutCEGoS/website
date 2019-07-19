@@ -1,251 +1,274 @@
 {% extends "base_of_new_website.html" %}
 {% load static gravatar staticfiles hijack_tags %}
 {% block js %}
-{{ block.super }}
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-        showAnnouncements(event);
-    });
-    $(document).scroll(showMembers);
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            showAnnouncements(event);
+        });
+        $(document).scroll(showMembers);
 
-</script>
+    </script>
 {% endblock %}
 
 {% block body_main %}
-<main class="col-xl-10 mr-auto p-0 text-right">
-    <header id="intro">
-        <div class="header-wrapper">
-            <div class="container text-center m-auto">
-                <img src="{% static "img/white-logo.png" %}" alt="Logo" class="mx-auto d-block">
-                <h1 class="text-white">شورای صنفی دانشکده&zwnj;ی مهندسی کامپیوتر</h1>
-                <button type="button" class="btn btn-outline-light ml-3" onclick="about_us.scrollIntoView(
+    <main class="col-xl-10 mr-auto p-0 text-right">
+        <header id="intro">
+            <div class="header-wrapper">
+                <div class="container text-center m-auto">
+                    <img src="{% static "img/white-logo.png" %}" alt="Logo" class="mx-auto d-block">
+                    <h1 class="text-white">شورای صنفی دانشکده&zwnj;ی مهندسی کامپیوتر</h1>
+                    <button type="button" class="btn btn-outline-light ml-3 mb-3" onclick="announcements.scrollIntoView(
         {
             behavior:'smooth',
             block:'start'
         });">
-                    درباره ی ما
-                </button>
-                <button type="button" class="btn btn-outline-light" onclick="members.scrollIntoView(
+                        اطلاعیه ها
+                    </button>
+                    <button type="button" class="btn btn-outline-light ml-3 mb-3" onclick="services.scrollIntoView(
         {
             behavior:'smooth',
             block:'start'
         });">
-                    اعضای شورا
-                </button>
+                        خدمات شورا
+                    </button>
+                    <button type="button" class="btn btn-outline-light ml-3 mb-3" onclick="members.scrollIntoView(
+        {
+            behavior:'smooth',
+            block:'start'
+        });">
+                        اعضای شورا
+                    </button>
+                    <button type="button" class="btn btn-outline-light mb-3" onclick="about_us.scrollIntoView(
+        {
+            behavior:'smooth',
+            block:'start'
+        });">
+                        درباره ی ما
+                    </button>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Announcements -->
-    <section class="bg-red py-5">
-        <div class="container">
-            <h2 class="mb-4 mx-2 px-4 text-white border-right-white">اطلاعیه&zwnj;ها</h2>
-            <div class="timeline mx-2">
-                <span class="line"></span>
-                {% for announcement in announcements %}
-                    <article class="entry">
-                        <div class="content">
-                            <h2>{{ announcement.title }}</h2>
-                            <p>{{ announcement.body|safe|truncatechars:50 }}</p>
-                            <a role="button" class="btn btn-sm btn-primary" href="{{ announcement.get_absolute_url }}">ادامه</a>
+        <!-- Announcements -->
+        <section class="bg-red py-5" id="announcements">
+            <div class="container">
+                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">اطلاعیه&zwnj;ها</h2>
+                <div class="timeline mx-2">
+                    <span class="line"></span>
+                    {% for announcement in announcements %}
+                        <article class="entry">
+                            <div class="content">
+                                <h2>{{ announcement.title }}</h2>
+                                <p>{{ announcement.body|safe|truncatechars:50 }}</p>
+                                <a role="button" class="btn btn-sm btn-primary"
+                                   href="{{ announcement.get_absolute_url }}">ادامه</a>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="/announcements" class="btn btn-outline-light mx-auto">همه&zwnj;ی اطلاعیه&zwnj;ها</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="bg-light-blue py-5" id="services">
+            <div class="container">
+                <h2 class="mb-4 mx-2 px-4  text-navy-blue border-right-navy-blue">خدمات شورا</h2>
+                <div class="row pt-3">
+                    <div class="col-md">
+                        <img src="{% static "img/icon/inbox.svg" %}" class="list-icon">
+                        <h5 class="mr-4">رسیدگی به مشکلات درسی و رفاهی</h5>
+                    </div>
+                    <div class="col-md bg-white">
+                        <img src="{% static "img/icon/wardrobe.svg" %}" class="list-icon">
+                        <h5 class="mr-4"> اجاره&zwnj;ی کمد </h5>
+                    </div>
+                    <div class="col-md">
+                        <img src="{% static "img/icon/books.svg" %}" class="list-icon">
+                        <h5 class="mr-4">قرض گرفتن کتاب</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md bg-red">
+                        <img src="{% static "img/icon/pencil-box.svg" %}" class="list-icon">
+                        <h5 class="text-white mr-4">قرض گرفتن اشیا ضروری</h5>
+                    </div>
+                    <div class="col-md">
+                        <img src="{% static "img/icon/loupe.svg" %}" class="list-icon">
+                        <h5 class="mr-4">پیگیری وسایل گم شده</h5>
+                    </div>
+                    <div class="col-md bg-navy-blue">
+                        <img src="{% static "img/icon/open-book.svg" %}" class="list-icon">
+                        <h5 class="text-white mr-4">رزرو اتاق مطالعه</h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Members -->
+        <section class="bg-navy-blue py-5" id="members">
+            <div class="container">
+                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">اعضای شورا</h2>
+                <div class="row" style="justify-content: space-evenly">
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/mohammad_s.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">محمد شهیدی <span
+                                class="badge badge-light">دبیر</span></h5>
+                    </div>
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/arshia.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">ارشیا مقیمی <span
+                                class="badge badge-light">دبیر داخلی و عضو کمیتهٔ آموزش</span></h5>
+                    </div>
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/amirhossein_h.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">امیرحسین هادیان <span
+                                class="badge badge-light">نائب دبیر</span></h5>
+                    </div>
+                </div>
+                <div class="row" style="justify-content: space-between">
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/amirhossein_a.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">امیرحسین عاصم یوسفی <span
+                                class="badge badge-light">مسئول تأسیسات</span></h5>
+                    </div>
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/ali.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">علی شیرمحمدی <span
+                                class="badge badge-light">مسئول کمیتهٔ فنی</span></h5>
+                    </div>
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/mohammad_a.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">محمد آذری<span
+                                class="badge badge-light">مسئول کمیتهٔ آموزش </span></h5>
+                    </div>
+                </div>
+                <div class="row" style="justify-content: space-evenly">
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/mahdi.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">مهدی حاجی‌محمدعلی <span
+                                class="badge badge-light">مسئول مالی و عضو کمیتهٔ آموزش</span></h5>
+                    </div>
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/sorush.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">سروش وفایی‌تبار <span
+                                class="badge badge-light">مسئول اموال و عضو کمیتهٔ فنی</span></h5>
+                    </div>
+                    <div class="col-md-3 my-3 memberHidden">
+                        <img src="{% static "img/members/hossein.jpg" %}" class="rounded-top">
+                        <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">حسین آقامحمدی<span
+                                class="badge badge-light">عضو کمیتهٔ فنی و آموزش</span></h5>
+                    </div>
+                </div>
+                <div class="mt-4 text-center ">
+                    <a href="#" class="btn btn-outline-light mx-auto" data-toggle="modal"
+                       data-target="#prevMembers">اعضای دوره‌های قبلی</a>
+                </div>
+            </div>
+            <div class="modal fade" id="prevMembers" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title ml-auto">
+                                اعضای سابق شورای صنفی
+                            </h4>
+                            <button type="button" class="close ml-0"
+                                    data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
                         </div>
-                    </article>
-                {% endfor %}
-            </div>
-            <div class="mt-4 text-center">
-                <a href="/announcements" class="btn btn-outline-light mx-auto">همه&zwnj;ی اطلاعیه&zwnj;ها</a>
-            </div>
-        </div>
-    </section>
+                        <div class="modal-body">
+                            <h4>دوره&zwnj;ی ۹۷-۹۸ </h4>
+                            <ul>
+                                <li>حورا ابوطالبی <span class="text-muted">دبیر</span></li>
+                                <li>رسول قاسمی <span class="text-muted">نایب دبیر - ورزش</span></li>
+                                <li>هدی ترابی <span class="text-muted">روابط عمومی</span></li>
+                                <li>امین عیسائی <span class="text-muted">آموزش</span></li>
+                                <li>پارسا صلواتی <span class="text-muted">فنی - مالی و اموال</span></li>
+                                <li>علی بابایی <span class="text-muted">تأسیسات</span></li>
+                            </ul>
+                        </div>
 
-    <!-- Services -->
-    <section class="bg-light-blue py-5" id="services">
-        <div class="container">
-            <h2 class="mb-4 mx-2 px-4  text-navy-blue border-right-navy-blue">خدمات شورا</h2>
-            <div class="row pt-3">
-                <div class="col-md">
-                    <img src="{% static "img/icon/inbox.svg" %}" class="list-icon">
-                    <h5 class="mr-4">رسیدگی به مشکلات درسی و رفاهی</h5>
-                </div>
-                <div class="col-md bg-white">
-                    <img src="{% static "img/icon/wardrobe.svg" %}" class="list-icon">
-                    <h5 class="mr-4"> اجاره&zwnj;ی کمد </h5>
-                </div>
-                <div class="col-md">
-                    <img src="{% static "img/icon/books.svg" %}" class="list-icon">
-                    <h5 class="mr-4">قرض گرفتن کتاب</h5>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md bg-red">
-                    <img src="{% static "img/icon/pencil-box.svg" %}" class="list-icon">
-                    <h5 class="text-white mr-4">قرض گرفتن اشیا ضروری</h5>
-                </div>
-                <div class="col-md">
-                    <img src="{% static "img/icon/loupe.svg" %}" class="list-icon">
-                    <h5 class="mr-4">پیگیری وسایل گم شده</h5>
-                </div>
-                <div class="col-md bg-navy-blue">
-                    <img src="{% static "img/icon/open-book.svg" %}" class="list-icon">
-                    <h5 class="text-white mr-4">رزرو اتاق مطالعه</h5>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Members -->
-    <section class="bg-navy-blue py-5" id="members">
-        <div class="container">
-            <h2 class="mb-4 mx-2 px-4 text-white border-right-white">اعضای شورا</h2>
-            <div class="row" style="justify-content: space-evenly">
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/mohammad_s.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">محمد شهیدی <span
-                            class="badge badge-light">دبیر</span></h5>
-                </div>
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/arshia.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">ارشیا مقیمی <span
-                            class="badge badge-light">دبیر داخلی و عضو کمیتهٔ آموزش</span></h5>
-                </div>
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/amirhossein_h.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">امیرحسین هادیان <span
-                            class="badge badge-light">نائب دبیر</span></h5>
+                        <div class="modal-body">
+                            <h4>دوره&zwnj;ی ۹۶-۹۷ </h4>
+                            <ul>
+                                <li>سامان هادیان <span class="text-muted">دبیر و نماینده شورا مرکز</span></li>
+                                <li>حمید هاشمی <span class="text-muted">نایب دبیر</span></li>
+                                <li>محمدحسین ایرانپاک <span class="text-muted">مالی و اموال</span></li>
+                                <li>علی عسگری <span class="text-muted">روابط عمومی</span></li>
+                                <li>حورا ابوطالبی <span class="text-muted">آموزش</span></li>
+                                <li>علی بهجتی <span class="text-muted">فنی</span></li>
+                                <li>علیرضا ظهری <span class="text-muted">تأسیسات</span></li>
+                            </ul>
+                        </div>
+                        <div class="modal-body">
+                            <h4>دوره&zwnj;ی ۹۵-۹۶</h4>
+                            <ul>
+                                <li>رامتین یزدانیان<span class="text-muted">دبیر</span></li>
+                                <li>سیدمحمد حسینی <span class="text-muted">نایب دبیر</span></li>
+                                <li>سامان هادیان <span class="text-muted">نماینده شورا مرکز</span></li>
+                                <li>صدرا مرادیان <span class="text-muted">مالی و اموال</span></li>
+                                <li>فرزانه هاشمی <span class="text-muted">روابط عمومی</span></li>
+                                <li>محمدجعفر مشهدی <span class="text-muted">فنی</span></li>
+                                <li>امیرحسین حمیدیان <span class="text-muted">تأسیسات</span></li>
+                                <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
+                            </ul>
+                        </div>
+                        <div class="modal-body">
+                            <h4>دوره&zwnj;ی ۹۴-۹۵</h4>
+                            <ul>
+                                <li>امین صباغیان <span class="text-muted">دبیر</span></li>
+                                <li>محسن رشیدی <span class="text-muted">نایب دبیر</span></li>
+                                <li>پویا مصدق <span class="text-muted">نماینده شورا مرکز</span></li>
+                                <li>سید رضی موسوی <span class="text-muted">مالی و اموال</span></li>
+                                <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
+                                <li>رامتین یزدانیان <span class="text-muted">مراسم‌ها و کتابخانه</span></li>
+                                <li>صدرا مرادیان <span class="text-muted"></span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row" style="justify-content: space-between">
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/amirhossein_a.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">امیرحسین عاصم یوسفی <span
-                            class="badge badge-light">مسئول تأسیسات</span></h5>
-                </div>
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/ali.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">علی شیرمحمدی <span
-                            class="badge badge-light">مسئول کمیتهٔ فنی</span></h5>
-                </div>
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/mohammad_a.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">محمد آذری<span
-                            class="badge badge-light">مسئول کمیتهٔ آموزش </span></h5>
-                </div>
-            </div>
-            <div class="row" style="justify-content: space-evenly">
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/mahdi.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">مهدی حاجی‌محمدعلی <span
-                            class="badge badge-light">مسئول مالی و عضو کمیتهٔ آموزش</span></h5>
-                </div>
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/sorush.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">سروش وفایی‌تبار <span
-                            class="badge badge-light">مسئول اموال و عضو کمیتهٔ فنی</span></h5>
-                </div>
-                <div class="col-md-3 my-3 memberHidden">
-                    <img src="{% static "img/members/hossein.jpg" %}" class="rounded-top">
-                    <h5 class="bg-primary text-white p-2 mb-0 text-center rounded-bottom">حسین آقامحمدی<span
-                            class="badge badge-light">عضو کمیتهٔ فنی و آموزش</span></h5>
-                </div>
-            </div>
-            <div class="mt-4 text-center ">
-                <a href="#" class="btn btn-outline-light mx-auto" data-toggle="modal"
-                   data-target="#prevMembers">اعضای دوره‌های قبلی</a>
-            </div>
-        </div>
-        <div class="modal fade" id="prevMembers" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title ml-auto">
-                            اعضای سابق شورای صنفی
-                        </h4>
-                        <button type="button" class="close ml-0"
-                                data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        </section>
+        <!-- About us -->
+        <section class="bg-light-blue py-5" id="about_us">
+            <div class="container">
+                <h2 class="mb-4 mx-2 px-4 text-navy-blue border-right-navy-blue">درباره&zwnj;ی شورا</h2>
+                <div class="col-md-10 m-auto p-3 rounded">
+                    <p>
+                        شورای صنفی دانشگاه که بعدها به شورای صنفی رفاهی دانشجویان تغییر نام یافت، یکی از سازمان‌های
+                        دانشگاه
+                        است
+                        که برای مشارکت و تصمیم گیری در کارهای صنفی، رفاهی، آموزشی، و پژوهشی دانشجویان دانشگاه به وجود
+                        آمد.
+                        این
+                        سازمان پس از انحلال موقت در سال 1388، از اردیبهشت 1391 کار خود را از سر گرفت که شورای صنفی
+                        دانشگاه
+                        صنعتی
+                        شریف و بالتبع شورای صنفی دانشکده مهندسی کامپیوتر شریف نیز از این قاعده مستثنی نبودند.
 
-                    </div>
-                    <div class="modal-body">
-                        <h4>دوره&zwnj;ی ۹۷-۹۸ </h4>
-                        <ul>
-                            <li>حورا ابوطالبی <span class="text-muted">دبیر</span></li>
-                            <li>رسول قاسمی <span class="text-muted">نایب دبیر - ورزش</span></li>
-                            <li>هدی ترابی <span class="text-muted">روابط عمومی</span></li>
-                            <li>امین عیسائی <span class="text-muted">آموزش</span></li>
-                            <li>پارسا صلواتی <span class="text-muted">فنی - مالی و اموال</span></li>
-                            <li>علی بابایی <span class="text-muted">تأسیسات</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="modal-body">
-                        <h4>دوره&zwnj;ی ۹۶-۹۷ </h4>
-                        <ul>
-                            <li>سامان هادیان <span class="text-muted">دبیر و نماینده شورا مرکز</span></li>
-                            <li>حمید هاشمی <span class="text-muted">نایب دبیر</span></li>
-                            <li>محمدحسین ایرانپاک <span class="text-muted">مالی و اموال</span></li>
-                            <li>علی عسگری <span class="text-muted">روابط عمومی</span></li>
-                            <li>حورا ابوطالبی <span class="text-muted">آموزش</span></li>
-                            <li>علی بهجتی <span class="text-muted">فنی</span></li>
-                            <li>علیرضا ظهری <span class="text-muted">تأسیسات</span></li>
-                        </ul>
-                    </div>
-                    <div class="modal-body">
-                        <h4>دوره&zwnj;ی ۹۵-۹۶</h4>
-                        <ul>
-                            <li>رامتین یزدانیان<span class="text-muted">دبیر</span></li>
-                            <li>سیدمحمد حسینی <span class="text-muted">نایب دبیر</span></li>
-                            <li>سامان هادیان <span class="text-muted">نماینده شورا مرکز</span></li>
-                            <li>صدرا مرادیان <span class="text-muted">مالی و اموال</span></li>
-                            <li>فرزانه هاشمی <span class="text-muted">روابط عمومی</span></li>
-                            <li>محمدجعفر مشهدی <span class="text-muted">فنی</span></li>
-                            <li>امیرحسین حمیدیان <span class="text-muted">تأسیسات</span></li>
-                            <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
-                        </ul>
-                    </div>
-                    <div class="modal-body">
-                        <h4>دوره&zwnj;ی ۹۴-۹۵</h4>
-                        <ul>
-                            <li>امین صباغیان <span class="text-muted">دبیر</span></li>
-                            <li>محسن رشیدی <span class="text-muted">نایب دبیر</span></li>
-                            <li>پویا مصدق <span class="text-muted">نماینده شورا مرکز</span></li>
-                            <li>سید رضی موسوی <span class="text-muted">مالی و اموال</span></li>
-                            <li>دانیال فامیل‌خلیلی <span class="text-muted">تأسیسات</span></li>
-                            <li>رامتین یزدانیان <span class="text-muted">مراسم‌ها و کتابخانه</span></li>
-                            <li>صدرا مرادیان <span class="text-muted"></span></li>
-                        </ul>
-                    </div>
+                        محوریت اصلی فعالیت‌های شورا پیگیری حقوق صنفی دانشجویان در زمینه‌های مختلف و رساندن صدای دانشجو
+                        به
+                        مسئولین و ایجاد راه تعاملی بهتر و مثمرثمر تر است. در کنار این موارد، می‌توان به دیگر کارهایی که
+                        بسته
+                        به
+                        نیاز و تقاضای دانشجویان مطرح شده و در حوزه‌ی فعالیتی شورا می‌گنجد نیز اشاره کرد؛ اعم از اداره‌ی
+                        امور
+                        رفاهی درون دانشکده‌ای مانند ایجاد کتابخانه، اجاره‌ی کمدهای شخصی، برگزاری مراسم یادبود «یاد
+                        استاد» با
+                        همکاری انجمن علمی و فوق برنامه و ...؛ و همچنین امور مربوط به آموزش مانند برگزاری کلاس‌های رفع
+                        اشکال
+                        و
+                        سمینارهای راهنمای انتخاب واحد ویژه دانشجویان ورودی.
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- About us -->
-    <section class="bg-light-blue py-5" id="about_us">
-        <div class="container">
-            <h2 class="mb-4 mx-2 px-4 text-navy-blue border-right-navy-blue">درباره&zwnj;ی شورا</h2>
-            <div class="col-md-10 m-auto p-3 rounded">
-                <p>
-                    شورای صنفی دانشگاه که بعدها به شورای صنفی رفاهی دانشجویان تغییر نام یافت، یکی از سازمان‌های دانشگاه
-                    است
-                    که برای مشارکت و تصمیم گیری در کارهای صنفی، رفاهی، آموزشی، و پژوهشی دانشجویان دانشگاه به وجود آمد.
-                    این
-                    سازمان پس از انحلال موقت در سال 1388، از اردیبهشت 1391 کار خود را از سر گرفت که شورای صنفی دانشگاه
-                    صنعتی
-                    شریف و بالتبع شورای صنفی دانشکده مهندسی کامپیوتر شریف نیز از این قاعده مستثنی نبودند.
-
-                    محوریت اصلی فعالیت‌های شورا پیگیری حقوق صنفی دانشجویان در زمینه‌های مختلف و رساندن صدای دانشجو به
-                    مسئولین و ایجاد راه تعاملی بهتر و مثمرثمر تر است. در کنار این موارد، می‌توان به دیگر کارهایی که بسته
-                    به
-                    نیاز و تقاضای دانشجویان مطرح شده و در حوزه‌ی فعالیتی شورا می‌گنجد نیز اشاره کرد؛ اعم از اداره‌ی امور
-                    رفاهی درون دانشکده‌ای مانند ایجاد کتابخانه، اجاره‌ی کمدهای شخصی، برگزاری مراسم یادبود «یاد استاد» با
-                    همکاری انجمن علمی و فوق برنامه و ...؛ و همچنین امور مربوط به آموزش مانند برگزاری کلاس‌های رفع اشکال
-                    و
-                    سمینارهای راهنمای انتخاب واحد ویژه دانشجویان ورودی.
-                </p>
-            </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 {% endblock %}
 
 
