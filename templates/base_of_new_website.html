@@ -145,18 +145,18 @@
               <a class="nav-link" href="/announcements">اطلاعیه&zwnj;ها</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'requests' %}">objection</a>
+              <a class="nav-link" href="{% url 'requests' %}">اعتراض</a>
             </li>
             <li class="nav-item">
               <a class="nav-link under-construction" href="{% url 'under_construction' %}">کتابخانه</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="/locker">کمد</a>
+              <a class="nav-link" href="/locker">رزرو کمد</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">کمد</a>
+              <a class="nav-link" href="/locker" data-toggle="modal" data-target="#loginModal">رزرو کمد</a>
             </li>
             {% endif %}
 

@@ -123,6 +123,7 @@ h2 {
 }
 
 .under-construction::after {
+    margin-right: 5px;
     content: '\01F6A7';
 }
 
