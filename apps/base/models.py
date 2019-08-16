@@ -31,6 +31,8 @@ class Member(AbstractUser):
 
     std_id = models.CharField(max_length=20, null=True, blank=True)
 
+    cash = models.IntegerField(default=0)
+
     password_changed = models.BooleanField(default=False)
 
     def has_voted(self, poll):
