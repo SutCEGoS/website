@@ -25,8 +25,10 @@ def home(request):
             return HttpResponseRedirect(reverse('requests'))
         return HttpResponseRedirect(reverse('issues'))
 
+
 def under_construction(request):
-    return render(request,'under-construction.html',{})
+    return render(request, 'under-construction.html', {})
+
 
 def index(request):
     announcements = Announcement.objects.all()[:3]
@@ -40,8 +42,10 @@ def logout(request):
     dj_logout(request)
     return redirect('home')
 
+
 def profile(request):
-    return render(request,'complete_profile.html',{})
+    return render(request, 'complete_profile.html', {})
+
 
 def complete_profile(request):
     usingEmail = request.GET.get('email')
@@ -89,8 +93,7 @@ def password_reset_change(request):
         sent = False
 
     return render(request,
-                  'password_reset/password_change.html',
-                  {
+                  'password_reset/password_change.html', {
                       'form': form,
                       'sent': sent,
                   })
@@ -98,4 +101,7 @@ def password_reset_change(request):
 
 @login_required
 def charge_account(request):
-    return HttpResponse("salam")
+    return render(request,
+                  "charge.html", {
+
+                  })
