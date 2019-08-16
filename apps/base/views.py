@@ -2,7 +2,7 @@ from django.contrib.auth import login as dj_login
 from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
 from apps.announcements.models import Announcement
@@ -94,3 +94,8 @@ def password_reset_change(request):
                       'form': form,
                       'sent': sent,
                   })
+
+
+@login_required
+def charge_account(request):
+    return HttpResponse("salam")
