@@ -60,6 +60,7 @@ INSTALLED_APPS = (
     'apps.announcements',
     'apps.pages',
     'apps.locker',
+    'apps.library',
 )
 
 MIDDLEWARE = (
