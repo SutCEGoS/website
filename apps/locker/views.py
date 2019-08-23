@@ -87,7 +87,7 @@ def add_new(request):
 
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
-client = Client(url)
+# client = Client(url)
 MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
 
 
