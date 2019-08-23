@@ -59,7 +59,6 @@ INSTALLED_APPS = (
     'apps.event',
     'apps.announcements',
     'apps.pages',
-    'apps.library',
     'apps.locker',
 )
 
