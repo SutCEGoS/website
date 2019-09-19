@@ -168,8 +168,8 @@ LOGGING = {
     }
 }
 
-CURRENT_TERM = 2
-CURRENT_YEAR = 1396
+CURRENT_TERM = 1
+CURRENT_YEAR = 1398
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",

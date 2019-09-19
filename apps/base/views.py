@@ -105,3 +105,29 @@ def charge_account(request):
                   "charge.html", {
 
                   })
+
+
+@login_required
+def charge_admin(request):
+    amount = request.GET.get("amount")
+    student_number = request.GET.get("student_number")
+
+    if amount is not None and student_number is not None:
+        member = Member.objects.filter(std_id=student_number)
+        if len(member) > 0:
+            member = member[0]
+            member.cash += amount
+            member.save()
+
+            return render(request, "charge_admin.html", {
+                "completed": True
+            })
+
+        return render(request, "charge_admin.html", {
+            "completed": False,
+            "Error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
+        })
+
+    return render(request, "charge_admin.html", {
+        "completed": False
+    })

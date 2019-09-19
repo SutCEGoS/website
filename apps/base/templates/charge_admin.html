@@ -1,0 +1,217 @@
+{% extends "base_of_new_website.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load static gravatar staticfiles hijack_tags %}
+
+{% block title %}
+    پنل افزایش اعتبار
+{% endblock %}
+<!-- Locker Modal -->
+{% block navbar %}
+    {{ block.super }}
+
+    <div class="modal fade" id="lockerModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title ml-auto" id="locker-title">کمد Letter</h4>
+                    <button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="container text-right py-3">
+                    <div class="locker dir-ltr">
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="11">11</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="12">12</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="13">13</div>
+                        </div>
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="21">21</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="22">22</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="23">23</div>
+                        </div>
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="31">31</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="32">32</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="33">33</div>
+                        </div>
+                        <div class="row px-3">
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="41">41</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="42">42</div>
+                            <div class="col m-1 rounded" data-toggle="tooltip" id="43">43</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+
+    <main class="col-xl-10 mr-auto p-0 text-right">
+
+
+        <section class="bg-navy-blue py-5">
+            <div class="mx-sm-5 px-3">
+                <form class="text-white" action="{% url 'add_rack' %}" method="post">
+                    {% csrf_token %}
+                    <h2 class="mb-4 mx-2 px-4 text-white border-right-white">افزایش اعتبار</h2>
+                    {% if not user.first_name %}
+                        <div class="form-group text-center">
+                            <p>ابتدا مشخصات خود را تکمیل کنید</p>
+                            <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل مشخصات</a>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="rules" class="font-weight-bold">قوانین</label>
+                            <div id="rules" class="alert alert-primary" readonly>
+                                <ol>
+                                    <li>
+                                        قوانین مربوط حساب کاربری
+                                    </li>
+                                    <li>
+                                        قوانین مربوط حساب کاربری
+                                    </li>
+                                    <li>
+                                        قوانین مربوط حساب کاربری
+                                    </li>
+                                    <li>
+                                        قوانین مربوط حساب کاربری
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        <label for="rules" class="font-weight-bold">انتخاب روش</label>
+                        <div class="row text-black-50 justify-content-md-center">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="col-12" style="text-align: center;">
+                                                <span style="font-size: 100px; width: 0;">&#128181;</span>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">شارژ نقدی</h5>
+                                                <p class="card-text">با مراجعه به دفتر شورای صنفی می‌توانید به صورت نقدی
+                                                    حساب خود را شارژ کنید.</p>
+                                                <a href="#" class="btn btn-block btn-warning">شارژ</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="col-12" style="text-align: center;">
+                                                <span style="font-size: 100px; width: 0;">&#128179;</span>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">شارژ آنلاین</h5>
+                                                <p class="card-text">همچنین می‌توانید از طریق درگاه بانکی به صورت آنلاین
+                                                    اعتبار خود را افزایش دهید</p>
+                                                <a href="#" class="btn btn-block btn-warning">شارژ</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+<!-- SCRIPTS -->
+{% block js %}
+
+    <script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.bundle.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/locker.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        var lockerLetter = 'M';
+
+        function changeLetter(ch) {
+            var occupied = [], myLockers = [], broken = [];
+            {% for rack in racks %}
+                {% if rack.receiver != user and rack.payment == True %}
+                    occupied.push("{{rack.name}}");
+                {% endif %}
+            {% endfor %}
+            {% for rack in theRacks %}
+                {% if rack.payment == True %}
+                    myLockers.push("{{rack.name}}");
+                {% endif %}
+            {% endfor %}
+            {% for rack in broken_lockers %}
+                broken.push("{{rack}}");
+            {% endfor %}
+            // console.log(racks);
+            // var rr = {{racks}};
+
+            $("#locker-title").html("کمد " + ch);
+            lockerLetter = ch;
+            $(".locker > .row > .col ").each(function () {
+                var my = $(this).html();
+                my = my.slice(my.length - 2, my.length);
+                $(this).html(lockerLetter + my);
+                my = $(this).html();
+                if (occupied.includes(my)) {
+                    $(this).removeClass("bg-success btn-success bg-warning btn-warning bg-primary btn-primary brokenLocker myLocker").addClass("occupiedLocker").prop("onclick", null).off("click");
+                } else if (myLockers.includes(my)) {
+                    $(this).removeClass("bg-success btn-success bg-warning btn-warning bg-danger btn-danger brokenLocker occupiedLocker").addClass("myLocker").prop("onclick", null).off("click");
+                } else if (broken.includes(my)) {
+                    $(this).removeClass("bg-success btn-success bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker").addClass("brokenLocker").prop("onclick", null).off("click");
+                } else {
+                    $(this).removeClass("bg-warning btn-warning bg-danger btn-danger bg-primary btn-primary occupiedLocker myLocker brokenLocker").addClass("bg-success btn-success").attr("title", "می توانید این کمد را اجاره کنید.").tooltip();
+
+                    $(this).click(function () {
+                        $("#chosen-locker").val($(this).html());
+                        $("#lockerModal").modal('toggle');
+                        $("#lockerModal").on("hidden.bs.modal", function () {
+                            continueButton.scrollIntoView(
+                                {
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                        });
+                    });
+                    $(this).css("cursor", "pointer");
+                }
+                $(".occupiedLocker").each(function () {
+                    $(this).addClass("bg-danger btn btn-danger")
+                        .css("cursor", "not-allowed")
+                        .click(null)
+                        .attr("title", "این کمد توسط شخص دیگری اجاره شده است.").tooltip();
+                    $('[data-toggle="tooltip"]').tooltip();
+
+
+                });
+                $(".myLocker").each(function () {
+                    $(this).addClass("bg-primary btn btn-primary")
+                        .css("cursor", "not-allowed")
+                        .click(null)
+                        .attr("title", "شما این کمد را اجاره کرده اید.").tooltip();
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                });
+                $(".brokenLocker").each(function () {
+                    $(this).addClass("bg-warning btn btn-warning")
+                        .css("cursor", "not-allowed")
+                        .click(null)
+                        .attr("title", "این کمد به علت مشکلات فنی قابل اجاره دادن نمی باشد").tooltip();
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                });
+            });
+        }
+
+    </script>
+{% endblock %}
