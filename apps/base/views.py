@@ -148,3 +148,43 @@ def charge_cash(request):
     return render(request, "charge_cash.html", {
         "completed": False
     })
+
+
+@login_required
+def charge_credit(request):
+    amount = None
+
+    if request.POST:
+        try:
+            amount = int(request.POST.get("amount"))
+            trust_amounts = [10000, 20000, 30000, 40000, 50000, 100000]
+            if not amount in trust_amounts:
+                return render(request, "charge_online.html", {
+                    "completed": False,
+                    "error": "مبلغ وارد شده معتبر نمی‌باشد."
+                })
+        except:
+            return render(request, "charge_online.html", {
+                "completed": False,
+                "error": "فرمت اطلاعات فرستاده شده درست نیست."
+            })
+
+    if amount is not None:
+        member = Member.objects.filter(username=request.user.username)
+        if len(member) > 0:
+            member = member[0]
+            # member.cash += amount
+            # member.save()
+
+            return render(request, "charge_confirmation.html", {
+                "price": amount
+            })
+
+        return render(request, "charge_online.html", {
+            "completed": False,
+            "error": "اطلاعات شما در دیتابیس به درستی ثبت نشده است."
+        })
+
+    return render(request, "charge_online.html", {
+        "completed": False
+    })

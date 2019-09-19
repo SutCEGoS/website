@@ -3,10 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.csrf import csrf_exempt
-# from suds.client import Client
 from zeep import Client
-import json
 from django.utils import timezone
 
 moneyt = 40000

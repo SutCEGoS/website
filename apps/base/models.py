@@ -38,3 +38,24 @@ class Member(AbstractUser):
     def has_voted(self, poll):
         from apps.poll.models import Vote
         return Vote.objects.filter(member=self, choice__poll=poll).exists()
+
+    def __str__(self):
+        if self.get_full_name() is not None:
+            return self.get_full_name()
+        else:
+            return self.username
+
+
+class Transaction(models.Model):
+    TYPE_CHOICES = (
+        (1, "شارژ نقدی"),
+        (2, "شارژ آنلاین"),
+        (3, "انتقال وجه"),
+        (4, "استفاده از خدمات شورا")
+    )
+
+    origin = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مبدا")
+    destination = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مقصد")
+    amount = models.IntegerField(verbose_name="مبلغ")
+    type = models.IntegerField(verbose_name="نوع تراکنش", choices=TYPE_CHOICES)
+    is_successfully = models.BooleanField(verbose_name="موفقیت", default=False)
