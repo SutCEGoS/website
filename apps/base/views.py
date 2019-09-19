@@ -100,7 +100,7 @@ def password_reset_change(request):
 
 
 @login_required
-def charge_account(request):
+def charge_menu(request):
     return render(request,
                   "charge.html", {
 
@@ -108,9 +108,25 @@ def charge_account(request):
 
 
 @login_required
-def charge_admin(request):
-    amount = request.GET.get("amount")
-    student_number = request.GET.get("student_number")
+def charge_cash(request):
+    if not request.user.is_staff:
+        return render(request, "charge_cash.html", {
+            "error": "شما دسترسی به این قسمت ندارید.",
+            "completed": True
+        })
+
+    amount = None
+    student_number = None
+
+    if request.POST:
+        try:
+            amount = int(request.POST.get("amount"))
+            student_number = int(request.POST.get("student_number"))
+        except:
+            return render(request, "charge_cash.html", {
+                "completed": False,
+                "error": "فرمت اطلاعات فرستاده شده درست نیست."
+            })
 
     if amount is not None and student_number is not None:
         member = Member.objects.filter(std_id=student_number)
@@ -119,15 +135,16 @@ def charge_admin(request):
             member.cash += amount
             member.save()
 
-            return render(request, "charge_admin.html", {
-                "completed": True
+            return render(request, "charge_cash.html", {
+                "completed": False,
+                "success": "اعتبار %s به میزان %d تومان افزایش یافت." % (member.get_full_name(), amount)
             })
 
-        return render(request, "charge_admin.html", {
+        return render(request, "charge_cash.html", {
             "completed": False,
-            "Error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
+            "error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
         })
 
-    return render(request, "charge_admin.html", {
+    return render(request, "charge_cash.html", {
         "completed": False
     })
