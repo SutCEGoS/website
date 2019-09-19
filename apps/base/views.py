@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
 from apps.announcements.models import Announcement
+from apps.base.models import Transaction
 from .forms import *
 
 
@@ -134,6 +135,9 @@ def charge_cash(request):
             member = member[0]
             member.cash += amount
             member.save()
+
+            transaction = Transaction(origin=None, destination=member, amount=amount, is_successfully=True, type=1)
+            transaction.save()
 
             return render(request, "charge_cash.html", {
                 "completed": False,

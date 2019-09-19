@@ -27,7 +27,7 @@ class EducationalYear(models.Model):
 class Member(AbstractUser):
     level = models.PositiveSmallIntegerField(choices=LEVEL, blank=True, null=True)
     start_year = models.ForeignKey('EducationalYear', blank=True, null=True,
-            on_delete=models.CASCADE)
+                                   on_delete=models.CASCADE)
 
     std_id = models.CharField(max_length=20, null=True, blank=True)
 
@@ -54,8 +54,23 @@ class Transaction(models.Model):
         (4, "استفاده از خدمات شورا")
     )
 
-    origin = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مبدا")
-    destination = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مقصد")
+    origin = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مبدا", related_name="origin")
+    destination = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مقصد",
+                                    related_name="destination")
     amount = models.IntegerField(verbose_name="مبلغ")
     type = models.IntegerField(verbose_name="نوع تراکنش", choices=TYPE_CHOICES)
     is_successfully = models.BooleanField(verbose_name="موفقیت", default=False)
+
+    class Meta:
+        verbose_name = "تراکنش"
+        verbose_name_plural = "تراکنش‌ها"
+
+    def __str__(self):
+        if self.type == 1:
+            return "شارژ نقدی %s به میزان %d تومان" % (self.destination, self.amount)
+        elif self.type == 2:
+            return "شارژ آنلاین %s به میزان %d تومان" % (self.destination, self.amount)
+        elif self.type == 3:
+            return "انتقال %d تومان از %s به %s" % (self.amount, self.origin, self.destination)
+        elif self.type == 4:
+            return "استفاده از خدمات شورا توسط %s به میزان %d تومان" % (self.origin, self.amount)
