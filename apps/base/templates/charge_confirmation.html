@@ -23,17 +23,17 @@
         <div class="container">
             <h2 class="mb-4 mx-2 px-4 text-navy-blue border-right-navy-blue">&zwnj;تایید اطلاعات</h2>
 
-            <form class="receipt mx-auto position-relative pt-sm-4" action="/pay/" method="post"> <!--TODO fix the form action-->
+            <form class="receipt mx-auto position-relative pt-sm-4" action="{% url 'payment' transaction.id %}" method="post"> <!--TODO fix the form action-->
               {% csrf_token %}
                 <img src="{% static "image/receipt.png" %}" class="w-100 position-absolute"> <!--TODO fix the image link-->
                 <div class="receipt-container">
                     <div class="form-group position-relative">
                         <label for="user">کاربر</label>
-                        <input type="text" id="user" class="form-control" value="{{user}} - {{user.std_id}}" readonly required>
+                        <input type="text" id="user" class="form-control" value="{{transaction.destination}} - {{transaction.destination.std_id}}" readonly required>
                     </div>
                     <div class="form-group position-relative">
                         <label for="chosen-locker">مبلغ <span class="badge badge-primary">تومان</span> </label>
-                        <input type="number" id="locker-price" value="{{ price }}" class="form-control" readonly required>
+                        <input type="number" id="locker-price" value="{{ transaction.amount }}" class="form-control" readonly required>
                     </div>
                     <div class="form-group text-center position-relative">
                         <button type="submit" class="btn btn-success">تایید و پرداخت</button>

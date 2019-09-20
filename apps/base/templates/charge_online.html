@@ -62,6 +62,9 @@
                                                             مبلغ
                                                         </label>
                                                         <select class="form-control" id="amount" name="amount">
+                                                            {% if user.is_staff %}
+                                                                <option value="1001">۱,۰۰۱ تومان - فقط برای تست (مخصوص اعضای شورای صنفی)</option>
+                                                            {% endif %}
                                                             <option value="10000">۱۰,۰۰۰ تومان</option>
                                                             <option value="20000">۲۰,۰۰۰ تومان</option>
                                                             <option value="30000">۳۰,۰۰۰ تومان</option>
