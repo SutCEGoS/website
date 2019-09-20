@@ -63,7 +63,7 @@ class Transaction(models.Model):
     is_successfully = models.BooleanField(verbose_name="موفقیت", default=False)
     Authority = models.CharField(max_length=512, null=True)
     data = models.CharField(max_length=512, null=True, verbose_name="توضیحات")
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=True, null=True, verbose_name="زمان")
 
     class Meta:
         verbose_name = "تراکنش"
