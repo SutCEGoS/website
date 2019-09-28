@@ -44,10 +44,6 @@ def index(request):
     })
 
 
-def test_404(request):
-    raise Http404
-
-
 def logout(request):
     dj_logout(request)
     return redirect('home')
@@ -113,53 +109,54 @@ def password_reset_change(request):
 def charge_menu(request):
     return render(request,
                   "charge.html", {
+
                   })
 
 
-@login_required
-def charge_cash(request):
-    if not request.user.is_staff:
-        return render(request, "charge_cash.html", {
-            "error": "شما دسترسی به این قسمت ندارید.",
-            "completed": True
-        })
-
-    amount = None
-    student_number = None
-
-    if request.POST:
-        try:
-            amount = int(request.POST.get("amount"))
-            student_number = int(request.POST.get("student_number"))
-        except:
-            return render(request, "charge_cash.html", {
-                "completed": False,
-                "error": "فرمت اطلاعات فرستاده شده درست نیست."
-            })
-
-    if amount is not None and student_number is not None:
-        member = Member.objects.filter(std_id=student_number)
-        if len(member) > 0:
-            member = member[0]
-            member.cash += amount
-            member.save()
-
-            transaction = Transaction(origin=None, destination=member, amount=amount, is_successfully=True, type=1)
-            transaction.save()
-
-            return render(request, "charge_cash.html", {
-                "completed": False,
-                "success": "اعتبار %s به میزان %d تومان افزایش یافت." % (member.get_full_name(), amount)
-            })
-
-        return render(request, "charge_cash.html", {
-            "completed": False,
-            "error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
-        })
-
-    return render(request, "charge_cash.html", {
-        "completed": False
-    })
+# @login_required
+# def charge_cash(request):
+#     if not request.user.is_staff:
+#         return render(request, "charge_cash.html", {
+#             "error": "شما دسترسی به این قسمت ندارید.",
+#             "completed": True
+#         })
+#
+#     amount = None
+#     student_number = None
+#
+#     if request.POST:
+#         try:
+#             amount = int(request.POST.get("amount"))
+#             student_number = int(request.POST.get("student_number"))
+#         except:
+#             return render(request, "charge_cash.html", {
+#                 "completed": False,
+#                 "error": "فرمت اطلاعات فرستاده شده درست نیست."
+#             })
+#
+#     if amount is not None and student_number is not None:
+#         member = Member.objects.filter(std_id=student_number)
+#         if len(member) > 0:
+#             member = member[0]
+#             member.cash += amount
+#             member.save()
+#
+#             transaction = Transaction(origin=None, destination=member, amount=amount, is_successfully=True, type=1)
+#             transaction.save()
+#
+#             return render(request, "charge_cash.html", {
+#                 "completed": False,
+#                 "success": "اعتبار %s به میزان %d تومان افزایش یافت." % (member.get_full_name(), amount)
+#             })
+#
+#         return render(request, "charge_cash.html", {
+#             "completed": False,
+#             "error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
+#         })
+#
+#     return render(request, "charge_cash.html", {
+#         "completed": False
+#     })
 
 
 @login_required
