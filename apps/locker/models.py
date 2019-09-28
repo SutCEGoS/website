@@ -13,8 +13,8 @@ class rack(models.Model):
     receiver = models.ForeignKey(Member, blank=True, null=True, on_delete=models.CASCADE)
     payment = models.BooleanField(default=False)
     receivie_date = models.DateTimeField(auto_now_add=True)
-    condition = models.PositiveSmallIntegerField(choices=CONDITION,
-                                                 default=0)
+    condition = models.PositiveSmallIntegerField(choices=CONDITION, default=0)
+    archived = models.BooleanField(default=False, null=True, verbose_name="آرشیو شده")
 
     def __str__(self):
         return self.name
