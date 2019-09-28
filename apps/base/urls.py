@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^login/?$', views.login, name='login'),
+    url(r'^404/?$', views.test_404, name='404'),
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^change-password/?$', views.password_reset_change, name='password_reset_change'),
     url(r'^$', views.index, name='home'),
@@ -16,6 +17,7 @@ urlpatterns = [
     url(r'^charge/$', views.charge_menu, name='charge_menu'),
     url(r'^charge/payment/(?P<transaction_id>[0-9]+)$', views.payment, name='payment'),
     url(r'^charge/verify/$', views.verify, name='verify'),
+
     # url('^password_reset/', auth_views.password_reset, {'template_name': 'password_reset/password_reset_form.html'}, name='password_reset'),
     # url('^', include('django.contrib.auth.urls')),
 ]

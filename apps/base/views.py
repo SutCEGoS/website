@@ -44,6 +44,10 @@ def index(request):
     })
 
 
+def test_404(request):
+    raise Http404
+
+
 def logout(request):
     dj_logout(request)
     return redirect('home')
