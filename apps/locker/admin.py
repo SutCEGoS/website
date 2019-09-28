@@ -5,7 +5,7 @@ from .models import *
 
 @admin.register(rack)
 class RackAdmin(admin.ModelAdmin):
-    list_display = ['name', 'receiver', 'payment', 'receivie_date']
+    list_display = ['name', 'receiver', 'payment', 'receivie_date', 'archived']
 
 
 @admin.register(sell)
