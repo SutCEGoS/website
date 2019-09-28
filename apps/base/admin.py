@@ -13,10 +13,10 @@ class MemberAdmin(admin.ModelAdmin, HijackUserAdminMixin):
     readonly_fields = ('hijack_field', )
 
 
-# @admin.register(Transaction)
-# class TransactionAdmin(admin.ModelAdmin):
-#     list_display = ['origin', 'destination', 'type', 'amount', 'is_successfully', 'data', 'time']
-#     readonly_fields = ['origin', 'destination', 'type', 'amount', 'is_successfully']
-#     list_display_links = ['origin', 'destination']
-#     list_filter = ['type', 'is_successfully', 'time']
-#     search_fields = ['origin', 'destination', 'data']
+@admin.register(Transaction)
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ['origin', 'destination', 'type', 'amount', 'is_successfully', 'data', 'time']
+    readonly_fields = ['origin', 'destination', 'type', 'amount', 'is_successfully']
+    list_display_links = ['origin', 'destination']
+    list_filter = ['type', 'is_successfully', 'time']
+    search_fields = ['origin', 'destination', 'data']
