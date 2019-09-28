@@ -46,35 +46,35 @@ class Member(AbstractUser):
             return self.username
 
 
-# class Transaction(models.Model):
-#     TYPE_CHOICES = (
-#         (1, "شارژ نقدی"),
-#         (2, "شارژ آنلاین"),
-#         (3, "انتقال وجه"),
-#         (4, "استفاده از خدمات شورا"),
-#         (5, "تسویه حساب")
-#     )
-#
-#     origin = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مبدا", related_name="origin")
-#     destination = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مقصد",
-#                                     related_name="destination")
-#     amount = models.IntegerField(verbose_name="مبلغ")
-#     type = models.IntegerField(verbose_name="نوع تراکنش", choices=TYPE_CHOICES)
-#     is_successfully = models.BooleanField(verbose_name="موفقیت", default=False)
-#     Authority = models.CharField(max_length=512, null=True)
-#     data = models.CharField(max_length=512, null=True, verbose_name="توضیحات")
-#     time = models.DateTimeField(auto_now_add=True, null=True, verbose_name="زمان")
-#
-#     class Meta:
-#         verbose_name = "تراکنش"
-#         verbose_name_plural = "تراکنش‌ها"
-#
-#     def __str__(self):
-#         if self.type == 1:
-#             return "شارژ نقدی حساب %s به میزان %d تومان" % (self.destination, self.amount)
-#         elif self.type == 2:
-#             return "شارژ آنلاین حساب %s به میزان %d تومان" % (self.destination, self.amount)
-#         elif self.type == 3:
-#             return "انتقال %d تومان از حساب %s به حساب %s" % (self.amount, self.origin, self.destination)
-#         elif self.type == 4:
-#             return "استفاده از خدمات شورا توسط %s به میزان %d تومان" % (self.origin, self.amount)
+class Transaction(models.Model):
+    TYPE_CHOICES = (
+        (1, "شارژ نقدی"),
+        (2, "شارژ آنلاین"),
+        (3, "انتقال وجه"),
+        (4, "استفاده از خدمات شورا"),
+        (5, "تسویه حساب")
+    )
+
+    origin = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مبدا", related_name="origin")
+    destination = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, verbose_name="مقصد",
+                                    related_name="destination")
+    amount = models.IntegerField(verbose_name="مبلغ")
+    type = models.IntegerField(verbose_name="نوع تراکنش", choices=TYPE_CHOICES)
+    is_successfully = models.BooleanField(verbose_name="موفقیت", default=False)
+    Authority = models.CharField(max_length=512, null=True)
+    data = models.CharField(max_length=512, null=True, verbose_name="توضیحات")
+    time = models.DateTimeField(auto_now_add=True, null=True, verbose_name="زمان")
+
+    class Meta:
+        verbose_name = "تراکنش"
+        verbose_name_plural = "تراکنش‌ها"
+
+    def __str__(self):
+        if self.type == 1:
+            return "شارژ نقدی حساب %s به میزان %d تومان" % (self.destination, self.amount)
+        elif self.type == 2:
+            return "شارژ آنلاین حساب %s به میزان %d تومان" % (self.destination, self.amount)
+        elif self.type == 3:
+            return "انتقال %d تومان از حساب %s به حساب %s" % (self.amount, self.origin, self.destination)
+        elif self.type == 4:
+            return "استفاده از خدمات شورا توسط %s به میزان %d تومان" % (self.origin, self.amount)

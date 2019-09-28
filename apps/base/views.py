@@ -112,163 +112,163 @@ def charge_menu(request):
                   })
 
 
-# @login_required
-# def charge_cash(request):
-#     if not request.user.is_staff:
-#         return render(request, "charge_cash.html", {
-#             "error": "شما دسترسی به این قسمت ندارید.",
-#             "completed": True
-#         })
-#
-#     amount = None
-#     student_number = None
-#
-#     if request.POST:
-#         try:
-#             amount = int(request.POST.get("amount"))
-#             student_number = int(request.POST.get("student_number"))
-#         except:
-#             return render(request, "charge_cash.html", {
-#                 "completed": False,
-#                 "error": "فرمت اطلاعات فرستاده شده درست نیست."
-#             })
-#
-#     if amount is not None and student_number is not None:
-#         member = Member.objects.filter(std_id=student_number)
-#         if len(member) > 0:
-#             member = member[0]
-#             member.cash += amount
-#             member.save()
-#
-#             transaction = Transaction(origin=None, destination=member, amount=amount, is_successfully=True, type=1)
-#             transaction.save()
-#
-#             return render(request, "charge_cash.html", {
-#                 "completed": False,
-#                 "success": "اعتبار %s به میزان %d تومان افزایش یافت." % (member.get_full_name(), amount)
-#             })
-#
-#         return render(request, "charge_cash.html", {
-#             "completed": False,
-#             "error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
-#         })
-#
-#     return render(request, "charge_cash.html", {
-#         "completed": False
-#     })
+@login_required
+def charge_cash(request):
+    if not request.user.is_staff:
+        return render(request, "charge_cash.html", {
+            "error": "شما دسترسی به این قسمت ندارید.",
+            "completed": True
+        })
+
+    amount = None
+    student_number = None
+
+    if request.POST:
+        try:
+            amount = int(request.POST.get("amount"))
+            student_number = int(request.POST.get("student_number"))
+        except:
+            return render(request, "charge_cash.html", {
+                "completed": False,
+                "error": "فرمت اطلاعات فرستاده شده درست نیست."
+            })
+
+    if amount is not None and student_number is not None:
+        member = Member.objects.filter(std_id=student_number)
+        if len(member) > 0:
+            member = member[0]
+            member.cash += amount
+            member.save()
+
+            transaction = Transaction(origin=None, destination=member, amount=amount, is_successfully=True, type=1)
+            transaction.save()
+
+            return render(request, "charge_cash.html", {
+                "completed": False,
+                "success": "اعتبار %s به میزان %d تومان افزایش یافت." % (member.get_full_name(), amount)
+            })
+
+        return render(request, "charge_cash.html", {
+            "completed": False,
+            "error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
+        })
+
+    return render(request, "charge_cash.html", {
+        "completed": False
+    })
 
 
-# @login_required
-# def charge_credit(request):
-#     amount = None
-#
-#     if request.POST:
-#         try:
-#             amount = int(request.POST.get("amount"))
-#             trust_amounts = [1001, 10000, 20000, 30000, 40000, 50000, 100000]
-#             if not amount in trust_amounts:
-#                 return render(request, "charge_online.html", {
-#                     "completed": False,
-#                     "error": "مبلغ وارد شده معتبر نمی‌باشد."
-#                 })
-#         except:
-#             return render(request, "charge_online.html", {
-#                 "completed": False,
-#                 "error": "فرمت اطلاعات فرستاده شده درست نیست."
-#             })
-#
-#     if amount is not None:
-#         member = Member.objects.filter(username=request.user.username)
-#         if len(member) > 0:
-#             member = member[0]
-#             transaction = Transaction(destination=member, amount=amount, type=2, is_successfully=False)
-#             transaction.save()
-#
-#             return render(request, "charge_confirmation.html", {
-#                 "transaction": transaction
-#             })
-#
-#         return render(request, "charge_online.html", {
-#             "completed": False,
-#             "error": "اطلاعات شما در دیتابیس به درستی ثبت نشده است."
-#         })
-#
-#     return render(request, "charge_online.html", {
-#         "completed": False
-#     })
+@login_required
+def charge_credit(request):
+    amount = None
+
+    if request.POST:
+        try:
+            amount = int(request.POST.get("amount"))
+            trust_amounts = [1001, 10000, 20000, 30000, 40000, 50000, 100000]
+            if not amount in trust_amounts:
+                return render(request, "charge_online.html", {
+                    "completed": False,
+                    "error": "مبلغ وارد شده معتبر نمی‌باشد."
+                })
+        except:
+            return render(request, "charge_online.html", {
+                "completed": False,
+                "error": "فرمت اطلاعات فرستاده شده درست نیست."
+            })
+
+    if amount is not None:
+        member = Member.objects.filter(username=request.user.username)
+        if len(member) > 0:
+            member = member[0]
+            transaction = Transaction(destination=member, amount=amount, type=2, is_successfully=False)
+            transaction.save()
+
+            return render(request, "charge_confirmation.html", {
+                "transaction": transaction
+            })
+
+        return render(request, "charge_online.html", {
+            "completed": False,
+            "error": "اطلاعات شما در دیتابیس به درستی ثبت نشده است."
+        })
+
+    return render(request, "charge_online.html", {
+        "completed": False
+    })
 
 
-# def payment(request, transaction_id):
-#     transaction = Transaction.objects.filter(id=int(transaction_id))
-#     if len(transaction) == 0:
-#         raise Http404
-#     transaction = transaction[0]
-#     if transaction.type != 2:
-#         raise Http404
-#
-#     site_name = request.META.get('HTTP_HOST', 'shora.ce.sharif.edu')
-#     callback_url = "http://%s/charge/verify/" % site_name
-#     result = client.service.PaymentRequest(MERCHANT, transaction.amount, transaction, transaction.destination.email, "",
-#                                            callback_url)
-#
-#     if result.Status == 100:
-#         transaction.Authority = result.Authority
-#         transaction.save()
-#         return redirect('https://www.zarinpal.com/pg/StartPay/' + str(transaction.Authority))
-#     else:
-#         return HttpResponse('Error code: ' + str(result.Status))
+def payment(request, transaction_id):
+    transaction = Transaction.objects.filter(id=int(transaction_id))
+    if len(transaction) == 0:
+        raise Http404
+    transaction = transaction[0]
+    if transaction.type != 2:
+        raise Http404
+
+    site_name = request.META.get('HTTP_HOST', 'shora.ce.sharif.edu')
+    callback_url = "http://%s/charge/verify/" % site_name
+    result = client.service.PaymentRequest(MERCHANT, transaction.amount, transaction, transaction.destination.email, "",
+                                           callback_url)
+
+    if result.Status == 100:
+        transaction.Authority = result.Authority
+        transaction.save()
+        return redirect('https://www.zarinpal.com/pg/StartPay/' + str(transaction.Authority))
+    else:
+        return HttpResponse('Error code: ' + str(result.Status))
 
 
-# def verify(request):
-#     if request.GET.get('Status') == 'OK':
-#         authority = request.GET.get('Authority')
-#         transaction = Transaction.objects.filter(Authority=authority)
-#         if len(transaction) == 0:
-#             return render(request, "charge_online.html", {
-#                 "completed": True,
-#                 "error": "تراکنشی با اطلاعات فرستاده شده یافت نشد. برای رفع مشکل می‌توانید به دفتر شورای صنفی مراجعه "
-#                          "کنید. "
-#             })
-#         transaction = transaction[0]
-#         if transaction.type != 2:
-#             return render(request, "charge_online.html", {
-#                 "completed": True,
-#                 "error": "این تراکنش از نوع شارژ آنلاین نمی‌باشد."
-#             })
-#         if transaction.is_successfully:
-#             return render(request, "charge_online.html", {
-#                 "completed": True,
-#                 "error": "این تراکنش قبلا انجام و اعتبار سنجی شده است."
-#             })
-#
-#         result = client.service.PaymentVerification(MERCHANT, request.GET['Authority'], transaction.amount)
-#         if result.Status == 100:
-#             member = transaction.destination
-#             member.cash += transaction.amount
-#             member.save()
-#             transaction.is_successfully = True
-#             transaction.data = result.RefID
-#             transaction.save()
-#             return render(request, "charge_online.html", {
-#                 "completed": True,
-#                 "success": "حساب شما با موفقیت شارژ شد. برای جلوگیری از وقوع مشکل کد تراکنش را نزد خود نگه دارید: %s" % result.RefID
-#             })
-#
-#         elif result.Status == 101:
-#             return render(request, "charge_online.html", {
-#                 "completed": True,
-#                 "error": "تراکنش هنوز به پایان نرسیده است. لطفا دوباره امتحان کنید و درصورت وجود مشکل به دفتر شورای "
-#                          "صنفی مراجعه کنید. "
-#             })
-#
-#         else:
-#             return render(request, "charge_online.html", {
-#                 "completed": True,
-#                 "error": "تراکنش با خطا مواجه شد. درصورت کسر پول از حساب شما و عدم برگشت آن تا ۷۲ ساعت به دفتر شورای "
-#                          "صنفی مراجعه کنید. "
-#             })
-#     else:
-#         return render(request, "charge_online.html", {
-#             "completed": True,
-#             "error": "تراکنش انجام نشد یا توسط شما لغو گردید."
-#         })
+def verify(request):
+    if request.GET.get('Status') == 'OK':
+        authority = request.GET.get('Authority')
+        transaction = Transaction.objects.filter(Authority=authority)
+        if len(transaction) == 0:
+            return render(request, "charge_online.html", {
+                "completed": True,
+                "error": "تراکنشی با اطلاعات فرستاده شده یافت نشد. برای رفع مشکل می‌توانید به دفتر شورای صنفی مراجعه "
+                         "کنید. "
+            })
+        transaction = transaction[0]
+        if transaction.type != 2:
+            return render(request, "charge_online.html", {
+                "completed": True,
+                "error": "این تراکنش از نوع شارژ آنلاین نمی‌باشد."
+            })
+        if transaction.is_successfully:
+            return render(request, "charge_online.html", {
+                "completed": True,
+                "error": "این تراکنش قبلا انجام و اعتبار سنجی شده است."
+            })
+
+        result = client.service.PaymentVerification(MERCHANT, request.GET['Authority'], transaction.amount)
+        if result.Status == 100:
+            member = transaction.destination
+            member.cash += transaction.amount
+            member.save()
+            transaction.is_successfully = True
+            transaction.data = result.RefID
+            transaction.save()
+            return render(request, "charge_online.html", {
+                "completed": True,
+                "success": "حساب شما با موفقیت شارژ شد. برای جلوگیری از وقوع مشکل کد تراکنش را نزد خود نگه دارید: %s" % result.RefID
+            })
+
+        elif result.Status == 101:
+            return render(request, "charge_online.html", {
+                "completed": True,
+                "error": "تراکنش هنوز به پایان نرسیده است. لطفا دوباره امتحان کنید و درصورت وجود مشکل به دفتر شورای "
+                         "صنفی مراجعه کنید. "
+            })
+
+        else:
+            return render(request, "charge_online.html", {
+                "completed": True,
+                "error": "تراکنش با خطا مواجه شد. درصورت کسر پول از حساب شما و عدم برگشت آن تا ۷۲ ساعت به دفتر شورای "
+                         "صنفی مراجعه کنید. "
+            })
+    else:
+        return render(request, "charge_online.html", {
+            "completed": True,
+            "error": "تراکنش انجام نشد یا توسط شما لغو گردید."
+        })
