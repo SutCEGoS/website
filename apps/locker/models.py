@@ -1,7 +1,7 @@
 from django.db import models
 from model_utils import Choices
 from apps.base.models import Member, Transaction
-
+import re
 
 class Rack(models.Model):
     CONDITION = Choices(
@@ -33,12 +33,14 @@ class Rack(models.Model):
         return self.name
 
     @classmethod
-    def get_rack_status(cls, name):
-        if name in cls.BROKEN_LOCKERS:
+    def get_rack_status(cls, rack_name):
+        if rack_name in cls.BROKEN_LOCKERS:
             return 1    # BROKEN
-        rack = Rack.objects.filter(name=name, archived=False)
+        rack = Rack.objects.filter(name=rack_name, archived=False)
         if len(rack) != 0:
             return 2    # CHOSEN BEFORE
+        if not re.fullmatch(r'[A-LN-P][1-4][1-3]', rack_name):
+            return 3    # NOT FOUND
         return 0        # READY
 
 

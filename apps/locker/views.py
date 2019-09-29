@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
+import re
 
 price = 50000
 
@@ -54,11 +55,14 @@ def lock_disable(request):
 def add_new(request):
     if request.method == "POST":
         name = request.POST.get('locker-name')
-        if Rack.objects.filter(name=name):
-            return HttpResponse("موجود بود")
-        else:
-            return HttpResponse("موجود نبود")
+        rack_status = Rack.get_rack_status(rack_name=name)
+        if rack_status == 0:
+            pass
+
+        return render(request, "success.html", {
+            "status": 4  # rack_status
+        })
     else:
         return render(request, "success.html", {
-            "status": 2
+            "status": -1
         })

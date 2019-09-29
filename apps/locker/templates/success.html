@@ -20,7 +20,7 @@
             <div class="container">
                 <h2 class="mb-4 mx-2 px-4 text-white border-right-white">&zwnj;نتیجه&zwnj;ی دریافت کمد</h2>
 
-                {% if status == 1 %}
+                {% if status == 0 %}
                     <!--success-->
 
                     <div class="alert alert-success" role="alert">
@@ -34,12 +34,42 @@
                         <img src="{% static "image/key.png" %}" alt="کلید را از شوراس صنفی دریافت کنید." class="w-100">
                         <!--TODO fix the image src-->
                     </div>
-                {% elif status == 2 %}
+                {% elif status == -1 %}
                     <!--failure-->
 
                     <div class="alert alert-danger" role="alert">
                         <h4 class="alert-heading">خطا</h4>
                         <p>درخواست فرستاده شده معتبر نمی‌باشد.</p>
+                    </div>
+
+                {% elif status == 1 %}
+                    <!--broken-->
+
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">خطا</h4>
+                        <p>کمد انتخاب شده آسیب دیده و نیازمند تعمیر می‌باشد.</p>
+                    </div>
+                {% elif status == 2 %}
+                    <!--chosen before-->
+
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">خطا</h4>
+                        <p>کمد انتخاب شده قبلا رزرو شده است.</p>
+                    </div>
+                {% elif status == 3 %}
+                    <!--not found-->
+
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">خطا</h4>
+                        <p>کمد وارد شده وجود ندارد.</p>
+                    </div>
+                {% elif status == 4 %}
+                    <!--charge needed-->
+
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">خطا</h4>
+                        <p>اعتبار شما برای رزرو کمد کافی نمی‌باشد.</p>
+                        <p>برای افزایش اعتبار به <a href="{% url 'charge_menu' %}">اینجا</a> بروید</p>
                     </div>
                 {% endif %}
 
