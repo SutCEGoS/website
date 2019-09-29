@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('value', models.IntegerField(default=20000)),
                 ('is_success', models.NullBooleanField(default=True)),
                 ('authority', models.CharField(max_length=63, null=True)),
-                ('locker', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='locker.rack')),
+                ('locker', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='locker.Rack')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

@@ -5,55 +5,56 @@
 
 
 {% block title %}
-  {% if sell.is_success %}
-    success
-  {% else %}
-    failed
-  {% endif %}
+    {% if sell.is_success %}
+        success
+    {% else %}
+        failed
+    {% endif %}
 {% endblock %}
 
 {% block body_main %}
 
-<main class="col-xl-10 mr-auto p-0 text-right">
-  <!-- confirmation -->
-  <section class="bg-navy-blue py-5">
-    <div class="container">
-      <h2 class="mb-4 mx-2 px-4 text-white border-right-white">&zwnj;نتیجه&zwnj;ی پرداخت</h2>
+    <main class="col-xl-10 mr-auto p-0 text-right">
+        <!-- confirmation -->
+        <section class="bg-navy-blue py-5">
+            <div class="container">
+                <h2 class="mb-4 mx-2 px-4 text-white border-right-white">&zwnj;نتیجه&zwnj;ی دریافت کمد</h2>
 
-      {% if sell.is_success %}
-      <!--success-->
+                {% if status == 1 %}
+                    <!--success-->
 
-      <div class="alert alert-success" role="alert">
-        <h4 class="alert-heading">تمام!</h4>
-        <p>پرداخت با موفقیت انجام و کمد برای شما ثبت شد.</p>
-        <p>)کد رهگیری) {{sell.authority}}</p>
-        <hr>
-        <p class="mb-0">برای دریافت کلید کمد خود به شورای صنفی مراجعه کنید.</p>
-      </div>
-      <div class="get-key mx-auto">
-        <img src="{% static "image/key.png" %}" alt="کلید را از شوراس صنفی دریافت کنید." class="w-100"> <!--TODO fix the image src-->
-      </div>
-      {% else %}
-      <!--failure-->
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">تمام!</h4>
+                        <p>پرداخت با موفقیت انجام و کمد برای شما ثبت شد.</p>
+                        <p>)کد رهگیری) {{ sell.authority }}</p>
+                        <hr>
+                        <p class="mb-0">برای دریافت کلید کمد خود به شورای صنفی مراجعه کنید.</p>
+                    </div>
+                    <div class="get-key mx-auto">
+                        <img src="{% static "image/key.png" %}" alt="کلید را از شوراس صنفی دریافت کنید." class="w-100">
+                        <!--TODO fix the image src-->
+                    </div>
+                {% elif status == 2 %}
+                    <!--failure-->
 
-      <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">خطا :(</h4>
-        <p>پرداخت موفقیت آمیز نبود.</p>
-      </div>
-      {% endif %}
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">خطا</h4>
+                        <p>درخواست فرستاده شده معتبر نمی‌باشد.</p>
+                    </div>
+                {% endif %}
 
-    </div>
-  </section>
-</main>
+            </div>
+        </section>
+    </main>
 {% endblock %}
 
 <!-- SCRIPTS -->
 {% block js %}
-  {{ block.super }}
-  <script>
-  $(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  });
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
-</script>
+    </script>
 {% endblock %}

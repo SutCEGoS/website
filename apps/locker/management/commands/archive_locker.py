@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from apps.locker.models import rack
+from apps.locker.models import Rack
 
 
 class Command(BaseCommand):
@@ -8,7 +8,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        lockers = rack.objects.filter(archived=False)
+        lockers = Rack.objects.filter(archived=False)
         self.stdout.write("Start archive lockers. count: %d\n" % len(lockers))
         for locker in lockers:
             if not locker.archived:

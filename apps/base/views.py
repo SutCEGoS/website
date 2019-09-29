@@ -12,7 +12,7 @@ from .forms import *
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
-client = Client(url)
+client = "" #  Client(url)
 
 
 def home(request):
