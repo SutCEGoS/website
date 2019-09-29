@@ -8,7 +8,8 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        lockers = rack.objects.all()
+        lockers = rack.objects.filter(archived=False)
+        self.stdout.write("Start archive lockers. count: %d\n" % len(lockers))
         for locker in lockers:
             if not locker.archived:
                 self.stdout.write("Locker %s archived.\n" % locker)
