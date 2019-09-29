@@ -3,6 +3,7 @@ from model_utils import Choices
 from apps.base.models import Member, Transaction
 import re
 
+
 class Rack(models.Model):
     CONDITION = Choices(
         (0, 'available'),
@@ -39,7 +40,7 @@ class Rack(models.Model):
         rack = Rack.objects.filter(name=rack_name, archived=False)
         if len(rack) != 0:
             return 2    # CHOSEN BEFORE
-        if not re.fullmatch(r'[A-LN-P][1-4][1-3]', rack_name):
+        if not re.fullmatch(r'[A-LN-Q][1-4][1-3]', rack_name):
             return 3    # NOT FOUND
         return 0        # READY
 
