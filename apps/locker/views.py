@@ -66,9 +66,10 @@ def add_new(request):
 
             member.cash -= price
             transaction = Transaction(origin=member, type=4, amount=price, is_successfully=True, data=locker_name)
-            rack = Rack()
             transaction.save()
             member.save()
+            rack = Rack(name=locker_name, receiver=member, payment=True, transaction=Transaction, condition=1, archived=False)
+            rack.save()
 
         return render(request, "success.html", {
             "status": rack_status
