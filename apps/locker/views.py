@@ -68,7 +68,7 @@ def add_new(request):
             transaction = Transaction(origin=member, type=4, amount=price, is_successfully=True, data=locker_name)
             transaction.save()
             member.save()
-            rack = Rack(name=locker_name, receiver=member, payment=True, transaction=Transaction, condition=1, archived=False)
+            rack = Rack(name=locker_name, receiver=member, payment=True, transaction=transaction, condition=1, archived=False)
             rack.save()
 
         return render(request, "success.html", {
