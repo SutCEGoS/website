@@ -56,9 +56,9 @@
                             </div>
                         </div>
                         <label for="rules" class="font-weight-bold">انتخاب روش</label>
-                        <div class="row text-black-50 justify-content-md-center">
-                            <div class="col">
-                                <div class="card">
+                        <div class="row text-black-50">
+                            <div class="col-md-4">
+                                <div class="card m-1">
                                     <div class="col-12" style="text-align: center;">
                                         <span style="font-size: 100px; width: 0;">&#128181;</span>
                                     </div>
@@ -72,8 +72,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="card">
+                            <div class="col-md-4">
+                                <div class="card m-1">
                                     <div class="col-12" style="text-align: center;">
                                         <span style="font-size: 100px; width: 0;">&#128179;</span>
                                     </div>
@@ -86,17 +86,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="card">
+                            <div class="col-md-4">
+                                <div class="card m-1">
                                     <div class="col-12" style="text-align: center;">
                                         <span style="font-size: 100px; width: 0;">&#x1f4b0;</span>
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">تسویه حساب</h5>
                                         <p class="card-text">پس از ثبت درخواست تسویه حساب حداکثر تا ۷۲ ساعت تسویه حساب انجام می‌‌شود.</p>
-                                        {% if user.is_staff %}
-                                            <a href="{% url 'under_construction' %}" class="btn btn-block btn-outline-primary under-construction">تسویه حساب</a>
-                                        {% endif %}
+                                        <a href="{% url 'under_construction' %}" class="btn btn-block btn-outline-primary under-construction">تسویه حساب</a>
                                     </div>
                                 </div>
                             </div>
