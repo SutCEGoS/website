@@ -29,19 +29,25 @@
                             <div id="rules" class="alert alert-primary" readonly>
                                 <ol>
                                     <li>
-                                        در راستای کاهش تبادلات نقدی و مشکلات ناشی از آن، شورای صنفی تصمیم به راه اندازی زیرساختی برای تبادلات مالی بین دانشجویان و شورای صنفی و پرداخت هزینه‌های خدمات صنفی گرفت.
+                                        در راستای کاهش تبادلات نقدی و مشکلات ناشی از آن، شورای صنفی تصمیم به راه اندازی
+                                        زیرساختی برای تبادلات مالی بین دانشجویان و شورای صنفی و پرداخت هزینه‌های خدمات
+                                        صنفی گرفت.
                                     </li>
                                     <li>
-                                        شورای صنفی امانت دار شما بوده و بدون اجازهٔ و اطلاع شما اعتبار حسابتان تغییری نمی‌کند.
+                                        شورای صنفی امانت دار شما بوده و بدون اجازهٔ و اطلاع شما اعتبار حسابتان تغییری
+                                        نمی‌کند.
                                     </li>
                                     <li>
-                                        با اعتبار موجود در حساب کاربری می‌توانید هزینه‌های امانت گرفتن کتاب، رزرو کمد و استفاده از سایر خدمات شورای صنفی را پرداخت کنید.
+                                        با اعتبار موجود در حساب کاربری می‌توانید هزینه‌های امانت گرفتن کتاب، رزرو کمد و
+                                        استفاده از سایر خدمات شورای صنفی را پرداخت کنید.
                                     </li>
                                     <li>
-                                        هر زمان که دانشجو بخواهد می‌تواند با مراجعه به دفتر شورای صنفی درخواست تسویه حساب بدهد.
+                                        هر زمان که دانشجو بخواهد می‌تواند با مراجعه به دفتر شورای صنفی درخواست تسویه
+                                        حساب بدهد.
                                     </li>
                                     <li>
-                                        از این پس دیگر تبادلات مالی بین شورای صنفی و دانشجویان تنها از این طریق قابل انجام خواهد بود.
+                                        از این پس دیگر تبادلات مالی بین شورای صنفی و دانشجویان تنها از این طریق قابل
+                                        انجام خواهد بود.
                                     </li>
                                     <li>
                                         شارژ حساب کاربری به صورت آنلاین یا نقدی به منزلهٔ پذیرش این قوانین می‌باشد.
@@ -51,36 +57,46 @@
                         </div>
                         <label for="rules" class="font-weight-bold">انتخاب روش</label>
                         <div class="row text-black-50 justify-content-md-center">
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="card">
-                                            <div class="col-12" style="text-align: center;">
-                                                <span style="font-size: 100px; width: 0;">&#128181;</span>
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">شارژ نقدی</h5>
-                                                <p class="card-text">با مراجعه به دفتر شورای صنفی می‌توانید به صورت نقدی
-                                                    حساب خود را شارژ کنید.</p>
-                                                {% if user.is_staff %}
-                                                    <a href="{% url 'charge_cash' %}" class="btn btn-block btn-warning">شارژ</a>
-                                                {% endif %}
-                                            </div>
-                                        </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="col-12" style="text-align: center;">
+                                        <span style="font-size: 100px; width: 0;">&#128181;</span>
                                     </div>
-                                    <div class="col">
-                                        <div class="card">
-                                            <div class="col-12" style="text-align: center;">
-                                                <span style="font-size: 100px; width: 0;">&#128179;</span>
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">شارژ آنلاین</h5>
-                                                <p class="card-text">همچنین می‌توانید از طریق درگاه بانکی به صورت آنلاین
-                                                    اعتبار خود را افزایش دهید</p>
-                                                <a href="{% url 'charge_credit' %}"
-                                                   class="btn btn-block btn-warning">شارژ</a>
-                                            </div>
-                                        </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">شارژ نقدی</h5>
+                                        <p class="card-text">با مراجعه به دفتر شورای صنفی می‌توانید به صورت نقدی
+                                            حساب خود را شارژ کنید.</p>
+                                        {% if user.is_staff %}
+                                            <a href="{% url 'charge_cash' %}" class="btn btn-block btn-warning">شارژ</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="col-12" style="text-align: center;">
+                                        <span style="font-size: 100px; width: 0;">&#128179;</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">شارژ آنلاین</h5>
+                                        <p class="card-text">همچنین می‌توانید از طریق درگاه بانکی به صورت آنلاین
+                                            اعتبار خود را افزایش دهید</p>
+                                        <a href="{% url 'charge_credit' %}"
+                                           class="btn btn-block btn-warning">شارژ</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="col-12" style="text-align: center;">
+                                        <span style="font-size: 100px; width: 0;">&#x1f4b0;</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">تسویه حساب</h5>
+                                        <p class="card-text">پس از ثبت درخواست تسویه حساب حداکثر تا ۷۲ ساعت تسویه حساب انجام می‌‌شود.</p>
+                                        {% if user.is_staff %}
+                                            <a href="{% url 'under_construction' %}" class="btn btn-block btn-outline-primary under-construction">تسویه حساب</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

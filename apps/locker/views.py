@@ -1,7 +1,6 @@
 from apps.base.models import Member, Transaction
 from .models import Rack, sell
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 import re
@@ -18,6 +17,9 @@ def calculate_difference(x, y):
 
 @login_required
 def lock(request):
+    if not request.user.is_staff:
+        return render(request, 'locker_disable.html')
+
     theRacks = Rack.objects.filter(receiver=request.user)
     broken_lockers = ['A42', 'B23', 'B41',
                       'D11',
@@ -45,11 +47,6 @@ def lock(request):
     user = request.user
     return render(request, 'locker.html', {'racks': racks, 'theRacks': theRacks, 'user': user,
                                            'broken_lockers': broken_lockers})
-
-
-@login_required
-def lock_disable(request):
-    return render(request, 'locker_disable.html')
 
 
 @login_required
