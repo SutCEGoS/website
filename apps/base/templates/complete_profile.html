@@ -5,58 +5,83 @@
 
 
 {% block title %}
-تکمیل پروفایل {{user}}
+    تکمیل پروفایل {{ user }}
 {% endblock %}
 {% block body_main %}
-<main class="col-xl-10 mr-auto p-0 text-right">
+    <main class="col-xl-10 mr-auto p-0 text-right">
 
-  <section class="bg-navy-blue py-5">
-    <div class="container">
-      <form class="text-white" action='{% url "complete_profile" %}'>
-        <h2 class="mb-4 mx-2 px-4 text-white border-right-white">تکمیل پروفایل</h2>
-        <div class="form-group col-lg-5">
-          <label for="first-name">نام</label>
-          <input type="text" class="form-control" id="first-name" name="firstName" value="{{user.first_name}}" required>
-        </div>
-        <div class="form-group col-lg-5">
-          <label for="last-name">نام خانوادگی</label>
-          <input type="text" class="form-control" id="last-name" name="lastName" value="{{user.last_name}}" required>
-        </div>
-        <div class="form-group col-lg-5">
-          <label for="student-id">شماره&zwnj;ی دانشجویی</label>
-          <input type="number" class="form-control" id="student-id" name="student-id" value="{{user.std_id}}" readonly>
-        </div>
-        <div class="form-group col-lg-5">
-          <label for="ce-mail">ایمیل دانشکده</label>
-          <input type="email" class="form-control" id="ce-mail" name="" value="{{user.username}}@ce.sharif.edu" readonly>
-        </div>
-        <div class="form-group col-lg-5">
-          <label for="email">ایمیل</label>
-          <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" pattern="^((?!@ce.sharif).)*$" required>
-          <small class="form-text text-muted">لطفا یک ایمیل شخصی وارد کنید.</small>
-        </div>
-        <!--<div class="form-group col-lg-5">
-        <label for="tel">تلفن (اختیاری)</label>
-        <input type="tel" class="form-control" id="tel">
-      </div>-->
-      <div class="form-group col-lg-5 text-center">
-        <button type="submit" class="btn btn-success">ثبت</button>
-      </div>
-    </form>
+        <section class="bg-navy-blue py-5">
+            <div class="container">
+                <form class="text-white" action='{% url "complete_profile" %}'>
+                    <h2 class="mb-4 mx-2 px-4 text-white border-right-white">تکمیل پروفایل</h2>
+                    <div class="form-group col-lg-5">
+                        <label for="first-name">نام</label>
+                        <input type="text" class="form-control" id="first-name" name="firstName"
+                               value="{{ user.first_name }}" required>
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label for="last-name">نام خانوادگی</label>
+                        <input type="text" class="form-control" id="last-name" name="lastName"
+                               value="{{ user.last_name }}" required>
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label for="student-id">شماره&zwnj;ی دانشجویی</label>
+                        <input type="number" class="form-control" id="student-id" name="student-id"
+                               value="{{ user.std_id }}" readonly>
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label for="ce-mail">ایمیل دانشکده</label>
+                        <input type="email" class="form-control" id="ce-mail" name=""
+                               value="{{ user.username }}@ce.sharif.edu" readonly>
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label for="email">ایمیل</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}"
+                               pattern="^((?!@ce.sharif).)*$" required>
+                        <small class="form-text text-muted">لطفا یک ایمیل شخصی وارد کنید.</small>
+                    </div>
 
-  </div>
-</section>
-</main>
+                    <div class="form-group col-lg-5">
+                        <label for="card_number">شمارهٔ کارت</label>
+                        <input type="number" class="form-control" id="card_number" name="card_number" value="{{ user.card_number }}"
+                               pattern="^((?!@ce.sharif).)*$">
+                        <small class="form-text text-muted">شمارهٔ کارت به نام خودتان را وارد کنید (مورد نیاز حهت نسویه حساب).</small>
+                    </div>
+
+                    <div class="form-group col-lg-5">
+                        <label for="sheba">شمارهٔ شبا</label>
+                        <div class="input-group">
+                            <input type="text" name="sheba" class="form-control" id="sheba" value="{{ user.sheba }}">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">IR</div>
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">شمارهٔ شبای حساب خودتان را وارد کنید (مورد نیاز حهت نسویه حساب).</small>
+                    </div>
+
+
+                    <!--<div class="form-group col-lg-5">
+                    <label for="tel">تلفن (اختیاری)</label>
+                    <input type="tel" class="form-control" id="tel">
+                  </div>-->
+                    <div class="form-group col-lg-5 text-center">
+                        <button type="submit" class="btn btn-success">ثبت</button>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </main>
 
 {% endblock %}
 
 <!-- SCRIPTS -->
 {% block js %}
-  {{ block.super }}
-  <script>
-  $(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  });
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
-</script>
+    </script>
 {% endblock %}

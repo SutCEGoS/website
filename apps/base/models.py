@@ -35,6 +35,9 @@ class Member(AbstractUser):
 
     password_changed = models.BooleanField(default=False)
 
+    card_number = models.CharField(null=True, blank=True, max_length=20)
+    sheba = models.CharField(null=True, blank=True, max_length=30, default="")
+
     def has_voted(self, poll):
         from apps.poll.models import Vote
         return Vote.objects.filter(member=self, choice__poll=poll).exists()

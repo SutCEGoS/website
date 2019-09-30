@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from zeep import Client
 
 from apps.announcements.models import Announcement
@@ -12,7 +13,7 @@ from .forms import *
 
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
-client = "" #  Client(url)
+client = Client(url)
 
 
 def home(request):
@@ -57,10 +58,16 @@ def complete_profile(request):
     usingEmail = request.GET.get('email')
     fName = request.GET.get('firstName')
     lName = request.GET.get('lastName')
-    user = request.user
+    card_number = request.GET.get('card_number')
+    sheba = request.GET.get('sheba')
+
+    user = Member.objects.get(username=request.user.username)
     user.email = usingEmail
     user.first_name = fName
     user.last_name = lName
+    user.card_number = card_number
+    user.sheba = sheba
+
     user.save()
     return HttpResponseRedirect(reverse('home'))
 
@@ -273,3 +280,9 @@ def verify(request):
             "completed": True,
             "error": "تراکنش انجام نشد یا توسط شما لغو گردید."
         })
+
+
+@login_required
+def history(request):
+    transactions = Transaction.objects.filter(Q(destination=request.user) | Q(origin=request.user))
+    return render(request, "history.html")

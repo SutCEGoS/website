@@ -1,0 +1,33 @@
+{% extends "base_of_new_website.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load static gravatar staticfiles hijack_tags %}
+
+{% block title %}
+    تاریخچهٔ تراکنش‌ها
+{% endblock %}
+<!-- Locker Modal -->
+
+{% block body_main %}
+
+    <main class="col-xl-10 mr-auto p-0 text-right">
+
+        <section class="bg-navy-blue py-5">
+            <div class="mx-sm-5 px-3">
+                <form class="text-white" action="{% url 'add_rack' %}" method="post">
+                    {% csrf_token %}
+                    <h2 class="mb-4 mx-2 px-4 text-white border-right-white">تاریخچهٔ تراکنش‌ها</h2>
+                    {% if not user.first_name %}
+                        <div class="form-group text-center">
+                            <p>ابتدا مشخصات خود را تکمیل کنید</p>
+                            <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل مشخصات</a>
+                        </div>
+                    {% else %}
+
+                    {% endif %}
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+

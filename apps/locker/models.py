@@ -43,14 +43,3 @@ class Rack(models.Model):
         if not re.fullmatch(r'[A-LN-Q][1-4][1-3]', rack_name):
             return 3    # NOT FOUND
         return 0        # READY
-
-
-class sell(models.Model):
-    value = models.IntegerField(default=20000)
-    user = models.ForeignKey(Member, on_delete=models.CASCADE)
-    locker = models.ForeignKey(Rack, on_delete=models.CASCADE)
-    is_success = models.NullBooleanField(null=True, default=True)
-    authority = models.CharField(max_length=63, null=True)
-
-    def __str__(self):
-        return "'  %s  ' HAS BEEN SOLD TO '  %s ( %s ) '" % (self.locker.name, self.user, self.user.std_id)

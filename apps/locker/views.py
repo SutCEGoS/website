@@ -1,5 +1,4 @@
-from apps.base.models import Member, Transaction
-from .models import Rack, sell
+from .models import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils import timezone

@@ -29,8 +29,3 @@ class RackAdmin(admin.ModelAdmin):
         return response
 
     export_as_csv.short_description = "خروحی موارد انتخاب شده به صورت csv"
-
-
-@admin.register(sell)
-class SellAdmin(admin.ModelAdmin):
-    list_display = ['user', 'locker', 'is_success']
