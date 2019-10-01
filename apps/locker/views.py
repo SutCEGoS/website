@@ -30,18 +30,8 @@ def lock(request):
                       'N32', 'N41', 'Q21',
                       'P13', 'P22', 'P23', 'P31',
                       ]
-    racks = Rack.objects.all()
-    for track in racks:
-        if sell.objects.filter(locker=track):
-            if track.payment == True:
-                if sell.objects.filter(locker=track, is_success=False):
-                    if calculate_difference(track.receivie_date, timezone.now()) > 10:
-                        track.payment = False
-                        track.save()
-            elif track.payment == False:
-                for tsell in sell.objects.filter(locker=track):
-                    tsell.is_success = False
-                    tsell.save()
+    racks = Rack.objects.filter(archived=False)
+
 
     user = request.user
     return render(request, 'locker.html', {'racks': racks, 'theRacks': theRacks, 'user': user,
