@@ -289,5 +289,6 @@ def history(request):
 
     return render(request, "history.html", {
         "transactions": transactions,
+        "noTransaction": len(list(transactions)) == 0,
         "member": member
     })

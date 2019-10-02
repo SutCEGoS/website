@@ -24,30 +24,34 @@
                             <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل مشخصات</a>
                         </div>
                     {% else %}
-                        <table class="table table-striped bg-white text-black-80">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">مبلغ (تومان)</th>
-                                <th scope="col">شرح تراکنش</th>
-                                <th scope="col">تاریخ</th>
-                                <th scope="col">وضعیت</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for transaction in transactions %}
-                            <tr>
-                                <th scope="row">{{ forloop.counter }}</th>
-                                <td>
-                                    {{ transaction.amount }}{% if transaction.origin %}-{% else %}+{% endif %}
-                                </td>
-                                <td>{{ transaction.get_type_display }}</td>
-                                <td>{{ transaction.time|to_jalali:'%d %B %Y ساعت %H:%M:%S' }}</td>
-                                <td>{% if transaction.is_successfully %}موفق{% else %}ناموفق{% endif %}</td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                        {% if noTransaction %}
+                            متأسفانه تراکنشی یافت نشد.
+                        {% else %}
+                            <table class="table table-striped bg-white text-black-80">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">مبلغ (تومان)</th>
+                                    <th scope="col">شرح تراکنش</th>
+                                    <th scope="col">تاریخ</th>
+                                    <th scope="col">وضعیت</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for transaction in transactions %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>
+                                            {{ transaction.amount }}{% if transaction.origin %}-{% else %}+{% endif %}
+                                        </td>
+                                        <td>{{ transaction.get_type_display }}</td>
+                                        <td>{{ transaction.time|to_jalali:'%d %B %Y ساعت %H:%M:%S' }}</td>
+                                        <td>{% if transaction.is_successfully %}موفق{% else %}ناموفق{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
 
                     {% endif %}
                 </form>
