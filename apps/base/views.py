@@ -284,5 +284,10 @@ def verify(request):
 
 @login_required
 def history(request):
-    transactions = Transaction.objects.filter(Q(destination=request.user) | Q(origin=request.user))
-    return render(request, "history.html")
+    member = Member.objects.get(username=request.user.username)
+    transactions = reversed(Transaction.objects.filter(Q(destination=member) | Q(origin=member)))
+
+    return render(request, "history.html", {
+        "transactions": transactions,
+        "member": member
+    })

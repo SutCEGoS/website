@@ -1,5 +1,6 @@
 {% extends "base_of_new_website.html" %}
 {% load static %}
+{% load jalali_tags %}
 {% load staticfiles %}
 {% load static gravatar staticfiles hijack_tags %}
 
@@ -17,12 +18,36 @@
                 <form class="text-white" action="{% url 'add_rack' %}" method="post">
                     {% csrf_token %}
                     <h2 class="mb-4 mx-2 px-4 text-white border-right-white">تاریخچهٔ تراکنش‌ها</h2>
-                    {% if not user.first_name %}
+                    {% if not member.first_name %}
                         <div class="form-group text-center">
                             <p>ابتدا مشخصات خود را تکمیل کنید</p>
                             <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل مشخصات</a>
                         </div>
                     {% else %}
+                        <table class="table table-striped bg-white text-black-80">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">مبلغ (تومان)</th>
+                                <th scope="col">شرح تراکنش</th>
+                                <th scope="col">تاریخ</th>
+                                <th scope="col">وضعیت</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for transaction in transactions %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>
+                                    {{ transaction.amount }}{% if transaction.origin %}-{% else %}+{% endif %}
+                                </td>
+                                <td>{{ transaction.get_type_display }}</td>
+                                <td>{{ transaction.time|to_jalali:'%d %B %Y ساعت %H:%M:%S' }}</td>
+                                <td>{% if transaction.is_successfully %}موفق{% else %}ناموفق{% endif %}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
 
                     {% endif %}
                 </form>
