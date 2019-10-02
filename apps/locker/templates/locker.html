@@ -237,7 +237,7 @@
         function changeLetter(ch) {
             var occupied = [], myLockers = [], broken = [];
             {% for rack in racks %}
-                {% if rack.receiver != user and rack.payment == True %}
+                {% if rack.receiver != user and rack.archived == True %}
                     occupied.push("{{rack.name}}");
                 {% endif %}
             {% endfor %}
