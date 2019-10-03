@@ -9,7 +9,7 @@ from .models import *
 @admin.register(Rack)
 class RackAdmin(admin.ModelAdmin):
     list_display = ['name', 'receiver', 'payment', 'receivie_date', 'archived']
-    list_filter = ['receivie_date', 'archived']
+    list_filter = ['receivie_date', 'archived', 'payment']
     search_fields = ['name', 'receiver']
 
     actions = ['export_as_csv']
