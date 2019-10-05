@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -64,3 +66,20 @@ def add_new(request):
         return render(request, "success.html", {
             "status": -1
         })
+
+
+@login_required
+def archive(request):
+    if request.user.is_staff and request.user.is_superuser:
+        name = request.GET.get("name")
+        if name is None:
+            return HttpResponse("Bad request", status=400)
+        rack = Rack.objects.get(name=name)
+        if rack is not None:
+            rack.archived = True
+            rack.save()
+            return HttpResponse("Rack archived", status=200)
+        else:
+            return HttpResponse("Rack not found", status=406)
+    else:
+        return HttpResponse("access denied", status=403)
