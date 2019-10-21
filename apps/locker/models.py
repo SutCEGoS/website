@@ -11,16 +11,34 @@ class Rack(models.Model):
         (2, 'is_paying')
     )
 
-    BROKEN_LOCKERS = ['A42', 'B23', 'B41',
+    BROKEN_LOCKERS = ['A42',
+                      'B23', 'B41',
                       'D11',
-                      'F42', 'G12', 'G22', 'G42', 'G43',
-                      'H12', 'J12',
-                      'K23',
-                      'K32', 'K42',
-                      'O13', 'N22',
-                      'N32', 'N41', 'Q21',
+                      'F42',
+                      'G12', 'G22', 'G42', 'G43',
+                      'H12',
+                      'J12',
+                      'K23', 'K32', 'K42',
+                      'N22', 'N32', 'N41',
+                      'O13',
                       'P13', 'P22', 'P23', 'P31',
-                      ]
+                      'Q21',
+                      ] + [
+                         'A21', 'A23',
+                         'C21', 'C31', 'C33', 'C42', 'C43',
+                         'D12', 'D13',
+                         'E42', 'E22',
+                         'G21', 'G43',
+                         'H32', 'H42', 'H22',
+                         'I21', 'I23', 'I31', 'I42',
+                         'J22', 'J32',
+                         'K43', 'K22', 'K11',
+                         'L11', 'L12', 'L23', 'L33', 'L43',
+                         'N12',
+                         'O12', 'O22', 'O23', 'O31', 'O33', 'O32', 'O41',
+                         'P12', 'P33',
+                         'Q13',
+                     ]
 
     name = models.CharField(max_length=3)
     receiver = models.ForeignKey(Member, blank=True, null=True, on_delete=models.CASCADE)
@@ -36,10 +54,10 @@ class Rack(models.Model):
     @classmethod
     def get_rack_status(cls, rack_name):
         if rack_name in cls.BROKEN_LOCKERS:
-            return 1    # BROKEN
+            return 1  # BROKEN
         rack = Rack.objects.filter(name=rack_name, archived=False)
         if len(rack) != 0:
-            return 2    # CHOSEN BEFORE
+            return 2  # CHOSEN BEFORE
         if not re.fullmatch(r'[A-LN-Q][1-4][1-3]', rack_name):
-            return 3    # NOT FOUND
-        return 0        # READY
+            return 3  # NOT FOUND
+        return 0  # READY
