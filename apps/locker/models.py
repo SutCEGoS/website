@@ -24,7 +24,7 @@ class Rack(models.Model):
                       'P13', 'P22', 'P23', 'P31',
                       'Q21',
 
-                      # new lockers
+                      # new broken lockers
                       'A21', 'A23',
                       'C21', 'C31', 'C33', 'C42', 'C43',
                       'D12', 'D13',
