@@ -3,10 +3,8 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.utils import timezone
-import re
 
-price = 50000
+price = 45000
 
 
 def calculate_difference(x, y):
