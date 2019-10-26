@@ -16,9 +16,8 @@ def calculate_difference(x, y):
 
 @login_required
 def lock(request):
-    if not request.user.is_staff:
-        return render(request, 'locker_disable.html')
-
+    # if not request.user.is_staff:
+    #     return render(request, 'locker_disable.html')
     theRacks = Rack.objects.filter(receiver=request.user, archived=False)
     broken_lockers = ['A42',
                       'B23', 'B41',
