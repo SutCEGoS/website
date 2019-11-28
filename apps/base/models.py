@@ -48,6 +48,11 @@ class Member(AbstractUser):
         else:
             return self.username
 
+    def get_card_number_display(self):
+        if len(self.card_number) != 16:
+            return self.card_number
+        return "%s-%s-%s-%s" % (self.card_number[0:4], self.card_number[4:8], self.card_number[8:12], self.card_number[12:])
+
 
 class Transaction(models.Model):
     TYPE_CHOICES = (

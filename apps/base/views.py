@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth import login as dj_login
 from django.contrib.auth import logout as dj_logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect
@@ -115,8 +115,35 @@ def password_reset_change(request):
                   })
 
 
+@user_passes_test(lambda u: u.is_staff)
 def checkout_list_view(request):
-    return render(request, "checkout_request_list.html")
+    return render(request, "checkout_request_list.html", {
+        "checkout_requests": CheckoutRequest.objects.filter(status=1)
+    })
+
+
+@user_passes_test(lambda u: u.is_staff)
+def checkout_action(request, req_id, action):
+    action = int(action)
+    req_id = int(req_id)
+    checkout_request = CheckoutRequest.objects.get(id=req_id)
+    if not checkout_request:
+        return HttpResponse("invalid request id")
+    amount = checkout_request.user.cash
+    checkout_request.status = action if action == 2 else 3
+    checkout_request.save()
+
+    if action == 2:
+        checkout_request.user.cash = 0
+        checkout_request.user.save()
+        transaction = Transaction(origin=checkout_request.user, amount=amount, type=5, is_successfully=True)
+        transaction.save()
+
+    else:
+        transaction = Transaction(origin=checkout_request.user, amount=amount, type=5, is_successfully=False)
+        transaction.save()
+
+    return redirect(checkout_list_view)
 
 
 @login_required
@@ -129,7 +156,7 @@ def charge_menu(request):
 
 @login_required
 def checkout_view(request):
-    last_request = CheckoutRequest.objects.filter(user=request.user).last()
+    last_request = CheckoutRequest.objects.filter(user=request.user, status=1).last()
     if last_request:
         delta = datetime.now().timestamp() - last_request.date.timestamp()
         if delta < CHECKOUT_REQUEST_DELTA:

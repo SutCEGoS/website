@@ -19,29 +19,67 @@
                 <h2 class="mb-4 mx-2 px-4 text-white border-right-white">لیست درخواست‌های تسویهٔ حساب</h2>
                 {% if not user.first_name %}
                     <div class="form-group text-center">
-                        <p>وارد کردن شمارهٔ کارت معتبر جهت تسویه حساب الزامی می‌باشد.</p>
+                        <p>لطفا اطلاعات خود را کامل کنید.</p>
                         <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل مشخصات</a>
                     </div>
                 {% else %}
                     <div class="row text-black-50 justify-content-md-center">
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="row">
                                 <div class="col">
                                     <div class="card">
-                                        <div class="col-12" style="text-align: center;">
-                                            <span style="font-size: 100px; width: 0;">&#x1f4b0;</span>
-                                        </div>
                                         <div class="card-body">
 
-                                            <h5 class="card-title">تسویه حساب</h5>
+                                            {% if checkout_requests %}
+                                                <p>
+                                                    راهنمای گزینه‌ها:<br/>
+                                                <ul>
+                                                    <li>انجام شد:
+                                                        درصورتی که تسویه حساب را با موفقیت انجام دادید این گزینه را
+                                                        انتخاب کنید که اعتبار از حساب کاربر کم شود.
+                                                    </li>
+                                                    <li>لغو شد:
+                                                        درصورتی که به هر دلیل (مثلا اشتباه بودن شمارهٔ کارت) تسویه حساب
+                                                        انجام نشد، این گزینه را انتخاب کنید تا از اعتبار کاربر
+                                                        کاسته نشود.
+                                                    </li>
+                                                </ul>
+                                                </p>
+                                                <table class="table table-striped bg-white text-black-80">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">نام کاربر</th>
+                                                        <th scope="col">مبلغ</th>
+                                                        <th scope="col">شماره کارت</th>
+                                                        <th scope="col">تاریخ ثبت درخواست</th>
+                                                        <th scope="col">اعمال</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for checkout_request in checkout_requests %}
+                                                        <tr>
+                                                            <th scope="row">{{ forloop.counter }}</th>
+                                                            <td>{{ checkout_request.user.get_full_name }}</td>
+                                                            <td>{{ checkout_request.user.cash }}</td>
+                                                            <td>{{ checkout_request.user.get_card_number_display }}</td>
+                                                            <td>{{ checkout_request.date }}</td>
+                                                            <td>
+                                                                <a href="charge/checkout/action/{{ checkout_request.id }}/2" class="btn btn-success">
+                                                                    انجام شد
+                                                                </a>
+                                                                <a href="charge/checkout/action/{{ checkout_request.id }}/3" class="btn btn-danger">
+                                                                    لغو شد
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
 
-                                            <div class="form-group">
-                                                {{ form.as_p }}
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="submit" class="btn btn-block btn-warning"
-                                                       value="ثبت درخواست تسویه حساب"/>
-                                            </div>
+                                            {% else %}
+                                                درخواست تسویه حسابی یافت نشد.
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

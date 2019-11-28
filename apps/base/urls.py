@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from django.urls import path
 
 from . import views
 from django.contrib.auth import views as auth_views
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r'^charge/credit/$', views.charge_credit, name='charge_credit'),
     url(r'^charge/checkout/$', views.checkout_view, name='checkout'),
     url(r'^charge/checkout/list$', views.checkout_list_view, name='checkout_list'),
+    url(r'charge/checkout/action/(?P<req_id>[0-9]+)/(?P<action>[2-3]+)', views.checkout_action, name='checkout_action'),
     url(r'^charge/$', views.charge_menu, name='charge_menu'),
     url(r'^history/$', views.history, name='history'),
     url(r'^charge/payment/(?P<transaction_id>[0-9]+)$', views.payment, name='payment'),
