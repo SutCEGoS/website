@@ -93,7 +93,6 @@ class CheckoutRequest(models.Model):
     date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ درخواست")
     status = models.IntegerField(verbose_name="وضعیت", choices=STATUS_CHOICES, default=1)
 
-
     class Meta:
         verbose_name = "درخواست تسویهٔ حساب"
         verbose_name_plural = "درحواست‌های تسویهٔ حساب"

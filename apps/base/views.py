@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.contrib.auth import login as dj_login
 from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.decorators import login_required
@@ -5,6 +7,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.utils.safestring import mark_safe
 from zeep import Client
 
 from apps.announcements.models import Announcement
@@ -14,7 +17,7 @@ from .forms import *
 url = "https://www.zarinpal.com/pg/services/WebGate/wsdl"
 MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
 client = Client(url)
-
+CHECKOUT_REQUEST_DELTA = 7 * 60 * 60 * 24
 
 def home(request):
     go_course = False
@@ -122,9 +125,34 @@ def charge_menu(request):
 
 @login_required
 def checkout_view(request):
-    form = FormWithCaptcha()
+    last_request = CheckoutRequest.objects.filter(user=request.user).last()
+    delta = datetime.now().timestamp() - last_request.date.timestamp()
+
+    if delta < CHECKOUT_REQUEST_DELTA:
+        return render(request, "checkout.html", {
+            "error": "در فاصلهٔ کمتر از یک هفته امکان ثبت درخواست تسویهٔ حساب وجود ندارد.",
+            "done": True
+        })
+
+    if not request.POST:
+        form = FormWithCaptcha()
+        return render(request, "checkout.html", {
+            "form": form
+        })
+    form = FormWithCaptcha(request.POST)
+    if not form.is_valid():
+        form = FormWithCaptcha()
+        return render(request, "checkout.html", {
+            "form": form,
+            "error": "خطا. لطفا تیک من ربات نیستم را بزنید."
+        })
+
+    checkout_request = CheckoutRequest(user=request.user, status=1)
+    checkout_request.save()
+
     return render(request, "checkout.html", {
-        "form": form
+        "success": mark_safe("درخواست شما با موفقیت ثبت شد.<br/> درصورت عدم انجام تسویه حساب تا ۷۲ ساعت آینده با دفتر شورای صنفی تماس بگیرید."),
+        "done": True
     })
 
 
