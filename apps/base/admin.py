@@ -20,3 +20,9 @@ class TransactionAdmin(admin.ModelAdmin):
     list_display_links = ['origin', 'destination']
     list_filter = ['type', 'is_successfully', 'time']
     search_fields = ['origin', 'destination', 'data']
+
+
+@admin.register(CheckoutRequest)
+class CheckoutRequestAdmin(admin.ModelAdmin):
+    list_display = ['user', 'date', 'status']
+    list_filter = ['date', 'status']

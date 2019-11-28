@@ -81,3 +81,19 @@ class Transaction(models.Model):
             return "انتقال %d تومان از حساب %s به حساب %s" % (self.amount, self.origin, self.destination)
         elif self.type == 4:
             return "استفاده از خدمات شورا توسط %s به میزان %d تومان" % (self.origin, self.amount)
+
+
+class CheckoutRequest(models.Model):
+    STATUS_CHOICES = (
+        (1, "درخواست شده"),
+        (2, "انجام شده"),
+        (3, "لغو شده"),
+    )
+    user = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name="کاربر")
+    date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ درخواست")
+    status = models.IntegerField(verbose_name="وضعیت", choices=STATUS_CHOICES, default=1)
+
+
+    class Meta:
+        verbose_name = "درخواست تسویهٔ حساب"
+        verbose_name_plural = "درحواست‌های تسویهٔ حساب"
