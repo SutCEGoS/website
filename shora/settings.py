@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'compat',
     'jalali_date',
     'hijack_admin',
+    'captcha',
 
     # website apps
     'apps.base',
@@ -77,6 +78,8 @@ ROOT_URLCONF = 'shora.urls'
 
 WSGI_APPLICATION = 'shora.wsgi.application'
 
+RECAPTCHA_PUBLIC_KEY = '6LcyKsUUAAAAACGZVjfB3Wz8uoDc50VDdJ-fSYs1'
+RECAPTCHA_PRIVATE_KEY = '6LcyKsUUAAAAAPYmhakzcrmSaAG7lqYTSIuckisf'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

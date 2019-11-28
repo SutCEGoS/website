@@ -1,4 +1,5 @@
 # coding=utf-8
+from captcha.fields import ReCaptchaField
 from django import forms
 from django.contrib.auth import authenticate
 
@@ -79,3 +80,8 @@ class PasswordForm(forms.Form):
             return
         self.user.set_password(new_password)
         self.user.save()
+
+
+class FormWithCaptcha(forms.Form):
+    captcha = ReCaptchaField(label="")
+

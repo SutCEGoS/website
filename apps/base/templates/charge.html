@@ -57,18 +57,18 @@
                         </div>
                         <label for="rules" class="font-weight-bold">انتخاب روش</label>
                         <div class="row text-black-50">
-                                <div class="col-md-4">
-                                    <div class="card m-1">
-                                        <div class="col-12" style="text-align: center;">
-                                            <span style="font-size: 100px; width: 0;">&#128181;</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title">شارژ نقدی</h5>
-                                            <p class="card-text">با مراجعه به دفتر شورای صنفی می‌توانید به صورت نقدی
-                                                حساب خود را شارژ کنید.</p>
-                                        </div>
+                            <div class="col-md-4">
+                                <div class="card m-1">
+                                    <div class="col-12" style="text-align: center;">
+                                        <span style="font-size: 100px; width: 0;">&#128181;</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">شارژ نقدی</h5>
+                                        <p class="card-text">با مراجعه به دفتر شورای صنفی می‌توانید به صورت نقدی
+                                            حساب خود را شارژ کنید.</p>
                                     </div>
                                 </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="card m-1">
                                     <div class="col-12" style="text-align: center;">
@@ -92,8 +92,7 @@
                                         <h5 class="card-title">تسویه حساب</h5>
                                         <p class="card-text">پس از ثبت درخواست تسویه حساب حداکثر تا ۷۲ ساعت تسویه حساب
                                             انجام می‌‌شود.</p>
-                                        <a href="{% url 'under_construction' %}"
-                                           class="btn btn-block btn-outline-primary under-construction">تسویه حساب</a>
+                                        <a href="{% url 'checkout' %}" class="btn btn-block btn-warning">تسویه حساب</a>
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +107,9 @@
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">افزایش اعتبار</h5>
-                                            <p class="card-text">جهت انجام شارژ نقدی، از طریق این پنل باید اعتبار دانشجو را افزایش دهید.</p>
-                                            <a href="{% url 'charge_cash' %}" class="btn btn-block btn-warning">شارژ</a>
+                                            <p class="card-text">جهت انجام شارژ نقدی، از طریق این پنل باید اعتبار دانشجو
+                                                را افزایش دهید.</p>
+                                            <a href="{% url 'charge_cash' %}" class="btn btn-block btn-outline-primary">شارژ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -124,8 +124,7 @@
                                                 لیست درخواست‌های تسویه حساب را مشاهده و تسویه حساب را انجام دهید.
                                             </p>
                                             <a href="{% url 'under_construction' %}"
-                                               class="btn btn-block btn-outline-primary under-construction">تسویه
-                                                حساب</a>
+                                               class="btn btn-block btn-outline-primary">پنل تسویه حساب</a>
                                         </div>
                                     </div>
                                 </div>

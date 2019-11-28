@@ -121,6 +121,14 @@ def charge_menu(request):
 
 
 @login_required
+def checkout_view(request):
+    form = FormWithCaptcha()
+    return render(request, "checkout.html", {
+        "form": form
+    })
+
+
+@login_required
 def charge_cash(request):
     if not request.user.is_staff:
         return render(request, "charge_cash.html", {

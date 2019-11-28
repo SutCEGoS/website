@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^under_construction/', views.under_construction, name='under_construction'),
     url(r'^charge/cash/$', views.charge_cash, name='charge_cash'),
     url(r'^charge/credit/$', views.charge_credit, name='charge_credit'),
+    url(r'^charge/checkout/$', views.checkout_view, name='checkout'),
     url(r'^charge/$', views.charge_menu, name='charge_menu'),
     url(r'^history/$', views.history, name='history'),
     url(r'^charge/payment/(?P<transaction_id>[0-9]+)$', views.payment, name='payment'),

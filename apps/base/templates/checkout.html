@@ -1,0 +1,60 @@
+{% extends "base_of_new_website.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load static gravatar staticfiles hijack_tags %}
+
+{% block title %}
+    تسویه حساب
+{% endblock %}
+<!-- Locker Modal -->
+
+{% block body_main %}
+
+    <main class="col-xl-10 mr-auto p-0 text-right">
+
+
+        <section class="bg-navy-blue py-5">
+            <div class="mx-sm-5 px-3">
+                <form method="post" action="{% url 'checkout' %}" class="text-white">
+                    {% csrf_token %}
+
+                    <h2 class="mb-4 mx-2 px-4 text-white border-right-white">تسویهٔ حساب</h2>
+                    {% if not user.card_number %}
+                        <div class="form-group text-center">
+                            <p>وارد کردن شمارهٔ کارت معتبر جهت تسویهٔ حساب الزامی می‌باشد.</p>
+                            <a role="button" class="btn btn-outline-light" href="{% url 'profile' %}">تکمیل مشخصات</a>
+                        </div>
+                    {% else %}
+                        <label for="rules" class="font-weight-bold">مبلغ مورد نظر خود را انتخاب کنید</label>
+                        <div class="row text-black-50 justify-content-md-center">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="col-12" style="text-align: center;">
+                                                <span style="font-size: 100px; width: 0;">&#x1f4b0;</span>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <h5 class="card-title">تسویهٔ حساب</h5>
+
+                                                <div class="form-group">
+                                                    salam
+                                                    {{ form.as_p }}
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" class="btn btn-block btn-warning"
+                                                           value="شارژ"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}
