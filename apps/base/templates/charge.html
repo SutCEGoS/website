@@ -34,7 +34,7 @@
                                         صنفی گرفت.
                                     </li>
                                     <li>
-                                        شورای صنفی امانت دار شما بوده و بدون اجازهٔ و اطلاع شما اعتبار حسابتان تغییری
+                                        شورای صنفی امانت دار شما بوده و بدون اجازه و اطلاع شما اعتبار حسابتان تغییری
                                         نمی‌کند.
                                     </li>
                                     <li>
@@ -57,21 +57,18 @@
                         </div>
                         <label for="rules" class="font-weight-bold">انتخاب روش</label>
                         <div class="row text-black-50">
-                            <div class="col-md-4">
-                                <div class="card m-1">
-                                    <div class="col-12" style="text-align: center;">
-                                        <span style="font-size: 100px; width: 0;">&#128181;</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">شارژ نقدی</h5>
-                                        <p class="card-text">با مراجعه به دفتر شورای صنفی می‌توانید به صورت نقدی
-                                            حساب خود را شارژ کنید.</p>
-                                        {% if user.is_staff %}
-                                            <a href="{% url 'charge_cash' %}" class="btn btn-block btn-warning">شارژ</a>
-                                        {% endif %}
+                                <div class="col-md-4">
+                                    <div class="card m-1">
+                                        <div class="col-12" style="text-align: center;">
+                                            <span style="font-size: 100px; width: 0;">&#128181;</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">شارژ نقدی</h5>
+                                            <p class="card-text">با مراجعه به دفتر شورای صنفی می‌توانید به صورت نقدی
+                                                حساب خود را شارژ کنید.</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="card m-1">
                                     <div class="col-12" style="text-align: center;">
@@ -93,12 +90,48 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">تسویه حساب</h5>
-                                        <p class="card-text">پس از ثبت درخواست تسویه حساب حداکثر تا ۷۲ ساعت تسویه حساب انجام می‌‌شود.</p>
-                                        <a href="{% url 'under_construction' %}" class="btn btn-block btn-outline-primary under-construction">تسویه حساب</a>
+                                        <p class="card-text">پس از ثبت درخواست تسویه حساب حداکثر تا ۷۲ ساعت تسویه حساب
+                                            انجام می‌‌شود.</p>
+                                        <a href="{% url 'under_construction' %}"
+                                           class="btn btn-block btn-outline-primary under-construction">تسویه حساب</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% if user.is_staff %}
+                            <label for="rules" class="font-weight-bold row">پنل اعضای شورا</label>
+                            <div class="row text-black-50">
+                                <div class="col-md-4">
+                                    <div class="card m-1">
+                                        <div class="col-12" style="text-align: center;">
+                                            <span style="font-size: 100px; width: 0;">📈</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">افزایش اعتبار</h5>
+                                            <p class="card-text">جهت انجام شارژ نقدی، از طریق این پنل باید اعتبار دانشجو را افزایش دهید.</p>
+                                            <a href="{% url 'charge_cash' %}" class="btn btn-block btn-warning">شارژ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card m-1">
+                                        <div class="col-12" style="text-align: center;">
+                                            <span style="font-size: 100px; width: 0;">📮</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">لیست درخواست‌های تسویهٔ حساب</h5>
+                                            <p class="card-text">
+                                                لیست درخواست‌های تسویه حساب را مشاهده و تسویه حساب را انجام دهید.
+                                            </p>
+                                            <a href="{% url 'under_construction' %}"
+                                               class="btn btn-block btn-outline-primary under-construction">تسویه
+                                                حساب</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
                     {% endif %}
                 </form>
             </div>
