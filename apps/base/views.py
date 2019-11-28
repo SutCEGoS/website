@@ -115,6 +115,10 @@ def password_reset_change(request):
                   })
 
 
+def checkout_list_view(request):
+    return render(request, "checkout_request_list.html")
+
+
 @login_required
 def charge_menu(request):
     return render(request,
@@ -126,13 +130,13 @@ def charge_menu(request):
 @login_required
 def checkout_view(request):
     last_request = CheckoutRequest.objects.filter(user=request.user).last()
-    delta = datetime.now().timestamp() - last_request.date.timestamp()
-
-    if delta < CHECKOUT_REQUEST_DELTA:
-        return render(request, "checkout.html", {
-            "error": "در فاصلهٔ کمتر از یک هفته امکان ثبت درخواست تسویهٔ حساب وجود ندارد.",
-            "done": True
-        })
+    if last_request:
+        delta = datetime.now().timestamp() - last_request.date.timestamp()
+        if delta < CHECKOUT_REQUEST_DELTA:
+            return render(request, "checkout.html", {
+                "error": "در فاصلهٔ کمتر از یک هفته امکان ثبت درخواست تسویهٔ حساب وجود ندارد.",
+                "done": True
+            })
 
     if not request.POST:
         form = FormWithCaptcha()
