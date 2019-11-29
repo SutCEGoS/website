@@ -46,7 +46,7 @@
                         {% if completed == False %}
                             <label for="rules" class="font-weight-bold">مبلغ مورد نظر خود را انتخاب کنید</label>
                             <div class="row text-black-50 justify-content-md-center">
-                                <div class="col-6">
+                                <div class="col-md-7">
                                     <div class="row">
                                         <div class="col">
                                             <div class="card">
@@ -62,17 +62,24 @@
                                                             مبلغ
                                                         </label>
                                                         <select class="form-control" id="amount" name="amount">
-                                                            {% if user.is_staff %}
-                                                                <option value="1001">۱,۰۰۱ تومان - فقط برای تست (مخصوص اعضای شورای صنفی)</option>
-                                                            {% endif %}
+                                                            <option value="5000">۵,۰۰۰ تومان</option>
                                                             <option value="10000">۱۰,۰۰۰ تومان</option>
+                                                            <option value="15000">۱۵,۰۰۰ تومان</option>
                                                             <option value="20000">۲۰,۰۰۰ تومان</option>
+                                                            <option value="25000">۲۵,۰۰۰ تومان</option>
                                                             <option value="30000">۳۰,۰۰۰ تومان</option>
+                                                            <option value="35000">۳۵,۰۰۰ تومان</option>
                                                             <option value="40000">۴۰,۰۰۰ تومان</option>
+                                                            <option value="45000">۴۵,۰۰۰ تومان</option>
                                                             <option value="50000">۵۰,۰۰۰ تومان</option>
                                                             <option value="100000">۱۰۰,۰۰۰ تومان</option>
                                                         </select>
                                                     </div>
+                                                    ‍
+                                                    <div class="form-group">
+                                                    {{ form.as_p }}
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <input type="submit" class="btn btn-block btn-warning"
                                                                value="شارژ"/>

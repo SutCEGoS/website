@@ -19,6 +19,7 @@ MERCHANT = '0f3e8346-d100-11e8-b90d-005056a205be'
 client = Client(url)
 CHECKOUT_REQUEST_DELTA = 7 * 60 * 60 * 24
 
+
 def home(request):
     go_course = False
     try:
@@ -187,7 +188,8 @@ def checkout_view(request):
     checkout_request.save()
 
     return render(request, "checkout.html", {
-        "success": mark_safe("درخواست شما با موفقیت ثبت شد.<br/> درصورت عدم انجام تسویه حساب تا ۷۲ ساعت آینده با دفتر شورای صنفی تماس بگیرید."),
+        "success": mark_safe(
+            "درخواست شما با موفقیت ثبت شد.<br/> درصورت عدم انجام تسویه حساب تا ۷۲ ساعت آینده با دفتر شورای صنفی تماس بگیرید."),
         "done": True
     })
 
@@ -241,20 +243,29 @@ def charge_cash(request):
 @login_required
 def charge_credit(request):
     amount = None
-
     if request.POST:
+        captcha = FormWithCaptcha(request.POST)
+        if not captcha.is_valid():
+            return render(request, "charge_online.html", {
+                "completed": False,
+                "error": "لطفا تیک من ربات نیستم را بزنید.",
+                "form": FormWithCaptcha()
+            })
+
         try:
             amount = int(request.POST.get("amount"))
-            trust_amounts = [1001, 10000, 20000, 30000, 40000, 50000, 100000]
-            if not amount in trust_amounts:
+            valid_amounts = [5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 100000]
+            if amount not in valid_amounts:
                 return render(request, "charge_online.html", {
                     "completed": False,
-                    "error": "مبلغ وارد شده معتبر نمی‌باشد."
+                    "error": "مبلغ وارد شده معتبر نمی‌باشد.",
+                    "form": FormWithCaptcha()
                 })
         except:
             return render(request, "charge_online.html", {
                 "completed": False,
-                "error": "فرمت اطلاعات فرستاده شده درست نیست."
+                "error": "فرمت اطلاعات فرستاده شده درست نیست.",
+                "form": FormWithCaptcha()
             })
 
     if amount is not None:
@@ -270,11 +281,13 @@ def charge_credit(request):
 
         return render(request, "charge_online.html", {
             "completed": False,
-            "error": "اطلاعات شما در دیتابیس به درستی ثبت نشده است."
+            "error": "اطلاعات شما در دیتابیس به درستی ثبت نشده است.",
+            "form": FormWithCaptcha()
         })
 
     return render(request, "charge_online.html", {
-        "completed": False
+        "completed": False,
+        "form": FormWithCaptcha()
     })
 
 
