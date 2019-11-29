@@ -164,6 +164,11 @@ def checkout_view(request):
                 "error": "در فاصلهٔ کمتر از یک هفته امکان ثبت درخواست تسویهٔ حساب وجود ندارد.",
                 "done": True
             })
+    if request.user.cash == 0:
+        return render(request, "checkout.html", {
+            "error": "اعتبار شما صفر است و نمی‌توانید درخواست تسویه حساب دهید.",
+            "done": True
+        })
 
     if not request.POST:
         form = FormWithCaptcha()
