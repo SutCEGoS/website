@@ -195,24 +195,26 @@ def checkout_view(request):
 
 
 @login_required
+@user_passes_test(lambda u: u.is_staff)
 def charge_cash(request):
-    if not request.user.is_staff:
-        return render(request, "charge_cash.html", {
-            "error": "شما دسترسی به این قسمت ندارید.",
-            "completed": True
-        })
-
     amount = None
     student_number = None
-
     if request.POST:
+        form = FormWithCaptcha(request.POST)
+        if not form.is_valid():
+            return render(request, "charge_cash.html", {
+                "completed": False,
+                "error": "لطفا تیک من ربات نیستم را بزنید.",
+                "form": FormWithCaptcha()
+            })
         try:
             amount = int(request.POST.get("amount"))
             student_number = int(request.POST.get("student_number"))
         except:
             return render(request, "charge_cash.html", {
                 "completed": False,
-                "error": "فرمت اطلاعات فرستاده شده درست نیست."
+                "error": "فرمت اطلاعات فرستاده شده درست نیست.",
+                "form": FormWithCaptcha()
             })
 
     if amount is not None and student_number is not None:
@@ -227,16 +229,19 @@ def charge_cash(request):
 
             return render(request, "charge_cash.html", {
                 "completed": False,
-                "success": "اعتبار %s به میزان %d تومان افزایش یافت." % (member.get_full_name(), amount)
+                "success": "اعتبار %s به میزان %d تومان افزایش یافت." % (member.get_full_name(), amount),
+                "form": FormWithCaptcha()
             })
 
         return render(request, "charge_cash.html", {
             "completed": False,
-            "error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد."
+            "error": "دانشجو با شمارهٔ دانشجویی وارد شده یافت نشد.",
+            "form": FormWithCaptcha(),
         })
 
     return render(request, "charge_cash.html", {
-        "completed": False
+        "completed": False,
+        "form": FormWithCaptcha()
     })
 
 
