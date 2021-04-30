@@ -30,5 +30,5 @@ requests-toolbelt==0.9.1
 six==1.13.0
 static3==0.7.0
 suds-jurko==0.6
-urllib3==1.25.7
+urllib3==1.25.8
 zeep==3.4.0
